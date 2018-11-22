@@ -42,7 +42,7 @@ class Leagues extends Component{
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#1A1919",
+    backgroundColor: "black",
     justifyContent: "center"
   },
   button: {
@@ -60,7 +60,8 @@ const styles = {
   },
   pickerStyle: {
     height: 400,
-    color: "white"
+    color: "white",
+    marginBottom: 40
   }
 }
 

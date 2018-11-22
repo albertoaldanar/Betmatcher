@@ -33,14 +33,23 @@ class Top extends Component{
                 </View>
 
                 <View style = {styles.teams}>
-                  <Text style = {styles.textTeam}>{item.local}</Text>
+                  <View>
+                    <Text style = {styles.textTeam}>{item.local}</Text>
+                    <View style = {styles.teamColors}></View>
+                  </View>
+
                   <Text style = {styles.textVs}> VS </Text>
-                  <Text style = {styles.textTeam}>{item.visit}</Text>
+
+                  <View>
+                    <Text style = {styles.textTeam}>{item.visit}</Text>
+                    <View style = {{paddingTop:4, backgroundColor: "red"}}></View>
+                  </View>
                 </View>
 
                 <View>
                   <FontAwesome style ={{color: "white"}}>{Icons.chevronRight}</FontAwesome>
                 </View>
+
             </View>
           </TouchableOpacity>
           }
@@ -67,11 +76,18 @@ const styles = {
   textTeam: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 17,
+    paddingBottom: 3
   },
   textVs:{
     color: "white",
     fontSize: 15,
+    paddingRight: 10,
+    paddingLeft: 10
+  },
+  teamColors: {
+    paddingTop: 4,
+    backgroundColor: "blue"
   }
 
 }

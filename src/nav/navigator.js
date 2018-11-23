@@ -4,6 +4,7 @@ import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, Navigat
 import Sports from "../components/sports";
 import Top from "../components/top";
 import Description from "../components/description";
+import Match from "../components/match";
 import Profile from "../components/profile";
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
@@ -24,8 +25,8 @@ export const MainScreen = createBottomTabNavigator({
       tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.star}</FontAwesome>
     }
   },
-  Description: {
-    screen: Description,
+  Match: {
+    screen: Match,
     navigationOptions: {
       tabBarLabel: "GROUP UP",
       tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.connectdevelop}</FontAwesome>
@@ -65,6 +66,16 @@ const AppNavigator = StackNavigator({
     screen: MainScreen,
     navigationOptions: {
       title: "Betmatcher",
+      headerStyle: {
+        backgroundColor: "black",
+      },
+      headerTintColor: "#7DDECC",
+    }
+  },
+  Description: {
+    screen: Description,
+    navigationOptions: {
+      title: "Info",
       headerStyle: {
         backgroundColor: "black",
       },

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, Image, FlatList, TouchableOpacity, RefreshControl, ScrollView} from "react-native";
 import Games from "../constants/games";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import {NavigationActions} from "react-navigation";
 
 class Top extends Component{
 
@@ -10,10 +11,19 @@ class Top extends Component{
     this.state = {refreshing: false}
   }
 
+  gameDetails(game){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Description",
+      params: {game: game}
+    });
+
+    this.props.navigation.dispatch(navigateAction);
+  }
+
   showTopGames(){
     return Games.map( (g) => {
       return(
-        <TouchableOpacity>
+        <TouchableOpacity onPress = {this.gameDetails.bind(this, g)}>
           <View style = {styles.card}>
             <View style = {styles.desc}>
               <Text style = {styles.league}>{g.league}</Text>

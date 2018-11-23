@@ -3,17 +3,29 @@ import {View, Text, Image, TouchableOpacity, Modal} from "react-native";
 import LinearGradient from "react-native-linear-gradient"
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Leagues from "./leagues";
+import Carousel from "react-native-snap-carousel";
+
 var tennis = require ('../images/tennis.png');
 
-class Sports extends Component{
+class Home extends Component{
 
   constructor(props){
     super(props);
-    this.state = {modalShows: false}
+    this.state = {modalShows: false, entries: ["s", "b", "c"]}
   }
 
   onModalChange(){
     this.setState({modalShows: !this.state.modalShows})
+  }
+
+  carouselItem(){
+    return(
+      <View>
+        <Text>Hello</Text>
+        <Text>Hello</Text>
+        <Text>Hello</Text>
+      </View>
+    );
   }
 
   render(){
@@ -25,6 +37,14 @@ class Sports extends Component{
             source = {{uri: "https://www.vectorportal.com/img_novi/tennis-ball-vector-ocal.jpg"}}
           />
         </TouchableOpacity>
+
+        <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.state.entries}
+            renderItem={this.carouselItem.bind(this)}
+            sliderWidth={40}
+            itemWidth={40}
+        />
         <Modal
             animationType ="slide"
             transparent = {false}
@@ -39,4 +59,4 @@ class Sports extends Component{
   }
 }
 
-export default Sports;
+export default Home;

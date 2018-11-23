@@ -1,7 +1,7 @@
 
 import React, {Component} from "react";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
-import Sports from "../components/sports";
+import Home from "../components/home";
 import Top from "../components/top";
 import Description from "../components/description";
 import Match from "../components/match";
@@ -10,8 +10,8 @@ import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 export const MainScreen = createBottomTabNavigator({
 
-  Sports: {
-    screen: Sports,
+  Home: {
+    screen: Home,
     navigationOptions: {
       title: "Hello",
       tabBarLabel: "BUSCAR",
@@ -65,9 +65,10 @@ const AppNavigator = StackNavigator({
   MainScreen: {
     screen: MainScreen,
     navigationOptions: {
-      title: "Betmatcher",
+      title: "Top",
       headerStyle: {
         backgroundColor: "black",
+        fontSize: 15
       },
       headerTintColor: "#7DDECC",
     }

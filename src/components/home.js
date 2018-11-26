@@ -4,6 +4,7 @@ import LinearGradient from "react-native-linear-gradient"
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Leagues from "./leagues";
 import Carousel from "react-native-snap-carousel";
+import Header from "../reusable/header";
 
 var tennis = require ('../images/tennis.png');
 
@@ -31,6 +32,7 @@ class Home extends Component{
   render(){
     return(
       <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
+        <Header/>
         <TouchableOpacity onPress = {this.onModalChange.bind(this)}>
           <Image
             style = {{width: 20, height: 20}}

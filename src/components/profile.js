@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {View, Text, Image, TextInput, TouchableOpacity} from "react-native";
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
+import Header from "../reusable/header";
+
 
 class Profile extends Component{
 
@@ -64,6 +66,7 @@ class Profile extends Component{
   render(){
     return(
       <View>
+        <Header/>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           onChangeText= {(text) => this.onChangeEmail(text)}

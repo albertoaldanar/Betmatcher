@@ -1,4 +1,3 @@
-
 import React, {Component} from "react";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import Home from "../components/home";
@@ -65,22 +64,25 @@ const AppNavigator = StackNavigator({
   MainScreen: {
     screen: MainScreen,
     navigationOptions: {
-      title: "Top",
-      headerStyle: {
-        backgroundColor: "black",
-        fontSize: 15
-      },
-      headerTintColor: "#7DDECC",
+      // title: "Top",
+      // headerStyle: {
+      //   backgroundColor: "black",
+      //   borderBottomColor: "black",
+      //   elevation: 3
+      // },
+      // headerTintColor: "#7DDECC",
+      header: null
     }
   },
   Description: {
     screen: Description,
     navigationOptions: {
       title: "Info",
+      headerTintColor: "#7DDECC",
       headerStyle: {
         backgroundColor: "black",
-      },
-      headerTintColor: "#7DDECC",
+        borderBottomColor: "black"
+      }
     }
   },
 });

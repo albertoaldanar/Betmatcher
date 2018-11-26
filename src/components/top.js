@@ -3,6 +3,7 @@ import {View, Text, Image, FlatList, TouchableOpacity, RefreshControl, ScrollVie
 import Games from "../constants/games";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
+import Header from "../reusable/header";
 
 class Top extends Component{
 
@@ -31,11 +32,11 @@ class Top extends Component{
               </View>
 
               <View style = {styles.match}>
-                <FontAwesome style= {[styles.chevron, {color: "gray", fontSize: 35}]}>{Icons.circle}</FontAwesome>
+                <FontAwesome style= {[styles.chevron, {color: "gray", fontSize: 35, marginBottom: 15}]}>{Icons.circle}</FontAwesome>
 
-                <View style = {{paddingRight: 110}}>
+                <View style = {{paddingRight: 90}}>
                   <Text style = {styles.text}>{g.local}</Text>
-                  <Text style = {[styles.text, {fontSize: 13, fontStyle: "oblique", fontWeight: "400"}]}>VS.</Text>
+                  <Text style = {[styles.text, {fontSize: 9, fontStyle: "oblique", fontWeight: "400"}]}>VS.</Text>
                   <Text style = {styles.text}>{g.visit}</Text>
                 </View>
 
@@ -51,9 +52,10 @@ class Top extends Component{
     console.log(Games)
     return(
       <View style = {{flex: 1, backgroundColor: "#161616"}}>
-        <ScrollView>
-          {this.showTopGames()}
-        </ScrollView>
+          <Header/>
+          <ScrollView>
+            {this.showTopGames()}
+          </ScrollView>
       </View>
     );
   }
@@ -61,8 +63,8 @@ class Top extends Component{
 
 const styles = {
   card: {
-    padding: 13,
-    margin: 5,
+    padding: 7,
+    margin: 7,
     backgroundColor: "#1A1919",
     borderRadius: 3,
     borderBottomWidth: 0,
@@ -74,14 +76,14 @@ const styles = {
   },
   text: {
     color: "white",
-    fontWeight: "700",
-    fontSize: 18,
+    fontWeight: "500",
+    fontSize: 16,
     paddingBottom: 5
   },
   league: {
-    color: "#4DE39E",
+    color: "#7DDECC",
     fontWeight: "bold",
-    fontSize: 14
+    fontSize: 11
   },
   match: {
     display: "flex",
@@ -96,12 +98,12 @@ const styles = {
   },
   hour: {
     fontWeight: "300",
-    fontSize: 12,
+    fontSize: 11,
     color: "gray",
     fontStyle: "oblique"
   },
   chevron: {
-    color: "#4DE39E",
+    color: "#7DDECC",
     fontSize: 20,
     marginTop: 20,
     fontWeight: "400"

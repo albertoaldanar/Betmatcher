@@ -20,7 +20,7 @@ class Home extends Component{
 
   carouselItem(){
     return(
-      <View>
+      <View style = {{backgroundColor: "#ffff", selfAlign: "center"}}>
         <Text>Hello</Text>
         <Text>Hello</Text>
         <Text>Hello</Text>
@@ -39,11 +39,12 @@ class Home extends Component{
         </TouchableOpacity>
 
         <Carousel
+            style = {{selfAlign:"center"}}
             ref={(c) => { this._carousel = c; }}
             data={this.state.entries}
             renderItem={this.carouselItem.bind(this)}
-            sliderWidth={40}
-            itemWidth={40}
+            sliderWidth={200}
+            itemWidth={200}
         />
         <Modal
             animationType ="slide"

@@ -3,16 +3,17 @@ import {View, Text} from "react-native";
 
 class Description extends Component{
   render(){
-    let game = this.props.navigation.state.params.game
-    return(
-      <View style = {styles.container}>
+    let game = this.props.navigation.state.params.game;
 
-        <View style = {styles.desc}>
-          <Text style = {styles.text}> {game.local} </Text>
-          <Text style = {styles.text}> VS. </Text>
-          <Text style = {styles.text}> {game.visit} </Text>
+    return(
+        <View style = {styles.container}>
+          <Text style = {{color:"#ffff", fontSize: 10, fontWeight: "400"}}>Game info</Text>
+          <View style = {styles.desc}>
+            <Text style = {styles.text}> {game.local} </Text>
+            <Text style = {styles.text}> VS. </Text>
+            <Text style = {styles.text}> {game.visit} </Text>
+          </View>
         </View>
-      </View>
     );
   }
 }

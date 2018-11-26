@@ -28,6 +28,12 @@ const Games = [
     visit: "River Plate",
     time: "5 FEB 9:00pm",
     league: "Copa Libertadores",
+  },
+  {
+    local: "America",
+    visit: "Chivas",
+    time: "5 FEB 9:00pm",
+    league: "Liga MX",
   }
 ]
 

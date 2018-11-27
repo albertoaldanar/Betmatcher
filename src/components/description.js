@@ -1,10 +1,22 @@
 import React, {Component}from "react";
-import {View, Text} from "react-native";
+import {View, Text, TouchableOpacity} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class Description extends Component{
+
+  renderButton(options){
+    return options.map(x => {
+      return(
+        <TouchableOpacity style = {styles.button}>
+          <Text style = {{color: "#ffff"}}>{x}</Text>
+        </TouchableOpacity>
+      );
+    })
+  }
+
   render(){
     let game = this.props.navigation.state.params.game;
+    const options = [game.local, "Draw", game.visit]
 
     return(
       <View style = {styles.container}>
@@ -23,6 +35,10 @@ class Description extends Component{
             </View>
            </View>
         </View>
+
+        <View style = {styles.betOptions}>
+          {this.renderButton(options)}
+        </View>
       </View>
     );
   }
@@ -38,7 +54,8 @@ const styles = {
     fontSize: 15,
     fontWeight: "700",
     margin: 10,
-    marginBottom: 5
+    marginBottom: 5,
+    color: "#7DDECC"
   },
   icon: {
     fontSize: 60,
@@ -62,9 +79,21 @@ const styles = {
   },
   word: {
     color: "#ffff",
-    marginRight: 15,
+    marginRight: 10,
     fontSize:15,
     fontWeight: "bold"
+  },
+  betOptions: {
+    display: "flex",
+    flexDirection: "column",
+    alignSelf: "center"
+  },
+  button: {
+    backgroundColor: "black",
+    broderRadius: 5,
+    marginBottom: 10,
+    justifyContent: "space-around",
+    padding: 40,
   }
 }
 

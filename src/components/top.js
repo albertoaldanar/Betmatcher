@@ -4,6 +4,8 @@ import Games from "../constants/games";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import Header from "../reusable/header";
+import Menu from "../reusable/menu";
+import SideMenu from "react-native-side-menu";
 
 class Top extends Component{
 

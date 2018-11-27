@@ -1,16 +1,30 @@
-import React from "react";
+import React, {Component} from "react";
 import {View, Text, ScrollView, TouchableOpacity} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
-const Header = () => {
-  return(
-    <View style = {styles.container}>
-      <TouchableOpacity>
-        <FontAwesome style ={styles.listIcon}>{Icons.list}</FontAwesome>
-      </TouchableOpacity>
-      <Text style = {styles.title}>Betmatcher</Text>
-    </View>
-  );
+class Header extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isOpen: false
+    }
+  }
+
+  onPressButton(){
+    this.setState({isOpen: !this.state.isOpen});
+  }
+
+  render(){
+    return(
+      <View style = {styles.container}>
+        <TouchableOpacity onPress={this.onPressButton.bind(this)}>
+          <FontAwesome style ={styles.listIcon}>{Icons.list}</FontAwesome>
+        </TouchableOpacity>
+        <Text style = {styles.title}>Betmatcher</Text>
+      </View>
+    );
+  }
 }
 
 const styles = {

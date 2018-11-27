@@ -8,7 +8,7 @@ class Description extends Component{
     return options.map(x => {
       return(
         <TouchableOpacity style = {styles.button}>
-          <Text style = {{color: "#ffff"}}>{x}</Text>
+          <Text style = {{color: "#7DDECC", alignSelf: "center", fontSize: 20, fontWeight: "400"}}>{x}</Text>
         </TouchableOpacity>
       );
     })
@@ -89,11 +89,20 @@ const styles = {
     alignSelf: "center"
   },
   button: {
-    backgroundColor: "black",
-    broderRadius: 5,
-    marginBottom: 10,
+    backgroundColor: "#1A1919",
+    marginTop: 40,
     justifyContent: "space-around",
-    padding: 40,
+    padding: 30,
+    paddingRight: 70,
+    paddingLeft: 70,
+    backgroundColor: "#1A1919",
+    borderRadius: 3,
+    borderBottomWidth: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 1,
   }
 }
 

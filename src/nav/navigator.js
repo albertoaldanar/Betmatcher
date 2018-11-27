@@ -28,7 +28,7 @@ export const MainScreen = createBottomTabNavigator({
     screen: Match,
     navigationOptions: {
       tabBarLabel: "GROUP UP",
-      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.connectdevelop}</FontAwesome>
+      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.retweet}</FontAwesome>
     }
   },
   Profile: {

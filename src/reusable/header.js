@@ -17,7 +17,7 @@ const styles = {
   container: {
     backgroundColor: "black",
     flexDirection: "row",
-    padding: 20
+    padding: 20,
   },
   title: {
     color: "#7DDECC",

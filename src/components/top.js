@@ -11,7 +11,11 @@ class Top extends Component{
 
   constructor(props){
     super(props);
-    this.state = {refreshing: false}
+    this.state = {isOpen: false}
+  }
+
+  onPressButton(){
+    this.setState({isOpen: !this.state.isOpen});
   }
 
   gameDetails(game){
@@ -51,14 +55,21 @@ class Top extends Component{
   }
 
   render(){
-    console.log(Games)
+    const {isOpen} = this.state;
+    const menu = <Menu/>
+
     return(
-      <View style = {{flex: 1, backgroundColor: "#161616"}}>
-          <Header/>
+      <SideMenu
+        isOpen ={isOpen}
+        menu = {menu}
+      >
+        <View style = {{flex: 1, backgroundColor: "#161616"}}>
+          <Header showSidebar = {this.onPressButton.bind(this)}/>
           <ScrollView>
             {this.showTopGames()}
           </ScrollView>
-      </View>
+        </View>
+      </SideMenu>
     );
   }
 }

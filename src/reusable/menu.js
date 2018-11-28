@@ -3,15 +3,15 @@ import {View, Text} from "react-native";
 
 const Menu = () => {
   return(
-    <View>
-      <Text>SideBar</Text>
+    <View style = {styles.container}>
+      <Text style  ={{color: "#ffff"}}>SideBar</Text>
     </View>
   );
 }
 
 const styles = {
   container: {
-    backgroundColor: "#161616",
+    backgroundColor: "white",
     flex: 1
   }
 }

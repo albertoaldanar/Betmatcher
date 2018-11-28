@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {View} from "react-native";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import Home from "../components/home";
 import Top from "../components/top";
@@ -6,7 +7,7 @@ import Description from "../components/description";
 import Match from "../components/match";
 import Profile from "../components/profile";
 import FontAwesome, { Icons } from 'react-native-fontawesome';
-import Menu from "../reusable/menu";
+
 
 export const MainScreen = createBottomTabNavigator({
 
@@ -91,7 +92,7 @@ const AppNavigator = StackNavigator({
 class Nav extends Component{
   render(){
     return(
-        <AppNavigator/>
+      <AppNavigator/>
     );
   }
 }

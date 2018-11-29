@@ -22,13 +22,13 @@ const styles = {
     justifyContent: "space-between"
   },
   title: {
-    color: "white",
+    color: "#7DDECC",
     paddingTop: 13,
     fontSize: 18,
-    fontWeight: "500"
+    fontWeight: "600"
   },
   listIcon: {
-    color: "white",
+    color: "#7DDECC",
     fontSize: 16,
     paddingRight: 20,
     paddingTop: 15

@@ -3,7 +3,6 @@ import {View, Text, Image, TextInput, TouchableOpacity, Dimensions} from "react-
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
 import Header from "../reusable/header";
 import User from "../constants/user";
-import PieChart from 'react-native-pie-chart';
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class Profile extends Component{
@@ -66,7 +65,7 @@ const styles = {
   count: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 12,
+    fontSize: 15,
     marginTop: 8,
     marginLeft: 15
   },

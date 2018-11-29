@@ -89,8 +89,8 @@ const styles = {
     alignSelf: "center"
   },
   button: {
-    backgroundColor: "#1A1919",
-    marginTop: 40,
+    backgroundColor: "white",
+    marginTop: 30,
     justifyContent: "space-around",
     padding: 30,
     paddingRight: 70,

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View} from "react-native";
+import {TouchableOpacity,} from "react-native";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import Home from "../components/home";
 import Top from "../components/top";
@@ -65,8 +65,8 @@ const AppNavigator = StackNavigator({
 
   MainScreen: {
     screen: MainScreen,
-    navigationOptions: {
-      // title: "Top",
+      navigationOptions:{
+      // title: "",
       // headerStyle: {
       //   backgroundColor: "black",
       //   borderBottomColor: "black",

@@ -1,93 +1,40 @@
 import React, {Component} from "react";
-import {View, Text, Image, TextInput, TouchableOpacity} from "react-native";
+import {View, Text, Image, TextInput, TouchableOpacity, Dimensions} from "react-native";
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
 import Header from "../reusable/header";
-
+import User from "../constants/user";
+import PieChart from 'react-native-pie-chart';
 
 class Profile extends Component{
 
-  constructor(props){
-    super(props);
-    this.state = {email: "", password: "", token: {}}
-  }
-
-  onChangeEmail(text){
-    this.setState({email: text})
-  }
-
-  onChangePassword(text){
-    this.setState({password: text})
-  }
-
-  // sendToHome(admin){
-  //   if(admin){
-  //     const navigateAction = NavigationActions.navigate({
-  //     routeName: "HomeAdmin"
-  //     })
-  //     this.props.navigation.dispatch(navigateAction);
-  //   } else {
-
-  //     const navigateAction = NavigationActions.navigate({
-  //     routeName: "HomeVendor"
-  //     })
-  //     this.props.navigation.dispatch(navigateAction);
-  //   }
-
-  // }
-
-  login(){
-    fetch("http://localhost:3000/api/user_token/", {
-        method: 'POST',
-        body: JSON.stringify({"auth": {"email": this.state.email, "password": this.state.password}}),
-        headers:{
-          "Accept": "application/json",
-          'Content-Type': 'application/json'
-        }
-      }).then(res => res.json())
-      .catch(error => alert(e))
-      .then(response => console.log(response));
-  }
-
-  catchUser(token){
-    fetch("http://localhost:3000/api/user_type", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        'Content-Type': 'application/json',
-        'Authorization': token.jwt,
-      }
-    }).then(res => res.json())
-      .then(response => {
-      this.sendToHome(response)
-    })
-    .catch(e => console.log(e))
-  }
-
   render(){
-    return(
-      <View>
-        <Header/>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText= {(text) => this.onChangeEmail(text)}
-          value = {this.state.email}
-          autoCapitalize = 'none'
-        />
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText= {(text) => this.onChangePassword(text)}
-          value = {this.state.password}
-          autoCapitalize = 'none'
-        />
+    const stats = [1, 5, 4];
 
-        <TouchableOpacity
-          style = {{backgroundColor: "red", padding: 20}}
-          onPress ={this.catchUser.bind(this)}>
-          <Text style = {{color: "white"}}>POST</Text>
-        </TouchableOpacity>
-      </View>
+    return(
+        <View style = {{flex:1, backgroundColor: "#1A1919", alignItems: "center"}}>
+          <Header/>
+          <Image style={styles.imageStyle} source={{uri: User.image}}/>
+
+          <PieChart
+            chart_wh={100}
+            series={stats}
+            sliceColor={["#00FA9A", "#87CEEB", "#DC143C"]}
+            doughnut={true}
+            coverRadius={0.45}
+            coverFill={'#FFF'}
+          />
+        </View>
     );
   }
+}
+
+const styles = {
+  imageStyle:{
+    marginTop: 10,
+    width: Dimensions.get('window').width * 0.3,
+    height: Dimensions.get('window').width * 0.3,
+    alignSelf: "center"
+  },
 }
 
 export default Profile;

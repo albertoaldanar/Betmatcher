@@ -12,7 +12,7 @@ class Profile extends Component{
 
     return(
       <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
-        <View style = {{backgroundColor: "#7DDECC", paddingBottom: 50}}>
+        <View style = {{backgroundColor: "#00B073", paddingBottom: 50}}>
           <View style = {styles.bar}>
             <TouchableOpacity>
               <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 13}}>{Icons.cogs}</FontAwesome>
@@ -26,8 +26,14 @@ class Profile extends Component{
           <View style = {styles.userInfo}>
             <Image style={styles.imageStyle} source={{uri: User.image}}/>
             <Text style = {styles.username}> {User.userName} </Text>
-            <Text style = {[styles.username, {fontSize: 15, fontWeight:"400"}]}>{User.country}</Text>
-            <Text style = {[styles.username, {fontSize: 15, fontWeight:"bold"}]}> {User.coins} </Text>
+
+            <Text style = {[styles.username, {fontSize: 15, fontWeight:"400"}]}>
+              {User.country} <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.flag}</FontAwesome>
+            </Text>
+
+            <Text style = {[styles.username, {fontSize: 15, fontWeight:"bold"}]}>
+              {User.coins}  <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.bitcoin}</FontAwesome>
+            </Text>
           </View>
         </View>
 

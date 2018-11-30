@@ -94,7 +94,7 @@ const styles = {
     paddingBottom: 5
   },
   league: {
-    color: "#7DDECC",
+    color: "#00B073",
     fontWeight: "bold",
     fontSize: 11
   },
@@ -116,7 +116,7 @@ const styles = {
     fontStyle: "oblique"
   },
   chevron: {
-    color: "#7DDECC",
+    color: "#00B073",
     fontSize: 20,
     marginTop: 20,
     fontWeight: "400"

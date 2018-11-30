@@ -32,10 +32,10 @@ class Match extends Component{
         <SegmentedControlTab
             values={['Match ', 'Wating', "Finished"]}
             tabsContainerStyle = {styles.segmentedController}
-            tabTextStyle = {{color: "#7DDECC", fontWeight: "400", fontSize: 15}}
-            tabStyle = {{borderColor: "#7DDECC", backgroundColor: "#1A1919"}}
+            tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
+            tabStyle = {{borderColor: "#00B073", backgroundColor: "#1A1919"}}
             selectedIndex={this.state.index}
-            activeTabStyle = {{backgroundColor: "#7DDECC"}}
+            activeTabStyle = {{backgroundColor: "#00B073"}}
             onTabPress={this.handleIndexChange.bind(this)}
             />
         {this.renderMatches()}

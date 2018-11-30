@@ -4,7 +4,7 @@ import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-n
 import Header from "../reusable/header";
 import User from "../constants/user";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-// import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph } from 'react-native-chart-kit';
+
 import PieChart from 'react-native-pie-chart';
 
 
@@ -18,7 +18,7 @@ class Profile extends Component{
   }
 
   render(){
-    const stats = [1, 5, 4];
+
     const data = [
       { name: 'Won', number: 3, color: 'red', legendFontColor: '#7F7F7F', legendFontSize: 15 },
       { name: 'Draw', number: 1, color: '#ffffff', legendFontColor: '#7F7F7F', legendFontSize: 15 },
@@ -26,7 +26,7 @@ class Profile extends Component{
     ];
 
     const chart_wh = 250
-    const series = [4,1,1]
+    const series = [4,1,0]
     const sliceColor = ['#00B073','#1FBED5','#DC143C']
 
     return(
@@ -34,6 +34,7 @@ class Profile extends Component{
       <ScrollView>
         <StatusBar hidden = {true}/>
         <View style = {{backgroundColor: "#00B073", paddingBottom: 40}}>
+
           <View style = {styles.bar}>
             <TouchableOpacity>
               <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 20}}>{Icons.cogs}</FontAwesome>
@@ -48,13 +49,15 @@ class Profile extends Component{
             <Image style={styles.imageStyle} source={{uri: User.image}}/>
             <Text style = {styles.username}> {User.userName} </Text>
 
-            <Text style = {[styles.username, {fontSize: 15, fontWeight:"400"}]}>
-              {User.country} <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.flag}</FontAwesome>
-            </Text>
+            <View style = {{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 8}}>
+              <Text style = {[styles.username, {fontSize: 15, fontWeight:"400"}]}>
+                {User.country} <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.flag}</FontAwesome>
+              </Text>
 
-            <Text style = {[styles.username, {fontSize: 15, fontWeight:"bold"}]}>
-              {User.coins}  <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.bitcoin}</FontAwesome>
-            </Text>
+              <Text style = {[styles.username, {fontSize: 15, fontWeight:"bold"}]}>
+                {User.coins}  <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.bitcoin}</FontAwesome>
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -79,12 +82,13 @@ class Profile extends Component{
             chart_wh={Dimensions.get('window').width * 0.6}
             series={series}
             sliceColor={sliceColor}
-            coverRadius={0.45}
-            coverFill={'#FFF'}
+            coverRadius={0.95}
+            coverFill={'#1A1919'}
+            doughnut= {true}
             style ={{
               alignSelf: "center",
               marginTop: 10,
-              shadowColor: 'gray',
+              shadowColor: '#696969',
               shadowOffset: { width: 1, height: 2 },
               shadowOpacity: 3,
               shadowRadius: 6,
@@ -92,7 +96,11 @@ class Profile extends Component{
             }}
           />
 
-          <Text style = {styles.total}> Efficency 65 %</Text>
+          <View style = {styles.percent}>
+            <Text style = {[styles.number, {fontSize: 15}]}>TOTAL BETS: </Text>
+            <Text style = {styles.number}> 4 </Text>
+            <Text style = {styles.total}> Efficency 65 %</Text>
+          </View>
           </ScrollView>
       </View>
     );
@@ -155,13 +163,24 @@ const styles = {
     marginTop: 20
   },
   total: {
-    color: "#fff",
+    color: "black",
     fontWeight: "400",
     fontSize: 20,
     alignSelf: "center",
-    marginBottom: 10,
-    marginTop: 5,
-    fontStyle: "oblique"
+    fontStyle: "oblique",
+    backgroundColor: "#DCDCDC",
+    padding: 5,
+  },
+  percent: {
+    marginTop: -170,
+    alignSelf: "center"
+  },
+  number: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
+    alignSelf: "center",
+    paddingBottom: 12
   }
 }
 

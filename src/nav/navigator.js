@@ -14,22 +14,22 @@ export const MainScreen = createBottomTabNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
-      title: "Hello",
-      tabBarLabel: "BUSCAR",
+      title: "Home",
+      tabBarLabel: "HOME",
       tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.home}</FontAwesome>
     },
   },
   Top: {
     screen: Top,
     navigationOptions: {
-      tabBarLabel: "TICKETS",
+      tabBarLabel: "TOP",
       tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.star}</FontAwesome>
     }
   },
   Match: {
     screen: Match,
     navigationOptions: {
-      tabBarLabel: "GROUP UP",
+      tabBarLabel: "MATCH",
       tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.retweet}</FontAwesome>
     }
   },
@@ -44,7 +44,7 @@ export const MainScreen = createBottomTabNavigator({
   //Diseño custom del tabBar
     {
       tabBarOptions: {
-          showLabel: false,
+          showLabel: true,
           activeTintColor: '#7DDECC',
           inactiveTintColor: 'white',
           showIcon : true,

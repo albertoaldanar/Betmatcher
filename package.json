@@ -10,6 +10,7 @@
     "linear-gradient": "^1.0.6",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-chart-kit": "^1.2.1",
     "react-native-fontawesome": "^5.7.0",
     "react-native-linear-gradient": "^2.5.2",
     "react-native-pie-chart": "^1.0.13",

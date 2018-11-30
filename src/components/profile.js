@@ -1,25 +1,46 @@
 import React, {Component} from "react";
-import {View, Text, Image, TextInput, TouchableOpacity, Dimensions} from "react-native";
+import {View, Text, Image, TextInput, TouchableOpacity, Dimensions, StatusBar, ScrollView} from "react-native";
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
 import Header from "../reusable/header";
 import User from "../constants/user";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+// import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph } from 'react-native-chart-kit';
+import PieChart from 'react-native-pie-chart';
+
 
 class Profile extends Component{
 
+  renderFriends(){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Friends"
+    })
+    this.props.navigation.dispatch(navigateAction);
+  }
+
   render(){
     const stats = [1, 5, 4];
+    const data = [
+      { name: 'Won', number: 3, color: 'red', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+      { name: 'Draw', number: 1, color: '#ffffff', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+      { name: 'Lost', number: 0, color: 'rgb(0, 0, 255)', legendFontColor: '#7F7F7F', legendFontSize: 15 }
+    ];
+
+    const chart_wh = 250
+    const series = [4,1,1]
+    const sliceColor = ['#00B073','#1FBED5','#DC143C']
 
     return(
       <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
-        <View style = {{backgroundColor: "#00B073", paddingBottom: 50}}>
+      <ScrollView>
+        <StatusBar hidden = {true}/>
+        <View style = {{backgroundColor: "#00B073", paddingBottom: 40}}>
           <View style = {styles.bar}>
             <TouchableOpacity>
-              <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 13}}>{Icons.cogs}</FontAwesome>
+              <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 20}}>{Icons.cogs}</FontAwesome>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-              <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 13}}>{Icons.users}</FontAwesome>
+            <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
+              <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 20}}>{Icons.users}</FontAwesome>
             </TouchableOpacity>
           </View>
 
@@ -40,19 +61,39 @@ class Profile extends Component{
         <View style = {styles.stats}>
           <View>
             <Text style = {styles.text}> Won </Text>
-            <Text style = {styles.count}>{User.won}</Text>
+            <Text style = {[styles.count, {color: "#00B073"}]}>{User.won}</Text>
           </View>
 
           <View>
             <Text style = {styles.text}> Draw </Text>
-            <Text style = {styles.count}>{User.draw}</Text>
+            <Text style = {[styles.count, {color: "#1FBED5"}]}>{User.draw}</Text>
           </View>
 
           <View>
             <Text style = {styles.text}> Lost </Text>
-            <Text style = {styles.count}>{User.lost}</Text>
+            <Text style = {[styles.count, {color: "#DC143C"}]}>{User.lost}</Text>
           </View>
         </View>
+
+          <PieChart
+            chart_wh={Dimensions.get('window').width * 0.6}
+            series={series}
+            sliceColor={sliceColor}
+            coverRadius={0.45}
+            coverFill={'#FFF'}
+            style ={{
+              alignSelf: "center",
+              marginTop: 10,
+              shadowColor: 'gray',
+              shadowOffset: { width: 1, height: 2 },
+              shadowOpacity: 3,
+              shadowRadius: 6,
+              elevation: 4,
+            }}
+          />
+
+          <Text style = {styles.total}> Efficency 65 %</Text>
+          </ScrollView>
       </View>
     );
   }
@@ -70,7 +111,7 @@ const styles = {
     justifyContent: "space-around",
     margin: 20,
     marginTop: -30,
-    backgroundColor: "black",
+    backgroundColor: "#1A1919",
     borderBottomWidth: 0,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
@@ -81,7 +122,7 @@ const styles = {
     borderRadius: 5,
   },
   text: {
-    fontSize: 17,
+    fontSize: 19,
     color: "#ffff",
     fontWeight: "300",
     alignSelf: "center"
@@ -96,7 +137,8 @@ const styles = {
     fontWeight: "bold",
     fontSize: 20,
     marginTop: 8,
-    marginLeft: 15
+    marginLeft: 15,
+    fontStyle: "oblique"
   },
   username: {
     color: "white",
@@ -106,14 +148,20 @@ const styles = {
     margin: 5,
     marginTop: 8
   },
-  userInfo: {
-    marginTop: 5
-  },
   bar: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 40
+    marginTop: 20
+  },
+  total: {
+    color: "#fff",
+    fontWeight: "400",
+    fontSize: 20,
+    alignSelf: "center",
+    marginBottom: 10,
+    marginTop: 5,
+    fontStyle: "oblique"
   }
 }
 

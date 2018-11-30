@@ -8,7 +8,7 @@ class Description extends Component{
     return options.map(x => {
       return(
         <TouchableOpacity style = {styles.button}>
-          <Text style = {{color: "#7DDECC", alignSelf: "center", fontSize: 20, fontWeight: "400"}}>{x}</Text>
+          <Text style = {{color: "#00B073", alignSelf: "center", fontSize: 20, fontWeight: "400"}}>{x}</Text>
         </TouchableOpacity>
       );
     })
@@ -55,7 +55,7 @@ const styles = {
     fontWeight: "700",
     margin: 10,
     marginBottom: 5,
-    color: "#7DDECC"
+    color: "#00B073"
   },
   icon: {
     fontSize: 60,

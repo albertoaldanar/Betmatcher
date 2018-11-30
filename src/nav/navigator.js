@@ -3,6 +3,7 @@ import {TouchableOpacity,} from "react-native";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import Home from "../components/home";
 import Top from "../components/top";
+import Friends from "../components/friends"
 import Description from "../components/description";
 import Match from "../components/match";
 import Profile from "../components/profile";
@@ -80,7 +81,18 @@ const AppNavigator = StackNavigator({
     screen: Description,
     navigationOptions: {
       title: "Info",
-      headerTintColor: "#7DDECC",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  Friends: {
+    screen: Friends,
+    navigationOptions: {
+      title: "Betfreinds",
+      headerTintColor: "#00B073",
       headerStyle: {
         backgroundColor: "black",
         borderBottomColor: "black"

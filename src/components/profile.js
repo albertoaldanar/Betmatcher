@@ -26,38 +26,37 @@ class Profile extends Component{
     ];
 
     const chart_wh = 250
-    const series = [4,1,0]
+    const series = [15,1,2]
     const sliceColor = ['#00B073','#1FBED5','#DC143C']
 
     return(
       <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
-      <ScrollView>
         <StatusBar hidden = {true}/>
-        <View style = {{backgroundColor: "#00B073", paddingBottom: 40}}>
-
+        <View style = {{backgroundColor: "#00B073", paddingBottom: 35}}>
           <View style = {styles.bar}>
-            <TouchableOpacity>
-              <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 20}}>{Icons.cogs}</FontAwesome>
-            </TouchableOpacity>
+              <TouchableOpacity>
+                <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 20}}>{Icons.cogs}</FontAwesome>
+              </TouchableOpacity>
 
-            <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
-              <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 20}}>{Icons.users}</FontAwesome>
-            </TouchableOpacity>
+              <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
+                <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 20}}>{Icons.users}</FontAwesome>
+              </TouchableOpacity>
           </View>
 
           <View style = {styles.userInfo}>
             <Image style={styles.imageStyle} source={{uri: User.image}}/>
             <Text style = {styles.username}> {User.userName} </Text>
 
-            <View style = {{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 8}}>
-              <Text style = {[styles.username, {fontSize: 15, fontWeight:"400"}]}>
-                {User.country} <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.flag}</FontAwesome>
+            <View style = {{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 2}}>
+              <Text style = {[styles.username, {fontSize: 18, fontWeight:"400"}]}>
+                {User.country} <FontAwesome style = {{color: "#ffff", fontSize: 23}}>{Icons.flag}</FontAwesome>
               </Text>
 
-              <Text style = {[styles.username, {fontSize: 15, fontWeight:"bold"}]}>
-                {User.coins}  <FontAwesome style = {{color: "#ffff", fontSize: 20}}>{Icons.bitcoin}</FontAwesome>
+              <Text style = {[styles.username, {fontSize: 18, fontWeight:"bold"}]}>
+                {User.coins}  <FontAwesome style = {{color: "#ffff", fontSize: 23}}>{Icons.bitcoin}</FontAwesome>
               </Text>
             </View>
+
           </View>
         </View>
 
@@ -87,7 +86,7 @@ class Profile extends Component{
             doughnut= {true}
             style ={{
               alignSelf: "center",
-              marginTop: 10,
+              marginTop: 7,
               shadowColor: '#696969',
               shadowOffset: { width: 1, height: 2 },
               shadowOpacity: 3,
@@ -101,7 +100,7 @@ class Profile extends Component{
             <Text style = {styles.number}> 4 </Text>
             <Text style = {styles.total}> Efficency 65 %</Text>
           </View>
-          </ScrollView>
+
       </View>
     );
   }
@@ -118,19 +117,10 @@ const styles = {
     flexDirection: "row",
     justifyContent: "space-around",
     margin: 20,
-    marginTop: -30,
-    backgroundColor: "#1A1919",
-    borderBottomWidth: 0,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    elevation: 2,
-    padding: 20,
-    borderRadius: 5,
+    marginTop: 25,
   },
   text: {
-    fontSize: 19,
+    fontSize: 21,
     color: "#ffff",
     fontWeight: "300",
     alignSelf: "center"
@@ -153,14 +143,13 @@ const styles = {
     fontSize: 25,
     fontWeight: "500",
     alignSelf: "center",
-    margin: 5,
     marginTop: 8
   },
   bar: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 20
+    marginTop: 15,
   },
   total: {
     color: "black",
@@ -172,7 +161,7 @@ const styles = {
     padding: 5,
   },
   percent: {
-    marginTop: -170,
+    marginTop: -180,
     alignSelf: "center"
   },
   number: {

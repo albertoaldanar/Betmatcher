@@ -47,7 +47,7 @@ const styles = {
   },
   button: {
     position: "absolute",
-    backgroundColor: "#7DDECC",
+    backgroundColor: "#00B073",
     padding: 15,
     width: WIDTH,
     bottom: 5

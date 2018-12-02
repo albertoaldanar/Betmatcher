@@ -5,6 +5,7 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import Header from "../reusable/header";
 import Menu from "../reusable/menu";
+import Card from "../reusable/card";
 import SideMenu from "react-native-side-menu";
 
 class Top extends Component{
@@ -31,7 +32,7 @@ class Top extends Component{
     return Games.map( (g) => {
       return(
         <TouchableOpacity onPress = {this.gameDetails.bind(this, g)}>
-          <View style = {styles.card}>
+          <Card>
             <View style = {styles.desc}>
               <Text style = {styles.league}>{g.league}</Text>
                 <Text style = {styles.hour}>{g.time}</Text>
@@ -48,7 +49,7 @@ class Top extends Component{
 
                 <FontAwesome style= {styles.chevron}>{Icons.chevronRight}</FontAwesome>
               </View>
-          </View>
+          </Card>
         </TouchableOpacity>
       );
     })
@@ -75,18 +76,6 @@ class Top extends Component{
 }
 
 const styles = {
-  card: {
-    padding: 7,
-    margin: 7,
-    backgroundColor: "#1A1919",
-    borderRadius: 3,
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 2,
-    elevation: 0.3,
-  },
   text: {
     color: "white",
     fontWeight: "500",

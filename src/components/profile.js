@@ -31,9 +31,8 @@ class Profile extends Component{
 
     return(
       <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
+
         <StatusBar hidden = {true}/>
-
-
           <View style = {{backgroundColor: "#00B073"}}>
           <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#1A1919", "gray",]}>
             <View style = {styles.bar}>

@@ -19,7 +19,7 @@ class Match extends Component{
     return Matches.map(m => {
       return (
         <TouchableOpacity>
-          <Text style = {{color: "#ffff"}}>{m.local}</Text>
+          <Text style = {{color: "#ffff"}}>{m.user1}</Text>
         </TouchableOpacity>
       );
     });

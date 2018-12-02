@@ -9,7 +9,9 @@ const Header = (props) => {
           <FontAwesome style ={styles.listIcon}>{Icons.list}</FontAwesome>
         </TouchableOpacity>
         <Text style = {styles.title}>Betmatcher</Text>
-        <Text style ={{color: "black"}}>Hello</Text>
+        <TouchableOpacity>
+          <FontAwesome style ={styles.listIcon}>{Icons.cogs}</FontAwesome>
+        </TouchableOpacity>
       </View>
     );
 }
@@ -29,7 +31,7 @@ const styles = {
   },
   listIcon: {
     color: "#00B073",
-    fontSize: 16,
+    fontSize: 18,
     paddingRight: 20,
     paddingTop: 15
   }

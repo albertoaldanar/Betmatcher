@@ -12,6 +12,7 @@
     "react-native": "0.56.0",
     "react-native-chart-kit": "^1.2.1",
     "react-native-fontawesome": "^5.7.0",
+    "react-native-image-slider": "^2.0.3",
     "react-native-linear-gradient": "^2.5.2",
     "react-native-pie-chart": "^1.0.13",
     "react-native-segmented-control-tab": "^3.3.1",

@@ -15,7 +15,7 @@ class Top extends Component{
   }
 
   onPressButton(){
-    this.setState({isOpen: !this.state.isOpen});
+    this.setState({isOpen: true});
   }
 
   gameDetails(game){

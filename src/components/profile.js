@@ -4,7 +4,7 @@ import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-n
 import Header from "../reusable/header";
 import User from "../constants/user";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-
+import LinearGradient from "react-native-linear-gradient";
 import PieChart from 'react-native-pie-chart';
 
 
@@ -32,33 +32,39 @@ class Profile extends Component{
     return(
       <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
         <StatusBar hidden = {true}/>
-        <View style = {{backgroundColor: "#00B073", paddingBottom: 35}}>
-          <View style = {styles.bar}>
-              <TouchableOpacity>
-                <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 20}}>{Icons.cogs}</FontAwesome>
-              </TouchableOpacity>
 
-              <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
-                <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 20}}>{Icons.users}</FontAwesome>
-              </TouchableOpacity>
-          </View>
 
-          <View style = {styles.userInfo}>
-            <Image style={styles.imageStyle} source={{uri: User.image}}/>
-            <Text style = {styles.username}> {User.userName} </Text>
+          <View style = {{backgroundColor: "#00B073"}}>
+          <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#1A1919", "gray",]}>
+            <View style = {styles.bar}>
+                <TouchableOpacity>
+                  <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 20}}>{Icons.cogs}</FontAwesome>
+                </TouchableOpacity>
 
-            <View style = {{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 2}}>
-              <Text style = {[styles.username, {fontSize: 18, fontWeight:"400"}]}>
-                {User.country} <FontAwesome style = {{color: "#ffff", fontSize: 23}}>{Icons.flag}</FontAwesome>
-              </Text>
-
-              <Text style = {[styles.username, {fontSize: 18, fontWeight:"bold"}]}>
-                {User.coins}  <FontAwesome style = {{color: "#ffff", fontSize: 23}}>{Icons.bitcoin}</FontAwesome>
-              </Text>
+                <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
+                  <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 20}}>{Icons.users}</FontAwesome>
+                </TouchableOpacity>
             </View>
 
+            <View style = {{paddingBottom: 20}}>
+              <Image style={styles.imageStyle} source={{uri: User.image}}/>
+              <Text style = {styles.username}> {User.userName} </Text>
+
+              <View style = {{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 2}}>
+                <Text style = {[styles.username, {fontSize: 15, fontWeight:"300"}]}>
+                  {User.country} <FontAwesome style = {{color: "#ffff", fontSize: 23}}>{Icons.flag}</FontAwesome>
+                </Text>
+
+                <Text style = {[styles.username, {fontSize: 15, fontWeight:"300"}]}>
+                  {User.coins}  <FontAwesome style = {{color: "#ffff", fontSize: 23}}>{Icons.bitcoin}</FontAwesome>
+                </Text>
+              </View>
+
+            </View>
+            </LinearGradient>
           </View>
-        </View>
+
+
 
         <View style = {styles.stats}>
           <View>
@@ -78,7 +84,7 @@ class Profile extends Component{
         </View>
 
           <PieChart
-            chart_wh={Dimensions.get('window').width * 0.6}
+            chart_wh={Dimensions.get('window').width * 0.65}
             series={series}
             sliceColor={sliceColor}
             coverRadius={0.95}
@@ -120,9 +126,9 @@ const styles = {
     marginTop: 25,
   },
   text: {
-    fontSize: 21,
+    fontSize: 17,
     color: "#ffff",
-    fontWeight: "300",
+    fontWeight: "500",
     alignSelf: "center"
   },
   icon: {
@@ -140,10 +146,11 @@ const styles = {
   },
   username: {
     color: "white",
-    fontSize: 25,
+    fontSize: 19,
     fontWeight: "500",
     alignSelf: "center",
-    marginTop: 8
+    marginTop: 8,
+    paddingBottom: 5
   },
   bar: {
     display: "flex",
@@ -161,7 +168,7 @@ const styles = {
     padding: 5,
   },
   percent: {
-    marginTop: -180,
+    marginTop: -175,
     alignSelf: "center"
   },
   number: {

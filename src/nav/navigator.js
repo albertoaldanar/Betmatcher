@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {TouchableOpacity,} from "react-native";
+import {TouchableOpacity, Image} from "react-native";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import Home from "../components/home";
 import Top from "../components/top";
@@ -31,7 +31,7 @@ export const MainScreen = createBottomTabNavigator({
     screen: Match,
     navigationOptions: {
       tabBarLabel: "MATCH",
-      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.retweet}</FontAwesome>
+      tabBarIcon: <Image source={require(`../images/flechasd.png`)} style = {{width: 50, height: 50}}/>
     }
   },
   Profile: {

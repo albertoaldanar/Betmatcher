@@ -3,7 +3,6 @@ import {View,Text, TouchableOpacity} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
-import Carousell from "../reusable/carousel";
 
 
 class Match extends Component{
@@ -40,7 +39,6 @@ class Match extends Component{
             activeTabStyle = {{backgroundColor: "#00B073"}}
             onTabPress={this.handleIndexChange.bind(this)}
         />
-        <Carousell/>
       </View>
     );
   }

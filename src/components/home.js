@@ -9,7 +9,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
 import Carousell from "../reusable/carousel";
-
+import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 
 class Home extends Component{
 
@@ -63,6 +63,15 @@ class Home extends Component{
       );
     })
   }
+
+  // showLeague(){
+  //   const navigateAction = NavigationActions.navigate({
+  //     routeName: "Top",
+  //   });
+
+  //   this.props.navigation.dispatch(navigateAction);
+  // }
+
 
   render(){
 

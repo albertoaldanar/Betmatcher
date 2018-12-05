@@ -3,16 +3,16 @@ import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, Scrol
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Games from "../constants/games";
 import Leagues from "./leagues";
-import BMButton from "../reusable/bmButton"
 import Header from "../reusable/header";
 import ImageSlider from 'react-native-image-slider';
 import LinearGradient from "react-native-linear-gradient";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
-import Images from "../constants/images";
-import Third from "../constants/images";
+import Carousell from "../reusable/carousel";
+
 
 class Home extends Component{
+
 
   constructor(props){
     super(props);
@@ -39,6 +39,7 @@ class Home extends Component{
       );
     })
   }
+
 
   topRequests(){
     return Requests.map(r => {
@@ -112,11 +113,9 @@ class Home extends Component{
           {this.topRequests()}
         </View>
 
-        <View>
-          <Text style = {[styles.title, {marginBottom: 15}]}> Top leagues </Text>
-          <View style = {{display: "flex", flexDirection:"row", justifyContent: "space-around", marginBottom: 10}}>
-            {this.renderLeagues()}
-          </View>
+        <View style ={{marginBottom: 20}}>
+          <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
+          <Carousell/>
         </View>
 
         <Modal

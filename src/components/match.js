@@ -38,7 +38,6 @@ class Match extends Component{
             activeTabStyle = {{backgroundColor: "#00B073"}}
             onTabPress={this.handleIndexChange.bind(this)}
             />
-        {this.renderMatches()}
       </View>
     );
   }

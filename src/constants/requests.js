@@ -20,6 +20,13 @@ const Requests = [
     bet: 1800,
     lay: "LA Dodgers"
   },
+  {
+    user: "marcWill",
+    local: "Lakers",
+    visit: "Golden State",
+    bet: 2200,
+    lay: "Golden State"
+  },
 ];
 
 module.exports = Requests;

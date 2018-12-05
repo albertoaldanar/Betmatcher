@@ -9,6 +9,8 @@ import ImageSlider from 'react-native-image-slider';
 import LinearGradient from "react-native-linear-gradient";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
+import Images from "../constants/images";
+import Third from "../constants/images";
 
 class Home extends Component{
 
@@ -19,6 +21,23 @@ class Home extends Component{
 
   onModalChange(){
     this.setState({modalShows: !this.state.modalShows})
+  }
+
+  renderLeagues(){
+    return Images.map(i => {
+      return(
+        <View>
+          <TouchableOpacity>
+            <Image
+              source = {{uri: i.image}}
+              opacity = {0.45}
+              style = {styles.categories}
+            />
+            <Text style = {{color: "#ffff", position: "absolute", top: 15, left: 15, fontWeight :"600" }}>{i.text}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    })
   }
 
   topRequests(){
@@ -46,13 +65,15 @@ class Home extends Component{
 
   render(){
 
+    console.log(Dimensions.get("window").width);
+
     const images = [
       "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",
       'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F488987%2Ftwo-young-men-shaking-hands-and-smiling-deal-shake-friends.jpg&w=700&op=resize',
       'https://images5.alphacoders.com/353/thumb-1920-353068.jpg'
     ]
 
-    const header = ["Bet against other people", "Bet against other people", "Amazing feautures"];
+    const header = ["Best leagues in the world", "Bet against other people", "Amazing feautures"];
 
     const msg = [
       "Bet in a way you never did before in the best leagues in the world",
@@ -86,13 +107,17 @@ class Home extends Component{
             />
         </View>
 
-        <Text style = {styles.title}> Top bets to match </Text>
-
         <View>
+          <Text style = {styles.title}> Top bets to match </Text>
           {this.topRequests()}
         </View>
 
-        <Text style = {styles.title}> Top leagues </Text>
+        <View>
+          <Text style = {[styles.title, {marginBottom: 15}]}> Top leagues </Text>
+          <View style = {{display: "flex", flexDirection:"row", justifyContent: "space-around", marginBottom: 10}}>
+            {this.renderLeagues()}
+          </View>
+        </View>
 
         <Modal
             animationType ="slide"
@@ -123,13 +148,6 @@ const styles = {
     elevation: 2,
 
   },
-  title: {
-    color: "#ffff",
-    fontWeight: "500",
-    fontSize: 24,
-    margin: 10,
-    marginBottom: 30
-  },
   secondText: {
     color: "#ffff",
     fontWeight: "500",
@@ -157,7 +175,7 @@ const styles = {
   },
   title: {
     color: "#ffff",
-    fontSize: 20,
+    fontSize: 23,
     margin: 10,
     fontWeight: "600"
   },
@@ -190,7 +208,12 @@ const styles = {
     fontSize: 12,
     fontWeight: "600",
     paddingRight: 5
-  }
+  },
+  categories: {
+    width: 150,
+    height: 130,
+    borderRadius: 5,
+  },
 }
 
 export default Home;

@@ -31,7 +31,7 @@ export const MainScreen = createBottomTabNavigator({
     screen: Match,
     navigationOptions: {
       tabBarLabel: "MATCH",
-      tabBarIcon: <Image source={require(`../images/flechasd.png`)} style = {{width: 50, height: 50}}/>
+      tabBarIcon: <Image source={require(`../images/flechasd.png`)} style = {{width: 55, height: 55}}/>
     }
   },
   Profile: {

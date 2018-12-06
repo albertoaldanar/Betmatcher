@@ -5,8 +5,8 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import Header from "../reusable/header";
 import Menu from "../reusable/menu";
-import Card from "../reusable/card";
 import SideMenu from "react-native-side-menu";
+import GameCard from "../reusable/gameCard";
 
 class Top extends Component{
 
@@ -17,42 +17,6 @@ class Top extends Component{
 
   onPressButton(){
     this.setState({isOpen: true});
-  }
-
-  gameDetails(game){
-    const navigateAction = NavigationActions.navigate({
-      routeName: "Description",
-      params: {game: game}
-    });
-
-    this.props.navigation.dispatch(navigateAction);
-  }
-
-  showTopGames(){
-    return Games.map( (g) => {
-      return(
-        <TouchableOpacity onPress = {this.gameDetails.bind(this, g)}>
-          <Card>
-            <View style = {styles.desc}>
-              <Text style = {styles.league}>{g.league}</Text>
-                <Text style = {styles.hour}>{g.time}</Text>
-              </View>
-
-              <View style = {styles.match}>
-                <FontAwesome style= {[styles.chevron, {color: "gray", fontSize: 35, marginBottom: 15}]}>{Icons.circle}</FontAwesome>
-
-                <View style = {{paddingRight: 90}}>
-                  <Text style = {styles.text}>{g.local}</Text>
-                  <Text style = {[styles.text, {fontSize: 9, fontStyle: "oblique", fontWeight: "400"}]}>VS.</Text>
-                  <Text style = {styles.text}>{g.visit}</Text>
-                </View>
-
-                <FontAwesome style= {styles.chevron}>{Icons.chevronRight}</FontAwesome>
-              </View>
-          </Card>
-        </TouchableOpacity>
-      );
-    })
   }
 
   render(){
@@ -67,7 +31,7 @@ class Top extends Component{
         <View style = {{flex: 1, backgroundColor: "#161616"}}>
           <Header showSidebar = {this.onPressButton.bind(this)}/>
           <ScrollView>
-            {this.showTopGames()}
+            <GameCard data= {Games} route = "Description" nav = {this.props.navigation.dispatch}/>
           </ScrollView>
         </View>
       </SideMenu>

@@ -1,9 +1,8 @@
 import React, {Component} from "react";
-import {View,Text, TouchableOpacity} from "react-native";
+import {View,Text, TouchableOpacity,Image} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
-
 
 class Match extends Component{
 

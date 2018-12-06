@@ -13,7 +13,6 @@ import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, Navigat
 
 class Home extends Component{
 
-
   constructor(props){
     super(props);
     this.state = {modalShows: false}
@@ -42,9 +41,9 @@ class Home extends Component{
 
 
   topRequests(){
-    return Requests.map(r => {
+    return Requests.map((r, index) => {
       return(
-        <TouchableOpacity>
+        <TouchableOpacity key = {index}>
           <Card>
             <View style = {{flexDirection:"row", paddingLeft: 5}}>
               <Text style = {styles.desc}>{r.local}</Text>
@@ -63,15 +62,6 @@ class Home extends Component{
       );
     })
   }
-
-  // showLeague(){
-  //   const navigateAction = NavigationActions.navigate({
-  //     routeName: "Top",
-  //   });
-
-  //   this.props.navigation.dispatch(navigateAction);
-  // }
-
 
   render(){
 
@@ -122,9 +112,13 @@ class Home extends Component{
           {this.topRequests()}
         </View>
 
-        <View style ={{marginBottom: 20}}>
+        <View>
           <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
-          <Carousell/>
+          <Carousell opacity = {0.55}/>
+        </View>
+
+        <View>
+          <Text style = {styles.title}> Today & Live </Text>
         </View>
 
         <Modal

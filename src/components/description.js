@@ -15,7 +15,7 @@ class Description extends Component{
   }
 
   render(){
-    let game = this.props.navigation.state.params.game;
+    let game = this.props.navigation.state.params.par;
     const options = [game.local, "Draw", game.visit]
 
     return(

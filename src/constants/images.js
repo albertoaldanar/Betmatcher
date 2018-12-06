@@ -14,7 +14,7 @@ Images = [
   },
   {
     text: "NFL",
-    image: "https://cdn.vox-cdn.com/thumbor/EAgqjp4I7sqpGf5OhQVNBCQ-UyM=/0x89:3964x2732/1200x800/filters:focal(0x89:3964x2732)/cdn.vox-cdn.com/uploads/chorus_image/image/48541743/usa-today-8361672.0.jpg",
+    image: "https://mm.aiircdn.com/61/582f36c874ef0.jpg",
   },
   {
     text: "Champions",

@@ -53,23 +53,21 @@ class Carousell extends Component{
     imageContainer: {
       borderRadius: 5,
       width: sliderWidth * 0.35,
-      height: itemHeight * 0.2
+      height: itemHeight * 0.2,
+      opacity: 0.55
     },
     title: {
       color: "#ffff",
       fontSize: 15,
-      fontWeight: "400",
+      fontWeight: "600",
       position: "absolute",
       top: 5,
       left: 2
     },
-    image: {
-      backgroundColor:'#000',
-      opacity: 0.1
-    },
     item:{
-      margin: 25,
-      marginLeft: 0
+      margin: 20,
+      marginLeft: 0,
+      marginBottom: 15
     }
 
   }

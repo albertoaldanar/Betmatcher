@@ -9,6 +9,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
 import Carousell from "../reusable/carousel";
+import GameCard from "../reusable/gameCard";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 
 class Home extends Component{
@@ -71,7 +72,7 @@ class Home extends Component{
       "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",
       'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F488987%2Ftwo-young-men-shaking-hands-and-smiling-deal-shake-friends.jpg&w=700&op=resize',
       'https://images5.alphacoders.com/353/thumb-1920-353068.jpg'
-    ]
+    ];
 
     const header = ["Best leagues in the world", "Bet against other people", "Amazing feautures"];
 
@@ -118,7 +119,8 @@ class Home extends Component{
         </View>
 
         <View>
-          <Text style = {styles.title}> Today & Live </Text>
+          <Text style = {styles.title}> Top bets to match </Text>
+          {this.topRequests()}
         </View>
 
         <Modal

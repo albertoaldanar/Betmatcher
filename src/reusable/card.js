@@ -12,7 +12,7 @@ const Card = (props) => {
 const styles= {
     card: {
       padding: 7,
-      margin: 7,
+      margin: 3,
       backgroundColor: "#1A1919",
       borderRadius: 3,
       borderBottomWidth: 0,

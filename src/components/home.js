@@ -8,6 +8,7 @@ import ImageSlider from 'react-native-image-slider';
 import LinearGradient from "react-native-linear-gradient";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
+import Details from "../constants/eventsDetails";
 import Carousell from "../reusable/carousel";
 import GameCard from "../reusable/gameCard";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
@@ -54,11 +55,46 @@ class Home extends Component{
 
             <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
               <Text style = {styles.user}>{r.user}</Text>
-              <Text style = {[styles.game, {paddingRight: 10}]}>{r.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {[styles.game, {paddingRight: 10 , fontWeight: "bold"}]}>{r.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
               <Text style = {[styles.user, {paddingRight: 10}]}>{r.lay}</Text>
               <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
             </View>
           </Card>
+        </TouchableOpacity>
+      );
+    })
+  }
+
+  topEventDetials(){
+    return Details.map((d, index) => {
+      return(
+        <TouchableOpacity key = {index}>
+            <Card style = {{padding: 10}}>
+              <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 5}}>
+                <Text style = {styles.desc}>{d.local}</Text>
+                <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
+                <Text style = {styles.desc}>{d.visit}</Text>
+              </View>
+
+              <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
+                <View>
+                  <Text style = {styles.exp}>Traded</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 7, fontWeight: "bold", fontSize: 14}]}>{d.traded} $</Text>
+                </View>
+
+                <View>
+                  <Text style = {styles.exp}>Matches</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 7}]}>{d.matches}</Text>
+                </View>
+
+                <View>
+                  <Text style = {styles.exp}>Unmatched bets</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 7}]}>{d.unmatchedBets}</Text>
+                </View>
+
+                <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
+              </View>
+            </Card>
         </TouchableOpacity>
       );
     })
@@ -109,7 +145,12 @@ class Home extends Component{
         </View>
 
         <View>
-          <Text style = {styles.title}> Top bets to match </Text>
+          <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+            <Text style = {styles.title}> Unmatched bets </Text>
+            <TouchableOpacity>
+              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+            </TouchableOpacity>
+          </View>
           {this.topRequests()}
         </View>
 
@@ -119,8 +160,13 @@ class Home extends Component{
         </View>
 
         <View>
-          <Text style = {styles.title}> Top bets to match </Text>
-          {this.topRequests()}
+          <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+            <Text style = {styles.title}> Users top events </Text>
+            <TouchableOpacity>
+              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+            </TouchableOpacity>
+          </View>
+          {this.topEventDetials()}
         </View>
 
         <Modal
@@ -178,10 +224,11 @@ const styles = {
     marginTop: 10
   },
   title: {
-    color: "#ffff",
+    color: "#F5F5F5",
     fontSize: 23,
     margin: 10,
-    fontWeight: "600"
+    fontWeight: "600",
+    fontStyle: "oblique"
   },
   directCard: {
     display: "flex",
@@ -192,7 +239,7 @@ const styles = {
     color:"#ffff",
     fontSize: 12,
     fontWeight: "600",
-    paddingRight: 5
+    paddingRight: 5,
   },
   user: {
     color:"#00B073",
@@ -218,6 +265,12 @@ const styles = {
     height: 130,
     borderRadius: 5,
   },
+  exp: {
+    color: "#00B073",
+    fontSize: 15,
+    fontStyle: "oblique",
+    paddingBottom: 10
+  }
 }
 
 export default Home;

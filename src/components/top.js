@@ -28,7 +28,7 @@ class Top extends Component{
         isOpen ={isOpen}
         menu = {menu}
       >
-        <View style = {{flex: 1, backgroundColor: "#161616"}}>
+        <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header showSidebar = {this.onPressButton.bind(this)}/>
           <ScrollView>
             <GameCard data= {Games} route = "Description" nav = {this.props.navigation.dispatch}/>

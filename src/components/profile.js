@@ -30,7 +30,7 @@ class Profile extends Component{
     const sliceColor = ['#00B073','#1FBED5','#DC143C']
 
     return(
-      <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
+      <View style = {{flex: 1, backgroundColor: "black"}}>
 
         <StatusBar hidden = {true}/>
           <View style = {{backgroundColor: "#00B073"}}>
@@ -87,7 +87,7 @@ class Profile extends Component{
             series={series}
             sliceColor={sliceColor}
             coverRadius={0.95}
-            coverFill={'#1A1919'}
+            coverFill={'black'}
             doughnut= {true}
             style ={{
               alignSelf: "center",

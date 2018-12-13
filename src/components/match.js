@@ -30,7 +30,7 @@ class Match extends Component{
       <View style = {styles.container}>
         <Header/>
         <SegmentedControlTab
-            values={['Match ', 'Wating', "Finished"]}
+            values={['Match ', 'Unmatched', "Finished"]}
             tabsContainerStyle = {styles.segmentedController}
             tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
             tabStyle = {{borderColor: "#00B073", backgroundColor: "#1A1919"}}
@@ -45,14 +45,11 @@ class Match extends Component{
 
 const styles = {
   container: {
-    backgroundColor: "#1A1919",
+    backgroundColor: "black",
     flex: 1
   },
   segmentedController: {
     borderBottomWidth: 0
-  },
-  button: {
-
   }
 }
 

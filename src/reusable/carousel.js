@@ -67,7 +67,8 @@ class Carousell extends Component{
     item:{
       margin: 20,
       marginLeft: 0,
-      marginBottom: 15
+      marginBottom: 20,
+      marginTop: 10
     }
 
   }

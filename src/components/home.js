@@ -47,7 +47,7 @@ class Home extends Component{
       return(
         <TouchableOpacity key = {index}>
           <Card>
-            <View style = {{flexDirection:"row", paddingLeft: 5}}>
+            <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
               <Text style = {styles.desc}>{r.local}</Text>
               <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
               <Text style = {styles.desc}>{r.visit}</Text>
@@ -55,7 +55,7 @@ class Home extends Component{
 
             <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
               <Text style = {styles.user}>{r.user}</Text>
-              <Text style = {[styles.game, {paddingRight: 10 , fontWeight: "bold"}]}>{r.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {[styles.game, {paddingRight: 10 , fontWeight: "bold", color: "#DAA520", fontSize: 14}]}>{r.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
               <Text style = {[styles.user, {paddingRight: 10}]}>{r.lay}</Text>
               <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
             </View>
@@ -70,7 +70,7 @@ class Home extends Component{
       return(
         <TouchableOpacity key = {index}>
             <Card style = {{padding: 10}}>
-              <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 5}}>
+              <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
                 <Text style = {styles.desc}>{d.local}</Text>
                 <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
                 <Text style = {styles.desc}>{d.visit}</Text>
@@ -79,17 +79,17 @@ class Home extends Component{
               <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
                 <View>
                   <Text style = {styles.exp}>Traded</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 7, fontWeight: "bold", fontSize: 14}]}>{d.traded} $</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{d.traded} $</Text>
                 </View>
 
                 <View>
                   <Text style = {styles.exp}>Matches</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 7}]}>{d.matches}</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{d.matches}</Text>
                 </View>
 
                 <View>
                   <Text style = {styles.exp}>Unmatched</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 7}]}>{d.unmatchedBets}</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{d.unmatchedBets}</Text>
                 </View>
 
                 <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
@@ -119,7 +119,7 @@ class Home extends Component{
     ]
 
     return(
-      <View style = {{flex: 1, backgroundColor: "#1A1919"}}>
+      <View style = {{flex: 1, backgroundColor: "black"}}>
         <Header/>
         <ScrollView>
         <StatusBar hidden = {true}/>
@@ -154,7 +154,7 @@ class Home extends Component{
           {this.topEventDetials()}
         </View>
 
-        <View>
+        <View style = {{marginTop: 15, marginBottom: 15}}>
           <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
           <Carousell opacity = {0.55}/>
         </View>
@@ -256,8 +256,8 @@ const styles = {
   },
   desc: {
     color:"#ffff",
-    fontSize: 12,
-    fontWeight: "600",
+    fontSize: 14,
+    fontWeight: "700",
     paddingRight: 5
   },
   categories: {

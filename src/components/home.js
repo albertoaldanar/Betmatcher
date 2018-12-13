@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView} from "react-native";
+import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Games from "../constants/games";
 import Leagues from "./leagues";
@@ -88,7 +88,7 @@ class Home extends Component{
                 </View>
 
                 <View>
-                  <Text style = {styles.exp}>Unmatched bets</Text>
+                  <Text style = {styles.exp}>Unmatched</Text>
                   <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 7}]}>{d.unmatchedBets}</Text>
                 </View>
 
@@ -146,12 +146,12 @@ class Home extends Component{
 
         <View>
           <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-            <Text style = {styles.title}> Unmatched bets </Text>
+            <Text style = {styles.title}> Users top events </Text>
             <TouchableOpacity>
               <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
             </TouchableOpacity>
           </View>
-          {this.topRequests()}
+          {this.topEventDetials()}
         </View>
 
         <View>
@@ -161,12 +161,12 @@ class Home extends Component{
 
         <View>
           <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-            <Text style = {styles.title}> Users top events </Text>
+            <Text style = {styles.title}> Unmatched bets </Text>
             <TouchableOpacity>
               <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
             </TouchableOpacity>
           </View>
-          {this.topEventDetials()}
+          {this.topRequests()}
         </View>
 
         <Modal
@@ -225,7 +225,7 @@ const styles = {
   },
   title: {
     color: "#F5F5F5",
-    fontSize: 23,
+    fontSize: 25,
     margin: 10,
     fontWeight: "600",
     fontStyle: "oblique"

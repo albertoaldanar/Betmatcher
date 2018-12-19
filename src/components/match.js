@@ -19,50 +19,70 @@ class Match extends Component{
 
   renderMatches(){
     return Matches.map(m => {
-      if(m.size !=0 && this.state.index == 0){
-        return (
-            <View style = {{marginTop: 10}}>
-              <Card style = {styles.card}>
-                <View style = {styles.spaceBetween}>
-                  <Text style = {[styles.topItem, {fontStyle: "oblique"}]}>{m.league}</Text>
-                  <Text style = {[styles.topItem, {color: "gold"}]}>{m.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-                </View>
-
-                <View style = {[styles.spaceBetween, {margin: 10}]}>
-
-                  <View style = {styles.spaceAround}>
-                    <View style ={styles.space}>
-                      <Text style = {styles.lay}>{m.local}</Text>
-                      <Text style = {styles.user}>{m.user1}</Text>
-                    </View>
-
-                    <View style ={styles.space}>
-                      <Text style = {styles.lay}> Draw </Text>
-                    </View>
-
-                    <View style ={styles.space}>
-                      <Text style = {styles.lay}>{m.visit}</Text>
-                      <Text style = {styles.user}>{m.user2}</Text>
-                    </View>
+          return (
+              <View style = {{marginTop: 7}}>
+                <Card style = {styles.card}>
+                  <View style = {styles.spaceBetween}>
+                    <Text style = {[styles.topItem, {fontStyle: "oblique"}]}>{m.league}</Text>
+                    <Text style = {[styles.topItem, {color: "gold"}]}>{m.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
                   </View>
 
-                  <TouchableOpacity>
-                    <FontAwesome style = {[styles.icon, {color: "#00B073"}]}>{Icons.comment}</FontAwesome>
-                  </TouchableOpacity>
-                </View>
+                  <View style = {[styles.spaceBetween, {margin: 10}]}>
 
-                <View style = {styles.hourScore}>
-                  <Text style = {styles.hour}>{m.time}</Text>
-                </View>
-              </Card>
-            </View>
-        );
-      } else {
+                    <View style = {styles.spaceAround}>
+                      <View style ={styles.space}>
+                        <Text style = {styles.lay}>{m.local}</Text>
+                        <Text style = {styles.user}>{m.user1}</Text>
+                      </View>
+
+                      <View style ={styles.space}>
+                        <Text style = {styles.lay}> Draw </Text>
+                      </View>
+
+                      <View style ={styles.space}>
+                        <Text style = {styles.lay}>{m.visit}</Text>
+                        <Text style = {styles.user}>{m.user2}</Text>
+                      </View>
+                    </View>
+
+                    <TouchableOpacity>
+                      <FontAwesome style = {[styles.icon, {color: "#00B073"}]}>{Icons.comment}</FontAwesome>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style = {styles.hourScore}>
+                    <Text style = {styles.hour}>{m.time}</Text>
+                  </View>
+                </Card>
+              </View>
+          );
+        });
+  }
+
+  choseView(){
+    const {index} = this.state;
+
+    switch(index){
+      case 0:
+        return this.renderMatches()
+        break;
+
+      case 1:
         return(
-          <Text style = {{color:"#ffff"}}> Unmatched</Text>
+          <View>
+            <Text style = {styles.emptyMessage}> Unmatched Bets</Text>
+          </View>
         );
-      }
-    });
+        break;
+
+      case 2:
+        return(
+          <View>
+            <Text style = {styles.emptyMessage}> Finished Bets</Text>
+          </View>
+        );
+        break;
+    }
   }
 
   render(){
@@ -80,7 +100,7 @@ class Match extends Component{
         />
         <ScrollView>
           <View style = {styles.card}>
-            {this.renderMatches()}
+            {this.choseView()}
           </View>
         </ScrollView>
       </View>
@@ -141,6 +161,11 @@ const styles = {
     fontSize: 12,
     fontStyle:"oblique",
     padding: 5
+  },
+  emptyMessage: {
+    color: "#ffff",
+    fontSize: 12,
+    alignSelf: "center"
   }
 }
 

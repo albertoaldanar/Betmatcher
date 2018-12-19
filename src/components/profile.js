@@ -103,7 +103,9 @@ class Profile extends Component{
           <View style = {styles.percent}>
             <Text style = {[styles.number, {fontSize: 15}]}>TOTAL BETS: </Text>
             <Text style = {styles.number}> 4 </Text>
-            <Text style = {styles.total}> Efficency 65 %</Text>
+            <View style = {{borderRadius: 5}}>
+              <Text style = {styles.total}> Efficency 65 %</Text>
+            </View>
           </View>
 
       </View>

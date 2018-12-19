@@ -191,11 +191,7 @@ const styles = {
     height: Dimensions.get("window").height * 0.35,
     alignSelf: "center",
     margin: 10,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    elevation: 2,
+    borderRadius: 6
 
   },
   secondText: {

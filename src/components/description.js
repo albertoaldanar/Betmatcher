@@ -36,9 +36,6 @@ class Description extends Component{
            </View>
         </View>
 
-        <View style = {styles.betOptions}>
-          {this.renderButton(options)}
-        </View>
       </View>
     );
   }
@@ -78,7 +75,7 @@ const styles = {
     flexDirection:"row",
   },
   word: {
-    color: "#ffff",
+    color: "#00B073",
     marginRight: 10,
     fontSize:15,
     fontWeight: "bold"

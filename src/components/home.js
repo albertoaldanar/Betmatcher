@@ -155,7 +155,13 @@ class Home extends Component{
         </View>
 
         <View style = {{marginTop: 15, marginBottom: 15}}>
-          <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
+          <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+            <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
+            <TouchableOpacity>
+              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See all <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+            </TouchableOpacity>
+          </View>
+
           <Carousell opacity = {0.55}/>
         </View>
 

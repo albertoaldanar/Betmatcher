@@ -19,7 +19,7 @@ class Match extends Component{
 
   renderMatches(){
     return Matches.map(m => {
-          return (
+        return (
               <View style = {{marginTop: 7}}>
                 <Card style = {styles.card}>
                   <View style = {styles.spaceBetween}>
@@ -55,8 +55,8 @@ class Match extends Component{
                   </View>
                 </Card>
               </View>
-          );
-        });
+        );
+    });
   }
 
   choseView(){

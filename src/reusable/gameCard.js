@@ -18,9 +18,9 @@ class GameCard extends Component{
   }
 
   renderGameInfo(){
-    return this.props.data.map(d => {
+    return this.props.data.map((d, index) => {
       return(
-        <TouchableOpacity onPress = { () => {this.getRoute(d, this.props.route)}}>
+        <TouchableOpacity key = {index} onPress = { () => {this.getRoute(d, this.props.route)}}>
           <Card>
               <View style = {styles.desc}>
                 <Text style = {styles.league}>{d.league}</Text>

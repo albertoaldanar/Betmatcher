@@ -26,7 +26,7 @@ class Profile extends Component{
     ];
 
     const chart_wh = 250
-    const series = [1,5,1]
+    const series = [3,1,0]
     const sliceColor = ['#00B073','#1FBED5','#DC143C']
 
     return(

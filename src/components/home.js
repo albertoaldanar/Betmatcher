@@ -41,7 +41,6 @@ class Home extends Component{
     })
   }
 
-
   topRequests(){
     return Requests.map((r, index) => {
       return(
@@ -158,7 +157,7 @@ class Home extends Component{
           <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
             <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
             <TouchableOpacity>
-              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See all <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> More leagues <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
             </TouchableOpacity>
           </View>
 

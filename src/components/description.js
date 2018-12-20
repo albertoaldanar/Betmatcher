@@ -1,20 +1,33 @@
 import React, {Component}from "react";
-import {View, Text, TouchableOpacity} from "react-native";
+import {View, Text, TouchableOpacity, Modal} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class Description extends Component{
 
+  constructor(props){
+    super(props);
+    this.state = {
+      visible: false,
+      teamSelected: ""
+    }
+  }
+
+  showModal(team){
+    this.setState({ visible: !this.state.visible, teamSelected: team })
+  }
+
   renderButton(options){
     return options.map(x => {
       return(
-        <TouchableOpacity style = {styles.button}>
-          <Text style = {{color: "#00B073", alignSelf: "center", fontSize: 20, fontWeight: "400"}}>{x}</Text>
+        <TouchableOpacity style = {styles.button} onPress ={this.showModal.bind(this, x)}>
+          <Text style = {{color: "white", alignSelf: "center", fontSize: 15, fontWeight: "400"}}>{x}</Text>
         </TouchableOpacity>
       );
     })
   }
 
   render(){
+
     let game = this.props.navigation.state.params.par;
     const options = [game.local, "Draw", game.visit]
 
@@ -36,6 +49,24 @@ class Description extends Component{
            </View>
         </View>
 
+        <View style = {{marginLeft: 15, marginRight: 15}}>
+          {this.renderButton(options)}
+        </View>
+
+        <Modal
+            animationType = "slide"
+            transparent = {false}
+            visible = {this.state.visible}
+        >
+          <View style = {{ felx: 1, backgroundColor: "#ffff" }}>
+            <Text>Team selected =  {this.state.teamSelected}</Text>
+            <TouchableOpacity onPress  = {() => this.setState({visible: false})} >
+              <Text>
+                X
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -75,7 +106,7 @@ const styles = {
     flexDirection:"row",
   },
   word: {
-    color: "#00B073",
+    color: "white",
     marginRight: 10,
     fontSize:15,
     fontWeight: "bold"
@@ -86,20 +117,15 @@ const styles = {
     alignSelf: "center"
   },
   button: {
-    backgroundColor: "white",
+    backgroundColor: "#00B073",
     marginTop: 30,
+    marginBottom: 30,
     justifyContent: "space-around",
-    padding: 30,
+    padding: 15,
     paddingRight: 70,
     paddingLeft: 70,
-    backgroundColor: "#1A1919",
     borderRadius: 3,
-    borderBottomWidth: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 2,
-    elevation: 1,
+
   }
 }
 

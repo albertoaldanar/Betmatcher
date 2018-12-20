@@ -46,7 +46,7 @@ class Match extends Component{
                     </View>
 
                     <TouchableOpacity>
-                      <FontAwesome style = {[styles.icon, {color: "#00B073"}]}>{Icons.comment}</FontAwesome>
+                      <FontAwesome style = {[styles.icon, {color: "#00B073"}]}>{Icons.comments}</FontAwesome>
                     </TouchableOpacity>
                   </View>
 
@@ -70,7 +70,7 @@ class Match extends Component{
       case 1:
         return(
           <View>
-            <Text style = {styles.emptyMessage}> Unmatched Bets</Text>
+            <Text style = {styles.emptyMessage}> No Unmatched Bets</Text>
           </View>
         );
         break;
@@ -78,7 +78,7 @@ class Match extends Component{
       case 2:
         return(
           <View>
-            <Text style = {styles.emptyMessage}> Finished Bets</Text>
+            <Text style = {styles.emptyMessage}> No Finished Bets</Text>
           </View>
         );
         break;
@@ -138,14 +138,14 @@ const styles = {
   },
   lay: {
     color: "#ffff",
-    fontWeight: "bold",
+    fontWeight: "700",
     fontSize: 15,
     paddingRight: 10
   },
   user: {
     color: "#00B073",
     fontSize: 15,
-    fontWeight: "600",
+    fontWeight: "300",
   },
   space: {
     flexDirection: "row",
@@ -164,8 +164,9 @@ const styles = {
   },
   emptyMessage: {
     color: "#ffff",
-    fontSize: 12,
-    alignSelf: "center"
+    fontSize: 16,
+    alignSelf: "center",
+    marginTop: 20
   }
 }
 

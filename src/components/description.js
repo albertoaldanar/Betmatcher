@@ -10,7 +10,8 @@ class Description extends Component{
     super(props);
     this.state = {
       visible: false,
-      teamSelected: ""
+      teamSelected: "",
+      betChoice: 0
     }
   }
 
@@ -33,18 +34,45 @@ class Description extends Component{
     if(teamSelected){
       return(
         <View style = {styles.backLay}>
-          <TouchableOpacity style = {{backgroundColor: "#F08080", padding: 15}} onPress = {() => this.setState({visible: true})}>
+          <TouchableOpacity style = {{backgroundColor: "#F08080", padding: 15}} onPress = {() => this.setState({visible: true, betChoice: 1})}>
             <Text style = {{color: "#ffff"}}>14 users to match</Text>
           </TouchableOpacity>
 
           <Text style = {{color: mainColor, marginTop: 12, fontSize: 15}}> or </Text>
 
-          <TouchableOpacity style = {{backgroundColor: "#ADD8E6", padding: 15}}>
+          <TouchableOpacity style = {{backgroundColor: "#ADD8E6", padding: 15}} onPress = {() => this.setState({visible: true, betChoice: 2})}>
             <Text style = {{color: "#ffff"}}> Make new bet</Text>
           </TouchableOpacity>
         </View>
       );
     } else return null
+  }
+
+  usersOrSlider(){
+    const {betChoice} = this.state;
+    if(betChoice == 1){
+      return(
+        <View style = {{ felx: 1, backgroundColor: "#ffff" }}>
+          <Text>Team selected =  {this.state.teamSelected}</Text>
+            <TouchableOpacity style = {{alignSelf: "center", marginTop: 20}} onPress  = {() => this.setState({visible: false})} >
+              <Text >
+                X
+              </Text>
+            </TouchableOpacity>
+        </View>
+      );
+    } else if(betChoice == 2) {
+        return(
+          <View style = {{ felx: 1, backgroundColor: "#ffff" }}>
+            <Text> How much you want to bet to {this.state.teamSelected}</Text>
+            <TouchableOpacity style = {{alignSelf: "center", marginTop: 20}} onPress  = {() => this.setState({visible: false})} >
+              <Text >
+                X
+              </Text>
+            </TouchableOpacity>
+          </View>
+        );
+    }
   }
 
   render(){
@@ -87,14 +115,8 @@ class Description extends Component{
             visible = {this.state.visible}
             presentationStyle = "pageSheet"
         >
-          <View style = {{ felx: 1, backgroundColor: "#ffff" }}>
-            <Text>Team selected =  {this.state.teamSelected}</Text>
-            <TouchableOpacity style = {{alignSelf: "center", marginTop: 20}} onPress  = {() => this.setState({visible: false})} >
-              <Text >
-                X
-              </Text>
-            </TouchableOpacity>
-          </View>
+
+        {this.usersOrSlider()}
         </Modal>
       </View>
     );

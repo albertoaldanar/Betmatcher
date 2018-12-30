@@ -1,6 +1,7 @@
 import React, {Component}from "react";
 import {View, Text, TouchableOpacity, Modal} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import BetModal from "../reusable/betModal";
 
 const mainColor = "#00B073";
 
@@ -17,6 +18,10 @@ class Description extends Component{
 
   onSelectTeam(team){
     this.setState({ teamSelected: team })
+  }
+
+  showModal(){
+    this.setState({visible: !this.state.visible})
   }
 
   renderButton(options){
@@ -48,35 +53,8 @@ class Description extends Component{
     } else return null
   }
 
-  usersOrSlider(){
-    const {betChoice} = this.state;
-    if(betChoice == 1){
-      return(
-        <View style = {{ felx: 1, backgroundColor: "#ffff" }}>
-          <Text>Team selected =  {this.state.teamSelected}</Text>
-            <TouchableOpacity style = {{alignSelf: "center", marginTop: 20}} onPress  = {() => this.setState({visible: false})} >
-              <Text >
-                X
-              </Text>
-            </TouchableOpacity>
-        </View>
-      );
-    } else if(betChoice == 2) {
-        return(
-          <View style = {{ felx: 1, backgroundColor: "#ffff" }}>
-            <Text> How much you want to bet to {this.state.teamSelected}</Text>
-            <TouchableOpacity style = {{alignSelf: "center", marginTop: 20}} onPress  = {() => this.setState({visible: false})} >
-              <Text >
-                X
-              </Text>
-            </TouchableOpacity>
-          </View>
-        );
-    }
-  }
-
   render(){
-
+    const {betChoice, teamSelected} = this.state;
     let game = this.props.navigation.state.params.par;
     const options = [game.local, "Draw", game.visit]
 
@@ -113,10 +91,9 @@ class Description extends Component{
             animationType = "slide"
             transparent = {false}
             visible = {this.state.visible}
-            presentationStyle = "pageSheet"
         >
 
-        {this.usersOrSlider()}
+          <BetModal choice = {betChoice} team = {teamSelected} visible = {this.showModal.bind(this)}/>
         </Modal>
       </View>
     );
@@ -185,7 +162,7 @@ const styles = {
     justifyContent: "space-around"
   },
   space: {
-    marginBottom: 30
+    marginBottom: 40
   }
 }
 

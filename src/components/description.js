@@ -12,7 +12,10 @@ class Description extends Component{
     this.state = {
       visible: false,
       teamSelected: "",
-      betChoice: 0
+      betChoice: 0,
+      local: false,
+      draw: false,
+      visit: false
     }
   }
 
@@ -24,14 +27,37 @@ class Description extends Component{
     this.setState({visible: !this.state.visible})
   }
 
-  renderButton(options){
-    return options.map(x => {
+  renderButton(){
+    let game = this.props.navigation.state.params.par;
+      if(game.sport == "Soccer"){
         return(
-          <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, x)}>
-            <Text style = {{color: mainColor, alignSelf: "center", fontSize: 15, fontWeight: "400"}}>{x}</Text>
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
+              <Text style = {styles.t}>{game.local}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, "Draw")}>
+              <Text style = {styles.t}>Draw</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
+              <Text style = {styles.t}>{game.visit}</Text>
+            </TouchableOpacity>
+          </View>
         );
-    })
+      } else{
+          return(
+            <View>
+              <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
+                <Text style = {styles.t}>{game.local}</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
+                <Text style = {styles.t}>{game.visit}</Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }
   }
 
   backOrLay(){
@@ -80,10 +106,11 @@ class Description extends Component{
         </View>
 
         <View style = {[styles.space, {marginRight: 15, marginLeft: 15}]}>
-          {this.renderButton(options)}
+          {this.renderButton()}
         </View>
 
         <View style = {styles.space}>
+          <Text>{this.state.teamSelected}</Text>
           {this.backOrLay()}
         </View>
 
@@ -148,13 +175,36 @@ const styles = {
     marginBottom: 20,
     justifyContent: "space-around",
     padding: 15,
-    paddingRight: 70,
-    paddingLeft: 70,
+    paddingRight: 40,
+    paddingLeft: 40,
+    marginLeft:20,
+    marginRight: 20,
     borderRadius: 3,
-    shadowColor: '#696969',
+    shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
     shadowOpacity: 1,
     elevation: 1,
+  },
+  buttonSelected: {
+    backgroundColor: "#00B073",
+    marginBottom: 20,
+    justifyContent: "space-around",
+    padding: 15,
+    marginLeft:20,
+    marginRight: 20,
+    paddingRight: 90,
+    paddingLeft: 90,
+    borderRadius: 3,
+    shadowColor: 'black',
+    shadowOffset: { width: 0.5, height: 1 },
+    shadowOpacity: 1,
+    elevation: 1,
+  },
+  textButtonSelected: {
+    color: "#ffff",
+    fontSize: 15,
+    fontWeight: "600",
+    marginBottom: 6
   },
   backLay: {
     display: "flex",
@@ -163,6 +213,12 @@ const styles = {
   },
   space: {
     marginBottom: 40
+  },
+  t: {
+    color: mainColor,
+    alignSelf: "center",
+    fontSize: 15,
+    fontWeight: "400"
   }
 }
 

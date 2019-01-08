@@ -1,5 +1,5 @@
 import React, {Component}from "react";
-import {View, Text, TouchableOpacity, Modal} from "react-native";
+import {View, Text, TouchableOpacity, Modal, ActivityIndicator} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
 
@@ -15,12 +15,36 @@ class Description extends Component{
       betChoice: 0,
       local: false,
       draw: false,
-      visit: false
+      visit: false,
+      loading: false
     }
   }
 
   onSelectTeam(team){
-    this.setState({ teamSelected: team })
+    this.setState({ teamSelected: team, loading: false})
+    this.birghtColor(team);
+  }
+
+  birghtColor(team){
+    let game = this.props.navigation.state.params.par;
+    switch(team){
+        case game.local:
+          return this.setState({local: true, draw: false, visit: false})
+          break;
+
+        case "Draw":
+          return this.setState({local: false, draw: true, visit: false})
+          break;
+
+        case game.visit:
+          return this.setState({local: false, draw: false, visit: true})
+          break;
+    }
+  }
+
+  loadingApi(){
+    const {loading} = this.state;
+    return loading ? <ActivityIndicator size="large" color={mainColor} /> : this.backOrLay()
   }
 
   showModal(){
@@ -29,18 +53,19 @@ class Description extends Component{
 
   renderButton(){
     let game = this.props.navigation.state.params.par;
+    const {teamSelected, local, visit, draw} = this.state;
       if(game.sport == "Soccer"){
         return(
           <View>
-            <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
+            <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
               <Text style = {styles.t}>{game.local}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, "Draw")}>
+            <TouchableOpacity style = { draw ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, "Draw")}>
               <Text style = {styles.t}>Draw</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
+            <TouchableOpacity style = {visit ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
               <Text style = {styles.t}>{game.visit}</Text>
             </TouchableOpacity>
           </View>
@@ -48,11 +73,11 @@ class Description extends Component{
       } else{
           return(
             <View>
-              <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
+              <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
                 <Text style = {styles.t}>{game.local}</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style = {styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
+              <TouchableOpacity style = {visit ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
                 <Text style = {styles.t}>{game.visit}</Text>
               </TouchableOpacity>
             </View>
@@ -110,8 +135,7 @@ class Description extends Component{
         </View>
 
         <View style = {styles.space}>
-          <Text>{this.state.teamSelected}</Text>
-          {this.backOrLay()}
+          {this.loadingApi()}
         </View>
 
         <Modal
@@ -130,7 +154,7 @@ class Description extends Component{
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#161616",
+    backgroundColor: "black",
   },
   title: {
     color:"#ffff",
@@ -171,14 +195,14 @@ const styles = {
     alignSelf: "center"
   },
   button: {
-    backgroundColor: "black",
+    backgroundColor: "#161616",
     marginBottom: 20,
     justifyContent: "space-around",
     padding: 15,
-    paddingRight: 40,
-    paddingLeft: 40,
     marginLeft:20,
     marginRight: 20,
+    paddingRight: 90,
+    paddingLeft: 90,
     borderRadius: 3,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
@@ -215,9 +239,9 @@ const styles = {
     marginBottom: 40
   },
   t: {
-    color: mainColor,
+    color: "white",
     alignSelf: "center",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "400"
   }
 }

@@ -147,6 +147,7 @@ class Description extends Component{
         </View>
 
         <Modal
+            animationType = "slide"
             transparent = {false}
             visible = {this.state.visible}
         >

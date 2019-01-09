@@ -2,6 +2,8 @@ import React, {Component}from "react";
 import {View, Text, TouchableOpacity, Modal, ActivityIndicator} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
+import UserList1 from "../constants/userList1";
+import UserList2 from "../constants/userList2";
 
 const mainColor = "#00B073";
 
@@ -16,13 +18,18 @@ class Description extends Component{
       local: false,
       draw: false,
       visit: false,
-      loading: false
+      loading: false,
+      index: 0
     }
   }
 
   onSelectTeam(team){
     this.setState({ teamSelected: team, loading: false})
     this.birghtColor(team);
+  }
+
+  handleSegmentedController(index){
+    this.setState({ index })
   }
 
   birghtColor(team){
@@ -108,6 +115,7 @@ class Description extends Component{
     const {betChoice, teamSelected} = this.state;
     let game = this.props.navigation.state.params.par;
     const options = [game.local, "Draw", game.visit]
+    const teamsNotSelected = options.filter(x => x!= teamSelected);
 
     return(
       <View style = {styles.container}>
@@ -139,12 +147,17 @@ class Description extends Component{
         </View>
 
         <Modal
-            animationType = "slide"
             transparent = {false}
             visible = {this.state.visible}
         >
 
-          <BetModal choice = {betChoice} team = {teamSelected} visible = {this.showModal.bind(this)}/>
+          <BetModal
+            teamsNotSelected = {teamsNotSelected}
+            choice = {betChoice} team = {teamSelected} index = {this.state.index}
+            list1 = {UserList1}
+            list2 = {UserList2}
+            segmentedController = {this.handleSegmentedController.bind(this)}
+            visible = {this.showModal.bind(this)}/>
         </Modal>
       </View>
     );

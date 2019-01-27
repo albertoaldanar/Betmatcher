@@ -8,6 +8,7 @@ import Description from "../components/description";
 import Match from "../components/match";
 import ConfirmBet from "../components/confirmBet";
 import Profile from "../components/profile";
+import YouHaveMatch from "../components/youHaveMatch";
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 
@@ -111,6 +112,13 @@ const AppNavigator = StackNavigator({
       }
     }
   },
+  YouHaveMatch: {
+    screen: YouHaveMatch,
+    navigationOptions: {
+      header: null
+    }
+  },
+
 });
 
 class Nav extends Component{

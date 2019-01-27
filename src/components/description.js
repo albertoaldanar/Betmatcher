@@ -24,7 +24,7 @@ class Description extends Component{
     }
   }
 
-  sendToConfirmation(route, params){
+  sendToConfirmation(route, user){
     let game = this.props.navigation.state.params.par;
     const options = [game.local, game.visit, "Draw"]
     const teamsNotSelected = options.filter(x => x!= this.state.teamSelected);
@@ -34,7 +34,7 @@ class Description extends Component{
     const navigateAction = NavigationActions.navigate({
       routeName: route,
       params: {
-                user: params,
+                user: user,
                 game: game,
                 teamSelected: this.state.teamSelected,
                 teamsNotSelected: index
@@ -168,7 +168,6 @@ class Description extends Component{
         </View>
 
         <Modal
-            animationType = "slide"
             transparent = {false}
             visible = {this.state.visible}
         >

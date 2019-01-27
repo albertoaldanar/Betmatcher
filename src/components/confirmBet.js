@@ -1,8 +1,30 @@
 import React, {Component} from "react";
-import {View, Text} from "react-native";
+import {View, Text, TouchableOpacity, Modal} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import {NavigationActions} from "react-navigation";
+import YouHaveMatch from "./youHaveMatch";
 
 class ConfirmBet extends Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      visible: false
+    }
+  }
+
+  postMatch(){
+    this.setState({visible: !this.state.visible})
+  }
+
+  sendToMatches(){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Match",
+      params: {}
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
+
   render(){
     const {user, game, teamSelected, teamsNotSelected} = this.props.navigation.state.params;
 
@@ -26,28 +48,49 @@ class ConfirmBet extends Component{
             </View>
         </View>
 
-        <View style = {{marginTop: 10}}>
+        <View style = {{marginTop: 35}}>
           <Text style = {styles.title}>Bet confirmation</Text>
 
           <View style = {styles.betInfo}>
             <View style = {styles.singleUser}>
-              <Text style = {styles.userName}>You</Text>
-              <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamSelected}</Text>
-              <Text style = {styles.secondText}>Bet: 60</Text>
-              <Text style = {styles.secondText}>AD: 21</Text>
+              <View style = {styles.info}>
+                  <Text style = {styles.userName}>You</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamSelected}</Text>
+                  <Text style = {styles.secondText}>Bet: {user.bet}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: 21</Text>
+              </View>
+
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
 
             <Text style = {styles.vs}>VS.</Text>
 
-            <View style = {styles.singleUser}>
-              <Text style = {styles.userName}>{user}</Text>
-              <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamsNotSelected}</Text>
-              <Text style = {styles.secondText}>Bet: 60</Text>
-              <Text style = {styles.secondText}>AD: 0</Text>
+            <View style = {[styles.singleUser, {backgroundColor: "#161616"}]}>
+              <View style = {styles.info}>
+                  <Text style = {styles.userName}>{user.user}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamsNotSelected}</Text>
+                  <Text style = {styles.secondText}>Bet: {user.bet}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: 0</Text>
+              </View>
+
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet + 21} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
           </View>
-
         </View>
+
+        <TouchableOpacity style = {styles.buttonMatch} onPress = {this.postMatch.bind(this)}>
+          <Text style = {{color: "#ffff", alignSelf:"center"}}>MATCH THIS BET</Text>
+        </TouchableOpacity>
+
+        <Modal
+          animationType = "Fade"
+          visible = {this.state.visible}
+        >
+          <YouHaveMatch
+            postMatch = {this.postMatch.bind(this)}
+            sendToMatches = {this.sendToMatches.bind(this)}
+          />
+        </Modal>
       </View>
     );
   }
@@ -56,7 +99,7 @@ class ConfirmBet extends Component{
 const styles ={
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#161616",
   },
   title: {
     color:"#ffff",
@@ -74,7 +117,7 @@ const styles ={
   card: {
     display: "flex",
     flexDirection: "row",
-    padding: 20
+    padding: 20,
   },
    text: {
     color: "#ffff",
@@ -86,7 +129,7 @@ const styles ={
     color: "#ffff",
     fontSize: 15,
     fontWeight: "300",
-    marginTop: 7,
+    marginTop: 10,
     textAlign: "left",
     paddingLeft: -5
   },
@@ -105,12 +148,9 @@ const styles ={
     justifyContent: "space-around"
   },
   singleUser: {
-    backgroundColor: "#161616",
+    backgroundColor: "black",
     flexDirection: "column",
-    marginTop: 20,
-    padding: 15,
-    paddingRight: 35,
-    paddingLeft: 35,
+    padding: 27,
     borderRadius: 3,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
@@ -121,7 +161,8 @@ const styles ={
     color: "#00B073",
     fontWeight: "400",
     fontSize: 18,
-    marginBottom: 5
+    marginBottom: 5,
+    alignSelf:"center"
   },
   vs: {
     fontWeight: "300",
@@ -129,6 +170,20 @@ const styles ={
      color:"#ffff",
      fontStyle: "oblique",
      marginTop: 70
+  },
+  info: {
+    alignSelf: "flex-start",
+    paddingLeft: -10,
+    borderBottomWidth: 2,
+    borderBottomColor: "gray"
+  },
+  buttonMatch: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#00B073",
+    padding: 15,
   }
 }
 

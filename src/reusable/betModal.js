@@ -20,7 +20,7 @@ class BetModal extends Component{
   userList(list){
     return list.map((u, index) => {
       return(
-        <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u.user)}>
+        <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u)}>
           <View style = {styles.tableStyle}>
             <Text style = {[styles.userTab , {color: "#00B073"}]}>{u.user}</Text>
             <Text style = {[styles.userTab, {color: "#DAA520"}]}>{u.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>

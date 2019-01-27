@@ -4,6 +4,7 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
 import UserList1 from "../constants/userList1";
 import UserList2 from "../constants/userList2";
+import {NavigationActions} from "react-navigation";
 
 const mainColor = "#00B073";
 
@@ -21,6 +22,15 @@ class Description extends Component{
       loading: false,
       index: 0
     }
+  }
+
+  sendToConfirmation(route, params){
+    const navigateAction = NavigationActions.navigate({
+      routeName: route,
+      params: {par: params}
+    });
+    this.props.navigation.dispatch(navigateAction);
+    this.setState({visible: false})
   }
 
   onSelectTeam(team){
@@ -114,7 +124,7 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected} = this.state;
     let game = this.props.navigation.state.params.par;
-    const options = [game.local, "Draw", game.visit]
+    const options = [game.local, game.visit, "Draw"]
     const teamsNotSelected = options.filter(x => x!= teamSelected);
 
     return(
@@ -157,8 +167,11 @@ class Description extends Component{
             choice = {betChoice} team = {teamSelected} index = {this.state.index}
             list1 = {UserList1}
             list2 = {UserList2}
+            game = {game}
             segmentedController = {this.handleSegmentedController.bind(this)}
-            visible = {this.showModal.bind(this)}/>
+            visible = {this.showModal.bind(this)}
+            confirm = {this.sendToConfirmation.bind(this)}
+          />
         </Modal>
       </View>
     );

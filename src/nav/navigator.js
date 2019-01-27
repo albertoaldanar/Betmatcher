@@ -6,6 +6,7 @@ import Top from "../components/top";
 import Friends from "../components/friends"
 import Description from "../components/description";
 import Match from "../components/match";
+import ConfirmBet from "../components/confirmBet";
 import Profile from "../components/profile";
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
@@ -92,6 +93,17 @@ const AppNavigator = StackNavigator({
     screen: Friends,
     navigationOptions: {
       title: "Betfreinds",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  ConfirmBet: {
+    screen: ConfirmBet,
+    navigationOptions: {
+      title: "Confirm Bet",
       headerTintColor: "#00B073",
       headerStyle: {
         backgroundColor: "black",

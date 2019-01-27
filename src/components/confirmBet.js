@@ -15,7 +15,7 @@ class ConfirmBet extends Component{
 
               <View>
                 <Text style = {styles.text}>{game.league}</Text>
-                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique"}]}>{game.time}</Text>
+                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{game.time}</Text>
 
                 <View style = {styles.game}>
                   <Text style = {styles.word}>{game.local}</Text>
@@ -32,11 +32,18 @@ class ConfirmBet extends Component{
           <View style = {styles.betInfo}>
             <View style = {styles.singleUser}>
               <Text style = {styles.userName}>You</Text>
-              <Text style = {styles.secondText}>{teamSelected}</Text>
+              <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamSelected}</Text>
+              <Text style = {styles.secondText}>Bet: 60</Text>
+              <Text style = {styles.secondText}>AD: 21</Text>
             </View>
+
+            <Text style = {styles.vs}>VS.</Text>
+
             <View style = {styles.singleUser}>
               <Text style = {styles.userName}>{user}</Text>
-              <Text style = {styles.secondText}>{teamsNotSelected}</Text>
+              <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamsNotSelected}</Text>
+              <Text style = {styles.secondText}>Bet: 60</Text>
+              <Text style = {styles.secondText}>AD: 0</Text>
             </View>
           </View>
 
@@ -77,10 +84,11 @@ const styles ={
   },
   secondText: {
     color: "#ffff",
-    fontSize: 12,
+    fontSize: 15,
     fontWeight: "300",
     marginTop: 7,
-    alignSelf: "center"
+    textAlign: "left",
+    paddingLeft: -5
   },
   game: {
     flexDirection:"row",
@@ -101,8 +109,8 @@ const styles ={
     flexDirection: "column",
     marginTop: 20,
     padding: 15,
-    paddingRight: 25,
-    paddingLeft: 25,
+    paddingRight: 35,
+    paddingLeft: 35,
     borderRadius: 3,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
@@ -111,8 +119,16 @@ const styles ={
   },
   userName: {
     color: "#00B073",
+    fontWeight: "400",
+    fontSize: 18,
+    marginBottom: 5
+  },
+  vs: {
     fontWeight: "300",
-    fontSize: 15
+     fontSize: 10,
+     color:"#ffff",
+     fontStyle: "oblique",
+     marginTop: 70
   }
 }
 

@@ -25,9 +25,20 @@ class Description extends Component{
   }
 
   sendToConfirmation(route, params){
+    let game = this.props.navigation.state.params.par;
+    const options = [game.local, game.visit, "Draw"]
+    const teamsNotSelected = options.filter(x => x!= this.state.teamSelected);
+
+    var index = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
+
     const navigateAction = NavigationActions.navigate({
       routeName: route,
-      params: {par: params}
+      params: {
+                user: params,
+                game: game,
+                teamSelected: this.state.teamSelected,
+                teamsNotSelected: index
+              }
     });
     this.props.navigation.dispatch(navigateAction);
     this.setState({visible: false})

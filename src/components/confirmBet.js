@@ -89,6 +89,9 @@ class ConfirmBet extends Component{
           <YouHaveMatch
             postMatch = {this.postMatch.bind(this)}
             sendToMatches = {this.sendToMatches.bind(this)}
+            user = {user}
+            teamSelected = {teamSelected}
+            teamsNotSelected = {teamsNotSelected}
           />
         </Modal>
       </View>

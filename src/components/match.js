@@ -88,7 +88,7 @@ class Match extends Component{
   render(){
     return(
       <View style = {styles.container}>
-        <Header/>
+        <Header title = "Matches"/>
         <SegmentedControlTab
             values={['Match ', 'Unmatched', "Finished"]}
             tabsContainerStyle = {styles.segmentedController}

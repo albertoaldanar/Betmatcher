@@ -1,8 +1,8 @@
 
  const User = {
-    won: 3,
-    lost: 0,
-    draw: 1,
+    won: 9,
+    lost: 1,
+    draw: 2,
     userName: "albertoaldanar",
     country: "Mexico",
     coins: 4500,

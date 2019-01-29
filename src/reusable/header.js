@@ -8,7 +8,7 @@ const Header = (props) => {
         <TouchableOpacity onPress={props.showSidebar}>
           <FontAwesome style ={styles.listIcon}>{Icons.list}</FontAwesome>
         </TouchableOpacity>
-        <Text style = {styles.title}>Betmatcher</Text>
+        <Text style = {styles.title}>{props.title}</Text>
         <TouchableOpacity>
           <FontAwesome style ={styles.listIcon}>{Icons.cogs}</FontAwesome>
         </TouchableOpacity>

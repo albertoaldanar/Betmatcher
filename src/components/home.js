@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Games from "../constants/games";
-import Leagues from "./leagues";
 import Header from "../reusable/header";
 import ImageSlider from 'react-native-image-slider';
 import LinearGradient from "react-native-linear-gradient";
@@ -11,17 +10,26 @@ import Requests from "../constants/requests";
 import Details from "../constants/eventsDetails";
 import Carousell from "../reusable/carousel";
 import GameCard from "../reusable/gameCard";
-import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
+import Menu from "../reusable/menu";
+import SideMenu from "react-native-side-menu";
+import { NavigationActions } from 'react-navigation';
 
 class Home extends Component{
 
   constructor(props){
     super(props);
-    this.state = {modalShows: false}
+    this.state = {showSidebar: false}
   }
 
-  onModalChange(){
-    this.setState({modalShows: !this.state.modalShows})
+  showSidebar(){
+    this.setState({showSidebar: true})
+  }
+
+  getRoute(){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "TopRequests"
+    })
+    this.props.navigation.dispatch(navigateAction);
   }
 
   renderLeagues(){
@@ -44,7 +52,7 @@ class Home extends Component{
   topRequests(){
     return Requests.map((r, index) => {
       return(
-        <TouchableOpacity key = {index}>
+        <TouchableOpacity key = {index} >
           <Card>
             <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
               <Text style = {styles.desc}>{r.local}</Text>
@@ -102,6 +110,7 @@ class Home extends Component{
   render(){
 
     console.log(Dimensions.get("window").width);
+    const menu = <Menu/>
 
     const images = [
       "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",
@@ -118,73 +127,69 @@ class Home extends Component{
     ]
 
     return(
-      <View style = {{flex: 1, backgroundColor: "black"}}>
-        <Header/>
-        <ScrollView>
-        <StatusBar hidden = {true}/>
+      <SideMenu
+        isOpen ={this.state.showSidebar}
+        menu = {menu}
+      >
+        <View style = {{flex: 1, backgroundColor: "black"}}>
+          <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)}/>
+          <ScrollView>
+          <StatusBar hidden = {true}/>
 
-        <View style = {styles.images}>
-            <ImageSlider
-                images= {images}
-                autoPlayWithInterval={2500}
-                customSlide={({ index, item, style, width }) => (
-                  <View key={index}>
-                    <Image source = {{uri: item}} style = {style} opacity = {0.35}/>
+          <View style = {styles.images}>
+              <ImageSlider
+                  images= {images}
+                  autoPlayWithInterval={2500}
+                  customSlide={({ index, item, style, width }) => (
+                    <View key={index}>
+                      <Image source = {{uri: item}} style = {style} opacity = {0.35}/>
 
-                    <View style = {styles.messageContainer}>
-                      <Text style = {styles.title}> {header[index]} </Text>
-                      <Text style = {styles.secondText}> {msg[index]} </Text>
-                      <TouchableOpacity style = {styles.button}>
-                        <Text style = {styles.buttonText}>BET NOW</Text>
-                      </TouchableOpacity>
+                      <View style = {styles.messageContainer}>
+                        <Text style = {styles.title}> {header[index]} </Text>
+                        <Text style = {styles.secondText}> {msg[index]} </Text>
+                        <TouchableOpacity style = {styles.button}>
+                          <Text style = {styles.buttonText}>BET NOW</Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                )}
-            />
-        </View>
-
-        <View>
-          <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-            <Text style = {styles.title}> Users top events </Text>
-            <TouchableOpacity>
-              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-            </TouchableOpacity>
-          </View>
-          {this.topEventDetials()}
-        </View>
-
-        <View style = {{marginTop: 15, marginBottom: 15}}>
-          <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-            <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
-            <TouchableOpacity>
-              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> More leagues <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-            </TouchableOpacity>
+                  )}
+              />
           </View>
 
-          <Carousell opacity = {0.55}/>
-        </View>
-
-        <View>
-          <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-            <Text style = {styles.title}> Unmatched bets </Text>
-            <TouchableOpacity>
-              <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-            </TouchableOpacity>
+          <View>
+            <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+              <Text style = {styles.title}> Users top events </Text>
+              <TouchableOpacity>
+                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+              </TouchableOpacity>
+            </View>
+            {this.topEventDetials()}
           </View>
-          {this.topRequests()}
-        </View>
 
-        <Modal
-            animationType ="slide"
-            transparent = {false}
-            visible = {this.state.modalShows}
-        >
-          <Leagues
-            closeModal = {this.onModalChange.bind(this)}
-          />
-        </Modal>
-        </ScrollView>
-      </View>
+          <View style = {{marginTop: 15, marginBottom: 15}}>
+            <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+              <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
+              <TouchableOpacity>
+                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> More leagues <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+              </TouchableOpacity>
+            </View>
+
+            <Carousell opacity = {0.55}/>
+          </View>
+
+          <View>
+            <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+              <Text style = {styles.title}> Unmatched bets </Text>
+              <TouchableOpacity onPress = {this.getRoute()}>
+                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+              </TouchableOpacity>
+            </View>
+            {this.topRequests()}
+          </View>
+
+          </ScrollView>
+        </View>
+      </SideMenu>
     );
   }
 }

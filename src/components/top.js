@@ -29,7 +29,7 @@ class Top extends Component{
         menu = {menu}
       >
         <View style = {{flex: 1, backgroundColor: "black"}}>
-          <Header showSidebar = {this.onPressButton.bind(this)}/>
+          <Header title = "Weekley Top" showSidebar = {this.onPressButton.bind(this)}/>
           <ScrollView>
             <GameCard data= {Games} route = "Description" nav = {this.props.navigation.dispatch}/>
           </ScrollView>

@@ -9,6 +9,7 @@ import Match from "../components/match";
 import ConfirmBet from "../components/confirmBet";
 import Profile from "../components/profile";
 import YouHaveMatch from "../components/youHaveMatch";
+import TopRequests from "../components/topRequests";
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 
@@ -116,6 +117,17 @@ const AppNavigator = StackNavigator({
     screen: YouHaveMatch,
     navigationOptions: {
       header: null
+    }
+  },
+  TopRequests: {
+    screen: TopRequests,
+    navigationOptions: {
+      title: "Top Unmatched",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
     }
   },
 

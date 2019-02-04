@@ -1,8 +1,13 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, Image} from "react-native";
+import {View, Text, TouchableOpacity, Image, LayoutAnimation} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class YouHaveMatch extends Component{
+
+  componentDidMount(){
+    LayoutAnimation.spring();
+  }
+
   render(){
     return(
         <View style = {styles.container}>

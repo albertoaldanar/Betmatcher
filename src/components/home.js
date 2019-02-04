@@ -52,21 +52,33 @@ class Home extends Component{
   topRequests(){
     return Requests.map((r, index) => {
       return(
-        <TouchableOpacity key = {index} >
-          <Card>
-            <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
-              <Text style = {styles.desc}>{r.local}</Text>
-              <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
-              <Text style = {styles.desc}>{r.visit}</Text>
-            </View>
+        <TouchableOpacity key = {index}>
+            <Card style = {{padding: 10}}>
+              <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
+                <Text style = {styles.desc}>{r.local}</Text>
+                <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
+                <Text style = {styles.desc}>{r.visit}</Text>
+              </View>
 
-            <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
-              <Text style = {styles.user}>{r.user}</Text>
-              <Text style = {[styles.game, {paddingRight: 10 , fontWeight: "bold", color: "#DAA520", fontSize: 14}]}>{r.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-              <Text style = {[styles.user, {paddingRight: 10}]}>{r.lay}</Text>
-              <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
-            </View>
-          </Card>
+              <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
+                <View>
+                  <Text style = {styles.exp}>User</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14}]}>{r.user}</Text>
+                </View>
+
+                <View>
+                  <Text style = {styles.exp}>Bet</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}>{r.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                </View>
+
+                <View>
+                  <Text style = {styles.exp}>For</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{r.lay}</Text>
+                </View>
+
+                <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
+              </View>
+            </Card>
         </TouchableOpacity>
       );
     })
@@ -160,7 +172,7 @@ class Home extends Component{
             <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
               <Text style = {styles.title}> Users top events </Text>
               <TouchableOpacity>
-                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
               </TouchableOpacity>
             </View>
             {this.topEventDetials()}
@@ -170,7 +182,7 @@ class Home extends Component{
             <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
               <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
               <TouchableOpacity>
-                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> More leagues <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
               </TouchableOpacity>
             </View>
 
@@ -180,8 +192,8 @@ class Home extends Component{
           <View>
             <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
               <Text style = {styles.title}> Unmatched bets </Text>
-              <TouchableOpacity onPress = {this.getRoute()}>
-                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> See more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+              <TouchableOpacity onPress ={this.getRoute()}>
+                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
               </TouchableOpacity>
             </View>
             {this.topRequests()}

@@ -3,7 +3,7 @@ const Details = [
     local: "Chelsea",
     visit: "Liverpool",
     matches: 12,
-    traded: 1579,
+    traded: 1,
     unmatchedBets: 7
   },
   {

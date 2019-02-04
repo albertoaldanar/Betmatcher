@@ -5,6 +5,7 @@ import BetModal from "../reusable/betModal";
 import UserList1 from "../constants/userList1";
 import UserList2 from "../constants/userList2";
 import {NavigationActions} from "react-navigation";
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const mainColor = "#00B073";
 
@@ -20,7 +21,8 @@ class Description extends Component{
       draw: false,
       visit: false,
       loading: false,
-      index: 0
+      index: 0,
+      showLightBox: false
     }
   }
 
@@ -45,7 +47,8 @@ class Description extends Component{
   }
 
   onSelectTeam(team){
-    this.setState({ teamSelected: team, loading: false})
+    const {showLightBox} = this.state;
+    this.setState({ teamSelected: team, loading: false, showLightBox: true})
     this.birghtColor(team);
   }
 
@@ -70,13 +73,8 @@ class Description extends Component{
     }
   }
 
-  loadingApi(){
-    const {loading} = this.state;
-    return loading ? <ActivityIndicator size="large" color={mainColor} /> : this.backOrLay()
-  }
-
   showModal(){
-    this.setState({visible: !this.state.visible})
+    this.setState({visible: !this.state.visible, showLightBox: false, teamSelected: ""})
   }
 
   renderButton(){
@@ -113,27 +111,8 @@ class Description extends Component{
         }
   }
 
-  backOrLay(){
-    const {teamSelected} = this.state;
-    if(teamSelected){
-      return(
-        <View style = {styles.backLay}>
-          <TouchableOpacity style = {{backgroundColor: "#F08080", padding: 15}} onPress = {() => this.setState({visible: true, betChoice: 1})}>
-            <Text style = {{color: "#ffff"}}>14 users to match</Text>
-          </TouchableOpacity>
-
-          <Text style = {{color: mainColor, marginTop: 12, fontSize: 15}}> or </Text>
-
-          <TouchableOpacity style = {{backgroundColor: "#ADD8E6", padding: 15}} onPress = {() => this.setState({visible: true, betChoice: 2})}>
-            <Text style = {{color: "#ffff"}}> Make new bet</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    } else return null
-  }
-
   render(){
-    const {betChoice, teamSelected} = this.state;
+    const {betChoice, teamSelected, showLightBox} = this.state;
     let game = this.props.navigation.state.params.par;
     const options = [game.local, game.visit, "Draw"]
     const teamsNotSelected = options.filter(x => x!= teamSelected);
@@ -163,10 +142,6 @@ class Description extends Component{
           {this.renderButton()}
         </View>
 
-        <View style = {styles.space}>
-          {this.loadingApi()}
-        </View>
-
         <Modal
             transparent = {false}
             visible = {this.state.visible}
@@ -183,6 +158,31 @@ class Description extends Component{
             confirm = {this.sendToConfirmation.bind(this)}
           />
         </Modal>
+
+        <AwesomeAlert
+          show={showLightBox}
+          showProgress={false}
+          progressColor= "#00B073"
+          title="14 users to match"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="Match a user"
+          confirmText="Make new bet"
+          confirmButtonColor="#87CEEB"
+          onCancelPressed={() => {
+            this.setState({visible: true, betChoice: 1, showLightBox: false})
+          }}
+          onConfirmPressed={() => {
+            this.setState({visible: true, betChoice: 2, showLightBox: false})
+          }}
+          titleStyle = {{color: "#00B073"}}
+          cancelButtonColor =  "#00B073"
+          cancelButtonStyle = {{padding: 20}}
+          confirmButtonStyle = {{padding: 20}}
+          alertContainerStyle = {{padding: 40}}
+        />
       </View>
     );
   }

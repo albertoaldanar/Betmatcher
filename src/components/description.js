@@ -20,9 +20,11 @@ class Description extends Component{
       local: false,
       draw: false,
       visit: false,
-      loading: false,
       index: 0,
-      showLightBox: false
+      showLightBox: false,
+      message: "",
+      loading: true,
+      showButtons: false
     }
   }
 
@@ -46,10 +48,24 @@ class Description extends Component{
     this.setState({visible: false})
   }
 
+  renderUsersToMatch(){
+    return fetch("http://192.168.0.3:3000/api/variable")
+      .then(res => res.json())
+        .then(response => {
+          this.setState({
+            message:` ${response.data} users to match`,
+            loading: false,
+            showButtons: true
+          })
+        })
+      this.setState({loading: false})
+  }
+
   onSelectTeam(team){
     const {showLightBox} = this.state;
-    this.setState({ teamSelected: team, loading: false, showLightBox: true})
+    this.setState({ teamSelected: team, showLightBox: true})
     this.birghtColor(team);
+    this.renderUsersToMatch();
   }
 
   handleSegmentedController(index){
@@ -145,6 +161,7 @@ class Description extends Component{
         <Modal
             transparent = {false}
             visible = {this.state.visible}
+            animationType = "Fade"
         >
 
           <BetModal
@@ -161,27 +178,27 @@ class Description extends Component{
 
         <AwesomeAlert
           show={showLightBox}
-          showProgress={false}
+          showProgress={this.state.loading}
           progressColor= "#00B073"
-          title="14 users to match"
+          title= {this.state.message}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
+          showCancelButton={this.state.showButtons}
+          showConfirmButton={this.state.showButtons}
           cancelText="Match a user"
           confirmText="Make new bet"
-          confirmButtonColor="#87CEEB"
+          confirmButtonColor="#DAA520"
           onCancelPressed={() => {
             this.setState({visible: true, betChoice: 1, showLightBox: false})
           }}
           onConfirmPressed={() => {
             this.setState({visible: true, betChoice: 2, showLightBox: false})
           }}
-          titleStyle = {{color: "#00B073"}}
+          titleStyle = {{color: "#00B073", fontStyle:"oblique", fontWeight:"bold", fontSize: 20}}
           cancelButtonColor =  "#00B073"
-          cancelButtonStyle = {{padding: 20}}
-          confirmButtonStyle = {{padding: 20}}
-          alertContainerStyle = {{padding: 40}}
+          contentContainerStyle = {{padding: 25, borderRadius: 5}}
+          cancelButtonTextStyle = {{fontSize: 15}}
+          confirmButtonTextStyle = {{fontSize: 15}}
         />
       </View>
     );
@@ -240,7 +257,7 @@ const styles = {
     marginRight: 20,
     paddingRight: 90,
     paddingLeft: 90,
-    borderRadius: 3,
+    borderRadius: 25,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
     shadowOpacity: 1,
@@ -255,7 +272,7 @@ const styles = {
     marginRight: 20,
     paddingRight: 90,
     paddingLeft: 90,
-    borderRadius: 3,
+    borderRadius: 25,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
     shadowOpacity: 1,

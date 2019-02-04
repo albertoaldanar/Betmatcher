@@ -13,6 +13,10 @@ Images = [
     image: "https://images.covers.com/editorial/2017/nbachampionshiptrophy.jpg",
   },
   {
+    text: "Wimbledon",
+    image: "https://img.designswan.com/2015/04/trophie/5.jpg",
+  },
+  {
     text: "NFL",
     image: "https://mm.aiircdn.com/61/582f36c874ef0.jpg",
   },

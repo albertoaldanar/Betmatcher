@@ -133,6 +133,9 @@ class Description extends Component{
     const options = [game.local, game.visit, "Draw"]
     const teamsNotSelected = options.filter(x => x!= teamSelected);
 
+    var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
+
+
     return(
       <View style = {styles.container}>
 
@@ -154,6 +157,8 @@ class Description extends Component{
             </View>
         </View>
 
+        <Text style = {[styles.title, {marginBottom: 20}]}>Select a team</Text>
+
         <View style = {[styles.space, {marginRight: 15, marginLeft: 15}]}>
           {this.renderButton()}
         </View>
@@ -169,6 +174,7 @@ class Description extends Component{
             choice = {betChoice} team = {teamSelected} index = {this.state.index}
             list1 = {UserList1}
             list2 = {UserList2}
+            rivalChoice = {myIndex}
             game = {game}
             segmentedController = {this.handleSegmentedController.bind(this)}
             visible = {this.showModal.bind(this)}
@@ -187,7 +193,7 @@ class Description extends Component{
           showConfirmButton={this.state.showButtons}
           cancelText="Match a user"
           confirmText="Make new bet"
-          confirmButtonColor="#DAA520"
+          confirmButtonColor="#1E90FF"
           onCancelPressed={() => {
             this.setState({visible: true, betChoice: 1, showLightBox: false})
           }}
@@ -196,7 +202,7 @@ class Description extends Component{
           }}
           titleStyle = {{color: "#00B073", fontStyle:"oblique", fontWeight:"bold", fontSize: 20}}
           cancelButtonColor =  "#00B073"
-          contentContainerStyle = {{padding: 25, borderRadius: 5}}
+          contentContainerStyle = {{padding: 15, borderRadius: 5}}
           cancelButtonTextStyle = {{fontSize: 15}}
           confirmButtonTextStyle = {{fontSize: 15}}
         />
@@ -249,19 +255,21 @@ const styles = {
     alignSelf: "center"
   },
   button: {
-    backgroundColor: "#161616",
+    backgroundColor: "black",
     marginBottom: 20,
     justifyContent: "space-around",
+    borderColor:"white",
+    borderWidth:1,
     padding: 15,
     marginLeft:20,
     marginRight: 20,
     paddingRight: 90,
     paddingLeft: 90,
     borderRadius: 25,
-    shadowColor: 'black',
-    shadowOffset: { width: 0.5, height: 1 },
-    shadowOpacity: 1,
-    elevation: 1,
+    shadowColor: 'gray',
+    shadowOffset: { width: 2, height: 3 },
+    shadowOpacity: 4,
+    elevation: 3,
   },
   buttonSelected: {
     backgroundColor: "#00B073",
@@ -290,7 +298,7 @@ const styles = {
     justifyContent: "space-around"
   },
   space: {
-    marginBottom: 40
+    marginBottom: 25
   },
   t: {
     color: "white",

@@ -24,7 +24,7 @@ class BetModal extends Component{
           <View style = {styles.tableStyle}>
             <Text style = {[styles.userTab , {color: "#00B073"}]}>{u.user}</Text>
             <Text style = {[styles.userTab, {color: "#DAA520"}]}>{u.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-            <FontAwesome style = {styles.userTab}>{Icons.chevronRight}</FontAwesome>
+            <FontAwesome style = {[styles.userTab, {color:"white"}]}>{Icons.chevronRight}</FontAwesome>
           </View>
         </TouchableOpacity>
       );
@@ -38,7 +38,7 @@ class BetModal extends Component{
         <SegmentedControlTab
           values={this.props.teamsNotSelected}
           tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
-          tabStyle = {{borderColor: "#00B073", backgroundColor: "white"}}
+          tabStyle = {{borderColor: "#00B073", backgroundColor: "#161616"}}
           selectedIndex={this.props.index}
           activeTabStyle = {{backgroundColor: "#00B073"}}
           onTabPress={this.props.segmentedController}
@@ -54,14 +54,12 @@ class BetModal extends Component{
       if(this.props.index == 0){
         return(
             <View>
-              <Text style = {{alignSelf: "center", marginBottom: 10}}>Users who bet for {this.props.teamsNotSelected[0]}</Text>
               {this.userList(this.props.list1)}
             </View>
         );
       } else {
           return(
             <View>
-              <Text style = {{alignSelf: "center", marginBottom: 10}}>Users who bet for {this.props.teamsNotSelected[1]}</Text>
               {this.userList(this.props.list2)}
             </View>
 
@@ -86,21 +84,27 @@ class BetModal extends Component{
 
   render(){
     return(
-      <View style = {{flex: 1, backgroundColor: "white"}}>
+      <View style = {{flex: 1, backgroundColor: "#161616"}}>
 
-        <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
-          <Text style = {{color: "#00B073", fontSize: 17}}>
-            X
-          </Text>
-        </TouchableOpacity>
-        <Text style = {styles.choose}>Team selected: {this.props.team}</Text>
+        <View style ={{marginBottom: 15}}>
+          <View style = {styles.info}>
+            <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
+              <Text style = {{color: "#00B073", fontSize: 17}}>
+                Close
+              </Text>
+            </TouchableOpacity>
+            <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> 50440 <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+          </View>
+        </View>
 
-        <View style = {{paddingBottom: 20}}>
+        <View>
           {this.renderSegmentedController()}
         </View>
 
         <ScrollView>
-          {this.betChoice()}
+          <View style = {{marginTop: 10}}>
+            {this.betChoice()}
+          </View>
         </ScrollView>
       </View>
     );
@@ -115,15 +119,15 @@ const styles ={
     marginTop: 5
   },
   choose: {
-    fontSize: 18,
+    fontSize: 12,
     fontWeight: "500",
     alignSelf: "center",
-    marginBottom: 10,
+    marginBottom: 5,
     color: "#00B073"
   },
   closeModal: {
-    marginTop: 20,
-    marginLeft: 12,
+    marginTop: 12,
+    marginLeft: 16,
     fontWeight: "bold",
     fontSize: 13
   },
@@ -138,11 +142,25 @@ const styles ={
   },
   tableStyle: {
     flexDirection: "row",
-    backgroundColor: "#F5F5F5",
-    borderBottomWidth: 1,
-    borderBottomColor: "white",
+    backgroundColor:"black",
     justifyContent: "space-between",
-    marginBottom: 10
+    marginBottom: 15,
+    borderRadius: 5
+  },
+  info: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  teamsDescription: {
+    alignSelf: "center",
+    marginTop: 15
+  },
+  teamsText: {
+    color: "#00B073",
+    fontSize: 18,
+    fontWeight: "300",
+    marginBottom: 13,
   }
 };
 

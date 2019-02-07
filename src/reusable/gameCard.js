@@ -28,7 +28,7 @@ class GameCard extends Component{
               </View>
 
               <View style = {styles.match}>
-                <FontAwesome style= {[styles.chevron, {color: "gray", fontSize: 35, marginBottom: 15}]}>{Icons.circle}</FontAwesome>
+                <FontAwesome style= {[styles.chevron, {color: "gray", fontSize: 35, marginBottom: 15, borderRightWidth: 1, borderRightColor: "gray"}]}>{Icons.circle}</FontAwesome>
 
                 <View style = {{paddingRight: 90}}>
                   <Text style = {styles.text}>{d.local}</Text>

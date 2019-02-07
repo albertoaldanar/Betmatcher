@@ -1,11 +1,12 @@
 import React, {Component}from "react";
-import {View, Text, TouchableOpacity, Modal, ActivityIndicator} from "react-native";
+import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
 import UserList1 from "../constants/userList1";
 import UserList2 from "../constants/userList2";
 import {NavigationActions} from "react-navigation";
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { BarChart, Grid } from 'react-native-svg-charts'
 
 const mainColor = "#00B073";
 
@@ -49,7 +50,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.0.3:3000/api/variable")
+    return fetch("http://192.168.8.7:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -130,6 +131,8 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected, showLightBox} = this.state;
     let game = this.props.navigation.state.params.par;
+    const data   = [ 50, 10, 40, 95, -4, -24, null, 85, undefined, 0, 35, 53, -53, 24, 50, -20, -80 ]
+    const fill = "#00B073"
     const options = [game.local, game.visit, "Draw"]
     const teamsNotSelected = options.filter(x => x!= teamSelected);
 
@@ -162,6 +165,15 @@ class Description extends Component{
         <View style = {[styles.space, {marginRight: 15, marginLeft: 15}]}>
           {this.renderButton()}
         </View>
+        <Text style = {styles.title}>Activity</Text>
+          <BarChart
+                style={{ height: 200 }}
+                data={ data }
+                svg={{fill }}
+                contentInset={{ top: 30, bottom: 30 }}
+            >
+                <Grid/>
+            </BarChart>
 
         <Modal
             transparent = {false}
@@ -190,7 +202,7 @@ class Description extends Component{
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           showCancelButton={this.state.showButtons}
-          showConfirmButton={this.state.showButtons}
+          showConfirmButton={false}
           cancelText="Match a user"
           confirmText="Make new bet"
           confirmButtonColor="#1E90FF"
@@ -202,7 +214,13 @@ class Description extends Component{
           }}
           titleStyle = {{color: "#00B073", fontStyle:"oblique", fontWeight:"bold", fontSize: 20}}
           cancelButtonColor =  "#00B073"
-          contentContainerStyle = {{padding: 15, borderRadius: 5}}
+          contentContainerStyle = {{padding: 5, paddingBottom: 45, paddingTop: 45, borderRadius: 5,
+            backgroundColor: "black",
+            shadowColor: 'gray',
+            shadowOffset: { width: 2, height: 3 },
+            shadowOpacity: 4,
+            elevation: 3
+          }}
           cancelButtonTextStyle = {{fontSize: 15}}
           confirmButtonTextStyle = {{fontSize: 15}}
         />
@@ -214,13 +232,13 @@ class Description extends Component{
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#161616",
   },
   title: {
     color:"#ffff",
     fontSize: 15,
     fontWeight: "700",
-    margin: 10,
+    margin: 5,
     color: "#00B073"
   },
   icon: {
@@ -232,7 +250,8 @@ const styles = {
   card: {
     display: "flex",
     flexDirection: "row",
-    padding: 20
+    padding: 10,
+    paddingBottom: 16
   },
   text: {
     color: "#ffff",
@@ -265,11 +284,6 @@ const styles = {
     marginRight: 20,
     paddingRight: 90,
     paddingLeft: 90,
-    borderRadius: 25,
-    shadowColor: 'gray',
-    shadowOffset: { width: 2, height: 3 },
-    shadowOpacity: 4,
-    elevation: 3,
   },
   buttonSelected: {
     backgroundColor: "#00B073",
@@ -280,7 +294,6 @@ const styles = {
     marginRight: 20,
     paddingRight: 90,
     paddingLeft: 90,
-    borderRadius: 25,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
     shadowOpacity: 1,
@@ -298,7 +311,7 @@ const styles = {
     justifyContent: "space-around"
   },
   space: {
-    marginBottom: 25
+    marginBottom: 10
   },
   t: {
     color: "white",

@@ -6,6 +6,8 @@ import Details from "../constants/eventsDetails";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { AreaChart, Grid } from 'react-native-svg-charts'
+import * as shape from 'd3-shape'
 
 class Friends extends Component{
   constructor(props){
@@ -21,33 +23,19 @@ class Friends extends Component{
   }
 
   render(){
-    const {showLightBox} = this.state;
+    const data  = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+
     return(
       <View style = {styles.container}>
-        <AwesomeAlert
-          show={showLightBox}
-          showProgress={false}
-          progressColor= "#00B073"
-          title="14 users to match"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
-          cancelText="Match a user"
-          confirmText="Make new bet"
-          confirmButtonColor="red"
-          onCancelPressed={() => {
-            this.changeState();
-          }}
-          onConfirmPressed={() => {
-            this.changeState();
-          }}
-          titleStyle = {{color: "#00B073"}}
-          cancelButtonColor =  "#00B073"
-          cancelButtonStyle = {{padding: 20}}
-          confirmButtonStyle = {{padding: 20}}
-          alertContainerStyle = {{padding: 40}}
-        />
+        <AreaChart
+                style={{ height: 200 }}
+                data={ data }
+                contentInset={{ top: 30, bottom: 30 }}
+                curve={ shape.curveNatural }
+                svg={{ fill: '#00B073' }}
+            >
+                <Grid/>
+            </AreaChart>
       </View>
     );
   }

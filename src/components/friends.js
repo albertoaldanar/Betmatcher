@@ -6,8 +6,7 @@ import Details from "../constants/eventsDetails";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import AwesomeAlert from 'react-native-awesome-alerts';
-import { AreaChart, Grid } from 'react-native-svg-charts'
-import * as shape from 'd3-shape'
+import PieChart from 'react-native-pie-chart';
 
 class Friends extends Component{
   constructor(props){
@@ -24,18 +23,28 @@ class Friends extends Component{
 
   render(){
     const data  = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+    const series = [9,2,1];
+    const sliceColor = ['#00B073','#1FBED5','#DC143C'];
 
     return(
       <View style = {styles.container}>
-        <AreaChart
-                style={{ height: 200 }}
-                data={ data }
-                contentInset={{ top: 30, bottom: 30 }}
-                curve={ shape.curveNatural }
-                svg={{ fill: '#00B073' }}
-            >
-                <Grid/>
-            </AreaChart>
+          <PieChart
+            chart_wh={Dimensions.get('window').width * 0.50}
+            series={series}
+            sliceColor={sliceColor}
+            coverRadius={0.95}
+            coverFill={'black'}
+            doughnut= {true}
+            style ={{
+              alignSelf: "center",
+              marginTop: 7,
+              shadowColor: '#696969',
+              shadowOffset: { width: 1, height: 2 },
+              shadowOpacity: 3,
+              shadowRadius: 6,
+              elevation: 4,
+            }}
+          />
       </View>
     );
   }

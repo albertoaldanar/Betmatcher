@@ -4,42 +4,48 @@ const Games = [
     visit: "Red Sox",
     time: "5 FEB 9:00pm",
     league: "MLB",
-    sport: "Baseball"
+    sport: "Baseball",
+    image: "https://cdn1.iconfinder.com/data/icons/hawcons/32/700389-icon-2-baseball-512.png"
   },
   {
     local: "Barcelona",
     visit: "Real Madrid",
     time: "5 FEB 9:00pm",
     league: "La liga",
-    sport: "Soccer"
+    sport: "Soccer",
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
   },
   {
     local: "Valencia",
     visit: "Sevilla",
     time: "5 FEB 9:00pm",
     league: "La liga",
-    sport: "Soccer"
+    sport: "Soccer",
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
   },
   {
-    local: "McGregor",
-    visit: "Velazquez",
+    local: "Patriots",
+    visit: "Steelers",
     time: "5 FEB 9:00pm",
-    league: "UFC",
-    sport: "MMA"
+    league: "NFL",
+    sport: "Football",
+    image: "https://cdn2.iconfinder.com/data/icons/university-set-4/512/10-512.png"
   },
   {
     local: "Boca Juniors",
     visit: "River Plate",
     time: "5 FEB 9:00pm",
     league: "Copa Libertadores",
-    sport: "Soccer"
+    sport: "Soccer",
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
   },
   {
     local: "America",
     visit: "Chivas",
     time: "5 FEB 9:00pm",
     league: "Liga MX",
-    sport: "Soccer"
+    sport: "Soccer",
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
   }
 ]
 

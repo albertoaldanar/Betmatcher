@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Image} from "react-native";
 import Card from "./card";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import FontAwesome, {Icons} from "react-native-fontawesome";
@@ -28,7 +28,7 @@ class GameCard extends Component{
               </View>
 
               <View style = {styles.match}>
-                <FontAwesome style= {[styles.chevron, {color: "gray", fontSize: 35, marginBottom: 15, borderRightWidth: 1, borderRightColor: "gray"}]}>{Icons.circle}</FontAwesome>
+                <Image source = {{uri: d.image}} style = {{width: 45, height: 45, marginRight: 15}}/>
 
                 <View style = {{paddingRight: 90}}>
                   <Text style = {styles.text}>{d.local}</Text>

@@ -1,12 +1,14 @@
 import React, {Component}from "react";
-import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions} from "react-native";
+import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions, Image, ScrollView} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
 import UserList1 from "../constants/userList1";
 import UserList2 from "../constants/userList2";
 import {NavigationActions} from "react-navigation";
 import AwesomeAlert from 'react-native-awesome-alerts';
-import { BarChart, Grid } from 'react-native-svg-charts'
+import { BarChart, Grid, AreaChart } from 'react-native-svg-charts';
+import * as shape from "d3-shape";
+import DescChart from "../reusable/descChart";
 
 const mainColor = "#00B073";
 
@@ -141,11 +143,11 @@ class Description extends Component{
 
     return(
       <View style = {styles.container}>
-
+      <ScrollView>
         <View style = {styles.space}>
-            <Text style = {styles.title}>Game information</Text>
+            <Text style = {styles.title}>GAME INFORMATION</Text>
             <View style = {styles.card}>
-              <FontAwesome style = {styles.icon}>{Icons.circle}</FontAwesome>
+              <Image source = {{uri: game.image}} style = {{width: 60, height: 60, marginRight: 15}}/>
 
               <View>
                 <Text style = {styles.text}>{game.league}</Text>
@@ -160,20 +162,21 @@ class Description extends Component{
             </View>
         </View>
 
-        <Text style = {[styles.title, {marginBottom: 20}]}>Select a team</Text>
+        <Text style = {[styles.title, {marginBottom: 20}]}>SELECT A TEAM</Text>
 
         <View style = {[styles.space, {marginRight: 15, marginLeft: 15}]}>
           {this.renderButton()}
         </View>
-        <Text style = {styles.title}>Activity</Text>
-          <BarChart
-                style={{ height: 200 }}
-                data={ data }
-                svg={{fill }}
-                contentInset={{ top: 30, bottom: 30 }}
-            >
-                <Grid/>
-            </BarChart>
+
+        <Text style = {styles.title}>USER BEHAVIOR</Text>
+        <BarChart
+          style={{ height: 200 }}
+          data={ data }
+          svg={{fill }}
+          contentInset={{ top: 30, bottom: 30 }}
+        >
+          <Grid/>
+        </BarChart>
 
         <Modal
             transparent = {false}
@@ -199,10 +202,11 @@ class Description extends Component{
           showProgress={this.state.loading}
           progressColor= "#00B073"
           title= {this.state.message}
+          message = {`Users that bet against ${this.state.teamSelected} `}
           closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
+          closeOnHardwareBackPress={true}
           showCancelButton={this.state.showButtons}
-          showConfirmButton={false}
+          showConfirmButton={this.state.showButtons}
           cancelText="Match a user"
           confirmText="Make new bet"
           confirmButtonColor="#1E90FF"
@@ -214,7 +218,7 @@ class Description extends Component{
           }}
           titleStyle = {{color: "#00B073", fontStyle:"oblique", fontWeight:"bold", fontSize: 20}}
           cancelButtonColor =  "#00B073"
-          contentContainerStyle = {{padding: 5, paddingBottom: 45, paddingTop: 45, borderRadius: 5,
+          contentContainerStyle = {{padding: 5, paddingBottom: 35, paddingTop: 35, borderRadius: 5,
             backgroundColor: "black",
             shadowColor: 'gray',
             shadowOffset: { width: 2, height: 3 },
@@ -224,6 +228,7 @@ class Description extends Component{
           cancelButtonTextStyle = {{fontSize: 15}}
           confirmButtonTextStyle = {{fontSize: 15}}
         />
+        </ScrollView>
       </View>
     );
   }
@@ -260,7 +265,7 @@ const styles = {
     marginBottom: 6
   },
   game: {
-    flexDirection:"row",
+    flexDirection:"row"
   },
   word: {
     color: "white",
@@ -279,21 +284,17 @@ const styles = {
     justifyContent: "space-around",
     borderColor:"white",
     borderWidth:1,
-    padding: 15,
+    padding: 10,
     marginLeft:20,
     marginRight: 20,
-    paddingRight: 90,
-    paddingLeft: 90,
   },
   buttonSelected: {
     backgroundColor: "#00B073",
     marginBottom: 20,
     justifyContent: "space-around",
-    padding: 15,
+    padding: 10,
     marginLeft:20,
     marginRight: 20,
-    paddingRight: 90,
-    paddingLeft: 90,
     shadowColor: 'black',
     shadowOffset: { width: 0.5, height: 1 },
     shadowOpacity: 1,
@@ -318,6 +319,19 @@ const styles = {
     alignSelf: "center",
     fontSize: 18,
     fontWeight: "400"
+  },
+  desc: {
+    color: "#00B073",
+    fontSize : 15,
+    fontWeight:"400",
+    marginBottom: 10,
+    fontStyle:"oblique"
+  },
+  number: {
+    color:"white",
+    fontSize: 10,
+    textAlign: "center",
+    fontWeight:"bold"
   }
 }
 

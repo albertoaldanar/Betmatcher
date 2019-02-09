@@ -5,7 +5,10 @@ const Games = [
     time: "5 FEB 9:00pm",
     league: "MLB",
     sport: "Baseball",
-    image: "https://cdn1.iconfinder.com/data/icons/hawcons/32/700389-icon-2-baseball-512.png"
+    image: "https://cdn1.iconfinder.com/data/icons/hawcons/32/700389-icon-2-baseball-512.png",
+    traded: 1569,
+    matches: 6,
+    unmatched: 23,
   },
   {
     local: "Barcelona",
@@ -13,7 +16,10 @@ const Games = [
     time: "5 FEB 9:00pm",
     league: "La liga",
     sport: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    traded: 1569,
+    matches: 6,
+    unmatched: 23,
   },
   {
     local: "Valencia",
@@ -21,7 +27,10 @@ const Games = [
     time: "5 FEB 9:00pm",
     league: "La liga",
     sport: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    traded: 1569,
+    matches: 6,
+    unmatched: 23,
   },
   {
     local: "Patriots",
@@ -29,7 +38,10 @@ const Games = [
     time: "5 FEB 9:00pm",
     league: "NFL",
     sport: "Football",
-    image: "https://cdn2.iconfinder.com/data/icons/university-set-4/512/10-512.png"
+    image: "https://cdn2.iconfinder.com/data/icons/university-set-4/512/10-512.png",
+    traded: 1569,
+    matches: 6,
+    unmatched: 23,
   },
   {
     local: "Boca Juniors",
@@ -37,7 +49,10 @@ const Games = [
     time: "5 FEB 9:00pm",
     league: "Copa Libertadores",
     sport: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    traded: 1569,
+    matches: 6,
+    unmatched: 23,
   },
   {
     local: "America",
@@ -45,7 +60,10 @@ const Games = [
     time: "5 FEB 9:00pm",
     league: "Liga MX",
     sport: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png"
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    traded: 1569,
+    matches: 6,
+    unmatched: 23,
   }
 ]
 

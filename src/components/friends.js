@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Dimensions, TouchableOpacity} from "react-native";
+import {View, Text, Dimensions, TouchableOpacity, FlatList} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import CheckBox from 'react-native-check-box'
 import Details from "../constants/eventsDetails";
@@ -7,6 +7,7 @@ import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import AwesomeAlert from 'react-native-awesome-alerts';
 import PieChart from 'react-native-pie-chart';
+import AutoScrolling from "react-native-auto-scrolling"
 
 class Friends extends Component{
   constructor(props){
@@ -15,36 +16,36 @@ class Friends extends Component{
       showLightBox: true,
       users: 14
     }
+    this.mapArray = this.mapArray.bind(this);
   }
 
   changeState(){
     this.setState({showLightBox: !this.state.showLightBox})
   }
 
+  mapArray(arr){
+    return arr.map(x => {
+      return (
+        <View style = {{display: "flex", flexDirection:"row"}}>
+          <Text style= {{color: "white", marginRight: 10}}> {x} </Text>
+        </View>
+      );
+    })
+  }
+
   render(){
-    const data  = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
-    const series = [9,2,1];
-    const sliceColor = ['#00B073','#1FBED5','#DC143C'];
+    var myArray = "hello"
+    var pep = "HELLOOO"
 
     return(
       <View style = {styles.container}>
-          <PieChart
-            chart_wh={Dimensions.get('window').width * 0.50}
-            series={series}
-            sliceColor={sliceColor}
-            coverRadius={0.95}
-            coverFill={'black'}
-            doughnut= {true}
-            style ={{
-              alignSelf: "center",
-              marginTop: 7,
-              shadowColor: '#696969',
-              shadowOffset: { width: 1, height: 2 },
-              shadowOpacity: 3,
-              shadowRadius: 6,
-              elevation: 4,
-            }}
-          />
+          <AutoScrolling style={styles.scrolling2} endPaddingWidth={200} delay= {1000} duration ={6000}>
+            <Text style = {{color: "white"}}> "Traded"                                "chettooo"</Text>
+          </AutoScrolling>
+
+          <AutoScrolling style={styles.scrolling2} endPaddingWidth={200} delay= {1000} duration ={6000}>
+            <Text style = {{color: "white"}}> 55                               5999</Text>
+          </AutoScrolling>
       </View>
     );
   }
@@ -54,6 +55,14 @@ const styles = {
   container: {
     backgroundColor: "black",
     flex: 1
+  },
+  card: {
+    backgroundColor: "#161616",
+    padding: 25,
+    borderRadius: 5,
+    margin: 20,
+    elevation: 5,
+    shdowColor: "gray"
   }
 
 }

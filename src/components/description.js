@@ -1,14 +1,13 @@
 import React, {Component}from "react";
-import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions, Image, ScrollView} from "react-native";
+import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions, Image, ScrollView, FlatList} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
 import UserList1 from "../constants/userList1";
 import UserList2 from "../constants/userList2";
 import {NavigationActions} from "react-navigation";
 import AwesomeAlert from 'react-native-awesome-alerts';
-import { BarChart, Grid, AreaChart } from 'react-native-svg-charts';
-import * as shape from "d3-shape";
 import DescChart from "../reusable/descChart";
+import GameInfo from "../reusable/gameInfo";
 
 const mainColor = "#00B073";
 
@@ -133,8 +132,6 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected, showLightBox} = this.state;
     let game = this.props.navigation.state.params.par;
-    const data   = [ 50, 10, 40, 95, -4, -24, null, 85, undefined, 0, 35, 53, -53, 24, 50, -20, -80 ]
-    const fill = "#00B073"
     const options = [game.local, game.visit, "Draw"]
     const teamsNotSelected = options.filter(x => x!= teamSelected);
 
@@ -143,9 +140,11 @@ class Description extends Component{
 
     return(
       <View style = {styles.container}>
-      <ScrollView>
+        <GameInfo/>
+
+        <ScrollView>
         <View style = {styles.space}>
-            <Text style = {styles.title}>GAME INFORMATION</Text>
+            <Text style = {[styles.title, {paddingTop: 10}]}>GAME INFORMATION</Text>
             <View style = {styles.card}>
               <Image source = {{uri: game.image}} style = {{width: 60, height: 60, marginRight: 15}}/>
 
@@ -168,20 +167,10 @@ class Description extends Component{
           {this.renderButton()}
         </View>
 
-        <Text style = {styles.title}>USER BEHAVIOR</Text>
-        <BarChart
-          style={{ height: 200 }}
-          data={ data }
-          svg={{fill }}
-          contentInset={{ top: 30, bottom: 30 }}
-        >
-          <Grid/>
-        </BarChart>
-
         <Modal
             transparent = {false}
             visible = {this.state.visible}
-            animationType = "Fade"
+            animationType = "fade"
         >
 
           <BetModal
@@ -332,6 +321,22 @@ const styles = {
     fontSize: 10,
     textAlign: "center",
     fontWeight:"bold"
+  },
+  infoCards: {
+    backgroundColor: "#161616",
+    padding: 25,
+    borderRadius: 5,
+    margin: 20,
+    elevation: 5,
+    shdowColor: "gray"
+  },
+  card2: {
+    backgroundColor: "black",
+    padding: 25,
+    borderRadius: 5,
+    margin: 20,
+    elevation: 5,
+    shdowColor: "gray"
   }
 }
 

@@ -37,7 +37,8 @@ class GameInfo extends Component{
   }
 
   render(){
-    const data2  = [{desc: "Traded", number: "1500 $"}, {desc: "Matches", number: 7}, {desc: "Unmatched", number: 13}, {desc: "Ny Yankees", number: "67 %"}, {desc: "Red Sox", number: "27 %"}];
+    const data2  = [{desc: "Traded", number: "1500 $"}, {desc: "Matches", number: 7.0}, {desc: "Unmatched", number: 13.0}, {desc: "Ny Yankees", number: "67 %"}, {desc: "Red Sox", number: "27 %"}];
+
     return(
       <View style = {styles.container}>
         <FlatList
@@ -67,9 +68,10 @@ class GameInfo extends Component{
 const styles = {
 
   container: {
-    borderBottomWidth: 0.3,
+    borderBottomWidth: 0.4,
     borderBottomColor: "gray",
-    marginBottom: 15,
+    shadowOffset: {width: 1, height:2},
+    shadowColor: "white",
   },
   card: {
     padding: 10,
@@ -83,9 +85,9 @@ const styles = {
     shdowColor: "gray",
   },
   desc: {
-    color: "#00B073",
+    color: "#DCDCDC",
     fontSize: 15,
-    fontWeight: "500",
+    fontWeight: "400",
     marginBottom: 10,
     alignSelf: "center",
     fontStyle: "oblique"
@@ -93,7 +95,7 @@ const styles = {
   number: {
     color:"#DAA520",
     fontSize: 13,
-    fontWeight: "800",
+    fontWeight: "400",
     alignSelf:"center"
   }
 }

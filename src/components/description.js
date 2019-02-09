@@ -51,7 +51,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.8.7:3000/api/variable")
+    return fetch("http://192.168.0.3:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -144,7 +144,6 @@ class Description extends Component{
 
         <ScrollView>
         <View style = {styles.space}>
-            <Text style = {[styles.title, {paddingTop: 10}]}>GAME INFORMATION</Text>
             <View style = {styles.card}>
               <Image source = {{uri: game.image}} style = {{width: 60, height: 60, marginRight: 15}}/>
 
@@ -161,11 +160,14 @@ class Description extends Component{
             </View>
         </View>
 
-        <Text style = {[styles.title, {marginBottom: 20}]}>SELECT A TEAM</Text>
+        <Text style = {[styles.title, {marginBottom: 20}]}>Select a team</Text>
 
         <View style = {[styles.space, {marginRight: 15, marginLeft: 15}]}>
           {this.renderButton()}
         </View>
+
+        <Text style = {styles.title}>User Activity</Text>
+        <DescChart/>
 
         <Modal
             transparent = {false}
@@ -301,7 +303,8 @@ const styles = {
     justifyContent: "space-around"
   },
   space: {
-    marginBottom: 10
+    marginBottom: 10,
+    marginTop: 7
   },
   t: {
     color: "white",

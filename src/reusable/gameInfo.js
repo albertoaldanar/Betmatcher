@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, FlatList, Dimensions} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Dimensions} from "react-native";
 
 class GameInfo extends Component{
 
@@ -21,13 +21,13 @@ class GameInfo extends Component{
 
   scrolling() {
         var position = this.state.position + 5;
-        this.ticker.scrollToOffset({ offset: position, animated: true });
+        this.ticker.scrollTo({ x: position, y:0, animated: true });
 
-        let maxOffset = Dimensions.get("window").width - 80;
+        let maxOffset = Dimensions.get("window").width + 80;
 
 
         if (this.state.position > maxOffset) {
-             this.ticker.scrollToOffset({ offset: -200, animated: true })
+             this.ticker.scrollTo({ x: -200, y:0, animated: true })
              this.setState({position: -50})
 
         }
@@ -36,30 +36,87 @@ class GameInfo extends Component{
         }
   }
 
+  renderInfo(){
+    const {data} = this.props;
+    return(
+      <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0}}>
+        <View style = {styles.card}>
+            <Text style ={styles.desc}>
+                Traded
+            </Text>
+
+            <Text style ={styles.number}>
+                {data.traded} $
+            </Text>
+        </View>
+
+
+        <View style = {styles.card}>
+            <Text style ={[styles.desc]}>
+                Matches
+            </Text>
+
+            <Text style ={[styles.number, {color: "#D3D3D3"}]}>
+                {data.matches}
+            </Text>
+        </View>
+
+
+        <View style = {styles.card}>
+            <Text style ={styles.desc}>
+                Unmatched
+            </Text>
+
+            <Text style ={[styles.number, {color: "#D3D3D3"}]}>
+                {data.unmatched}
+            </Text>
+        </View>
+
+        <View style = {styles.card}>
+            <Text style ={styles.desc}>
+                Heighest bet
+            </Text>
+
+            <Text style ={styles.number}>
+                {data.topBet}
+            </Text>
+        </View>
+
+        <View style = {styles.card}>
+            <Text style ={styles.desc}>
+                {data.local}
+            </Text>
+
+            <Text style ={[styles.number, {color: "#00B073"}]}>
+                71%
+            </Text>
+        </View>
+
+
+        <View style = {styles.card}>
+            <Text style ={styles.desc}>
+                {data.visit}
+            </Text>
+
+            <Text style ={[styles.number, {color: "#B22222"}]}>
+                29%
+            </Text>
+        </View>
+      </View>
+    );
+  }
+
   render(){
-    const data2  = [{desc: "Traded", number: "1500 $"}, {desc: "Matches", number: 7.0}, {desc: "Unmatched", number: 13.0}, {desc: "Ny Yankees", number: "67 %"}, {desc: "Red Sox", number: "27 %"}];
+    console.log(this.props.data);
 
     return(
       <View style = {styles.container}>
-        <FlatList
-              data={data2}
-              horizontal = {true}
-              ref={(ref) => this.ticker = ref}
-              renderItem={({ item }) => {
-                return (
-                  <View style = {styles.card}>
-                    <Text style ={styles.desc}>
-                      {item.desc}
-                    </Text>
-
-                    <Text style ={styles.number}>
-                      {item.number}
-                    </Text>
-                  </View>
-                );
-              }}
-              keyExtractor={(item, index) => index}
-        />
+        <ScrollView
+          horizontal
+          ref={(ref) => this.ticker = ref}
+        >
+          {this.renderInfo()}
+        </ScrollView>
       </View>
     );
   }
@@ -70,8 +127,11 @@ const styles = {
   container: {
     borderBottomWidth: 0.4,
     borderBottomColor: "gray",
+    borderTopWidth: 0.4,
+    borderTopColor: "gray",
     shadowOffset: {width: 1, height:2},
     shadowColor: "white",
+    backgroundColor: "black"
   },
   card: {
     padding: 10,
@@ -85,18 +145,19 @@ const styles = {
     shdowColor: "gray",
   },
   desc: {
-    color: "#DCDCDC",
+    color: "white",
     fontSize: 15,
     fontWeight: "400",
-    marginBottom: 10,
+    marginBottom: 12,
     alignSelf: "center",
-    fontStyle: "oblique"
+    fontStyle: "oblique",
   },
   number: {
     color:"#DAA520",
-    fontSize: 13,
-    fontWeight: "400",
-    alignSelf:"center"
+    fontSize: 15,
+    fontWeight: "700",
+    alignSelf:"center",
+    fontFamily: "Courier New"
   }
 }
 

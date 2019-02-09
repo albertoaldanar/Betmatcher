@@ -51,7 +51,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.0.3:3000/api/variable")
+    return fetch("http://192.168.8.5:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -140,7 +140,7 @@ class Description extends Component{
 
     return(
       <View style = {styles.container}>
-        <GameInfo/>
+        <GameInfo data= {game}/>
 
         <ScrollView>
         <View style = {styles.space}>
@@ -235,7 +235,7 @@ const styles = {
     fontSize: 15,
     fontWeight: "700",
     margin: 5,
-    color: "#00B073"
+    color: "#00B073",
   },
   icon: {
     fontSize: 60,

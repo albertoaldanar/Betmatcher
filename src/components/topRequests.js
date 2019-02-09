@@ -63,7 +63,7 @@ const styles = {
     color:"#ffff",
     fontSize: 12,
     fontWeight: "600",
-    paddingRight: 5,
+    paddingRight: 5
   },
   user: {
     color:"#00B073",

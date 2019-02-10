@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {View, Text, TouchableOpacity, ScrollView, Dimensions} from "react-native";
+import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class GameInfo extends Component{
 
@@ -46,7 +47,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={styles.number}>
-                {data.traded} $
+                {data.traded}$
             </Text>
         </View>
 
@@ -56,7 +57,7 @@ class GameInfo extends Component{
                 Matches
             </Text>
 
-            <Text style ={[styles.number, {color: "#D3D3D3"}]}>
+            <Text style ={[styles.number, {color: "#00B073"}]}>
                 {data.matches}
             </Text>
         </View>
@@ -67,18 +68,8 @@ class GameInfo extends Component{
                 Unmatched
             </Text>
 
-            <Text style ={[styles.number, {color: "#D3D3D3"}]}>
+            <Text style ={[styles.number, {color: "#B22222"}]}>
                 {data.unmatched}
-            </Text>
-        </View>
-
-        <View style = {styles.card}>
-            <Text style ={styles.desc}>
-                Heighest bet
-            </Text>
-
-            <Text style ={styles.number}>
-                {data.topBet}
             </Text>
         </View>
 
@@ -88,7 +79,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={[styles.number, {color: "#00B073"}]}>
-                71%
+                71% <FontAwesome>{Icons.sortUp}</FontAwesome>
             </Text>
         </View>
 
@@ -99,7 +90,17 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={[styles.number, {color: "#B22222"}]}>
-                29%
+                29% <FontAwesome>{Icons.sortDown}</FontAwesome>
+            </Text>
+        </View>
+
+        <View style = {styles.card}>
+            <Text style ={styles.desc}>
+                Heighest bet
+            </Text>
+
+            <Text style ={styles.number}>
+                {data.topBet}$
             </Text>
         </View>
       </View>
@@ -125,17 +126,15 @@ class GameInfo extends Component{
 const styles = {
 
   container: {
-    borderBottomWidth: 0.4,
+    borderBottomWidth: 0.3,
     borderBottomColor: "gray",
-    borderTopWidth: 0.4,
+    borderTopWidth: 0.3,
     borderTopColor: "gray",
-    shadowOffset: {width: 1, height:2},
-    shadowColor: "white",
-    backgroundColor: "black"
+    backgroundColor: "black",
+
   },
   card: {
-    padding: 10,
-    paddingBottom: 5,
+    padding: 3,
     borderRadius: 5,
     margin: 15,
     marginRight: 30,
@@ -145,19 +144,18 @@ const styles = {
     shdowColor: "gray",
   },
   desc: {
-    color: "white",
-    fontSize: 15,
-    fontWeight: "400",
     marginBottom: 12,
     alignSelf: "center",
     fontStyle: "oblique",
+    color:"#ffff",
+    fontSize: 12,
+    fontWeight: "400",
   },
   number: {
     color:"#DAA520",
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "700",
     alignSelf:"center",
-    fontFamily: "Courier New"
   }
 }
 

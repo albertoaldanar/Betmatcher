@@ -51,7 +51,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.8.5:3000/api/variable")
+    return fetch("http://192.168.0.3:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -166,8 +166,9 @@ class Description extends Component{
           {this.renderButton()}
         </View>
 
-        <Text style = {styles.title}>User Activity</Text>
-        <DescChart/>
+        <Text style = {[styles.title, {marginBottom:15}]}>User Activity</Text>
+
+        <DescChart game= {game} />
 
         <Modal
             transparent = {false}

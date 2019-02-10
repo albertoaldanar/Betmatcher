@@ -6,6 +6,7 @@ import Details from "../constants/eventsDetails";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
+
 class Friends extends Component{
   constructor(props){
     super(props);
@@ -17,20 +18,10 @@ class Friends extends Component{
   }
 
   render(){
+
     return(
-      <View style = {styles.container}>
-        <ScrollView
-          horizontal
-        >
-          <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0}}>
-            <Text style = {{color: "white", marginRight: 15}}>TrADEEED</Text>
-            <Text style = {{color: "white", marginRight: 15}}> MATCHESº</Text>
-            <Text style = {{color: "white", marginRight: 15}}>UNMAthec</Text>
-            <Text style = {{color: "white", marginRight: 15}}>TrADEEED</Text>
-            <Text style = {{color: "white", marginRight: 15}}> MATCHESº</Text>
-            <Text style = {{color: "white", marginRight: 15}}>UNMAthec</Text>
-          </View>
-        </ScrollView>
+      <View>
+        <Text>ffff</Text>
       </View>
     );
   }

@@ -1,7 +1,8 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView, Slider} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Slider, Image} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
+import SwipeCards from 'react-native-swipe-cards';
 
 class BetModal extends Component{
 
@@ -17,18 +18,65 @@ class BetModal extends Component{
     this.setState({bet: value})
   }
 
+  onSwipeNext(card) {
+    alert("Nope")
+  }
+
+  cardDesing(cardData){
+    return(
+        <View style = {styles.tableStyle}>
+            <Image
+              source = {{uri: cardData.image}}
+              style = {{width: 40, height: 40, padding: 10, marginRight: 10, marginBottom: 15}}
+            />
+            <View>
+              <Text style = {[styles.userTab , {color: "#00B073"}]}>{cardData.user}</Text>
+              <Text style = {[styles.userTab, {color: "#DAA520"}]}>{cardData.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+            </View>
+        </View>
+    );
+  }
+
   userList(list){
     return list.map((u, index) => {
       return(
-        <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u)}>
+        <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u)}>
           <View style = {styles.tableStyle}>
-            <Text style = {[styles.userTab , {color: "#00B073"}]}>{u.user}</Text>
-            <Text style = {[styles.userTab, {color: "#DAA520"}]}>{u.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-            <FontAwesome style = {[styles.userTab, {color:"white"}]}>{Icons.chevronRight}</FontAwesome>
+            <View style = {{flexDirection: "row"}}>
+              <Image
+                source = {{uri: u.image}}
+                style = {styles.image}
+              />
+              <View style = {{marginTop: 5}}>
+                <Text style = {{color: "white", paddingBottom: 9, fontSize: 15}}>{u.user}</Text>
+                <Text style = {{color: "#DAA520", paddingBottom: 9}}>{u.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <Text style = {styles.country}>{u.country} <FontAwesome>{Icons.flag}</FontAwesome></Text>
+              </View>
+            </View>
+
+            <FontAwesome style = {{color:"#00B073", marginTop: 27, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
           </View>
+
         </TouchableOpacity>
       );
     })
+  }
+
+  userCard(list){
+    console.log("User1", list[1])
+      return(
+        <SwipeCards
+            cards={list}
+            renderCard={(cardData) =>
+              {this.cardDesing(cardData)}
+            }
+            renderNoMoreCards={() =>
+                <Text style = {{color: "white"}}>No more cards</Text>
+            }
+            handleYup={() => console.log("jerfe")}
+            handleNope={this.onSwipeNext.bind(this)}
+        />
+      );
   }
 
   renderSegmentedController(){
@@ -84,7 +132,7 @@ class BetModal extends Component{
 
   render(){
     return(
-      <View style = {{flex: 1, backgroundColor: "#161616"}}>
+      <View style = {{flex: 1, backgroundColor: "black"}}>
 
         <View style ={{marginBottom: 15}}>
           <View style = {styles.info}>
@@ -138,14 +186,14 @@ const styles ={
     margin: 15
   },
   userTab: {
-    padding: 20,
+    padding: 50,
   },
   tableStyle: {
-    flexDirection: "row",
-    backgroundColor:"black",
+    flexDirection:"row",
     justifyContent: "space-between",
-    marginBottom: 15,
-    borderRadius: 5
+    marginBottom: 3,
+    padding: 10,
+    backgroundColor: "#161616"
   },
   info: {
     display: "flex",
@@ -161,6 +209,20 @@ const styles ={
     fontSize: 18,
     fontWeight: "300",
     marginBottom: 13,
+  },
+  country: {
+    color: "gray",
+    fontWeight: "300",
+    fontSize: 13,
+    fontStyle: "oblique",
+    paddingBottom: 9
+  },
+  image: {
+    width: 40,
+    height: 40,
+    marginRight: 25,
+    marginTop: 15,
+    marginLeft: 5
   }
 };
 

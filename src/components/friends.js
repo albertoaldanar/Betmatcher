@@ -5,7 +5,8 @@ import CheckBox from 'react-native-check-box'
 import Details from "../constants/eventsDetails";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-import { LineChart, YAxis, Grid } from 'react-native-svg-charts'
+import { LineChart, YAxis, Grid } from 'react-native-svg-charts';
+import SwipeCards from 'react-native-swipe-cards';
 
 class Friends extends Component{
   constructor(props){
@@ -14,16 +15,35 @@ class Friends extends Component{
       showLightBox: true,
       users: 14
     }
+  }
 
+  handleYup (card) {
+    console.log(`Yup for ${card.text}`)
+  }
+  handleNope (card) {
+    console.log(`Nope for ${card.text}`)
+  }
+  handleMaybe (card) {
+    console.log(`Maybe for ${card.text}`)
   }
 
   render(){
 
     const data = [ 50, 10, 40, 95, 85, 91, 35, 53, 24, 50, ];
     const data2 = [ 40, 80, 91, 86, 99, 35, 53, 54, 110, ];
-    const contentInset = { top: 20, bottom: 20, left: 10 }
+    const contentInset = { top: 20, bottom: 20, left: 10 };
+
+
+    const cards = [
+        {text: 'Tomato', backgroundColor: 'red'},
+        {text: 'Aubergine', backgroundColor: 'purple'},
+        {text: 'Courgette', backgroundColor: 'green'},
+        {text: 'Blueberry', backgroundColor: 'blue'},
+        {text: 'Umm...', backgroundColor: 'cyan'},
+        {text: 'orange', backgroundColor: 'orange'},
+      ]
     return(
-      <View>
+      <View style = {styles.container}>
         <View style={styles.chart}>
                 <YAxis
                     data={ data }
@@ -64,6 +84,21 @@ class Friends extends Component{
                       <Grid/>
                   </LineChart>
             </View>
+
+              <SwipeCards
+                cards={cards}
+                renderCard={(cardData) =>
+                  <Text style= {{color: "white"}}>{cardData.text}</Text>
+                }
+                renderNoMoreCards={() =>
+                    <Text>No more cards</Text>
+                }
+
+                handleYup={this.handleYup}
+                handleNope={this.handleNope}
+                handleMaybe={this.handleMaybe}
+                hasMaybeAction
+              />
       </View>
     );
   }
@@ -71,7 +106,7 @@ class Friends extends Component{
 
 const styles = {
   container: {
-    backgroundColor: "black",
+    backgroundColor: "#161616",
     flex: 1
   },
   chart: {
@@ -86,6 +121,15 @@ const styles = {
     margin: 20,
     elevation: 5,
     shdowColor: "gray"
+  },
+  card: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 300,
+    height: 300,
+  },
+  noMoreCardsText: {
+    fontSize: 22,
   }
 
 }

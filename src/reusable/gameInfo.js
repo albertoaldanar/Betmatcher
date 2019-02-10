@@ -149,7 +149,6 @@ const styles = {
     borderBottomColor: "gray",
     borderTopWidth: 0.3,
     borderTopColor: "gray",
-    backgroundColor: "black",
 
   },
   card: {

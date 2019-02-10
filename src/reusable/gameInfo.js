@@ -20,11 +20,28 @@ class GameInfo extends Component{
      this.activeInterval = setInterval(this.scrolling, 200);
   }
 
+  renderDrawStat(){
+    const {data} = this.props;
+    if(data.sport == "Soccer"){
+      return(
+        <View style = {styles.card}>
+            <Text style ={styles.desc}>
+                Draw
+            </Text>
+
+            <Text style ={[styles.number, {color: "gray"}]}>
+                29%
+            </Text>
+        </View>
+      );
+    }else return null;
+  }
+
   scrolling() {
         var position = this.state.position + 5;
         this.ticker.scrollTo({ x: position, y:0, animated: true });
 
-        let maxOffset = Dimensions.get("window").width + 80;
+        let maxOffset = Dimensions.get("window").width + 35;
 
 
         if (this.state.position > maxOffset) {
@@ -82,6 +99,8 @@ class GameInfo extends Component{
                 71% <FontAwesome>{Icons.sortUp}</FontAwesome>
             </Text>
         </View>
+
+        {this.renderDrawStat()}
 
 
         <View style = {styles.card}>

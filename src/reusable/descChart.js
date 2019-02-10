@@ -38,7 +38,7 @@ class DescChart extends Component {
 
   render(){
     const data = [ 50, 10, 40, 95, 85, 91, 35, 53, 24, 50, ];
-    const data2 = [ 122, 120, 91, 86, 99, 35, 53, 24, 110, ];
+    const data2 = [ 40, 80, 91, 86, 99, 35, 53, 54, 110, ];
     const data3 = [ 10, 90, 112, 91, 55, 99, 35, 53, 11, 153, ];
     const contentInset = { top: 20, bottom: 20, left: 10 }
 

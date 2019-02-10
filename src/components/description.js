@@ -271,11 +271,10 @@ const styles = {
     alignSelf: "center"
   },
   button: {
-    backgroundColor: "black",
     marginBottom: 20,
     justifyContent: "space-around",
     borderColor:"white",
-    borderWidth:1,
+    borderWidth:0.4,
     padding: 10,
     marginLeft:20,
     marginRight: 20,

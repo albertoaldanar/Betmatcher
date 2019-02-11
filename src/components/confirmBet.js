@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, Modal} from "react-native";
+import {View, Text, TouchableOpacity, Modal, Image} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import YouHaveMatch from "./youHaveMatch";
@@ -31,9 +31,8 @@ class ConfirmBet extends Component{
     return(
       <View style = {styles.container}>
         <View style = {styles.space}>
-            <Text style = {styles.title}>Game information</Text>
             <View style = {styles.card}>
-              <FontAwesome style = {styles.icon}>{Icons.circle}</FontAwesome>
+              <Image source= {{uri: game.image}} style = {{width: 60, height: 60, marginTop:5, marginRight: 10}}/>
 
               <View>
                 <Text style = {styles.text}>{game.league}</Text>
@@ -48,42 +47,58 @@ class ConfirmBet extends Component{
             </View>
         </View>
 
-        <View style = {{marginTop: 35}}>
-          <Text style = {styles.title}>Bet confirmation</Text>
+          <View style = {{marginTop: 20}}>
+            <View style = {styles.confirmCard}>
+                <View style = {{flexDirection: "row", marginLeft: 10, marginBottom: 7}}>
+                  <Image style = {styles.image} source = {{uri: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png"}}/>
+                  <Text style = {styles.user}>albertoaaldana</Text>
+                </View>
 
-          <View style = {styles.betInfo}>
-            <View style = {styles.singleUser}>
-              <View style = {styles.info}>
-                  <Text style = {styles.userName}>You</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamSelected}</Text>
-                  <Text style = {styles.secondText}>Bet: {user.bet}</Text>
-                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: 21</Text>
-              </View>
+                <View style = {styles.descript}>
+                  <View>
+                    <Text style = {styles.explanation}>Bet</Text>
+                    <Text style = {[styles.explanation, {borderBottomWidth: 1, borderBottomColor: "white", marginBottom: 13}]}>Sport adv</Text>
+                    <Text style = {styles.explanation}>TOTAL</Text>
+                  </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                  <View>
+                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,450 $</Text>
+                    <Text style = {[styles.explanation, {color: "#DAA520",  marginBottom: 13}]}>122 $</Text>
+                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,672 $</Text>
+                  </View>
+                </View>
             </View>
 
-            <Text style = {styles.vs}>VS.</Text>
+            <Text style = {{fontStyle: "oblique", color: "white", justifyContent:"space-around", marginTop: 10, marginBottom: 10, marginLeft: 160}}>.VS</Text>
 
-            <View style = {[styles.singleUser, {backgroundColor: "#161616"}]}>
-              <View style = {styles.info}>
-                  <Text style = {styles.userName}>{user.user}</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold"}]}>{teamsNotSelected}</Text>
-                  <Text style = {styles.secondText}>Bet: {user.bet}</Text>
-                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: 0</Text>
-              </View>
+            <View style = {styles.confirmCard}>
+                <View style = {{flexDirection: "row", marginLeft: 10, marginBottom: 7}}>
+                  <Image style = {styles.image} source = {{uri: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png"}}/>
+                  <Text style = {styles.user}>pepeorget3</Text>
+                </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet + 21} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <View style = {styles.descript}>
+                  <View>
+                    <Text style = {styles.explanation}>Bet</Text>
+                    <Text style = {[styles.explanation, {borderBottomWidth: 1, borderBottomColor: "white", marginBottom: 13}]}>Sport adv</Text>
+                    <Text style = {styles.explanation}>TOTAL</Text>
+                  </View>
+
+                  <View>
+                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,450 $</Text>
+                    <Text style = {[styles.explanation, {color: "#DAA520",  marginBottom: 13}]}>0 $</Text>
+                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,450 $</Text>
+                  </View>
+                </View>
             </View>
           </View>
-        </View>
 
         <TouchableOpacity style = {styles.buttonMatch} onPress = {this.postMatch.bind(this)}>
           <Text style = {{color: "#ffff", alignSelf:"center"}}>MATCH THIS BET</Text>
         </TouchableOpacity>
 
         <Modal
-          animationType = "Fade"
+          animationType = "slide"
           visible = {this.state.visible}
         >
           <YouHaveMatch
@@ -120,7 +135,9 @@ const styles ={
   card: {
     display: "flex",
     flexDirection: "row",
-    padding: 20,
+    padding: 15,
+    paddingTop: 8,
+    paddingBottom: 8,
   },
    text: {
     color: "#ffff",
@@ -134,7 +151,8 @@ const styles ={
     fontWeight: "300",
     marginTop: 10,
     textAlign: "left",
-    paddingLeft: -5
+    paddingLeft: -5,
+    paddingBottom: 15
   },
   game: {
     flexDirection:"row",
@@ -150,30 +168,6 @@ const styles ={
     flexDirection: "row",
     justifyContent: "space-around"
   },
-  singleUser: {
-    backgroundColor: "black",
-    flexDirection: "column",
-    padding: 27,
-    borderRadius: 3,
-    shadowColor: 'black',
-    shadowOffset: { width: 0.5, height: 1 },
-    shadowOpacity: 1,
-    elevation: 1,
-  },
-  userName: {
-    color: "#00B073",
-    fontWeight: "400",
-    fontSize: 18,
-    marginBottom: 5,
-    alignSelf:"center"
-  },
-  vs: {
-    fontWeight: "300",
-     fontSize: 10,
-     color:"#ffff",
-     fontStyle: "oblique",
-     marginTop: 70
-  },
   info: {
     alignSelf: "flex-start",
     paddingLeft: -10,
@@ -187,6 +181,31 @@ const styles ={
     right: 0,
     backgroundColor: "#00B073",
     padding: 15,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    marginRight: 10,
+    marginLeft: 5
+  },
+  confirmCard: {
+    backgroundColor: "black",
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  user: {
+    color: "#00B073",
+    fontSize: 21,
+    marginTop: 8
+  },
+  descript: {
+    flexDirection:"row",
+    justifyContent:"space-around"
+  },
+  explanation: {
+    color: "gray",
+    fontWeight: "400",
+    marginBottom: 10
   }
 }
 

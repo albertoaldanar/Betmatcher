@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Dimensions, TouchableOpacity, FlatList, ScrollView} from "react-native";
+import {View, Text, Dimensions, TouchableOpacity, FlatList, ScrollView, Image} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import CheckBox from 'react-native-check-box'
 import Details from "../constants/eventsDetails";
@@ -85,20 +85,6 @@ class Friends extends Component{
                   </LineChart>
             </View>
 
-              <SwipeCards
-                cards={cards}
-                renderCard={(cardData) =>
-                  <Text style= {{color: "white"}}>{cardData.text}</Text>
-                }
-                renderNoMoreCards={() =>
-                    <Text>No more cards</Text>
-                }
-
-                handleYup={this.handleYup}
-                handleNope={this.handleNope}
-                handleMaybe={this.handleMaybe}
-                hasMaybeAction
-              />
       </View>
     );
   }
@@ -130,8 +116,27 @@ const styles = {
   },
   noMoreCardsText: {
     fontSize: 22,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    marginRight: 10,
+    marginLeft: 5
+  },
+  user: {
+    color: "#00B073",
+    fontSize: 21,
+    marginTop: 8
+  },
+  descript: {
+    flexDirection:"row",
+    justifyContent:"space-around"
+  },
+  explanation: {
+    color: "gray",
+    fontWeight: "400",
+    marginBottom: 10
   }
-
 }
 
 

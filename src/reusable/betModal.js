@@ -48,13 +48,12 @@ class BetModal extends Component{
                 style = {styles.image}
               />
               <View style = {{marginTop: 5}}>
-                <Text style = {{color: "white", paddingBottom: 9, fontSize: 15}}>{u.user}</Text>
-                <Text style = {{color: "#DAA520", paddingBottom: 9}}>{u.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-                <Text style = {styles.country}>{u.country} <FontAwesome>{Icons.flag}</FontAwesome></Text>
+                <Text style = {{color: "#DAA520", paddingBottom: 9, fontSize: 16}}>{u.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <Text style = {{color: "#00B073", paddingBottom: 9, fontSize: 15}}> {u.user}</Text>
               </View>
             </View>
 
-            <FontAwesome style = {{color:"#00B073", marginTop: 27, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
+            <FontAwesome style = {{color:"gray", marginTop: 27, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
           </View>
 
         </TouchableOpacity>
@@ -86,7 +85,7 @@ class BetModal extends Component{
         <SegmentedControlTab
           values={this.props.teamsNotSelected}
           tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
-          tabStyle = {{borderColor: "#00B073", backgroundColor: "#161616"}}
+          tabStyle = {{borderColor: "#00B073", backgroundColor: "black"}}
           selectedIndex={this.props.index}
           activeTabStyle = {{backgroundColor: "#00B073"}}
           onTabPress={this.props.segmentedController}
@@ -211,7 +210,7 @@ const styles ={
     marginBottom: 13,
   },
   country: {
-    color: "gray",
+    color: "#ffff",
     fontWeight: "300",
     fontSize: 13,
     fontStyle: "oblique",
@@ -221,7 +220,7 @@ const styles ={
     width: 40,
     height: 40,
     marginRight: 25,
-    marginTop: 15,
+    marginTop: 12,
     marginLeft: 5
   }
 };

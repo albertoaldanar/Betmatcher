@@ -47,51 +47,35 @@ class ConfirmBet extends Component{
             </View>
         </View>
 
-          <View style = {{marginTop: 20}}>
-            <View style = {styles.confirmCard}>
-                <View style = {{flexDirection: "row", marginLeft: 10, marginBottom: 7}}>
-                  <Image style = {styles.image} source = {{uri: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png"}}/>
-                  <Text style = {styles.user}>albertoaaldana</Text>
-                </View>
+        <View style = {{marginTop: 8}}>
+          <Text style = {styles.title}>Bet confirmation</Text>
 
-                <View style = {styles.descript}>
-                  <View>
-                    <Text style = {styles.explanation}>Bet</Text>
-                    <Text style = {[styles.explanation, {borderBottomWidth: 1, borderBottomColor: "white", marginBottom: 13}]}>Sport adv</Text>
-                    <Text style = {styles.explanation}>TOTAL</Text>
-                  </View>
+          <View style = {styles.betInfo}>
+            <View style = {[styles.singleUser, {backgroundColor: "black"}]}>
+              <View style = {styles.info}>
+                  <Text style = {styles.userName}>You</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15}]}>{teamSelected}</Text>
+                  <Text style = {styles.secondText}>Bet: {user.bet}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: 21</Text>
+              </View>
 
-                  <View>
-                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,450 $</Text>
-                    <Text style = {[styles.explanation, {color: "#DAA520",  marginBottom: 13}]}>122 $</Text>
-                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,672 $</Text>
-                  </View>
-                </View>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
 
-            <Text style = {{fontStyle: "oblique", color: "white", justifyContent:"space-around", marginTop: 10, marginBottom: 10, marginLeft: 160}}>.VS</Text>
+            <Text style = {styles.vs}>VS.</Text>
 
-            <View style = {styles.confirmCard}>
-                <View style = {{flexDirection: "row", marginLeft: 10, marginBottom: 7}}>
-                  <Image style = {styles.image} source = {{uri: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png"}}/>
-                  <Text style = {styles.user}>pepeorget3</Text>
-                </View>
+            <View style = {[styles.singleUser, {backgroundColor: "#161616"}]}>
+              <View style = {styles.info}>
+                  <Text style = {styles.userName}>{user.user}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected}</Text>
+                  <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {user.bet}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: 0</Text>
+              </View>
 
-                <View style = {styles.descript}>
-                  <View>
-                    <Text style = {styles.explanation}>Bet</Text>
-                    <Text style = {[styles.explanation, {borderBottomWidth: 1, borderBottomColor: "white", marginBottom: 13}]}>Sport adv</Text>
-                    <Text style = {styles.explanation}>TOTAL</Text>
-                  </View>
-
-                  <View>
-                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,450 $</Text>
-                    <Text style = {[styles.explanation, {color: "#DAA520",  marginBottom: 13}]}>0 $</Text>
-                    <Text style = {[styles.explanation, {color: "#DAA520"}]}>1,450 $</Text>
-                  </View>
-                </View>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet + 21} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
           </View>
+        </View>
 
         <TouchableOpacity style = {styles.buttonMatch} onPress = {this.postMatch.bind(this)}>
           <Text style = {{color: "#ffff", alignSelf:"center"}}>MATCH THIS BET</Text>
@@ -150,9 +134,8 @@ const styles ={
     fontSize: 15,
     fontWeight: "300",
     marginTop: 10,
-    textAlign: "left",
-    paddingLeft: -5,
-    paddingBottom: 15
+    textAlign: "right",
+    paddingBottom: 5
   },
   game: {
     flexDirection:"row",
@@ -164,9 +147,30 @@ const styles ={
     fontWeight: "bold"
   },
   betInfo:{
+    marginTop: 10,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around"
+  },
+  singleUser: {
+    flexDirection: "column",
+    padding: 20,
+    borderRadius: 3,
+  },
+  userName: {
+    color: "#00B073",
+    fontWeight: "500",
+    fontSize: 21,
+    marginBottom: 5,
+    alignSelf:"center"
+  },
+  vs: {
+    fontWeight: "300",
+     fontSize: 10,
+     color:"#ffff",
+     fontStyle: "oblique",
+     marginTop: 70,
+     fontSize: 15
   },
   info: {
     alignSelf: "flex-start",
@@ -181,31 +185,6 @@ const styles ={
     right: 0,
     backgroundColor: "#00B073",
     padding: 15,
-  },
-  image: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
-    marginLeft: 5
-  },
-  confirmCard: {
-    backgroundColor: "black",
-    paddingTop: 10,
-    paddingBottom: 10
-  },
-  user: {
-    color: "#00B073",
-    fontSize: 21,
-    marginTop: 8
-  },
-  descript: {
-    flexDirection:"row",
-    justifyContent:"space-around"
-  },
-  explanation: {
-    color: "gray",
-    fontWeight: "400",
-    marginBottom: 10
   }
 }
 

@@ -234,7 +234,7 @@ const styles = {
   title: {
     color:"#ffff",
     fontSize: 15,
-    fontWeight: "700",
+    fontWeight: "600",
     margin: 5,
     color: "#00B073",
   },

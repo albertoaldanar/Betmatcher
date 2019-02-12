@@ -13,25 +13,35 @@ class Leagues extends Component{
   render(){
     return(
       <View style = {styles.container}>
-        <Picker
-          itemStyle ={styles.pickerStyle}
-          selectedValue={this.state.league}
-          onValueChange={(itemValue, itemIndex) => this.setState({league: itemValue})}
-        >
-          <Picker.Item label="Premier League" value="premier" />
-          <Picker.Item label="La liga" value="laliga" />
-          <Picker.Item label="Bundesliga" value="bundesliga" />
-          <Picker.Item label="UEFA Champions League" value="champions" />
-          <Picker.Item label="Liga MX" value="ligamx" />
-        </Picker>
 
+        <Text style = {{marginTop: 10, color: "#DCDCDC", fontSize: 18, marginLeft: 16}}> X </Text>
+
+        <View>
+          <Text style = {{marginTop: 20, color: "#00B073", fontSize: 22, fontStyle: "oblique", alignSelf: "center"}}>Soccer Leagues</Text>
+        </View>
+
+        <View style = {styles.pickerContainer}>
+          <Picker
+            itemStyle ={styles.pickerStyle}
+            selectedValue={this.state.league}
+            onValueChange={(itemValue, itemIndex) => this.setState({league: itemValue})}
+          >
+            <Picker.Item label="UEFA Champions League (EU)" value="champions" />
+            <Picker.Item label= "Premier League (ENG)"value="premier" />
+            <Picker.Item label="La liga (ES)"  value="laliga" />
+            <Picker.Item label="Bundesliga" value="bundesliga" />
+            <Picker.Item label="Ligue Une (FR)"  value="ligueune" />
+            <Picker.Item label="Serie A (IT)" value="seriea" />
+            <Picker.Item label="Liga MX (MX)" value="ligamx" />
+          </Picker>
+        </View>
 
           <TouchableOpacity
-             onPress = {this.props.closeModal}
+             onPress = {this.props.close}
              style= {styles.button}
           >
            <Text style = {styles.buttonText}>
-              Search <FontAwesome style = {{fontSize: 20, color: "white"}}>{Icons.search}</FontAwesome>
+              Search
            </Text>
           </TouchableOpacity>
       </View>
@@ -42,26 +52,33 @@ class Leagues extends Component{
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "black",
-    justifyContent: "center"
+    backgroundColor: "#161616",
+    position: "relative"
   },
   button: {
     position: "absolute",
     backgroundColor: "#00B073",
-    padding: 15,
+    padding: 12,
     width: WIDTH,
-    bottom: 5
+    bottom: 0
   },
   buttonText: {
     color: "white",
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: "300",
   },
   pickerStyle: {
-    height: 400,
     color: "white",
-    marginBottom: 40
+    textAlign: "left",
+    height: 250
+  },
+  pickerContainer: {
+    justifyContent: 'center',
+    marginLeft: 10,
+    position: 'absolute',
+    top: 0, left: 0,
+    right: 0, bottom: 0,
   }
 }
 

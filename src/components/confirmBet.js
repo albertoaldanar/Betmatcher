@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, Modal, Image} from "react-native";
+import {View, Text, TouchableOpacity, Modal, Image, LayoutAnimation} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import YouHaveMatch from "./youHaveMatch";
@@ -14,6 +14,7 @@ class ConfirmBet extends Component{
   }
 
   postMatch(){
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     this.setState({visible: !this.state.visible})
   }
 
@@ -85,6 +86,7 @@ class ConfirmBet extends Component{
           animationType = "slide"
           visible = {this.state.visible}
         >
+
           <YouHaveMatch
             postMatch = {this.postMatch.bind(this)}
             sendToMatches = {this.sendToMatches.bind(this)}

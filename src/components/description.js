@@ -51,7 +51,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.0.3:3000/api/variable")
+    return fetch("http://192.168.0.12:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -274,7 +274,7 @@ const styles = {
     marginBottom: 20,
     justifyContent: "space-around",
     borderColor:"white",
-    borderWidth:0.4,
+    borderWidth:0.3,
     padding: 10,
     marginLeft:20,
     marginRight: 20,

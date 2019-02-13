@@ -75,7 +75,7 @@ const styles = {
   },
   pickerContainer: {
     justifyContent: 'center',
-    marginLeft: 10,
+    marginLeft: 15,
     position: 'absolute',
     top: 0, left: 0,
     right: 0, bottom: 0,

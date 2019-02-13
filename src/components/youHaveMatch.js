@@ -1,15 +1,17 @@
 import React, {Component} from "react";
 import {View, Text, TouchableOpacity, Image, LayoutAnimation} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import LinearGradient from "react-native-linear-gradient";
 
 class YouHaveMatch extends Component{
 
-  componentDidMount(){
+  componentWillUpdate(){
     LayoutAnimation.spring();
   }
 
   render(){
     return(
+
         <View style = {styles.container}>
             <View>
               <Text style = {styles.matchTitle}>You have a match!</Text>
@@ -18,21 +20,21 @@ class YouHaveMatch extends Component{
             <View style = {styles.users}>
               <View>
                 <Image
-                  source = {{uri: "https://png.pngtree.com/svg/20170104/__user_login_icon_307830.png"}}
+                  source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
                   style= {styles.image}
                 />
-                <Text style = {styles.text}>You</Text>
+                <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>You</Text>
                 <Text style = {styles.text}>{this.props.teamSelected}</Text>
               </View>
 
-              <Text style = {{fontWeight:"300", fontStyle: "oblique", marginTop: 15, color: "#ffff"}}>VS.</Text>
+              <Text style = {{fontWeight:"300", fontStyle: "oblique", marginTop: 40, color: "#ffff"}}>VS.</Text>
 
               <View>
                 <Image
-                  source = {{uri: "https://png.pngtree.com/svg/20170104/__user_login_icon_307830.png"}}
+                  source = {{uri: "https://pizzasundayclub.com/wp/wp-content/uploads/2016/08/george-profile-350-circle.png.png"}}
                   style= {styles.image}
                 />
-                <Text style = {styles.text}>{this.props.user.user}</Text>
+                <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>{this.props.user.user}</Text>
                 <Text style = {styles.text}>{this.props.teamsNotSelected}</Text>
               </View>
             </View>
@@ -43,7 +45,6 @@ class YouHaveMatch extends Component{
               <Text style = {styles.buttonText}>CONTINUE</Text>
             </TouchableOpacity>
         </View>
-
     );
   }
 }
@@ -55,15 +56,15 @@ const styles = {
   },
   matchTitle: {
     color:"#00B073",
-    fontWeight: "300",
+    fontWeight: "500",
     fontStyle: "oblique",
-    fontSize: 30,
+    fontSize: 40,
     alignSelf: "center",
-    marginTop: 35,
+    marginTop: 55,
   },
   buttonCointainer: {
     backgroundColor: "#00B073",
-    padding: 20,
+    padding: 14,
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -81,14 +82,15 @@ const styles = {
     marginTop: 30
   },
   image: {
-    width: 50,
-    height: 50
+    width: 90,
+    height: 90
   },
   text: {
     color: "white",
-    fontSize: 15,
+    fontSize: 18,
     alignSelf: "center",
-    marginTop: 7
+    marginTop: 10,
+    textAlign: "center"
   }
 }
 

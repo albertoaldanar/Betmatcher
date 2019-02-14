@@ -6,6 +6,7 @@ import Header from "../reusable/header";
 import Leagues from "./leagues";
 import ImageSlider from 'react-native-image-slider';
 import LinearGradient from "react-native-linear-gradient";
+import Lgs from "../constants/leagues";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
 import Details from "../constants/eventsDetails";
@@ -20,10 +21,6 @@ class Home extends Component{
   constructor(props){
     super(props);
     this.state = {showSidebar: false, leaguesModal: false}
-  }
-
-  showLeagues(){
-    this.setState({leaguesModal: !this.state.leaguesModal})
   }
 
   showSidebar(){
@@ -127,7 +124,7 @@ class Home extends Component{
   render(){
 
     console.log(Dimensions.get("window").width);
-    const menu = <Menu open= {this.showLeagues.bind(this)}/>
+    const menu = <Menu leagues= {Lgs}/>
 
     const images = [
       "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",
@@ -204,10 +201,6 @@ class Home extends Component{
             {this.topRequests()}
           </View>
           </ScrollView>
-
-          <Modal visible = {this.state.leaguesModal} animationType ="slide">
-            <Leagues close = {this.showLeagues.bind(this)}/>
-          </Modal>
         </View>
       </SideMenu>
     );

@@ -11,30 +11,27 @@ class Leagues extends Component{
   }
 
   render(){
+    let renderLeagues = this.props.league.leagues.map((l, i) => {
+      return <Picker.Item key = {i} label = {l} value ={l}/>
+    })
+
     return(
       <View style = {styles.container}>
 
-        <Text style = {{marginTop: 10, color: "#DCDCDC", fontSize: 18, marginLeft: 16}}> X </Text>
-
+        <TouchableOpacity onPress = {this.props.close}>
+          <Text style = {{marginTop: 10, color: "#DCDCDC", fontSize: 18, marginLeft: 16, fontWeight:"400"}}> X </Text>
+        </TouchableOpacity>
         <View>
-          <Text style = {{marginTop: 20, color: "#00B073", fontSize: 22, fontStyle: "oblique", alignSelf: "center"}}>Soccer Leagues</Text>
+          <Text style = {styles.title}>Soccer Leagues</Text>
         </View>
 
-        <View style = {styles.pickerContainer}>
-          <Picker
+        <Picker
             itemStyle ={styles.pickerStyle}
             selectedValue={this.state.league}
             onValueChange={(itemValue, itemIndex) => this.setState({league: itemValue})}
           >
-            <Picker.Item label="UEFA Champions League (EU)" value="champions" />
-            <Picker.Item label= "Premier League (ENG)"value="premier" />
-            <Picker.Item label="La liga (ES)"  value="laliga" />
-            <Picker.Item label="Bundesliga" value="bundesliga" />
-            <Picker.Item label="Ligue Une (FR)"  value="ligueune" />
-            <Picker.Item label="Serie A (IT)" value="seriea" />
-            <Picker.Item label="Liga MX (MX)" value="ligamx" />
-          </Picker>
-        </View>
+            {renderLeagues}
+        </Picker>
 
           <TouchableOpacity
              onPress = {this.props.close}
@@ -69,16 +66,23 @@ const styles = {
     fontWeight: "300",
   },
   pickerStyle: {
-    color: "white",
+    color: "#DCDCDC",
     textAlign: "left",
-    height: 250
+    height: 300
   },
   pickerContainer: {
     justifyContent: 'center',
-    marginLeft: 15,
+    marginLeft: 27,
     position: 'absolute',
     top: 0, left: 0,
     right: 0, bottom: 0,
+  },
+  title: {
+    marginTop: 20,
+    color: "#00B073",
+    fontSize: 29,
+    fontStyle: "oblique",
+    alignSelf: "center"
   }
 }
 

@@ -1,26 +1,43 @@
 import React, {Component} from "react";
-import {View, Text, FlatList, ScrollView, Image, TouchableOpacity} from "react-native";
+import {View, Text, FlatList, ScrollView, Image, TouchableOpacity, Modal} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
-import Lgs from "../constants/leagues";
+import Leagues from "../components/leagues";
 
 class Menu extends Component {
 
+  constructor(props){
+    super(props);
+    this.state= {
+      leaguesModal: false,
+      leagueSelected: ""
+    }
+  }
+
+  selectLeagues(leagues){
+    this.setState({leagueSelected: leagues})
+    this.closeOpenLeagues();
+  }
+
+  closeOpenLeagues(){
+    this.setState({leaguesModal: !this.state.leaguesModal})
+  }
+
   renderSport(){
-    return Lgs.map(item => {
+    return this.props.leagues.map((item, index) => {
       return(
         <View>
-          <TouchableOpacity style = {{flexDirection:"row", justifyContent: "space-between"}}onPress = {this.props.open}>
+          <TouchableOpacity key = {index} style = {{flexDirection:"row", justifyContent: "space-between"}} onPress = {this.selectLeagues.bind(this, item)}>
             <Text style = {styles.sport}> <Image source= {{uri: item.image}} style = {{width: 21, height: 21}}/> {item.name} </Text>
             <Text style = {{marginTop: 7, color: "gray"}}> {item.count} <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
           </TouchableOpacity>
         </View>
       );
     })
-
   }
 
   render(){
+    console.log(this.state.leagueSelected);
     return(
       <View style = {styles.container}>
           <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "black", "gray"]}>
@@ -48,6 +65,7 @@ class Menu extends Component {
               <View style ={{marginLeft: 8}}>
                 <Text style = {styles.sport}> How to bet?</Text>
                 <Text style = {styles.sport}> Change your coins</Text>
+                <Text style = {styles.sport}><FontAwesome>{Icons.comments}</FontAwesome> Live chat</Text>
               </View>
 
             <Text style  ={[styles.categorie, {marginTop: 12}]}> Account </Text>
@@ -56,6 +74,10 @@ class Menu extends Component {
               </View>
           </View>
           </ScrollView>
+
+          <Modal visible = {this.state.leaguesModal} animationType ="slide">
+            <Leagues close = {this.closeOpenLeagues.bind(this)} league = {this.state.leagueSelected}/>
+          </Modal>
       </View>
     );
   }

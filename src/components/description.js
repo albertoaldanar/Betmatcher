@@ -51,7 +51,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.0.12:3000/api/variable")
+    return fetch("http://192.168.0.3:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -262,8 +262,8 @@ const styles = {
   word: {
     color: "white",
     marginRight: 10,
-    fontSize:15,
-    fontWeight: "bold"
+    fontSize: 15,
+    fontWeight: "500"
   },
   betOptions: {
     display: "flex",

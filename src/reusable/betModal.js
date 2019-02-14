@@ -114,16 +114,22 @@ class BetModal extends Component{
         }
     } else if(this.props.choice == 2) {
           return(
-            <View style = {{ felx: 1, backgroundColor: "#ffff"}}>
+            <View style = {{ felx: 1, backgroundColor: "black"}}>
+              <View style = {{flexDirection:"row", alignSelf: "center"}}>
+                <Text style = {styles.layBet}>Set your bet for: </Text>
+                <Text style = {[styles.layBet, {fontWeight:"bold", marginLeft: 5, color: "#00B073"}]}>{this.props.team}</Text>
+              </View>
               <Slider
                 step= {1}
                 maximumValue={this.state.cUserCoins}
                 thumbTintColor = "#00B073"
-                maximumTrackImage = "#00B073"
+                minimumTrackTintColor = "#00B073"
                 onValueChange={this.setCoins.bind(this)}
                 value={this.state.bet}
+                thumbStyle ={{color: "#00B073"}}
               />
-              <Text style = {{alignSelf: "center"}}>{this.state.bet}</Text>
+
+              <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15}}>{this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
           );
     }
@@ -222,7 +228,22 @@ const styles ={
     marginRight: 25,
     marginTop: 12,
     marginLeft: 5
-  }
+  },
+  layBet: {
+    alignSelf: "center",
+    color: "white",
+    marginBottom: 15,
+    fontWeight:"400",
+    fontSize: 18
+  },
+  buttonCointainer: {
+    backgroundColor: "#00B073",
+    padding: 14,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0
+  },
 };
 
 export default BetModal;

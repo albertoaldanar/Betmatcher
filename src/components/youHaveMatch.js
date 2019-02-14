@@ -5,13 +5,12 @@ import LinearGradient from "react-native-linear-gradient";
 
 class YouHaveMatch extends Component{
 
-  componentWillUpdate(){
-    LayoutAnimation.spring();
+  componentWillMount(){
+    return LayoutAnimation.spring();
   }
 
   render(){
     return(
-
         <View style = {styles.container}>
             <View>
               <Text style = {styles.matchTitle}>You have a match!</Text>
@@ -56,11 +55,12 @@ const styles = {
   },
   matchTitle: {
     color:"#00B073",
-    fontWeight: "500",
+    fontWeight: "400",
     fontStyle: "oblique",
     fontSize: 40,
     alignSelf: "center",
     marginTop: 55,
+    marginBottom: 15
   },
   buttonCointainer: {
     backgroundColor: "#00B073",

@@ -7,6 +7,7 @@ import Header from "../reusable/header";
 import Menu from "../reusable/menu";
 import SideMenu from "react-native-side-menu";
 import GameCard from "../reusable/gameCard";
+import Lgs from "../constants/leagues";
 
 class Top extends Component{
 
@@ -21,7 +22,7 @@ class Top extends Component{
 
   render(){
     const {isOpen} = this.state;
-    const menu = <Menu/>
+    const menu = <Menu leagues ={Lgs}/>
 
     return(
       <SideMenu

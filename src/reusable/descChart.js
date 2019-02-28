@@ -22,7 +22,7 @@ class DescChart extends Component {
             numberOfTicks={ 10 }
             formatLabel={ value => `${value}$` }
           />
-          <Text style = {styles.title}>Draw</Text>
+          <Text style = {styles.title}>{this.props.game.draw.name}</Text>
           <LineChart
             style={{ flex: 1, marginLeft: 16, marginRight: 16 }}
             data={ data }
@@ -57,7 +57,7 @@ class DescChart extends Component {
                     formatLabel={ value => `${value}$` }
                 />
 
-                  <Text style = {styles.title}>{this.props.game.local}</Text>
+                  <Text style = {styles.title}>{this.props.game.local.name}</Text>
                     <LineChart
                         style={{ flex: 1, marginLeft: 16, marginRight: 20}}
                         data={ data }
@@ -80,7 +80,7 @@ class DescChart extends Component {
                     numberOfTicks={ 10 }
                     formatLabel={ value => `${value}$` }
                 />
-                  <Text style = {styles.title}>{this.props.game.visit}</Text>
+                  <Text style = {styles.title}>{this.props.game.visit.name}</Text>
                   <LineChart
                       style={{ flex: 1, marginLeft: 16 }}
                       data={ data2 }

@@ -31,9 +31,9 @@ class GameCard extends Component{
                 <Image source = {{uri: d.image}} style = {{width: 45, height: 45, marginRight: 15}}/>
 
                 <View style = {{paddingRight: 90}}>
-                  <Text style = {styles.text}>{d.local}</Text>
+                  <Text style = {styles.text}>{d.local.name}</Text>
                   <Text style = {[styles.text, {fontSize: 9, fontStyle: "oblique", fontWeight: "400"}]}>VS.</Text>
-                  <Text style = {styles.text}>{d.visit}</Text>
+                  <Text style = {styles.text}>{d.visit.name}</Text>
                 </View>
 
                 <FontAwesome style= {styles.chevron}>{Icons.chevronRight}</FontAwesome>

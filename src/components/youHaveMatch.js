@@ -13,7 +13,7 @@ class YouHaveMatch extends Component{
     return(
         <View style = {styles.container}>
             <View>
-              <Text style = {styles.matchTitle}>You have a match!</Text>
+              <Text style = {styles.matchTitle}>You have a match! </Text>
             </View>
 
             <View style = {styles.users}>
@@ -26,7 +26,7 @@ class YouHaveMatch extends Component{
                 <Text style = {styles.text}>{this.props.teamSelected}</Text>
               </View>
 
-              <Text style = {{fontWeight:"300", fontStyle: "oblique", marginTop: 40, color: "#ffff"}}>VS.</Text>
+              <Image source = {require('../images/flechasd.png')} style = {{width: 60, height: 60, alignSelf: "center"}}/>
 
               <View>
                 <Image
@@ -57,7 +57,7 @@ const styles = {
     color:"#00B073",
     fontWeight: "400",
     fontStyle: "oblique",
-    fontSize: 40,
+    fontSize: 33,
     alignSelf: "center",
     marginTop: 55,
     marginBottom: 15

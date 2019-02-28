@@ -43,13 +43,11 @@ class GameInfo extends Component{
 
         let maxOffset = Dimensions.get("window").width + 35;
 
-
         if (this.state.position > maxOffset) {
              this.ticker.scrollTo({ x: -200, y:0, animated: true })
              this.setState({position: -50})
 
-        }
-        else {
+        } else {
             this.setState({ position: position });
         }
   }
@@ -92,7 +90,7 @@ class GameInfo extends Component{
 
         <View style = {styles.card}>
             <Text style ={styles.desc}>
-                {data.local}
+                {data.local.name}
             </Text>
 
             <Text style ={[styles.number, {color: "#00B073"}]}>
@@ -105,7 +103,7 @@ class GameInfo extends Component{
 
         <View style = {styles.card}>
             <Text style ={styles.desc}>
-                {data.visit}
+                {data.visit.name}
             </Text>
 
             <Text style ={[styles.number, {color: "#B22222"}]}>
@@ -127,7 +125,6 @@ class GameInfo extends Component{
   }
 
   render(){
-    console.log(this.props.data);
 
     return(
       <View style = {styles.container}>

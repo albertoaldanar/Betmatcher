@@ -32,7 +32,7 @@ class Description extends Component{
 
   sendToConfirmation(route, user){
     let game = this.props.navigation.state.params.par;
-    const options = [game.local, game.visit, "Draw"]
+    const options = [game.local.name, game.visit.name, game.draw.name]
     const teamsNotSelected = options.filter(x => x!= this.state.teamSelected);
 
     var index = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
@@ -77,15 +77,15 @@ class Description extends Component{
   birghtColor(team){
     let game = this.props.navigation.state.params.par;
     switch(team){
-        case game.local:
+        case game.local.name:
           return this.setState({local: true, draw: false, visit: false})
           break;
 
-        case "Draw":
+        case game.draw.name:
           return this.setState({local: false, draw: true, visit: false})
           break;
 
-        case game.visit:
+        case game.visit.name:
           return this.setState({local: false, draw: false, visit: true})
           break;
     }
@@ -101,16 +101,16 @@ class Description extends Component{
       if(game.sport == "Soccer"){
         return(
           <View>
-            <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
-              <Text style = {styles.t}>{game.local}</Text>
+            <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local.name)}>
+              <Text style = {styles.t}>{game.local.name}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style = { draw ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, "Draw")}>
-              <Text style = {styles.t}>Draw</Text>
+            <TouchableOpacity style = { draw ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.draw.name)}>
+              <Text style = {styles.t}>{game.draw.name}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style = {visit ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
-              <Text style = {styles.t}>{game.visit}</Text>
+            <TouchableOpacity style = {visit ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.visit.name)}>
+              <Text style = {styles.t}>{game.visit.name}</Text>
             </TouchableOpacity>
           </View>
         );
@@ -118,11 +118,11 @@ class Description extends Component{
           return(
             <View>
               <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
-                <Text style = {styles.t}>{game.local}</Text>
+                <Text style = {styles.t}>{game.local.name}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style = {visit ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
-                <Text style = {styles.t}>{game.visit}</Text>
+                <Text style = {styles.t}>{game.visit.name}</Text>
               </TouchableOpacity>
             </View>
           );
@@ -132,11 +132,12 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected, showLightBox} = this.state;
     let game = this.props.navigation.state.params.par;
-    const options = [game.local, game.visit, "Draw"]
+    const options = [game.local.name, game.visit.name, game.draw.name]
     const teamsNotSelected = options.filter(x => x!= teamSelected);
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
+    console.log(teamSelected, teamsNotSelected);
 
     return(
       <View style = {styles.container}>
@@ -152,9 +153,9 @@ class Description extends Component{
                 <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique"}]}>{game.time}</Text>
 
                 <View style = {styles.game}>
-                  <Text style = {styles.word}>{game.local}</Text>
+                  <Text style = {styles.word}>{game.local.name}</Text>
                   <Text style = {[styles.word, {fontStyle: "oblique"}]}>VS.</Text>
-                  <Text style = {styles.word}>{game.visit}</Text>
+                  <Text style = {styles.word}>{game.visit.name}</Text>
                 </View>
               </View>
             </View>
@@ -208,7 +209,7 @@ class Description extends Component{
           onConfirmPressed={() => {
             this.setState({visible: true, betChoice: 2, showLightBox: false})
           }}
-          titleStyle = {{color: "#00B073", fontStyle:"oblique", fontWeight:"bold", fontSize: 20}}
+          titleStyle = {{color: "#ffff", fontStyle:"oblique", fontWeight:"bold", fontSize: 20}}
           cancelButtonColor =  "#00B073"
           contentContainerStyle = {{padding: 5, paddingBottom: 35, paddingTop: 35, borderRadius: 5,
             backgroundColor: "black",

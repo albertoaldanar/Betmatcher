@@ -11,27 +11,54 @@ class Leagues extends Component{
   }
 
   render(){
+    const pick = {
+      inputIOS: {
+        color: 'white',
+        paddingTop: 13,
+        paddingHorizontal: 10,
+        paddingBottom: 12,
+      },
+      inputAndroid: {
+        color: 'white',
+      },
+      placeholderColor: 'white',
+      underline: { borderTopWidth: 0 },
+      icon: {
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        borderTopWidth: 5,
+        borderTopColor: '#00000099',
+        borderRightWidth: 5,
+        borderRightColor: 'transparent',
+        borderLeftWidth: 5,
+        borderLeftColor: 'transparent',
+        width: 0,
+        height: 0,
+        top: 20,
+        right: 15,
+      },
+    };
+
     let renderLeagues = this.props.league.leagues.map((l, i) => {
       return <Picker.Item key = {i} label = {l} value ={l}/>
+
     })
 
     return(
       <View style = {styles.container}>
-
-        <TouchableOpacity onPress = {this.props.close}>
-          <Text style = {{marginTop: 10, color: "#DCDCDC", fontSize: 18, marginLeft: 16, fontWeight:"400"}}> X </Text>
-        </TouchableOpacity>
         <View>
-          <Text style = {styles.title}>Soccer Leagues</Text>
+          <Image source = {require('../images/flechasd.png')} style = {{width: 120, height: 110, alignSelf: "center", marginBottom: -10, marginTop: 15}}/>
+          <Text style = {styles.title}>{this.props.league.name} leagues</Text>
         </View>
-
-        <Picker
-            itemStyle ={styles.pickerStyle}
-            selectedValue={this.state.league}
-            onValueChange={(itemValue, itemIndex) => this.setState({league: itemValue})}
-          >
-            {renderLeagues}
-        </Picker>
+        <View style = {styles.pickerContainer}>
+          <Picker
+              itemStyle ={styles.pickerStyle}
+              selectedValue={this.state.league}
+              onValueChange={(itemValue, itemIndex) => this.setState({league: itemValue})}
+            >
+              {renderLeagues}
+          </Picker>
+        </View>
 
           <TouchableOpacity
              onPress = {this.props.close}
@@ -54,7 +81,7 @@ const styles = {
   },
   button: {
     position: "absolute",
-    backgroundColor: "#00B073",
+    backgroundColor: "#34D1B6",
     padding: 12,
     width: WIDTH,
     bottom: 0
@@ -68,18 +95,21 @@ const styles = {
   pickerStyle: {
     color: "#DCDCDC",
     textAlign: "left",
-    height: 300
+    height: 300,
+    fontSize: 20,
+    borderBottomColor: "white",
+    borderBottomWidth:1,
+    underline: { borderWidth: 0, borderColor: "white" },
   },
   pickerContainer: {
     justifyContent: 'center',
     marginLeft: 27,
     position: 'absolute',
-    top: 0, left: 0,
+    top: 0,left: 0,
     right: 0, bottom: 0,
   },
   title: {
-    marginTop: 20,
-    color: "#00B073",
+    color: "#34D1B6",
     fontSize: 29,
     fontStyle: "oblique",
     alignSelf: "center"

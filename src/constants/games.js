@@ -15,17 +15,17 @@ const Games = [
   {
     local: {
       name: "Barcelona",
-      quotes: [20, 35],
+      quotes: {a: 30, b: 39},
       position: 3
     },
     visit: {
       name: "Real Madrid",
-      quotes: [-20, 22],
+      quotes: {a: 30, b: 39},
       position: 2
     },
     draw: {
       name: "Draw",
-      quotes: [-35, -22],
+      quotes: {a: 30, b: 39},
       position: 1
     },
     time: "5 FEB 9:00pm",

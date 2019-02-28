@@ -51,7 +51,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.0.3:3000/api/variable")
+    return fetch("http://192.168.8.11:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -132,8 +132,8 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected, showLightBox} = this.state;
     let game = this.props.navigation.state.params.par;
-    const options = [game.local.name, game.visit.name, game.draw.name]
-    const teamsNotSelected = options.filter(x => x!= teamSelected);
+    const options = [game.local, game.visit, game.draw];
+    const teamsNotSelected = options.filter(x => x.name!= teamSelected);
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
@@ -174,7 +174,6 @@ class Description extends Component{
         <Modal
             transparent = {false}
             visible = {this.state.visible}
-            animationType = "fade"
         >
 
           <BetModal

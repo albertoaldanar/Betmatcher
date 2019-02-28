@@ -18,25 +18,6 @@ class BetModal extends Component{
     this.setState({bet: value})
   }
 
-  onSwipeNext(card) {
-    alert("Nope")
-  }
-
-  cardDesing(cardData){
-    return(
-        <View style = {styles.tableStyle}>
-            <Image
-              source = {{uri: cardData.image}}
-              style = {{width: 40, height: 40, padding: 10, marginRight: 10, marginBottom: 15}}
-            />
-            <View>
-              <Text style = {[styles.userTab , {color: "#00B073"}]}>{cardData.user}</Text>
-              <Text style = {[styles.userTab, {color: "#DAA520"}]}>{cardData.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-            </View>
-        </View>
-    );
-  }
-
   userList(list){
     return list.map((u, index) => {
       return(
@@ -96,7 +77,12 @@ class BetModal extends Component{
       }
   }
 
+                                //  -- MODAL FOR USER MATCH -- //
+
   betChoice(){
+    const {choice, game, teamsNotSelected} = this.props;
+
+
     if(this.props.choice == 1){
       if(this.props.index == 0){
         return(
@@ -112,6 +98,9 @@ class BetModal extends Component{
 
           );
         }
+
+                                //  -- MODAL FOR USER MATCH -- //
+
     } else if(this.props.choice == 2) {
           return(
             <View style = {{ felx: 1, backgroundColor: "black"}}>
@@ -130,12 +119,15 @@ class BetModal extends Component{
               />
 
               <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15}}>{this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
+              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes.b}</Text>
             </View>
           );
     }
   }
 
   render(){
+    console.log(this.props.teamsNotSelected[0].name)
     return(
       <View style = {{flex: 1, backgroundColor: "black"}}>
 

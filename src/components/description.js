@@ -26,7 +26,7 @@ class Description extends Component{
       showLightBox: false,
       message: "",
       loading: true,
-      showButtons: false
+      showButtons: false,
     }
   }
 
@@ -65,7 +65,7 @@ class Description extends Component{
 
   onSelectTeam(team){
     const {showLightBox} = this.state;
-    this.setState({ teamSelected: team, showLightBox: true})
+    this.setState({ teamSelected: team, showLightBox: true })
     this.birghtColor(team);
     this.renderUsersToMatch();
   }
@@ -101,15 +101,15 @@ class Description extends Component{
       if(game.sport == "Soccer"){
         return(
           <View>
-            <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local.name)}>
+            <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
               <Text style = {styles.t}>{game.local.name}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style = { draw ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.draw.name)}>
+            <TouchableOpacity style = { draw ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.draw)}>
               <Text style = {styles.t}>{game.draw.name}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style = {visit ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.visit.name)}>
+            <TouchableOpacity style = {visit ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.visit)}>
               <Text style = {styles.t}>{game.visit.name}</Text>
             </TouchableOpacity>
           </View>
@@ -130,10 +130,10 @@ class Description extends Component{
   }
 
   render(){
-    const {betChoice, teamSelected, showLightBox} = this.state;
+    const {betChoice, teamSelected, showLightBox, teamSelectedObj} = this.state;
     let game = this.props.navigation.state.params.par;
     const options = [game.local, game.visit, game.draw];
-    const teamsNotSelected = options.filter(x => x.name!= teamSelected);
+    const teamsNotSelected = options.filter(x => x.name!= teamSelected.name);
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
@@ -178,7 +178,7 @@ class Description extends Component{
 
           <BetModal
             teamsNotSelected = {teamsNotSelected}
-            choice = {betChoice} team = {teamSelected} index = {this.state.index}
+            choice = {betChoice} team = {teamSelected} index = {this.state.index} teamSelectedObj = {teamSelectedObj}
             list1 = {UserList1}
             list2 = {UserList2}
             rivalChoice = {myIndex}

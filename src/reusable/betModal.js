@@ -81,7 +81,7 @@ class BetModal extends Component{
 
   betChoice(){
     const {choice, game, teamsNotSelected} = this.props;
-
+    var position = this.props.team.position;
 
     if(this.props.choice == 1){
       if(this.props.index == 0){
@@ -99,14 +99,14 @@ class BetModal extends Component{
           );
         }
 
-                                //  -- MODAL FOR USER MATCH -- //
+                                //  -- MODAL FOR LAY BET -- //
 
     } else if(this.props.choice == 2) {
           return(
             <View style = {{ felx: 1, backgroundColor: "black"}}>
               <View style = {{flexDirection:"row", alignSelf: "center"}}>
                 <Text style = {styles.layBet}>Set your bet for: </Text>
-                <Text style = {[styles.layBet, {fontWeight:"bold", marginLeft: 5, color: "#00B073"}]}>{this.props.team}</Text>
+                <Text style = {[styles.layBet, {fontWeight:"bold", marginLeft: 5, color: "#00B073"}]}>{this.props.team.name}</Text>
               </View>
               <Slider
                 step= {1}
@@ -118,16 +118,19 @@ class BetModal extends Component{
                 thumbStyle ={{color: "#00B073"}}
               />
 
-              <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15}}>{this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15}}> {this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
               <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
-              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes.b}</Text>
+              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes[position]}</Text>
+
+              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].name}</Text>
+              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].quotes[position]}</Text>
             </View>
           );
     }
   }
 
   render(){
-    console.log(this.props.teamsNotSelected[0].name)
+    console.log(this.props.teamsNotSelected);
     return(
       <View style = {{flex: 1, backgroundColor: "black"}}>
 

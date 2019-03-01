@@ -40,9 +40,9 @@ class ConfirmBet extends Component{
                 <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{game.time}</Text>
 
                 <View style = {styles.game}>
-                  <Text style = {styles.word}>{game.local}</Text>
+                  <Text style = {styles.word}>{game.local.name}</Text>
                   <Text style = {[styles.word, {fontStyle: "oblique"}]}>VS.</Text>
-                  <Text style = {styles.word}>{game.visit}</Text>
+                  <Text style = {styles.word}>{game.visit.name}</Text>
                 </View>
               </View>
             </View>
@@ -55,7 +55,7 @@ class ConfirmBet extends Component{
             <View style = {[styles.singleUser, {backgroundColor: "black"}]}>
               <View style = {styles.info}>
                   <Text style = {styles.userName}>You</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15}]}>{teamSelected}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15}]}>{teamSelected.name}</Text>
                   <Text style = {styles.secondText}>Bet: {user.bet}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: 21</Text>
               </View>
@@ -68,7 +68,7 @@ class ConfirmBet extends Component{
             <View style = {[styles.singleUser, {backgroundColor: "#161616"}]}>
               <View style = {styles.info}>
                   <Text style = {styles.userName}>{user.user}</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected.name}</Text>
                   <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {user.bet}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: 0</Text>
               </View>

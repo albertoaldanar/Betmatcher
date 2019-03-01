@@ -32,8 +32,8 @@ class Description extends Component{
 
   sendToConfirmation(route, user){
     let game = this.props.navigation.state.params.par;
-    const options = [game.local.name, game.visit.name, game.draw.name]
-    const teamsNotSelected = options.filter(x => x!= this.state.teamSelected);
+    const options = [game.local, game.visit, game.draw];
+    const teamsNotSelected = options.filter(x => x.name!= this.state.teamSelected.name);
 
     var index = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
@@ -76,12 +76,12 @@ class Description extends Component{
 
   birghtColor(team){
     let game = this.props.navigation.state.params.par;
-    switch(team){
+    switch(team.name){
         case game.local.name:
           return this.setState({local: true, draw: false, visit: false})
           break;
 
-        case game.draw.name:
+        case "Draw":
           return this.setState({local: false, draw: true, visit: false})
           break;
 
@@ -132,12 +132,13 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected, showLightBox, teamSelectedObj} = this.state;
     let game = this.props.navigation.state.params.par;
-    const options = [game.local, game.visit, game.draw];
+    const gameType = game.sport == "Soccer" ? game.draw : "Draw"
+
+    const options = [game.local, game.visit, gameType];
     const teamsNotSelected = options.filter(x => x.name!= teamSelected.name);
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
-    console.log(teamSelected, teamsNotSelected);
 
     return(
       <View style = {styles.container}>
@@ -178,7 +179,7 @@ class Description extends Component{
 
           <BetModal
             teamsNotSelected = {teamsNotSelected}
-            choice = {betChoice} team = {teamSelected} index = {this.state.index} teamSelectedObj = {teamSelectedObj}
+            choice = {betChoice} team = {teamSelected} index = {this.state.index}
             list1 = {UserList1}
             list2 = {UserList2}
             rivalChoice = {myIndex}
@@ -194,7 +195,7 @@ class Description extends Component{
           showProgress={this.state.loading}
           progressColor= "#00B073"
           title= {this.state.message}
-          message = {`Users that bet against ${this.state.teamSelected} `}
+          message = {`Users that bet against ${this.state.teamSelected.name} `}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={true}
           showCancelButton={this.state.showButtons}

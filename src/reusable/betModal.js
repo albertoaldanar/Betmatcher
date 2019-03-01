@@ -42,29 +42,37 @@ class BetModal extends Component{
     })
   }
 
-  userCard(list){
-    console.log("User1", list[1])
+  gameType(game, position){
+   const {teamsNotSelected} = this.props;
+
+   if(game.sport == "Soccer"){
       return(
-        <SwipeCards
-            cards={list}
-            renderCard={(cardData) =>
-              {this.cardDesing(cardData)}
-            }
-            renderNoMoreCards={() =>
-                <Text style = {{color: "white"}}>No more cards</Text>
-            }
-            handleYup={() => console.log("jerfe")}
-            handleNope={this.onSwipeNext.bind(this)}
-        />
+        <View>
+          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
+          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes[position]} %</Text>
+
+          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].name}</Text>
+          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].quotes[position] } %</Text>
+        </View>
       );
+    } else {
+      return(
+        <View>
+          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
+          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes} %</Text>
+        </View>
+      );
+    }
   }
 
   renderSegmentedController(){
     const {choice, game, teamsNotSelected} = this.props;
+    var values = [teamsNotSelected[0].name, teamsNotSelected[1].name];
+
     if(choice == 1 && game.sport == "Soccer"){
       return(
         <SegmentedControlTab
-          values={this.props.teamsNotSelected}
+          values={values}
           tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
           tabStyle = {{borderColor: "#00B073", backgroundColor: "black"}}
           selectedIndex={this.props.index}
@@ -103,7 +111,7 @@ class BetModal extends Component{
 
     } else if(this.props.choice == 2) {
           return(
-            <View style = {{ felx: 1, backgroundColor: "black"}}>
+            <View>
               <View style = {{flexDirection:"row", alignSelf: "center"}}>
                 <Text style = {styles.layBet}>Set your bet for: </Text>
                 <Text style = {[styles.layBet, {fontWeight:"bold", marginLeft: 5, color: "#00B073"}]}>{this.props.team.name}</Text>
@@ -119,11 +127,7 @@ class BetModal extends Component{
               />
 
               <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15}}> {this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
-              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes[position]}</Text>
-
-              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].name}</Text>
-              <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].quotes[position]}</Text>
+              {this.gameType(game, position)}
             </View>
           );
     }

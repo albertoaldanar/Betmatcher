@@ -23,7 +23,7 @@ class YouHaveMatch extends Component{
                   style= {styles.image}
                 />
                 <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>You</Text>
-                <Text style = {styles.text}>{this.props.teamSelected}</Text>
+                <Text style = {styles.text}>{this.props.teamSelected.name}</Text>
               </View>
 
               <Image source = {require('../images/flechasd.png')} style = {{width: 60, height: 60, alignSelf: "center"}}/>
@@ -34,7 +34,7 @@ class YouHaveMatch extends Component{
                   style= {styles.image}
                 />
                 <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>{this.props.user.user}</Text>
-                <Text style = {styles.text}>{this.props.teamsNotSelected}</Text>
+                <Text style = {styles.text}>{this.props.teamsNotSelected.name}</Text>
               </View>
             </View>
 

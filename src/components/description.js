@@ -32,7 +32,8 @@ class Description extends Component{
 
   sendToConfirmation(route, user){
     let game = this.props.navigation.state.params.par;
-    const options = [game.local, game.visit, game.draw];
+    const gameType = game.sport == "Soccer" ? game.draw : "Draw"
+    const options = [game.local, game.visit, gameType];
     const teamsNotSelected = options.filter(x => x.name!= this.state.teamSelected.name);
 
     var index = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];

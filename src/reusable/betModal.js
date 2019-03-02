@@ -66,7 +66,7 @@ class BetModal extends Component{
   }
 
   renderSegmentedController(){
-    const {choice, game, teamsNotSelected} = this.props;
+    const { choice, game, teamsNotSelected } = this.props;
     var values = [teamsNotSelected[0].name, teamsNotSelected[1].name];
 
     if(choice == 1 && game.sport == "Soccer"){
@@ -77,37 +77,37 @@ class BetModal extends Component{
           tabStyle = {{borderColor: "#00B073", backgroundColor: "black"}}
           selectedIndex={this.props.index}
           activeTabStyle = {{backgroundColor: "#00B073"}}
-          onTabPress={this.props.segmentedController}
+          onTabPress= {this.props.segmentedController}
         />
       );
-    } else if(choice == 1 && game.sport != "Soccer"){
-        return null;
-      }
+    } else if(choice == 1 && game.sport != "Soccer"){ return null };
   }
 
-                                //  -- MODAL FOR USER MATCH -- //
 
   betChoice(){
     const {choice, game, teamsNotSelected} = this.props;
     var position = this.props.team.position;
 
+
+                //  -- MODAL FOR USER MATCH -- //
+
     if(this.props.choice == 1){
       if(this.props.index == 0){
         return(
-            <View>
+            <ScrollView>
               {this.userList(this.props.list1)}
-            </View>
+            </ScrollView>
         );
       } else {
           return(
-            <View>
+            <ScrollView>
               {this.userList(this.props.list2)}
-            </View>
+            </ScrollView>
 
           );
         }
 
-                                //  -- MODAL FOR LAY BET -- //
+                //  -- MODAL FOR LAY BET -- //
 
     } else if(this.props.choice == 2) {
           return(
@@ -134,7 +134,14 @@ class BetModal extends Component{
   }
 
   render(){
-    console.log(this.props.teamsNotSelected);
+      let button;
+
+      if(this.props.choice == 2){
+        button =  <TouchableOpacity style = {styles.buttonContainer}>
+                    <Text style = {styles.layBet}> Place bet</Text>
+                  </TouchableOpacity>
+      }
+
     return(
       <View style = {{flex: 1, backgroundColor: "black"}}>
 
@@ -153,11 +160,9 @@ class BetModal extends Component{
           {this.renderSegmentedController()}
         </View>
 
-        <ScrollView>
-          <View style = {{marginTop: 10}}>
-            {this.betChoice()}
-          </View>
-        </ScrollView>
+        {this.betChoice()}
+
+        {button}
       </View>
     );
   }
@@ -231,18 +236,17 @@ const styles ={
   layBet: {
     alignSelf: "center",
     color: "white",
-    marginBottom: 15,
     fontWeight:"400",
     fontSize: 18
   },
-  buttonCointainer: {
+  buttonContainer: {
     backgroundColor: "#00B073",
-    padding: 14,
+    padding: 12,
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0
-  }
+  },
 };
 
 export default BetModal;

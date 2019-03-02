@@ -18,7 +18,6 @@ const Games = [
     matches: 7,
     unmatched: 12,
     topBet: 590,
-    pct: [],
   },
   {
     local: {
@@ -57,18 +56,26 @@ const Games = [
   //   unmatched: 45,
   //   topBet: 121,
   // },
-  // {
-  //   local: "Patriots",
-  //   visit: "Steelers",
-  //   time: "5 FEB 9:00pm",
-  //   league: "NFL",
-  //   sport: "Football",
-  //   image: "https://cdn2.iconfinder.com/data/icons/university-set-4/512/10-512.png",
-  //   traded: 2450,
-  //   matches: 55,
-  //   unmatched: 12,
-  //   topBet: 633,
-  // },
+  {
+    local: {
+      name: "Patriots",
+      quotes: 40,
+      position: 2
+    },
+    visit:{
+      name: "Steelers",
+      quotes: -40,
+      position: 1
+    },
+    time: "5 FEB 9:00pm",
+    league: "NFL",
+    sport: "Football",
+    image: "https://cdn2.iconfinder.com/data/icons/university-set-4/512/10-512.png",
+    traded: 2450,
+    matches: 55,
+    unmatched: 12,
+    topBet: 633,
+  },
   // {
   //   local: "Boca Juniors",
   //   visit: "River Plate",

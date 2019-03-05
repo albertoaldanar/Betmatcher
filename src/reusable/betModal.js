@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView, Slider, Image} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import SwipeCards from 'react-native-swipe-cards';
@@ -43,21 +43,45 @@ class BetModal extends Component{
   }
 
   gameType(game, position){
-   const {teamsNotSelected} = this.props;
+    const {teamsNotSelected} = this.props;
+    var colorA = teamsNotSelected[0].quotes[position] > 0 ? "#00B073" : "red";
+    var colorB = teamsNotSelected[1].quotes[position] > 0 ? "#00B073" : "red";
 
    if(game.sport == "Soccer"){
       return(
-        <View>
-          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
-          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes[position]} %</Text>
+        <View style = {{marginTop: 45}}>
+          <View style = {styles.descriptionCard}>
+              <Text style = {{ borderRadius: 10, color: "#ffff", fontSize: 13, fontWeight: "400", marginLeft: 5, backgroundColor: colorA ,  fontStyle: "oblique", padding: 4, alignSelf:"flex-start", marginBottom: 10, textAlign: "center"}}>{teamsNotSelected[0].quotes[position]} %</Text>
 
-          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].name}</Text>
-          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[1].quotes[position] } %</Text>
+              <View style = {{flexDirection:"row", marginTop: 10, alignSelf:"center"}}>
+                <Text style = {{color: "white", fontSize: 17, fontWeight: "500", marginRight: 10}}> If match against</Text>
+                <Text style = {{color: "#00B073", fontSize: 17, fontWeight: "500", marginRight: 10}}>{teamsNotSelected[0].name}</Text>
+              </View>
+
+              <View style = {{flexDirection:"row", marginTop: 10, alignSelf:"center"}}>
+                <Text style = {{color: "white", fontSize: 13, fontWeight: "400"}}> You can win</Text>
+                <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "400", marginLeft: 10}}>{this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              </View>
+          </View>
+
+          <View style = {styles.descriptionCard}>
+              <Text style = {{color: "#ffff", fontSize: 13, fontWeight: "400", marginLeft: 5,  borderRadius: 10, backgroundColor: colorB,  fontStyle: "oblique", padding: 6, alignSelf:"flex-start", marginBottom: 10, textAlign: "center"}}>{teamsNotSelected[1].quotes[position]} %</Text>
+
+              <View style = {{flexDirection:"row", marginTop: 10, alignSelf:"center"}}>
+                <Text style = {{color: "white", fontSize: 17, fontWeight: "500", marginRight: 10}}> If match against</Text>
+                <Text style = {{color: "#00B073", fontSize: 17, fontWeight: "500", marginRight: 10}}>{teamsNotSelected[1].name}</Text>
+              </View>
+
+              <View style = {{flexDirection:"row", marginTop: 10, alignSelf:"center"}}>
+                <Text style = {{color: "white", fontSize: 13, fontWeight: "400"}}> You can win</Text>
+                <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "400", marginLeft: 10}}>{this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              </View>
+          </View>
         </View>
       );
     } else {
       return(
-        <View>
+        <View style = {{marginTop: 45}}>
           <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
           <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes} %</Text>
         </View>
@@ -112,7 +136,7 @@ class BetModal extends Component{
     } else if(this.props.choice == 2) {
           return(
             <View>
-              <View style = {{flexDirection:"row", alignSelf: "center"}}>
+              <View style = {{flexDirection:"row", alignSelf: "center", marginTop: 25}}>
                 <Text style = {styles.layBet}>Set your bet for: </Text>
                 <Text style = {[styles.layBet, {fontWeight:"bold", marginLeft: 5, color: "#00B073"}]}>{this.props.team.name}</Text>
               </View>
@@ -126,7 +150,7 @@ class BetModal extends Component{
                 thumbStyle ={{color: "#00B073"}}
               />
 
-              <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15}}> {this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15, marginTop: 5}}> {this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
               {this.gameType(game, position)}
             </View>
           );
@@ -247,6 +271,16 @@ const styles ={
     left: 0,
     right: 0
   },
+  descriptionCard: {
+    borderBottomColor: "gray",
+    borderBottomWidth: 0.5,
+    padding: 10,
+    borderTopWidth: 0.5,
+    borderTopColor: "gray",
+    paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: "#161616"
+  }
 };
 
 export default BetModal;

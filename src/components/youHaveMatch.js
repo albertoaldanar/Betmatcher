@@ -26,7 +26,7 @@ class YouHaveMatch extends Component{
                 <Text style = {styles.text}>{this.props.teamSelected.name}</Text>
               </View>
 
-              <Image source = {require('../images/flechasd.png')} style = {{width: 60, height: 60, alignSelf: "center"}}/>
+                <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 13, fontWeight: "400"}]}>VS.</Text>
 
               <View>
                 <Image

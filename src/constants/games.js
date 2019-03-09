@@ -52,7 +52,7 @@ const Games = [
     },
     visit: {
       name: "Lazio",
-      quotes: {1: -19, 3: 10},
+      quotes: {1: 10, 3: -13},
       position: 2
     },
     draw: {

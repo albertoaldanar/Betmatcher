@@ -33,7 +33,7 @@ class BetModal extends Component{
               <View style = {{marginTop: 5}}>
                 <Text style = {{color: "#DAA520", paddingBottom: 9, fontSize: 16}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
                 <Text style = {{color: "#00B073", paddingBottom: 9, fontSize: 15}}> {u.user}</Text>
-                <Text style = {{color: "white", fontSize: 15, borderColor:"white", borderRadius: 5, borderWidth:0.5, textAlign:"center"}}> {quote} %</Text>
+                <Text style = {{color: "white", fontSize: 15, borderColor:"white"}}> {quote} %</Text>
               </View>
             </View>
             <FontAwesome style = {{color:"gray", marginTop: 27, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
@@ -46,16 +46,28 @@ class BetModal extends Component{
 
   gameType(game, position){
     const {teamsNotSelected} = this.props;
-    var colorA = teamsNotSelected[0].quotes[position] > 0 ? "#00B073" : "red";
-    var colorB = teamsNotSelected[1].quotes[position] > 0 ? "#00B073" : "red";
 
    if(game.sport == "Soccer"){
       return(
-        <View style = {{marginTop: 45}}>
-          <View style = {{flexDirection:"row", justifyContent:"space-between", borderWidth: 0.4, borderColor: "gray"}}>
-            <Text style = {{color: "#ffff", fontWeight: "400", fontStyle:"oblique", marginLeft: 5}}>IF YOU MATCH</Text>
-            <Text style = {{color: "#ffff", fontWeight: "400", fontStyle:"oblique"}}>QUOTES</Text>
-            <Text style = {{color: "#ffff", fontWeight: "400", fontStyle:"oblique", marginRight: 5}}>YOU CAN WIN</Text>
+        <View style = {{marginTop: 25}}>
+          <View style = {{flexDirection:"row", justifyContent:"space-between", borderBottomWidth: 0.4, borderBottomColor: "gray", borderTopWidth: 0.4, borderTopColor: "gray", padding: 10}}>
+            <View>
+              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique", marginLeft: 5}}>IF YOU MATCH</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[0].name}</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[1].name}</Text>
+            </View>
+
+            <View>
+              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique"}}>QUOTES</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[0].quotes[position]} %</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[1].quotes[position]} %</Text>
+            </View>
+
+            <View>
+              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique", marginRight: 5}}>YOU CAN WIN</Text>
+              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+            </View>
           </View>
 
 
@@ -115,7 +127,7 @@ class BetModal extends Component{
     } else if(this.props.choice == 2) {
           return(
             <View>
-              <View style = {{backgroundColor: "#161616", padding: 20}}>
+              <View style = {{padding: 20}}>
                 <View style = {{flexDirection:"row", alignSelf: "center", marginTop: 15, marginBottom:20}}>
                   <Text style = {styles.layBet}>Set your bet for: </Text>
                   <Text style = {[styles.layBet, {fontWeight:"bold", marginLeft: 5, color: "#00B073"}]}>{this.props.team.name}</Text>
@@ -257,16 +269,6 @@ const styles ={
     bottom: 0,
     left: 0,
     right: 0
-  },
-  descriptionCard: {
-    borderBottomColor: "gray",
-    borderBottomWidth: 0.5,
-    padding: 10,
-    borderTopWidth: 0.5,
-    borderTopColor: "gray",
-    paddingTop: 20,
-    paddingBottom: 20,
-    backgroundColor: "#161616"
   }
 };
 

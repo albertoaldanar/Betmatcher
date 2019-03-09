@@ -1,20 +1,25 @@
 import React, {Component} from "react";
-import {View,Text, TouchableOpacity, Image, ScrollView} from "react-native";
+import {View,Text, TouchableOpacity, Image, ScrollView, Modal} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import Chat from "../reusable/chat";
 
 class Match extends Component{
 
   constructor(props){
     super(props);
-    this.state = {index: 0}
+    this.state = {index: 0, chat: false}
   }
 
   handleIndexChange(index){
     this.setState({index})
+  }
+
+  renderChat(){
+    this.setState({chat: !this.state.chat})
   }
 
   renderMatches(){
@@ -45,7 +50,7 @@ class Match extends Component{
                       </View>
                     </View>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress = {this.renderChat.bind(this)}>
                       <FontAwesome style = {[styles.icon, {color: "#00B073"}]}>{Icons.comments}</FontAwesome>
                     </TouchableOpacity>
                   </View>
@@ -103,6 +108,13 @@ class Match extends Component{
             {this.choseView()}
           </View>
         </ScrollView>
+
+        <Modal
+          visible = {this.state.chat}
+          animationType = "slide"
+        >
+          <Chat closeModal = {this.renderChat.bind(this)}/>
+        </Modal>
       </View>
     );
   }

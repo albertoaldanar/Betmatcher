@@ -30,7 +30,7 @@ class Description extends Component{
     }
   }
 
-  sendToConfirmation(route, user){
+  sendToConfirmation(route, user, quote, bet){
     let game = this.props.navigation.state.params.par;
     const gameType = game.sport == "Soccer" ? game.draw : "Draw"
     const options = [game.local, game.visit, gameType];
@@ -44,7 +44,9 @@ class Description extends Component{
                 user: user,
                 game: game,
                 teamSelected: this.state.teamSelected,
-                teamsNotSelected: index
+                teamsNotSelected: index,
+                quote: quote,
+                bet: bet
               }
     });
     this.props.navigation.dispatch(navigateAction);
@@ -56,9 +58,9 @@ class Description extends Component{
       .then(res => res.json())
         .then(response => {
           this.setState({
-            message:` ${response.data} users to match`,
-            loading: false,
-            showButtons: true
+                message:` ${response.data} users to match`,
+                loading: false,
+                showButtons: true
           })
         })
       this.setState({loading: false})
@@ -93,7 +95,11 @@ class Description extends Component{
   }
 
   showModal(){
-    this.setState({visible: !this.state.visible, showLightBox: false, teamSelected: ""})
+    this.setState({
+          visible: !this.state.visible,
+          showLightBox: false,
+          teamSelected: ""
+    })
   }
 
   renderButton(){

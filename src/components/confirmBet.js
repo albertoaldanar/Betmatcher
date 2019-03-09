@@ -27,8 +27,11 @@ class ConfirmBet extends Component{
   }
 
   render(){
-    const {user, game, teamSelected, teamsNotSelected} = this.props.navigation.state.params;
-
+    const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
+    var finalQuote = quote < 0 ? quote * -1 : quote;
+    var ADQuote = Math.round((finalQuote / 100) * user.bet);
+    // Refactorizar esto
+    const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
     return(
       <View style = {styles.container}>
         <View style = {styles.space}>
@@ -56,11 +59,11 @@ class ConfirmBet extends Component{
               <View style = {styles.info}>
                   <Text style = {styles.userName}>You</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15}]}>{teamSelected.name}</Text>
-                  <Text style = {styles.secondText}>Bet: {user.bet}</Text>
-                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: 21</Text>
+                  <Text style = {styles.secondText}>Bet: {bet}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: {AD[0]}</Text>
               </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[0]} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
 
             <Text style = {styles.vs}>VS.</Text>
@@ -69,11 +72,11 @@ class ConfirmBet extends Component{
               <View style = {styles.info}>
                   <Text style = {styles.userName}>{user.user}</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected.name}</Text>
-                  <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {user.bet}</Text>
-                  <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: 0</Text>
+                  <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {bet}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: {AD[1]}</Text>
               </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {user.bet + 21} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[1]} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
           </View>
         </View>

@@ -20,8 +20,10 @@ class BetModal extends Component{
 
   userList(list, quote){
     return list.map((u, index) => {
+
+      const bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet
       return(
-        <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u)}>
+        <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
           <View style = {styles.tableStyle}>
             <View style = {{flexDirection: "row"}}>
               <Image
@@ -29,11 +31,11 @@ class BetModal extends Component{
                 style = {styles.image}
               />
               <View style = {{marginTop: 5}}>
-                <Text style = {{color: "#DAA520", paddingBottom: 9, fontSize: 16}}>{u.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <Text style = {{color: "#DAA520", paddingBottom: 9, fontSize: 16}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
                 <Text style = {{color: "#00B073", paddingBottom: 9, fontSize: 15}}> {u.user}</Text>
+                <Text style = {{color: "white", fontSize: 15, borderColor:"white", borderRadius: 5, borderWidth:0.5, textAlign:"center"}}> {quote} %</Text>
               </View>
             </View>
-            <Text style = {{color: "white", fontSize: 15}}> {quote} </Text>
             <FontAwesome style = {{color:"gray", marginTop: 27, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
           </View>
 
@@ -86,7 +88,6 @@ class BetModal extends Component{
       );
     } else if(choice == 1 && game.sport != "Soccer"){ return null };
   }
-
 
   betChoice(){
     const {choice, game, teamsNotSelected, team} = this.props;

@@ -10,7 +10,7 @@ const Games = [
       quotes: -20,
       position: 2
     },
-    time: "5 FEB 9:00pm",
+    time: "5 FEB 11:00 pm",
     league: "MLB",
     sport: "Baseball",
     image: "https://cdn1.iconfinder.com/data/icons/hawcons/32/700389-icon-2-baseball-512.png",
@@ -35,7 +35,7 @@ const Games = [
       quotes: {2: -15, 3: -30},
       position: 1
     },
-    time: "5 FEB 9:00pm",
+    time: "5 FEB 9:00 pm",
     league: "La liga",
     sport: "Soccer",
     image: "https://icons-for-free.com/free-icons/png/512/315754.png",
@@ -43,6 +43,31 @@ const Games = [
     matches: 15,
     unmatched: 20,
     topBet: 7000,
+  },
+  {
+    local: {
+      name: "Fiorentina",
+      quotes: {1: 13, 2: 19},
+      position: 3
+    },
+    visit: {
+      name: "Lazio",
+      quotes: {1: -19, 3: 10},
+      position: 2
+    },
+    draw: {
+      name: "Draw",
+      quotes: {2: -10, 3: -13},
+      position: 1
+    },
+    time: "6 FEB 6:00 pm",
+    league: "Serie A",
+    sport: "Soccer",
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    traded: 2345,
+    matches: 2,
+    unmatched: 5,
+    topBet: 230,
   },
   // {
   //   local: "Valencia",
@@ -67,10 +92,30 @@ const Games = [
       quotes: -40,
       position: 1
     },
-    time: "5 FEB 9:00pm",
+    time: "7 FEB 10:00 am",
     league: "NFL",
     sport: "Football",
     image: "https://cdn2.iconfinder.com/data/icons/university-set-4/512/10-512.png",
+    traded: 2450,
+    matches: 55,
+    unmatched: 12,
+    topBet: 633,
+  },
+   {
+    local: {
+      name: "Lakers",
+      quotes: 40,
+      position: 2
+    },
+    visit:{
+      name: "Cavaliers",
+      quotes: -40,
+      position: 1
+    },
+    time: "7 FEB 10:00 am",
+    league: "NBA",
+    sport: "Basketball",
+    image: "https://cdn1.iconfinder.com/data/icons/hawcons/32/700378-icon-1-basketball-512.png",
     traded: 2450,
     matches: 55,
     unmatched: 12,

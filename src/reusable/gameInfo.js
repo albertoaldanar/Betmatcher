@@ -62,7 +62,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={styles.number}>
-                {data.traded}$
+                {data.traded} <FontAwesome> {Icons.bitcoin} </FontAwesome>
             </Text>
         </View>
 
@@ -117,7 +117,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={styles.number}>
-                {data.topBet}$
+                {data.topBet} <FontAwesome> {Icons.bitcoin} </FontAwesome>
             </Text>
         </View>
       </View>

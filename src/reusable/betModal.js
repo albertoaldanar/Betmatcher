@@ -50,23 +50,23 @@ class BetModal extends Component{
    if(game.sport == "Soccer"){
       return(
         <View style = {{marginTop: 25}}>
-          <View style = {{flexDirection:"row", justifyContent:"space-between", borderBottomWidth: 0.4, borderBottomColor: "gray", borderTopWidth: 0.4, borderTopColor: "gray", padding: 10}}>
+          <View style = {{flexDirection:"row", justifyContent:"space-between", borderBottomWidth: 0.4, borderBottomColor: "gray", borderTopWidth: 0.4, borderTopColor: "gray", padding: 10, paddingBottom: 20, paddingTop: 20}}>
             <View>
-              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique", marginLeft: 5}}>IF YOU MATCH</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[0].name}</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[1].name}</Text>
+              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique", marginLeft: 5}}>POSSIBLE MATCH</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name}</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[1].name}</Text>
             </View>
 
             <View>
               <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique"}}>QUOTES</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[0].quotes[position]} %</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{teamsNotSelected[1].quotes[position]} %</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, backgroundColor: "#00B073", padding: 8 }}>{teamsNotSelected[0].quotes[position]} %</Text>
+              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, backgroundColor: "#DC143C", padding: 8}}>{teamsNotSelected[1].quotes[position]} %</Text>
             </View>
 
             <View>
               <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique", marginRight: 5}}>YOU CAN WIN</Text>
-              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
-              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 15, fontSize: 15}}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
             </View>
           </View>
 
@@ -127,28 +127,19 @@ class BetModal extends Component{
     } else if(this.props.choice == 2) {
           return(
             <View>
-              <View style = {{padding: 20}}>
-                <View style = {{flexDirection:"row", alignSelf: "center", marginTop: 15, marginBottom:20}}>
+              <View style = {{padding: 20, paddingTop: 10}}>
+                <View style = {{flexDirection:"row", alignSelf: "center", marginTop: 5, marginBottom:20}}>
                   <Text style = {styles.layBet}>Set your bet for: </Text>
-                  <Text style = {[styles.layBet, {fontWeight:"bold", marginLeft: 5, color: "#00B073"}]}>{this.props.team.name}</Text>
+                  <Text style = {[styles.layBet, {fontWeight:"400", marginLeft: 5, color: "#00B073"}]}>{this.props.team.name}</Text>
                 </View>
 
                 <TextInput
                   placeholder = "Amount"
+                  keyboardType = "numeric"
                   style = {{color: "white", height: 40, textAlign: "center", borderColor:"gray", borderWidth: 0.5, marginBottom: 15}}
                 />
-                <Slider
-                  step= {10}
-                  style ={{marginLeft: 30, marginRight: 30}}
-                  maximumValue={this.state.cUserCoins}
-                  thumbTintColor = "#00B073"
-                  minimumTrackTintColor = "#00B073"
-                  onValueChange={this.setCoins.bind(this)}
-                  value={this.state.bet}
-                  thumbStyle ={{color: "#00B073"}}
-                />
 
-                <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15, marginTop: 5}}> {this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15, marginTop: 5}}> Your bet: {this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
               </View>
               {this.gameType(game, position)}
             </View>

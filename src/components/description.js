@@ -8,6 +8,7 @@ import {NavigationActions} from "react-navigation";
 import AwesomeAlert from 'react-native-awesome-alerts';
 import DescChart from "../reusable/descChart";
 import GameInfo from "../reusable/gameInfo";
+import LinearGradient from "react-native-linear-gradient";
 
 const mainColor = "#00B073";
 
@@ -54,7 +55,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.8.9:3000/api/variable")
+    return fetch("http://192.168.0.3:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -148,7 +149,7 @@ class Description extends Component{
 
 
     return(
-      <View style = {styles.container}>
+      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 5 , y: 1}} colors = {[ "black", "gray"]}>
         <GameInfo data= {game}/>
 
         <ScrollView>
@@ -229,16 +230,12 @@ class Description extends Component{
           confirmButtonTextStyle = {{fontSize: 15}}
         />
         </ScrollView>
-      </View>
+      </LinearGradient>
     );
   }
 }
 
 const styles = {
-  container: {
-    flex: 1,
-    backgroundColor: "#161616",
-  },
   title: {
     color:"#ffff",
     fontSize: 15,

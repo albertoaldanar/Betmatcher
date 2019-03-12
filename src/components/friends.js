@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {View, Text, Dimensions, TouchableOpacity, FlatList, ScrollView, Image} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import CheckBox from 'react-native-check-box'
-import Details from "../constants/eventsDetails";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import { LineChart, YAxis, Grid } from 'react-native-svg-charts';

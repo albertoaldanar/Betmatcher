@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, Image, Dimensions, TouchableOpacity} from "react-native";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import Images from "../constants/images";
+import { NavigationActions } from 'react-navigation';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -15,7 +16,7 @@ class Carousell extends Component{
     renderItem ({item, index}, parallaxProps) {
         return (
             <View style={styles.item}>
-              <TouchableOpacity onPress = {() => {alert(item.text)}}>
+              <TouchableOpacity>
                 <ParallaxImage
                     source={{ uri: item.image }}
                     containerStyle={styles.imageContainer}
@@ -35,6 +36,7 @@ class Carousell extends Component{
     }
 
     render (){
+      console.log(this.props.selectedGames);
         return (
           <Carousel
             data={Images}

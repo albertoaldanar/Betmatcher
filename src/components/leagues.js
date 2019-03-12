@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {View, Text, Image, TouchableOpacity, Picker, Dimensions} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import { NavigationActions } from 'react-navigation';
 
 const WIDTH = Dimensions.get("window").width;
 

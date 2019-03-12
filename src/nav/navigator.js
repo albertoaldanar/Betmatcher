@@ -6,6 +6,7 @@ import Top from "../components/top";
 import Friends from "../components/friends"
 import Description from "../components/description";
 import Match from "../components/match";
+import SelectedGames from "../components/selectedGames";
 import ConfirmBet from "../components/confirmBet";
 import Profile from "../components/profile";
 import YouHaveMatch from "../components/youHaveMatch";
@@ -123,6 +124,17 @@ const AppNavigator = StackNavigator({
     screen: TopRequests,
     navigationOptions: {
       title: "Top Unmatched",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  SelectedGames: {
+    screen: SelectedGames,
+    navigationOptions: {
+      title: "League",
       headerTintColor: "#00B073",
       headerStyle: {
         backgroundColor: "black",

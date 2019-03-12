@@ -3,13 +3,15 @@ import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput} from
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import SwipeCards from 'react-native-swipe-cards';
+import Carousell from "./carousel";
+import LinearGradient from "react-native-linear-gradient";
 
 class BetModal extends Component{
 
   constructor(props){
     super(props);
     this.state = {
-      bet: 0,
+      bet: 250,
       cUserCoins: 3460
     }
   }
@@ -46,32 +48,33 @@ class BetModal extends Component{
 
   gameType(game, position){
     const {teamsNotSelected} = this.props;
+    const quoteA  = teamsNotSelected[0].quotes[position] > 0  ?  <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :  <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>
+    const quoteB  = teamsNotSelected[1].quotes[position] > 0  ?  <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :  <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>
 
    if(game.sport == "Soccer"){
       return(
-        <View style = {{marginTop: 25}}>
-          <View style = {{flexDirection:"row", justifyContent:"space-between", borderBottomWidth: 0.4, borderBottomColor: "gray", borderTopWidth: 0.4, borderTopColor: "gray", padding: 10, paddingBottom: 20, paddingTop: 20}}>
-            <View>
-              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique", marginLeft: 5}}>POSSIBLE MATCH</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name}</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[1].name}</Text>
-            </View>
+          <View style = {{marginTop: 45}}>
+            <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, paddingBottom: 20, borderBottomWidth: 0.4, borderBottomColor: "gray", borderTopWidth: 0.4, borderTopColor: "gray"}}>
+              <View>
+                <Text style = {{color: "gray", fontWeight: "400", marginLeft: 5, borderBottomWidth: 1, borderBottomColor: "gray"}}>MATCH</Text>
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name} </Text>
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[1].name} </Text>
+              </View>
 
-            <View>
-              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique"}}>QUOTES</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, backgroundColor: "#00B073", padding: 8 }}>{teamsNotSelected[0].quotes[position]} %</Text>
-              <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, backgroundColor: "#DC143C", padding: 8}}>{teamsNotSelected[1].quotes[position]} %</Text>
-            </View>
+              <View>
+                <Text style = {{color: "gray", fontWeight: "400"}}>QUOTES</Text>
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].quotes[position]} %  {quoteA}</Text>
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8}}>{teamsNotSelected[1].quotes[position]} %  {quoteB}</Text>
+              </View>
 
-            <View>
-              <Text style = {{color: "#00B073", fontWeight: "400", fontStyle:"oblique", marginRight: 5}}>YOU CAN WIN</Text>
-              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
-              <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+              <View>
+                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5}}>YOU CAN WIN</Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+              </View>
+
             </View>
           </View>
-
-
-        </View>
       );
     } else {
       return(
@@ -92,7 +95,7 @@ class BetModal extends Component{
         <SegmentedControlTab
           values={values}
           tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
-          tabStyle = {{borderColor: "#00B073", backgroundColor: "black"}}
+          tabStyle = {{borderColor: "#00B073", backgroundColor: "transparent"}}
           selectedIndex={this.props.index}
           activeTabStyle = {{backgroundColor: "#00B073"}}
           onTabPress= {this.props.segmentedController}
@@ -130,18 +133,34 @@ class BetModal extends Component{
               <View style = {{padding: 20, paddingTop: 10}}>
                 <View style = {{flexDirection:"row", alignSelf: "center", marginTop: 5, marginBottom:20}}>
                   <Text style = {styles.layBet}>Set your bet for: </Text>
-                  <Text style = {[styles.layBet, {fontWeight:"400", marginLeft: 5, color: "#00B073"}]}>{this.props.team.name}</Text>
+                  <Text style = {[styles.layBet, {marginLeft: 5, color: "#00B073", fontSize: 17}]}>{this.props.team.name}</Text>
                 </View>
 
-                <TextInput
-                  placeholder = "Amount"
-                  keyboardType = "numeric"
-                  style = {{color: "white", height: 40, textAlign: "center", borderColor:"gray", borderWidth: 0.5, marginBottom: 15}}
-                />
+                <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 25, marginTop: 5, fontWeight: "300"}}>{this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
 
-                <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 15, marginTop: 5}}> Your bet: {this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <Slider
+                  step= {10}
+                  style ={{marginLeft: 15, marginRight: 15, marginTop: 15}}
+                  maximumValue={this.state.cUserCoins}
+                  thumbTintColor = "#00B073"
+                  minimumTrackTintColor = "#00B073"
+                  onValueChange={this.setCoins.bind(this)}
+                  value={this.state.bet}
+                  thumbStyle ={{color: "#00B073"}}
+                />
+                <View style = {{flexDirection:"row", justifyContent:"space-between", marginTop: 15}}>
+                  <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 5, borderRadius: 5, marginLeft: 5}} onPress = {this.setCoins.bind(this, 50)}>
+                    <Text style = {{color: "white"}}> Min bet </Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style = {{backgroundColor: "#DAA520", padding: 5, borderRadius: 5, marginRight: 5}}  onPress = {this.setCoins.bind(this, this.state.cUserCoins)}>
+                    <Text style = {{color: "white"}}> All in </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
+
               {this.gameType(game, position)}
+
             </View>
           );
     }
@@ -152,32 +171,33 @@ class BetModal extends Component{
 
       if(this.props.choice == 2){
         button =  <TouchableOpacity style = {styles.buttonContainer}>
-                    <Text style = {styles.layBet}> Place bet</Text>
+                    <Text style = {[styles.layBet, {fontSize: 19}]}> Place bet</Text>
                   </TouchableOpacity>
       }
 
     return(
-      <View style = {{flex: 1, backgroundColor: "black"}}>
-
-        <View style ={{marginBottom: 15}}>
-          <View style = {styles.info}>
-            <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
-              <Text style = {{color: "#00B073", fontSize: 17}}>
-                Close
-              </Text>
-            </TouchableOpacity>
-            <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> 50440 <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+         <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "black", "gray"]}>
+          <View style ={{marginBottom: 15}}>
+            <View style = {styles.info}>
+              <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
+                <Text style = {{color: "#00B073", fontSize: 17}}>
+                  Close
+                </Text>
+              </TouchableOpacity>
+              <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.state.cUserCoins} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+            </View>
           </View>
-        </View>
 
-        <View>
-          {this.renderSegmentedController()}
-        </View>
+          <View>
+            {this.renderSegmentedController()}
+          </View>
 
-        {this.betChoice()}
+          {this.betChoice()}
 
-        {button}
-      </View>
+          {button}
+          </LinearGradient>
+
+
     );
   }
 }
@@ -215,8 +235,7 @@ const styles ={
     flexDirection:"row",
     justifyContent: "space-between",
     marginBottom: 3,
-    padding: 10,
-    backgroundColor: "#161616"
+    padding: 10
   },
   info: {
     display: "flex",
@@ -251,7 +270,7 @@ const styles ={
     alignSelf: "center",
     color: "white",
     fontWeight:"400",
-    fontSize: 18
+    fontSize: 15
   },
   buttonContainer: {
     backgroundColor: "#00B073",

@@ -3,6 +3,7 @@ import {View, Text, FlatList, ScrollView, Image, TouchableOpacity, Modal} from "
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
 import Leagues from "../components/leagues";
+import { NavigationActions } from 'react-navigation';
 
 class Menu extends Component {
 

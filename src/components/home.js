@@ -9,7 +9,6 @@ import LinearGradient from "react-native-linear-gradient";
 import Lgs from "../constants/leagues";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
-import Details from "../constants/eventsDetails";
 import Carousell from "../reusable/carousel";
 import GameCard from "../reusable/gameCard";
 import Menu from "../reusable/menu";
@@ -27,29 +26,31 @@ class Home extends Component{
     this.setState({showSidebar: true})
   }
 
-  getRoute(){
+
+  sendToDescription(game){
     const navigateAction = NavigationActions.navigate({
-      routeName: "TopRequests"
+      routeName: "Description",
+      params: {par: game}
     })
     this.props.navigation.dispatch(navigateAction);
   }
 
-  renderLeagues(){
-    return Images.map(i => {
-      return(
-        <View>
-          <TouchableOpacity>
-            <Image
-              source = {{uri: i.image}}
-              opacity = {0.45}
-              style = {styles.categories}
-            />
-            <Text style = {{color: "#ffff", position: "absolute", top: 15, left: 15, fontWeight :"600" }}>{i.text}</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    })
-  }
+  // renderLeagues(){
+  //   return Images.map(i => {
+  //     return(
+  //       <View>
+  //         <TouchableOpacity>
+  //           <Image
+  //             source = {{uri: i.image}}
+  //             opacity = {0.45}
+  //             style = {styles.categories}
+  //           />
+  //           <Text style = {{color: "#ffff", position: "absolute", top: 15, left: 15, fontWeight :"600" }}>{i.text}</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     );
+  //   })
+  // }
 
   topRequests(){
     return Requests.map((r, index) => {
@@ -87,30 +88,30 @@ class Home extends Component{
   }
 
   topEventDetials(){
-    return Details.map((d, index) => {
+    return Games.map((g, index) => {
       return(
-        <TouchableOpacity key = {index}>
+        <TouchableOpacity key = {index} onPress = {this.sendToDescription.bind(this, g)}>
             <Card style = {{padding: 10}}>
               <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
-                <Text style = {styles.desc}>{d.local}</Text>
+                <Text style = {styles.desc}>{g.local.name}</Text>
                 <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
-                <Text style = {styles.desc}>{d.visit}</Text>
+                <Text style = {styles.desc}>{g.visit.name}</Text>
               </View>
 
               <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
                 <View>
                   <Text style = {styles.exp}>Traded</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{d.traded} $</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{g.traded} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
                 </View>
 
                 <View>
                   <Text style = {styles.exp}>Matches</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{d.matches}</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{g.matches}</Text>
                 </View>
 
                 <View>
                   <Text style = {styles.exp}>Unmatched</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{d.unmatchedBets}</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{g.unmatched}</Text>
                 </View>
 
                 <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
@@ -188,7 +189,7 @@ class Home extends Component{
               </TouchableOpacity>
             </View>
 
-            <Carousell opacity = {0.55}/>
+            <Carousell opacity = {0.55} text ="helo"/>
           </View>
 
           <View>

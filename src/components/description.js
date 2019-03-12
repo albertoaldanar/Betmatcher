@@ -149,7 +149,7 @@ class Description extends Component{
 
 
     return(
-      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 5 , y: 1}} colors = {[ "black", "gray"]}>
+      <LinearGradient  style = {{flex: 1}} start={{x: 4.5, y: 0.5}} end={{x: 0 , y: 5}} colors = {[ "black", "gray"]}>
         <GameInfo data= {game}/>
 
         <ScrollView>
@@ -217,7 +217,7 @@ class Description extends Component{
           onConfirmPressed={() => {
             this.setState({visible: true, betChoice: 2, showLightBox: false})
           }}
-          titleStyle = {{color: "#ffff", fontStyle:"oblique", fontWeight:"bold", fontSize: 20}}
+          titleStyle = {{color: "white", fontWeight:"600", fontSize: 20}}
           cancelButtonColor =  "#00B073"
           contentContainerStyle = {{padding: 5, paddingBottom: 35, paddingTop: 35, borderRadius: 5,
             backgroundColor: "black",

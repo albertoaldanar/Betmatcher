@@ -235,7 +235,9 @@ const styles ={
     flexDirection:"row",
     justifyContent: "space-between",
     marginBottom: 3,
-    padding: 10
+    padding: 10,
+    borderBottomWidth: 0.3,
+    borderBottomColor: "gray"
   },
   info: {
     display: "flex",
@@ -260,8 +262,8 @@ const styles ={
     paddingBottom: 9
   },
   image: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     marginRight: 25,
     marginTop: 12,
     marginLeft: 5

@@ -84,7 +84,7 @@ class DescChart extends Component {
                   <LineChart
                       style={{ flex: 1, marginLeft: 16 }}
                       data={ data2 }
-                      svg={{ stroke: 'blue' }}
+                      svg={{ stroke: '#4169E1' }}
                       contentInset={ contentInset }
                   >
                       <Grid/>

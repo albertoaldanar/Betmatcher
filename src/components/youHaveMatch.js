@@ -11,7 +11,7 @@ class YouHaveMatch extends Component{
 
   render(){
     return(
-        <View style = {styles.container}>
+        <LinearGradient  style = {{flex: 1}} start={{x: 4.5, y: 0.5}} end={{x: 0 , y: 5}} colors = {[ "black", "gray"]}>
             <View>
               <Text style = {styles.matchTitle}>You have a match! </Text>
             </View>
@@ -43,19 +43,16 @@ class YouHaveMatch extends Component{
             <TouchableOpacity style = {styles.buttonCointainer} onPress = {this.props.sendToMatches}>
               <Text style = {styles.buttonText}>CONTINUE</Text>
             </TouchableOpacity>
-        </View>
+        </LinearGradient>
     );
   }
 }
 
 const styles = {
-  container: {
-    flex: 1,
-    backgroundColor: "#161616"
-  },
+
   matchTitle: {
     color:"#00B073",
-    fontWeight: "400",
+    fontWeight: "300",
     fontStyle: "oblique",
     fontSize: 33,
     alignSelf: "center",

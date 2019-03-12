@@ -47,9 +47,8 @@ class BetModal extends Component{
   }
 
   gameType(game, position){
+    let {bet} = this.state;
     const {teamsNotSelected} = this.props;
-    const quoteA  = teamsNotSelected[0].quotes[position] > 0  ?  <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :  <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>
-    const quoteB  = teamsNotSelected[1].quotes[position] > 0  ?  <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :  <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>
 
    if(game.sport == "Soccer"){
       return(
@@ -63,14 +62,19 @@ class BetModal extends Component{
 
               <View>
                 <Text style = {{color: "gray", fontWeight: "400"}}>QUOTES</Text>
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].quotes[position]} %  {quoteA}</Text>
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8}}>{teamsNotSelected[1].quotes[position]} %  {quoteB}</Text>
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>
+                  {teamsNotSelected[0].quotes[position] } %  {teamsNotSelected[0].quotes[position] > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome>: <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}
+                </Text>
+
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8}}>
+                  {teamsNotSelected[1].quotes[position]} %  {teamsNotSelected[1].quotes[position] > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome>: <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}
+                </Text>
               </View>
 
               <View>
                 <Text style = {{color: "gray", fontWeight: "400", marginRight: 5}}>YOU CAN WIN</Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{this.state.bet} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes[position] / 100) * bet + (bet * 2) )} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[1].quotes[position] / 100) * bet + (bet * 2) )} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
               </View>
 
             </View>

@@ -149,7 +149,7 @@ class Description extends Component{
 
 
     return(
-      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 0 , y: 3}} colors = {[ "black", "gray"]}>
+      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
         <GameInfo data= {game}/>
 
         <ScrollView>

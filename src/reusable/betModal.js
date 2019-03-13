@@ -31,22 +31,25 @@ class BetModal extends Component{
       return(
         <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
           <View style = {styles.tableStyle}>
-            <View style = {{flexDirection: "row"}}>
-              <Image
-                source = {{uri: u.image}}
-                style = {styles.image}
-              />
-              <View style = {{marginLeft: 15, marginBottom: 20}}>
-                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{u.user}</Text>
-                <Text style = {{color: "white", fontSize: 12, fontStyle: "oblique", marginTop: 10, marginBottom: 10}}> {u.country} <FontAwesome> {Icons.flag} </FontAwesome> </Text>
+            <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+              <View style = {{flexDirection:"row"}}>
+                <Image
+                  source = {{uri: u.image}}
+                  style = {styles.image}
+                />
+                <View style = {{marginLeft: 15, marginBottom: 10}}>
+                  <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{u.user}</Text>
+                  <Text style = {{color: "white", fontSize: 12, fontStyle: "oblique", marginTop: 10, marginBottom: 10}}> {u.country} <FontAwesome> {Icons.flag} </FontAwesome> </Text>
+                </View>
               </View>
+
+              <FontAwesome style = {{color:"gray", marginTop: 32, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
             </View>
 
-            <View style = {{alignSelf:"center", marginBottom: 30}}>
-              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 15}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+            <View style = {{alignSelf:"center", marginBottom: 12}}>
+              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 17}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
 
-            <FontAwesome style = {{color:"gray", marginTop: 27, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
           </View>
 
         </TouchableOpacity>
@@ -87,7 +90,7 @@ class BetModal extends Component{
    if(game.sport == "Soccer"){
       return(
           <View style = {{marginTop: 45}}>
-            <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, paddingBottom: 20, borderBottomWidth: 0.4, borderBottomColor: "gray", borderTopWidth: 0.4, borderTopColor: "gray"}}>
+            <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth:0.5, borderTopColor: "gray", borderTopWidth:0.5}}>
               <View>
                 <Text style = {{color: "gray", fontWeight: "400", marginLeft: 5, borderBottomWidth: 1, borderBottomColor: "gray"}}> IF MATCH</Text>
                 <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name} </Text>
@@ -117,8 +120,25 @@ class BetModal extends Component{
     } else {
       return(
         <View style = {{marginTop: 45}}>
-          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].name}</Text>
-          <Text style = {{color: "#ffff"}}>If match against {teamsNotSelected[0].quotes} %</Text>
+            <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth:0.5, borderTopColor: "gray", borderTopWidth:0.5}}>
+              <View>
+                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5, alignSelf:"center"}}>OPPONENT</Text>
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name} </Text>
+              </View>
+
+              <View>
+                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5}}>QUOTE</Text>
+                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>
+                  {teamsNotSelected[0].quotes } %  {teamsNotSelected[0].quotes > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome>: <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}
+                </Text>
+              </View>
+
+              <View>
+                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5}}>YOU CAN WIN</Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes / 100) * bet + (bet * 2) )} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+              </View>
+
+            </View>
         </View>
       );
     }
@@ -150,19 +170,31 @@ class BetModal extends Component{
     if(this.props.choice == 1){
       if(this.props.index == 0){
           return(
-              <ScrollView style = {{ marginTop: 20 }}>
-                <Text style = {{color: "white", fontSize: 20, margin: 14, alignSelf:"center"}}>
-                  {teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes} % { teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
-                </Text>
+              <ScrollView style = {{ marginTop: 5 }}>
+                <View style = {{flexDirection:"row", margin: 14, justifyContent:"space-between"}}>
+                  <FontAwesome style = {{color: "white"}}>{Icons.ball}</FontAwesome>
+                  <Text style = {{color: "white", fontSize: 20, marginRight: -20}}>
+                    {teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes} % { teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
+                  </Text>
+                  <TouchableOpacity style = {{marginTop: -3}}>
+                    <FontAwesome style = {{color: "white", fontSize: 27}}>{Icons.infoCircle}</FontAwesome>
+                  </TouchableOpacity>
+                </View>
                 {this.userList(this.props.list1, teamsNotSelected[0].quotes || teamsNotSelected[0].quotes[team.position])}
               </ScrollView>
           );
       } else {
           return(
-                <ScrollView style = {{ marginTop: 10 }}>
-                  <Text style = {{color: "white", fontSize: 20, margin: 14, alignSelf:"center"}}>
-                    {teamsNotSelected[1].quotes[team.position]} % { teamsNotSelected[1].quotes[team.position] > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
-                  </Text>
+                <ScrollView style = {{ marginTop: 5 }}>
+                  <View style = {{flexDirection:"row", margin: 14, justifyContent:"space-between"}}>
+                    <FontAwesome style = {{color: "white"}}>{Icons.ball}</FontAwesome>
+                    <Text style = {{color: "white", fontSize: 20, marginRight: -20}}>
+                      {teamsNotSelected[1].quotes[team.position]} % { teamsNotSelected[0].quotes[team.position] > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
+                    </Text>
+                    <TouchableOpacity style = {{marginTop: -4}}>
+                      <FontAwesome style = {{color: "white", fontSize: 27}}>{Icons.infoCircle}</FontAwesome>
+                    </TouchableOpacity>
+                  </View>
                   {this.userList(this.props.list2, teamsNotSelected[1].quotes[team.position])}
                 </ScrollView>
           );
@@ -221,7 +253,7 @@ class BetModal extends Component{
 
     return(
          <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
-          <View style ={{marginBottom: 15}}>
+          <View style ={{marginBottom: 7}}>
             <View style = {styles.info}>
               <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
                 <Text style = {{color: "#00B073", fontSize: 17}}>
@@ -274,8 +306,6 @@ const styles ={
     padding: 50,
   },
   tableStyle: {
-    flexDirection:"row",
-    justifyContent: "space-between",
     marginBottom: 3,
     padding: 10,
     borderBottomWidth: 0.3,

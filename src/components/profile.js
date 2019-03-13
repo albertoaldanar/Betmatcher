@@ -50,12 +50,12 @@ class Profile extends Component{
               <Text style = {styles.username}> {User.userName} </Text>
 
               <View style = {{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 2}}>
-                <Text style = {[styles.username, {fontSize: 15, fontWeight:"300", marginBottom: 19}]}>
-                  {User.country} <Image source = {{uri: "https://images.emojiterra.com/twitter/v11/512px/1f1f2-1f1fd.png"}} style = {{ marginLeft: 15, height: 20, width: 20, paddingLeft: 10}}/>
+                <Text style = {[styles.username, {fontSize: 17, fontWeight:"300", marginBottom: 10}]}>
+                  <FontAwesome>{Icons.mapMarker}</FontAwesome> {User.country}
                 </Text>
 
-                <Text style = {[styles.username, {fontSize: 15, fontWeight:"300", color: "#DAA520", marginBottom: 19}]}>
-                  {User.coins}  <FontAwesome style = {{color: "#DAA520", fontSize: 23}}>{Icons.bitcoin}</FontAwesome>
+                <Text style = {[styles.username, {fontSize: 17, fontWeight:"300", color: "#DAA520", marginBottom: 10}]}>
+                  {User.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.bitcoin}</FontAwesome>
                 </Text>
               </View>
 

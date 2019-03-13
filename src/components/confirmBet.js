@@ -138,7 +138,7 @@ const styles ={
     color: "#ffff",
     fontSize: 15,
     fontWeight: "300",
-    marginTop: 10,
+    marginTop: 13,
     textAlign: "right",
     paddingBottom: 5
   },

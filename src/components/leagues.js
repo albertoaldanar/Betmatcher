@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, Image, TouchableOpacity, Picker, Dimensions} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import { NavigationActions } from 'react-navigation';
+import LinearGradient from "react-native-linear-gradient";
 
 const WIDTH = Dimensions.get("window").width;
 
@@ -46,7 +47,7 @@ class Leagues extends Component{
     })
 
     return(
-      <View style = {styles.container}>
+      <LinearGradient  style = {{flex: 1, position: "relative"}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
         <View>
           <Image source = {require('../images/flechasd.png')} style = {{width: 120, height: 110, alignSelf: "center", marginBottom: -10, marginTop: 15}}/>
           <Text style = {styles.title}>{this.props.league.name} leagues</Text>
@@ -69,17 +70,12 @@ class Leagues extends Component{
               Search
            </Text>
           </TouchableOpacity>
-      </View>
+      </LinearGradient>
     );
   }
 }
 
 const styles = {
-  container: {
-    flex: 1,
-    backgroundColor: "#161616",
-    position: "relative"
-  },
   button: {
     position: "absolute",
     backgroundColor: "#34D1B6",

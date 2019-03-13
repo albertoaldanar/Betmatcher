@@ -55,7 +55,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.8.9:3000/api/variable")
+    return fetch("http://192.168.0.3:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -149,7 +149,7 @@ class Description extends Component{
 
 
     return(
-      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "black", "gray"]}>
+      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 0 , y: 3}} colors = {[ "black", "gray"]}>
         <GameInfo data= {game}/>
 
         <ScrollView>
@@ -183,6 +183,7 @@ class Description extends Component{
         <Modal
             transparent = {false}
             visible = {this.state.visible}
+            animationType ="fade"
         >
 
           <BetModal

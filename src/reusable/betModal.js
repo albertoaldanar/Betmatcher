@@ -1,17 +1,21 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput, Dimensions} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import SwipeCards from 'react-native-swipe-cards';
-import Carousell from "./carousel";
+import Carousel from "react-native-snap-carousel";
 import LinearGradient from "react-native-linear-gradient";
+
+const sliderWidth = Dimensions.get('window').width;
+const itemHeight = Dimensions.get('window').height;
+
 
 class BetModal extends Component{
 
   constructor(props){
     super(props);
     this.state = {
-      bet: 250,
+      bet: 50,
       cUserCoins: 3460
     }
   }
@@ -23,7 +27,7 @@ class BetModal extends Component{
   userList(list, quote){
     return list.map((u, index) => {
 
-      const bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet
+      const bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
       return(
         <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
           <View style = {styles.tableStyle}>
@@ -32,12 +36,16 @@ class BetModal extends Component{
                 source = {{uri: u.image}}
                 style = {styles.image}
               />
-              <View style = {{marginTop: 5}}>
-                <Text style = {{color: "#DAA520", paddingBottom: 9, fontSize: 16}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-                <Text style = {{color: "#00B073", paddingBottom: 9, fontSize: 15}}> {u.user}</Text>
-                <Text style = {{color: "white", fontSize: 15, borderColor:"white"}}> {quote} %</Text>
+              <View style = {{marginLeft: 15, marginBottom: 20}}>
+                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{u.user}</Text>
+                <Text style = {{color: "white", fontSize: 12, fontStyle: "oblique", marginTop: 10, marginBottom: 10}}> {u.country} <FontAwesome> {Icons.flag} </FontAwesome> </Text>
               </View>
             </View>
+
+            <View style = {{alignSelf:"center", marginBottom: 30}}>
+              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 15}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+            </View>
+
             <FontAwesome style = {{color:"gray", marginTop: 27, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
           </View>
 
@@ -45,6 +53,32 @@ class BetModal extends Component{
       );
     })
   }
+
+  // userCard({item, index}){
+  //   // const bet = quote > 0 ? Math.round(item.bet - ((quote / 100) * item.bet)) : item.bet;
+  //   return(
+  //     <View style = {{backgroundColor: "#161616", borderRadius: 5, marginTop: 150, padding: 7, paddingTop: 20, paddingBottom: 20}}>
+  //       <View style = {{flexDirection:"row"}}>
+  //         <Image
+  //           source = {{uri: item.image}}
+  //           style = {styles.image}
+  //         />
+  //         <View style = {{marginLeft: 15, marginBottom: 20}}>
+  //           <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{item.user}</Text>
+  //           <Text style = {{color: "white", fontSize: 12, fontStyle: "oblique", marginTop: 10, marginBottom: 10}}> {item.country} <FontAwesome> {Icons.flag} </FontAwesome> </Text>
+  //         </View>
+  //       </View>
+
+  //       <View style = {{alignSelf:"center", marginBottom: 30}}>
+  //         <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 19}}> {item.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+  //       </View>
+
+  //       <TouchableOpacity style = {{position: "absolute", bottom: 0, left: 0, right: 0, backgroundColor: "#00B073", padding: 7, borderRadius: 5, marginTop: 10}}>
+  //         <Text style = {{textAlign: "center", color: "white"}}>MATCH</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // }
 
   gameType(game, position){
     let {bet} = this.state;
@@ -55,7 +89,7 @@ class BetModal extends Component{
           <View style = {{marginTop: 45}}>
             <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, paddingBottom: 20, borderBottomWidth: 0.4, borderBottomColor: "gray", borderTopWidth: 0.4, borderTopColor: "gray"}}>
               <View>
-                <Text style = {{color: "gray", fontWeight: "400", marginLeft: 5, borderBottomWidth: 1, borderBottomColor: "gray"}}>MATCH</Text>
+                <Text style = {{color: "gray", fontWeight: "400", marginLeft: 5, borderBottomWidth: 1, borderBottomColor: "gray"}}> IF MATCH</Text>
                 <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name} </Text>
                 <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[1].name} </Text>
               </View>
@@ -116,16 +150,15 @@ class BetModal extends Component{
     if(this.props.choice == 1){
       if(this.props.index == 0){
           return(
-              <ScrollView>
+              <ScrollView style = {{marginTop: 20 }}>
                 {this.userList(this.props.list1, teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes)}
               </ScrollView>
           );
       } else {
           return(
-            <ScrollView>
-              {this.userList(this.props.list2, teamsNotSelected[1].quotes[team.position])}
-            </ScrollView>
-
+              <ScrollView style = {{marginTop: 20 }}>
+                {this.userList(this.props.list2, teamsNotSelected[1].quotes[team.position])}
+              </ScrollView>
           );
         }
 
@@ -146,6 +179,7 @@ class BetModal extends Component{
                   step= {10}
                   style ={{marginLeft: 15, marginRight: 15, marginTop: 15}}
                   maximumValue={this.state.cUserCoins}
+                  minimumValue = {50}
                   thumbTintColor = "#00B073"
                   minimumTrackTintColor = "#00B073"
                   onValueChange={this.setCoins.bind(this)}
@@ -180,7 +214,7 @@ class BetModal extends Component{
       }
 
     return(
-         <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "black", "gray"]}>
+         <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
           <View style ={{marginBottom: 15}}>
             <View style = {styles.info}>
               <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
@@ -200,8 +234,6 @@ class BetModal extends Component{
 
           {button}
           </LinearGradient>
-
-
     );
   }
 }
@@ -241,7 +273,8 @@ const styles ={
     marginBottom: 3,
     padding: 10,
     borderBottomWidth: 0.3,
-    borderBottomColor: "gray"
+    borderBottomColor: "gray",
+    shadowOffset: {width: 0, height: 2,}, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5,
   },
   info: {
     display: "flex",
@@ -268,9 +301,8 @@ const styles ={
   image: {
     width: 60,
     height: 60,
-    marginRight: 25,
-    marginTop: 12,
-    marginLeft: 5
+    marginRight: 5,
+    marginLeft: 6
   },
   layBet: {
     alignSelf: "center",

@@ -11,7 +11,7 @@ class YouHaveMatch extends Component{
 
   render(){
     return(
-        <LinearGradient  style = {{flex: 1}} start={{x: 4.5, y: 0.5}} end={{x: 0 , y: 5}} colors = {[ "black", "gray"]}>
+        <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
             <View>
               <Text style = {styles.matchTitle}>You have a match! </Text>
             </View>
@@ -54,7 +54,7 @@ const styles = {
     color:"#00B073",
     fontWeight: "300",
     fontStyle: "oblique",
-    fontSize: 33,
+    fontSize: 35,
     alignSelf: "center",
     marginTop: 55,
     marginBottom: 15

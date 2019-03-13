@@ -55,7 +55,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.0.3:3000/api/variable")
+    return fetch("http://192.168.8.9:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({

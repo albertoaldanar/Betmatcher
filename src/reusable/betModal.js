@@ -150,15 +150,21 @@ class BetModal extends Component{
     if(this.props.choice == 1){
       if(this.props.index == 0){
           return(
-              <ScrollView style = {{marginTop: 20 }}>
-                {this.userList(this.props.list1, teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes)}
+              <ScrollView style = {{ marginTop: 20 }}>
+                <Text style = {{color: "white", fontSize: 20, margin: 14, alignSelf:"center"}}>
+                  {teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes} % { teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
+                </Text>
+                {this.userList(this.props.list1, teamsNotSelected[0].quotes || teamsNotSelected[0].quotes[team.position])}
               </ScrollView>
           );
       } else {
           return(
-              <ScrollView style = {{marginTop: 20 }}>
-                {this.userList(this.props.list2, teamsNotSelected[1].quotes[team.position])}
-              </ScrollView>
+                <ScrollView style = {{ marginTop: 10 }}>
+                  <Text style = {{color: "white", fontSize: 20, margin: 14, alignSelf:"center"}}>
+                    {teamsNotSelected[1].quotes[team.position]} % { teamsNotSelected[1].quotes[team.position] > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
+                  </Text>
+                  {this.userList(this.props.list2, teamsNotSelected[1].quotes[team.position])}
+                </ScrollView>
           );
         }
 

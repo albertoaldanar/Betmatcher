@@ -179,7 +179,6 @@ class Description extends Component{
         <Text style = {[styles.title, {marginBottom:15}]}>User Activity</Text>
 
 
-
         <Modal
             transparent = {false}
             visible = {this.state.visible}

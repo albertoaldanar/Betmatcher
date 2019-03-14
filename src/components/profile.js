@@ -5,13 +5,15 @@ import Header from "../reusable/header";
 import User from "../constants/user";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
-import PieChart from 'react-native-pie-chart';
+import ProfileCharts from "../reusable/profileCharts";
 import {
   LineChart,
   BarChart,
   ProgressChart,
+  PieChart,
   ContributionGraph
 } from 'react-native-chart-kit'
+import {Pages} from "react-native-pages";
 
 
 class Profile extends Component{
@@ -30,7 +32,7 @@ class Profile extends Component{
       { name: 'Draw', number: 1, color: '#ffffff', legendFontColor: '#7F7F7F', legendFontSize: 15 },
       { name: 'Lost', number: 0, color: 'rgb(0, 0, 255)', legendFontColor: '#7F7F7F', legendFontSize: 15 }
     ];
-
+    const data2 = [0.4, 0.6, 0.8]
     const chart_wh = 250
     const series = [9,2,1]
     const sliceColor = ['#00B073','#1FBED5','#DC143C']
@@ -51,11 +53,11 @@ class Profile extends Component{
                 </TouchableOpacity>
             </View>
 
-            <View style = {{paddingBottom: 20}}>
+            <View style = {{paddingBottom: 10}}>
               <Image style={styles.imageStyle} source={{uri: User.image}}/>
               <Text style = {styles.username}> {User.userName} </Text>
 
-              <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 4 }]}>
+              <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 4, color: "gray" }]}>
                 <FontAwesome>{Icons.mapMarker}</FontAwesome> {User.country}
               </Text>
 
@@ -66,8 +68,6 @@ class Profile extends Component{
           </LinearGradient>
         </View>
 
-
-        <ScrollView>
           <View style = {styles.stats}>
             <View style = {{marginLeft: 10}}>
               <Text style = {styles.count}>{User.won}</Text>
@@ -79,50 +79,11 @@ class Profile extends Component{
               <Text style = {styles.text}> Draw </Text>
             </View>
 
-            <View>
+            <View style = {{marginRight: 10}}>
               <Text style = {styles.count}>{User.lost}</Text>
               <Text style = {styles.text}> Lost </Text>
             </View>
-
-            <View  style = {{marginRight: 10}}>
-              <Text style = {[styles.count, {color:"#DAA520"}]}>68.3 %</Text>
-              <Text style = {styles.text}> Efficency</Text>
-            </View>
           </View>
-
-          <LineChart
-            data={{
-              labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-              datasets: [{
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100
-                ]
-              }]
-            }}
-            width={Dimensions.get('window').width}
-            height={220}
-            chartConfig={{
-              backgroundColor: 'transparent',
-              backgroundGradientFrom: '#161616',
-              backgroundGradientTo: '#161616',
-              decimalPlaces: 0,
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16
-              }
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16
-            }}
-          />
-        </ScrollView>
       </View>
     );
   }
@@ -130,19 +91,17 @@ class Profile extends Component{
 
 const styles = {
   imageStyle:{
-    width: Dimensions.get('window').width * 0.3,
-    height: Dimensions.get('window').width * 0.3,
+    width: Dimensions.get('window').width * 0.2,
+    height: Dimensions.get('window').width * 0.2,
     alignSelf: "center"
   },
   stats: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginTop: 14,
-    borderBottomColor: "gray",
-    borderBottomWidth: 0.5,
     paddingBottom: 10,
-    marginBottom: 22
+    marginBottom: 11
   },
   text: {
     fontSize: 13,

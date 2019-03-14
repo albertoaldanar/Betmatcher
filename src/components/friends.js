@@ -4,9 +4,9 @@ import LinearGradient from "react-native-linear-gradient";
 import CheckBox from 'react-native-check-box'
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-import { LineChart, YAxis, Grid } from 'react-native-svg-charts';
+import { YAxis, Grid } from 'react-native-svg-charts';
 import SwipeCards from 'react-native-swipe-cards';
-
+import { Pages } from 'react-native-pages';
 class Friends extends Component{
   constructor(props){
     super(props);
@@ -43,47 +43,7 @@ class Friends extends Component{
       ]
     return(
       <View style = {styles.container}>
-        <View style={styles.chart}>
-                <YAxis
-                    data={ data }
-                    contentInset={ contentInset }
-                    svg={{
-                        fill: 'grey',
-                        fontSize: 10,
-                    }}
-                    numberOfTicks={ 10 }
-                    formatLabel={ value => `${value}$` }
-                />
-                    <LineChart
-                        style={{ flex: 1}}
-                        data={ data }
-                        svg={{ stroke: '#00B073' }}
-                        contentInset={ contentInset }
-                    >
-                        <Grid/>
-                    </LineChart>
-
-                  <LineChart
-                      style={{ flex: 1, marginLeft: -300}}
-                      data={ data2 }
-                      numberOfTicks={ 0 }
-                      svg={{ stroke: 'blue' }}
-                      contentInset={ contentInset }
-                  >
-                      <Grid/>
-                  </LineChart>
-
-                  <LineChart
-                      style={{ flex: 1, marginLeft: -500}}
-                      data={ data2 }
-                      numberOfTicks={ 0 }
-                      svg={{ stroke: 'gray' }}
-                      contentInset={ contentInset }
-                  >
-                      <Grid/>
-                  </LineChart>
-            </View>
-
+        <Text>Freinds</Text>
       </View>
     );
   }

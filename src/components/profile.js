@@ -6,6 +6,12 @@ import User from "../constants/user";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
 import PieChart from 'react-native-pie-chart';
+import {
+  LineChart,
+  BarChart,
+  ProgressChart,
+  ContributionGraph
+} from 'react-native-chart-kit'
 
 
 class Profile extends Component{
@@ -30,7 +36,7 @@ class Profile extends Component{
     const sliceColor = ['#00B073','#1FBED5','#DC143C']
 
     return(
-      <View style = {{flex: 1, backgroundColor: "black"}}>
+      <View style = {{flex: 1, backgroundColor: "#161616"}}>
 
         <StatusBar hidden = {true}/>
           <View style = {{backgroundColor: "#00B073"}}>
@@ -49,65 +55,74 @@ class Profile extends Component{
               <Image style={styles.imageStyle} source={{uri: User.image}}/>
               <Text style = {styles.username}> {User.userName} </Text>
 
-              <View style = {{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: 2}}>
-                <Text style = {[styles.username, {fontSize: 17, fontWeight:"300", marginBottom: 10}]}>
-                  <FontAwesome>{Icons.mapMarker}</FontAwesome> {User.country}
-                </Text>
+              <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 4 }]}>
+                <FontAwesome>{Icons.mapMarker}</FontAwesome> {User.country}
+              </Text>
 
-                <Text style = {[styles.username, {fontSize: 17, fontWeight:"300", color: "#DAA520", marginBottom: 10}]}>
-                  {User.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.bitcoin}</FontAwesome>
-                </Text>
-              </View>
-
+              <Text style = {[styles.username, {fontSize: 19, fontWeight:"300", color: "#DAA520", marginBottom: 10}]}>
+                {User.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.bitcoin}</FontAwesome>
+              </Text>
             </View>
-            </LinearGradient>
-          </View>
-
-
-
-        <View style = {styles.stats}>
-          <View>
-            <Text style = {styles.text}> Won </Text>
-            <Text style = {[styles.count, {color: "#00B073"}]}>{User.won}</Text>
-          </View>
-
-          <View>
-            <Text style = {styles.text}> Draw </Text>
-            <Text style = {[styles.count, {color: "#1FBED5"}]}>{User.draw}</Text>
-          </View>
-
-          <View>
-            <Text style = {styles.text}> Lost </Text>
-            <Text style = {[styles.count, {color: "#DC143C"}]}>{User.lost}</Text>
-          </View>
+          </LinearGradient>
         </View>
 
-          <PieChart
-            chart_wh={Dimensions.get('window').width * 0.65}
-            series={series}
-            sliceColor={sliceColor}
-            coverRadius={0.95}
-            coverFill={'black'}
-            doughnut= {true}
-            style ={{
-              alignSelf: "center",
-              marginTop: 7,
-              shadowColor: '#696969',
-              shadowOffset: { width: 1, height: 2 },
-              shadowOpacity: 3,
-              shadowRadius: 6,
-              elevation: 4,
-            }}
-          />
 
-          <View style = {styles.percent}>
-            <Text style = {[styles.number, {fontSize: 15}]}>TOTAL BETS: </Text>
-            <Text style = {styles.number}> 4 </Text>
-            <View style = {{borderRadius: 5}}>
-              <Text style = {styles.total}> Efficency 65 %</Text>
+        <ScrollView>
+          <View style = {styles.stats}>
+            <View style = {{marginLeft: 10}}>
+              <Text style = {styles.count}>{User.won}</Text>
+              <Text style = {styles.text}> Won </Text>
+            </View>
+
+            <View>
+              <Text style = {styles.count}>{User.draw}</Text>
+              <Text style = {styles.text}> Draw </Text>
+            </View>
+
+            <View>
+              <Text style = {styles.count}>{User.lost}</Text>
+              <Text style = {styles.text}> Lost </Text>
+            </View>
+
+            <View  style = {{marginRight: 10}}>
+              <Text style = {[styles.count, {color:"#DAA520"}]}>68.3 %</Text>
+              <Text style = {styles.text}> Efficency</Text>
             </View>
           </View>
 
+          <LineChart
+            data={{
+              labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+              datasets: [{
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ]
+              }]
+            }}
+            width={Dimensions.get('window').width}
+            height={220}
+            chartConfig={{
+              backgroundColor: 'transparent',
+              backgroundGradientFrom: '#161616',
+              backgroundGradientTo: '#161616',
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 16
+              }
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16
+            }}
+          />
+        </ScrollView>
       </View>
     );
   }
@@ -122,13 +137,16 @@ const styles = {
   stats: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    margin: 20,
-    marginTop: 25,
+    justifyContent: "space-between",
+    marginTop: 14,
+    borderBottomColor: "gray",
+    borderBottomWidth: 0.5,
+    paddingBottom: 10,
+    marginBottom: 22
   },
   text: {
-    fontSize: 17,
-    color: "#ffff",
+    fontSize: 13,
+    color: "gray",
     fontWeight: "500",
     alignSelf: "center"
   },
@@ -138,10 +156,10 @@ const styles = {
     marginLeft: 5
   },
   count: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 20,
-    marginTop: 8,
+    color: "#00B073",
+    fontWeight: "400",
+    fontSize: 17,
+    marginBottom: 8,
     marginLeft: 15,
     fontStyle: "oblique"
   },

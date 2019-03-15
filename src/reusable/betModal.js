@@ -39,16 +39,14 @@ class BetModal extends Component{
                 />
                 <View style = {{marginLeft: 15, marginBottom: 10}}>
                   <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{u.user}</Text>
-                  <Text style = {{color: "white", fontSize: 12, fontStyle: "oblique", marginTop: 10, marginBottom: 10}}> {u.country} <FontAwesome> {Icons.flag} </FontAwesome> </Text>
+                  <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 17}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
                 </View>
               </View>
 
               <FontAwesome style = {{color:"gray", marginTop: 32, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
             </View>
 
-            <View style = {{alignSelf:"center", marginBottom: 12}}>
-              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 17}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-            </View>
+
 
           </View>
 

@@ -7,6 +7,8 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import { YAxis, Grid } from 'react-native-svg-charts';
 import SwipeCards from 'react-native-swipe-cards';
 import { Pages } from 'react-native-pages';
+import UserList1 from "../constants/userList1";
+
 class Friends extends Component{
   constructor(props){
     super(props);
@@ -16,34 +18,41 @@ class Friends extends Component{
     }
   }
 
-  handleYup (card) {
-    console.log(`Yup for ${card.text}`)
-  }
-  handleNope (card) {
-    console.log(`Nope for ${card.text}`)
-  }
-  handleMaybe (card) {
-    console.log(`Maybe for ${card.text}`)
+    userList(){
+      return(
+        <View>
+          <View style = {{flexDirection:"row", justifyContent:"space-between"}}>
+            <View style = {{flexDirection:"row"}}>
+              <Image
+                source = {{uri: "https://www.scripturaengage.com/wp-content/uploads/2017/03/Profile-Picture-Gert-Cools-Circle.png"}}
+                style = {styles.image}
+              />
+              <View style = {{marginLeft: 15, marginBottom: 10}}>
+                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>albertoaldanar</Text>
+                <Text style = {{color: "gray", fontSize: 13, marginTop: 4}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> Mexico </Text>
+              </View>
+            </View>
+
+            <Text style = {{color: "white", fontSize: 14, marginTop: 10, marginLeft: 15}}> +19 % <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> </Text>
+          </View>
+
+
+            <Text style = {{color: "#DAA520", fontSize: 19, marginTop: 15, alignSelf:"center"}}> 1950 <FontAwesome>{Icons.bitcoin}</FontAwesome> </Text>
+
+          <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, marginTop: 30}}>
+            <Text style = {{color: "white", fontSize: 14, alignSelf:"center"}}> View bet </Text>
+          </TouchableOpacity>
+        </View>
+      );
   }
 
   render(){
 
-    const data = [ 50, 10, 40, 95, 85, 91, 35, 53, 24, 50, ];
-    const data2 = [ 40, 80, 91, 86, 99, 35, 53, 54, 110, ];
-    const contentInset = { top: 20, bottom: 20, left: 10 };
-
-
-    const cards = [
-        {text: 'Tomato', backgroundColor: 'red'},
-        {text: 'Aubergine', backgroundColor: 'purple'},
-        {text: 'Courgette', backgroundColor: 'green'},
-        {text: 'Blueberry', backgroundColor: 'blue'},
-        {text: 'Umm...', backgroundColor: 'cyan'},
-        {text: 'orange', backgroundColor: 'orange'},
-      ]
     return(
       <View style = {styles.container}>
-        <Text>Freinds</Text>
+        <View style = {styles.card}>
+          {this.userList()}
+        </View>
       </View>
     );
   }
@@ -60,18 +69,16 @@ const styles = {
     flexDirection: "row",
   },
   card: {
-    backgroundColor: "#161616",
-    padding: 25,
-    borderRadius: 5,
+    selfAlign: "center",
+    marginTop: 200,
+    padding: 15,
+    paddingBottom: 15,
+    paddingTop: 15,
+    backgroundColor: "black",
     margin: 20,
-    elevation: 5,
-    shdowColor: "gray"
-  },
-  card: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 300,
-    height: 300,
+    borderRadius: 7,
+    borderColor:"gray",
+    borderWidth:0.3
   },
   noMoreCardsText: {
     fontSize: 22,
@@ -95,7 +102,13 @@ const styles = {
     color: "gray",
     fontWeight: "400",
     marginBottom: 10
-  }
+  },
+  image: {
+    width: 60,
+    height: 60,
+    marginRight: 5,
+    marginLeft: 6
+  },
 }
 
 

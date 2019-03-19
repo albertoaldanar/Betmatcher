@@ -19,7 +19,8 @@ class BetModal extends Component{
       bet: 50,
       cUserCoins: 3460,
       values: [50, 3460],
-      finalValue: []
+      finalValue: [],
+      infoBox: false
     }
   }
 
@@ -43,60 +44,33 @@ class BetModal extends Component{
         });
     }
 
-  // userList(list, quote){
-  //   return list.map((u, index) => {
+  userList(list, quote){
 
-
-  //     return(
-  //       <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
-  //         <View style = {styles.tableStyle}>
-  //           <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
-  //             <View style = {{flexDirection:"row"}}>
-  //               <Image
-  //                 source = {{uri: u.image}}
-  //                 style = {styles.image}
-  //               />
-  //               <View style = {{marginLeft: 15, marginBottom: 10}}>
-  //                 <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{u.user}</Text>
-  //                 <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 17}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-  //               </View>
-  //             </View>
-
-  //             <FontAwesome style = {{color:"gray", marginTop: 32, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
-  //           </View>
-  //         </View>
-
-  //       </TouchableOpacity>
-  //     );
-  //   })
-  // }
-
-    userCard({item}, index){
+    return list.map((u, index) => {
+      var bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
       return(
-        <View style = {styles.card}>
-          <View style = {{flexDirection:"row", justifyContent:"space-between"}}>
-            <View style = {{flexDirection:"row"}}>
-              <Image
-                source = {{uri: item.image}}
-                style = {styles.image}
-              />
-              <View style = {{marginLeft: 15, marginBottom: 10}}>
-                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{item.user}</Text>
-                <Text style = {{color: "gray", fontSize: 13, marginTop: 4}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.country} </Text>
+        <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
+          <View style = {styles.tableStyle}>
+            <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+              <View style= {{flexDirection:"row"}}>
+                <Image
+                  source = {{uri: u.image}}
+                  style = {styles.image}
+                />
+                <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
               </View>
+              <FontAwesome style = {{color:"gray", marginTop: 32, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
             </View>
 
-            <Text style = {{color: "white", fontSize: 14, marginTop: 10, marginLeft: 15}}> +19 % <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> </Text>
+            <View style = {{alignSelf:"center", flexDirection:"row"}}>
+              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 16, marginRight: 10}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{color: "gray", fontSize: 16}}> {quote} % {quote > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}</Text>
+            </View>
           </View>
 
-
-            <Text style = {{color: "#DAA520", fontSize: 19, marginTop: 15, alignSelf:"center"}}> {item.bet}  <FontAwesome>{Icons.bitcoin}</FontAwesome> </Text>
-
-          <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, marginTop: 30, borderRadius: 5}}>
-            <Text style = {{color: "white", fontSize: 14, alignSelf:"center"}}> VIEW BET </Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       );
+    })
   }
 
     userCard2({item}, index){
@@ -214,32 +188,13 @@ class BetModal extends Component{
     if(this.props.choice == 1){
       if(this.props.index == 0){
           return(
-              <View style = {{ marginTop: 5 }}>
-                <View style = {{alignSelf:"center", marginTop: 20}}>
-                    <Text style={{color: "#DAA520", fontSize: 20, alignSelf:"center"}}>
-                      {this.state.values[0]} <FontAwesome>{Icons.bitcoin}</FontAwesome>    -    {this.state.values[1]} <FontAwesome>{Icons.bitcoin}</FontAwesome>
-                    </Text>
-                    <MultiSlider
-                      values={[this.state.values[0], this.state.values[1]]}
-                      sliderLength={280}
-                      onValuesChange={this.multiSliderValuesChange}
-                      min={50}
-                      max={this.state.cUserCoins}
-                      step={10}
-                      Style = {{color:"green"}}
-                    />
-                </View>
-                <Carousel
-                  data={this.props.list1}
-                  renderItem={this.userCard}
-                  layout={'stack'}
-                  layoutCardOffset={`19`}
-                  style={{opacity: 0.4}}
-                  sliderWidth={sliderWidth}
-                  itemWidth={sliderWidth * 0.95}
-                  itemHeight={itemHeight}
-                />
-              </View>
+              <ScrollView style = {{marginTop: 5 }}>
+                <TouchableOpacity onPress = {() => this.setState({infoBox: true})}>
+                  <FontAwesome style = {{color: "white", fontSize: 27, alignSelf:"flex-end", margin: 10, marginBottom: 0}}>{Icons.questionCircle}</FontAwesome>
+                </TouchableOpacity>
+                <Text style = {{color: "gray", fontWeight: "400", alignSelf:"center", margin: 5, marginTop: 0}}>Users that bet for {teamsNotSelected[0].name}</Text>
+                {this.userList(this.props.list1, teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes)}
+              </ScrollView>
           );
       } else {
           return(
@@ -384,11 +339,10 @@ const styles ={
     padding: 50,
   },
   tableStyle: {
-    marginBottom: 3,
-    padding: 10,
+    marginBottom: 5,
+    padding: 15,
     borderBottomWidth: 0.3,
     borderBottomColor: "gray",
-    shadowOffset: {width: 0, height: 2,}, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5,
   },
   info: {
     display: "flex",
@@ -413,10 +367,18 @@ const styles ={
     paddingBottom: 9
   },
   image: {
-    width: 60,
-    height: 60,
-    marginRight: 5,
-    marginLeft: 6
+    width: 45,
+    height: 45,
+    marginRight: 15,
+    marginLeft: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
   },
   layBet: {
     alignSelf: "center",

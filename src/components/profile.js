@@ -27,24 +27,10 @@ class Profile extends Component{
 
   render(){
 
-    const commitsData = [
-      { date: '2017-01-02', count: 1 },
-      { date: '2017-01-03', count: 2 },
-      { date: '2017-01-04', count: 3 },
-      { date: '2017-01-05', count: 4 },
-      { date: '2017-01-06', count: 5 },
-      { date: '2017-01-30', count: 2 },
-      { date: '2017-01-31', count: 3 },
-      { date: '2017-03-01', count: 2 },
-      { date: '2017-04-02', count: 4 },
-      { date: '2017-03-05', count: 2 },
-      { date: '2017-02-30', count: 4 }
-    ]
-
     const data = [
-      { name: 'Won', number: 3, color: 'red', legendFontColor: '#7F7F7F', legendFontSize: 15 },
-      { name: 'Draw', number: 1, color: '#ffffff', legendFontColor: '#7F7F7F', legendFontSize: 15 },
-      { name: 'Lost', number: 0, color: 'rgb(0, 0, 255)', legendFontColor: '#7F7F7F', legendFontSize: 15 }
+      { name: 'Won', number: 3, color: '#00B073', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+      { name: 'Draw', number: 1, color: '#DCDCDC', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+      { name: 'Lost', number: 1, color: '#DC143C', legendFontColor: '#7F7F7F', legendFontSize: 15 }
     ];
     const data2 = [0.4, 0.6, 0.8]
     const chart_wh = 250
@@ -74,7 +60,7 @@ class Profile extends Component{
 
                 <View>
                   <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {User.userName} </Text>
-                  <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 1, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
+                  <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 5, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
                     <FontAwesome>{Icons.mapMarker}</FontAwesome> {User.country}
                   </Text>
                 </View>
@@ -193,22 +179,35 @@ class Profile extends Component{
               }}
             />
 
-            <View style = {{disply: "flex", justifyContent:"space-around", flexDirection:"row" }}>
-              <View>
-                <Text style = {styles.text}> Efficiency </Text>
-                <Text style = {{color: "#DAA520", fontSize: 15, marginTop: 15, alignSelf:"center"}}> 88 % </Text>
-              </View>
+            <PieChart
+              data={data}
+              width={Dimensions.get("window").width}
+              height={220}
+              chartConfig={{
+                backgroundColor: 'transparent',
+                decimalPlaces: 0, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  borderRadius: 16
+                }
+              }}
+              style={{
+                marginVertical: 8,
+                borderRadius: 16,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 6,
+                },
+                shadowOpacity: 0.37,
+                shadowRadius: 7.49,
 
-              <View>
-                <Text style = {styles.text}> Matches </Text>
-                <Text style = {{color: "#DAA520", fontSize: 15, marginTop: 15, alignSelf:"center"}}> 15 </Text>
-              </View>
-
-              <View>
-                <Text style = {styles.text}> Unmatched </Text>
-                <Text style = {{color: "#DAA520", fontSize: 15, marginTop: 15, alignSelf:"center"}}> 6 </Text>
-              </View>
-            </View>
+                elevation: 12,
+              }}
+              accessor="number"
+              backgroundColor="transparent"
+              paddingLeft="15"
+            />
 
           </Pages>
       </View>

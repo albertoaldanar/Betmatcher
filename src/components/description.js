@@ -27,7 +27,7 @@ class Description extends Component{
       showLightBox: false,
       message: "",
       loading: true,
-      showButtons: false,
+      showButtons: false
     }
   }
 

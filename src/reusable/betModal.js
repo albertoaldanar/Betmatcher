@@ -63,7 +63,7 @@ class BetModal extends Component{
             </View>
 
             <View style = {{alignSelf:"center", flexDirection:"row"}}>
-              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 16, marginRight: 10}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 16, marginRight: 40}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
               <Text style = {{color: "gray", fontSize: 16}}> {quote} % {quote > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}</Text>
             </View>
           </View>
@@ -162,23 +162,31 @@ class BetModal extends Component{
     if(this.props.choice == 1){
       if(this.props.index == 0){
           return(
-              <ScrollView style = {{marginTop: 5 }}>
+              <View style = {{marginTop: 5 }}>
                 <TouchableOpacity onPress = {() => this.setState({infoBox: true})}>
                   <FontAwesome style = {{color: "white", fontSize: 27, alignSelf:"flex-end", margin: 10, marginBottom: 0}}>{Icons.questionCircle}</FontAwesome>
                 </TouchableOpacity>
-                <Text style = {{color: "gray", fontWeight: "400", alignSelf:"center", margin: 5, marginTop: 0}}>Users that bet for {teamsNotSelected[0].name}</Text>
+
+                <View style = {{flexDirection:"row", alignSelf:"center"}}>
+                  <Text style = {{color: "gray", fontWeight: "400", margin: 5, marginTop: 0}}>Users that bet for</Text>
+                  <Text style = {{color: "#00B073", fontWeight: "400", margin: 5, marginTop: 0}}>{teamsNotSelected[0].name}</Text>
+                </View>
                 {this.userList(this.props.list1, teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes)}
-              </ScrollView>
+              </View>
           );
       } else {
           return(
-              <ScrollView style = {{marginTop: 5 }}>
+              <View style = {{marginTop: 5 }}>
                 <TouchableOpacity onPress = {() => this.setState({infoBox: true})}>
                   <FontAwesome style = {{color: "white", fontSize: 27, alignSelf:"flex-end", margin: 10, marginBottom: 0}}>{Icons.questionCircle}</FontAwesome>
                 </TouchableOpacity>
-                <Text style = {{color: "gray", fontWeight: "400", alignSelf:"center", margin: 5, marginTop: 0}}>Users that bet for {teamsNotSelected[1].name}</Text>
+
+                <View style = {{flexDirection:"row", alignSelf:"center"}}>
+                  <Text style = {{color: "gray", fontWeight: "400", margin: 5, marginTop: 0}}>Users that bet for</Text>
+                  <Text style = {{color: "#00B073", fontWeight: "400", margin: 5, marginTop: 0}}>{teamsNotSelected[1].name}</Text>
+                </View>
                 {this.userList(this.props.list2, teamsNotSelected[1].quotes[position])}
-              </ScrollView>
+              </View>
           );
         }
 
@@ -252,9 +260,9 @@ class BetModal extends Component{
             {this.renderSegmentedController()}
           </View>
 
-          <View>
+          <ScrollView>
             {this.betChoice()}
-          </View>
+          </ScrollView>
 
           {button}
           </LinearGradient>

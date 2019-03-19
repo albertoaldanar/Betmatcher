@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, Modal, Image, LayoutAnimation} from "react
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import YouHaveMatch from "./youHaveMatch";
+import LinearGradient from "react-native-linear-gradient";
 
 class ConfirmBet extends Component{
 
@@ -33,7 +34,7 @@ class ConfirmBet extends Component{
     // Refactorizar esto
     const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
     return(
-      <View style = {styles.container}>
+      <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
         <View style = {styles.space}>
             <View style = {styles.card}>
               <Image source= {{uri: game.image}} style = {{width: 60, height: 60, marginTop:5, marginRight: 10}}/>
@@ -55,10 +56,10 @@ class ConfirmBet extends Component{
           <Text style = {styles.title}>Bet confirmation</Text>
 
           <View style = {styles.betInfo}>
-            <View style = {[styles.singleUser, {backgroundColor: "black"}]}>
+            <View style = {[styles.singleUser, {backgroundColor: "#161616"}]}>
               <View style = {styles.info}>
                   <Text style = {styles.userName}>You</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15}]}>{teamSelected.name}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamSelected.name}</Text>
                   <Text style = {styles.secondText}>Bet: {bet}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: {AD[0]}</Text>
               </View>
@@ -68,7 +69,7 @@ class ConfirmBet extends Component{
 
             <Text style = {styles.vs}>VS.</Text>
 
-            <View style = {[styles.singleUser, {backgroundColor: "#161616"}]}>
+            <View style = {[styles.singleUser, {backgroundColor: "transparent"}]}>
               <View style = {styles.info}>
                   <Text style = {styles.userName}>{user.user}</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected.name}</Text>
@@ -98,7 +99,7 @@ class ConfirmBet extends Component{
             teamsNotSelected = {teamsNotSelected}
           />
         </Modal>
-      </View>
+      </LinearGradient>
     );
   }
 }

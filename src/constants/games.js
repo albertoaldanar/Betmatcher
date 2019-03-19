@@ -69,6 +69,31 @@ const Games = [
     unmatched: 5,
     topBet: 230,
   },
+  {
+    local: {
+      name: "Juventus",
+      quotes: {1: 13, 2: 19},
+      position: 3
+    },
+    visit: {
+      name: "Ajax",
+      quotes: {1: 10, 3: -13},
+      position: 2
+    },
+    draw: {
+      name: "Draw",
+      quotes: {2: -10, 3: -13},
+      position: 1
+    },
+    time: "6 FEB 6:00 pm",
+    league: "Champions League",
+    sport: "Soccer",
+    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    traded: 2345,
+    matches: 2,
+    unmatched: 5,
+    topBet: 230,
+  },
   // {
   //   local: "Valencia",
   //   visit: "Sevilla",

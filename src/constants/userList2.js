@@ -25,19 +25,19 @@ const UserList2 = [
     country: "China"
   },
     {
-    user: "wfwefefefwfef",
+    user: "raul99",
     bet: 200,
     image: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png",
     country: "Brasil"
   },
     {
-    user: "okpokpopkpkp",
+    user: "cr7gay",
     bet: 100,
     image: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png",
     country: "Camerun"
   },
     {
-    user: "ml",
+    user: "messiD10S",
     bet: 220000,
     image: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png"
   },

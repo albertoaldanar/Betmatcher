@@ -73,33 +73,7 @@ class BetModal extends Component{
     })
   }
 
-    userCard2({item}, index){
-      return(
-        <View style = {styles.card}>
-          <View style = {{flexDirection:"row", justifyContent:"space-between"}}>
-            <View style = {{flexDirection:"row"}}>
-              <Image
-                source = {{uri: item.image}}
-                style = {styles.image}
-              />
-              <View style = {{marginLeft: 15, marginBottom: 10}}>
-                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{item.user}</Text>
-                <Text style = {{color: "gray", fontSize: 13, marginTop: 4}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.country} </Text>
-              </View>
-            </View>
 
-            <Text style = {{color: "white", fontSize: 14, marginTop: 10, marginLeft: 15}}> +19 % <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> </Text>
-          </View>
-
-
-            <Text style = {{color: "#DAA520", fontSize: 19, marginTop: 15, alignSelf:"center"}}> {item.bet}  <FontAwesome>{Icons.bitcoin}</FontAwesome> </Text>
-
-          <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, marginTop: 30, borderRadius: 5}} key = {index}>
-            <Text style = {{color: "white", fontSize: 14, alignSelf:"center"}}> VIEW BET </Text>
-          </TouchableOpacity>
-        </View>
-      );
-  }
 
   gameType(game, position){
     let {bet} = this.state;
@@ -198,34 +172,13 @@ class BetModal extends Component{
           );
       } else {
           return(
-                <View style = {{ marginTop: 5 }}>
-
-                  <View style = {{alignSelf:"center", marginTop: 20}}>
-                    <Text style={{color: "#DAA520", fontSize: 20, alignSelf:"center"}}>
-                      {this.state.values[0]} <FontAwesome>{Icons.bitcoin}</FontAwesome>    -    {this.state.values[1]} <FontAwesome>{Icons.bitcoin}</FontAwesome>
-                    </Text>
-                    <MultiSlider
-                      values={[this.state.values[0], this.state.values[1]]}
-                      sliderLength={280}
-                      onValuesChange={this.multiSliderValuesChange}
-                      min={50}
-                      max={this.state.cUserCoins}
-                      step={10}
-                      Style = {{color:"green"}}
-                    />
-                  </View>
-
-                  <Carousel
-                    data={this.props.list2}
-                    renderItem={this.userCard2}
-                    layout={'stack'}
-                    layoutCardOffset={`19`}
-                    style={{opacity: 0.4}}
-                    sliderWidth={sliderWidth}
-                    itemWidth={sliderWidth * 0.95}
-                    itemHeight={itemHeight}
-                  />
-                </View>
+              <ScrollView style = {{marginTop: 5 }}>
+                <TouchableOpacity onPress = {() => this.setState({infoBox: true})}>
+                  <FontAwesome style = {{color: "white", fontSize: 27, alignSelf:"flex-end", margin: 10, marginBottom: 0}}>{Icons.questionCircle}</FontAwesome>
+                </TouchableOpacity>
+                <Text style = {{color: "gray", fontWeight: "400", alignSelf:"center", margin: 5, marginTop: 0}}>Users that bet for {teamsNotSelected[1].name}</Text>
+                {this.userList(this.props.list2, teamsNotSelected[1].quotes[position])}
+              </ScrollView>
           );
         }
 

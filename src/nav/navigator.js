@@ -34,7 +34,7 @@ export const MainScreen = createBottomTabNavigator({
   Match: {
     screen: Match,
     navigationOptions: {
-      tabBarLabel: "MATCH",
+      tabBarLabel: "MY BETS",
       tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.retweet}</FontAwesome>
     }
   },

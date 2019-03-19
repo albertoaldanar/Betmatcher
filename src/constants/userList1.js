@@ -3,7 +3,7 @@ const UserList1 = [
     user: "jackWilson5",
     bet: 5360,
     image: "https://www.scripturaengage.com/wp-content/uploads/2017/03/Profile-Picture-Gert-Cools-Circle.png",
-    country: "Mexico"
+    country: "Mexico",
   },
   {
     user: "alfredoMartinez",

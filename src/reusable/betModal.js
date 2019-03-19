@@ -5,6 +5,7 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import SwipeCards from 'react-native-swipe-cards';
 import Carousel from "react-native-snap-carousel";
 import LinearGradient from "react-native-linear-gradient";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -16,7 +17,9 @@ class BetModal extends Component{
     super(props);
     this.state = {
       bet: 50,
-      cUserCoins: 3460
+      cUserCoins: 3460,
+      values: [50, 3460],
+      finalValue: []
     }
   }
 
@@ -24,62 +27,105 @@ class BetModal extends Component{
     this.setState({bet: value})
   }
 
-  userList(list, quote){
-    return list.map((u, index) => {
+  // componentWillMount(){
+  //     var position = this.props.team.position;
+  //     let quote = this.props.teamsNotSelected[1].quotes[position];
 
-      const bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
+  //     var bet = this.props.list2.map(u => {
+  //       quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
+  //     })
+  //     this.setState({ finalValue: [{user: this.props.list2, bet: quote}] })
+  // }
+
+    multiSliderValuesChange = (values) => {
+        this.setState({
+            values
+        });
+    }
+
+  // userList(list, quote){
+  //   return list.map((u, index) => {
+
+
+  //     return(
+  //       <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
+  //         <View style = {styles.tableStyle}>
+  //           <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+  //             <View style = {{flexDirection:"row"}}>
+  //               <Image
+  //                 source = {{uri: u.image}}
+  //                 style = {styles.image}
+  //               />
+  //               <View style = {{marginLeft: 15, marginBottom: 10}}>
+  //                 <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{u.user}</Text>
+  //                 <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 17}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+  //               </View>
+  //             </View>
+
+  //             <FontAwesome style = {{color:"gray", marginTop: 32, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
+  //           </View>
+  //         </View>
+
+  //       </TouchableOpacity>
+  //     );
+  //   })
+  // }
+
+    userCard({item}, index){
       return(
-        <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
-          <View style = {styles.tableStyle}>
-            <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
-              <View style = {{flexDirection:"row"}}>
-                <Image
-                  source = {{uri: u.image}}
-                  style = {styles.image}
-                />
-                <View style = {{marginLeft: 15, marginBottom: 10}}>
-                  <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{u.user}</Text>
-                  <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 17}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-                </View>
+        <View style = {styles.card}>
+          <View style = {{flexDirection:"row", justifyContent:"space-between"}}>
+            <View style = {{flexDirection:"row"}}>
+              <Image
+                source = {{uri: item.image}}
+                style = {styles.image}
+              />
+              <View style = {{marginLeft: 15, marginBottom: 10}}>
+                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{item.user}</Text>
+                <Text style = {{color: "gray", fontSize: 13, marginTop: 4}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.country} </Text>
               </View>
-
-              <FontAwesome style = {{color:"gray", marginTop: 32, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
             </View>
 
-
-
+            <Text style = {{color: "white", fontSize: 14, marginTop: 10, marginLeft: 15}}> +19 % <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> </Text>
           </View>
 
-        </TouchableOpacity>
+
+            <Text style = {{color: "#DAA520", fontSize: 19, marginTop: 15, alignSelf:"center"}}> {item.bet}  <FontAwesome>{Icons.bitcoin}</FontAwesome> </Text>
+
+          <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, marginTop: 30, borderRadius: 5}}>
+            <Text style = {{color: "white", fontSize: 14, alignSelf:"center"}}> VIEW BET </Text>
+          </TouchableOpacity>
+        </View>
       );
-    })
   }
 
-  // userCard({item, index}){
-  //   // const bet = quote > 0 ? Math.round(item.bet - ((quote / 100) * item.bet)) : item.bet;
-  //   return(
-  //     <View style = {{backgroundColor: "#161616", borderRadius: 5, marginTop: 150, padding: 7, paddingTop: 20, paddingBottom: 20}}>
-  //       <View style = {{flexDirection:"row"}}>
-  //         <Image
-  //           source = {{uri: item.image}}
-  //           style = {styles.image}
-  //         />
-  //         <View style = {{marginLeft: 15, marginBottom: 20}}>
-  //           <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{item.user}</Text>
-  //           <Text style = {{color: "white", fontSize: 12, fontStyle: "oblique", marginTop: 10, marginBottom: 10}}> {item.country} <FontAwesome> {Icons.flag} </FontAwesome> </Text>
-  //         </View>
-  //       </View>
+    userCard2({item}, index){
+      return(
+        <View style = {styles.card}>
+          <View style = {{flexDirection:"row", justifyContent:"space-between"}}>
+            <View style = {{flexDirection:"row"}}>
+              <Image
+                source = {{uri: item.image}}
+                style = {styles.image}
+              />
+              <View style = {{marginLeft: 15, marginBottom: 10}}>
+                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{item.user}</Text>
+                <Text style = {{color: "gray", fontSize: 13, marginTop: 4}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.country} </Text>
+              </View>
+            </View>
 
-  //       <View style = {{alignSelf:"center", marginBottom: 30}}>
-  //         <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 19}}> {item.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-  //       </View>
+            <Text style = {{color: "white", fontSize: 14, marginTop: 10, marginLeft: 15}}> +19 % <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> </Text>
+          </View>
 
-  //       <TouchableOpacity style = {{position: "absolute", bottom: 0, left: 0, right: 0, backgroundColor: "#00B073", padding: 7, borderRadius: 5, marginTop: 10}}>
-  //         <Text style = {{textAlign: "center", color: "white"}}>MATCH</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
+
+            <Text style = {{color: "#DAA520", fontSize: 19, marginTop: 15, alignSelf:"center"}}> {item.bet}  <FontAwesome>{Icons.bitcoin}</FontAwesome> </Text>
+
+          <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, marginTop: 30, borderRadius: 5}} key = {index}>
+            <Text style = {{color: "white", fontSize: 14, alignSelf:"center"}}> VIEW BET </Text>
+          </TouchableOpacity>
+        </View>
+      );
+  }
 
   gameType(game, position){
     let {bet} = this.state;
@@ -168,33 +214,63 @@ class BetModal extends Component{
     if(this.props.choice == 1){
       if(this.props.index == 0){
           return(
-              <ScrollView style = {{ marginTop: 5 }}>
-                <View style = {{flexDirection:"row", margin: 14, justifyContent:"space-between"}}>
-                  <FontAwesome style = {{color: "white"}}>{Icons.ball}</FontAwesome>
-                  <Text style = {{color: "white", fontSize: 20, marginRight: -20}}>
-                    {teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes} % { teamsNotSelected[0].quotes[team.position] || teamsNotSelected[0].quotes > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
-                  </Text>
-                  <TouchableOpacity style = {{marginTop: -3}}>
-                    <FontAwesome style = {{color: "white", fontSize: 27}}>{Icons.infoCircle}</FontAwesome>
-                  </TouchableOpacity>
+              <View style = {{ marginTop: 5 }}>
+                <View style = {{alignSelf:"center", marginTop: 20}}>
+                    <Text style={{color: "#DAA520", fontSize: 20, alignSelf:"center"}}>
+                      {this.state.values[0]} <FontAwesome>{Icons.bitcoin}</FontAwesome>    -    {this.state.values[1]} <FontAwesome>{Icons.bitcoin}</FontAwesome>
+                    </Text>
+                    <MultiSlider
+                      values={[this.state.values[0], this.state.values[1]]}
+                      sliderLength={280}
+                      onValuesChange={this.multiSliderValuesChange}
+                      min={50}
+                      max={this.state.cUserCoins}
+                      step={10}
+                      Style = {{color:"green"}}
+                    />
                 </View>
-                {this.userList(this.props.list1, teamsNotSelected[0].quotes || teamsNotSelected[0].quotes[team.position])}
-              </ScrollView>
+                <Carousel
+                  data={this.props.list1}
+                  renderItem={this.userCard}
+                  layout={'stack'}
+                  layoutCardOffset={`19`}
+                  style={{opacity: 0.4}}
+                  sliderWidth={sliderWidth}
+                  itemWidth={sliderWidth * 0.95}
+                  itemHeight={itemHeight}
+                />
+              </View>
           );
       } else {
           return(
-                <ScrollView style = {{ marginTop: 5 }}>
-                  <View style = {{flexDirection:"row", margin: 14, justifyContent:"space-between"}}>
-                    <FontAwesome style = {{color: "white"}}>{Icons.ball}</FontAwesome>
-                    <Text style = {{color: "white", fontSize: 20, marginRight: -20}}>
-                      {teamsNotSelected[1].quotes[team.position]} % { teamsNotSelected[0].quotes[team.position] > 0 ? <FontAwesome style= {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style= {{color: "red"}}>{Icons.sortDown}</FontAwesome> }
+                <View style = {{ marginTop: 5 }}>
+
+                  <View style = {{alignSelf:"center", marginTop: 20}}>
+                    <Text style={{color: "#DAA520", fontSize: 20, alignSelf:"center"}}>
+                      {this.state.values[0]} <FontAwesome>{Icons.bitcoin}</FontAwesome>    -    {this.state.values[1]} <FontAwesome>{Icons.bitcoin}</FontAwesome>
                     </Text>
-                    <TouchableOpacity style = {{marginTop: -4}}>
-                      <FontAwesome style = {{color: "white", fontSize: 27}}>{Icons.infoCircle}</FontAwesome>
-                    </TouchableOpacity>
+                    <MultiSlider
+                      values={[this.state.values[0], this.state.values[1]]}
+                      sliderLength={280}
+                      onValuesChange={this.multiSliderValuesChange}
+                      min={50}
+                      max={this.state.cUserCoins}
+                      step={10}
+                      Style = {{color:"green"}}
+                    />
                   </View>
-                  {this.userList(this.props.list2, teamsNotSelected[1].quotes[team.position])}
-                </ScrollView>
+
+                  <Carousel
+                    data={this.props.list2}
+                    renderItem={this.userCard2}
+                    layout={'stack'}
+                    layoutCardOffset={`19`}
+                    style={{opacity: 0.4}}
+                    sliderWidth={sliderWidth}
+                    itemWidth={sliderWidth * 0.95}
+                    itemHeight={itemHeight}
+                  />
+                </View>
           );
         }
 
@@ -243,6 +319,8 @@ class BetModal extends Component{
   render(){
       let button;
 
+    console.log(this.state.finalValue.bet)
+
       if(this.props.choice == 2){
         button =  <TouchableOpacity style = {styles.buttonContainer}>
                     <Text style = {[styles.layBet, {fontSize: 19}]}> Place bet</Text>
@@ -266,7 +344,9 @@ class BetModal extends Component{
             {this.renderSegmentedController()}
           </View>
 
-          {this.betChoice()}
+          <View>
+            {this.betChoice()}
+          </View>
 
           {button}
           </LinearGradient>
@@ -351,7 +431,19 @@ const styles ={
     bottom: 0,
     left: 0,
     right: 0
-  }
+  },
+  card: {
+    selfAlign: "center",
+    marginTop: 100,
+    padding: 15,
+    paddingBottom: 15,
+    paddingTop: 15,
+    backgroundColor: "#161616",
+    margin: 15,
+    borderRadius: 7,
+    borderColor:"gray",
+    borderWidth:0.3
+  },
 };
 
 export default BetModal;

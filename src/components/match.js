@@ -6,6 +6,7 @@ import Matches from "../constants/matches";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Chat from "../reusable/chat";
+import LinearGradient from "react-native-linear-gradient";
 
 class Match extends Component{
 
@@ -25,8 +26,8 @@ class Match extends Component{
   renderMatches(){
     return Matches.map(m => {
         return (
-              <View style = {{marginTop: 7}}>
-                <Card style = {styles.card}>
+              <View style= {{marginTop: 7}}>
+                <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
                   <View style = {styles.spaceBetween}>
                     <Text style = {[styles.topItem, {fontStyle: "oblique"}]}>{m.league}</Text>
                     <Text style = {[styles.topItem, {color: "gold"}]}>{m.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
@@ -98,13 +99,13 @@ class Match extends Component{
             values={['Match ', 'Unmatched', "Finished"]}
             tabsContainerStyle = {styles.segmentedController}
             tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
-            tabStyle = {{borderColor: "#00B073", backgroundColor: "black"}}
+            tabStyle = {{borderColor: "#00B073", backgroundColor: "transparent"}}
             selectedIndex={this.state.index}
             activeTabStyle = {{backgroundColor: "#00B073"}}
             onTabPress={this.handleIndexChange.bind(this)}
         />
         <ScrollView>
-          <View style = {styles.card}>
+          <View>
             {this.choseView()}
           </View>
         </ScrollView>

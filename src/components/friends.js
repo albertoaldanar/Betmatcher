@@ -9,6 +9,8 @@ import SwipeCards from 'react-native-swipe-cards';
 import { Pages } from 'react-native-pages';
 import UserList1 from "../constants/userList1";
 import Carousel from 'react-native-snap-carousel';
+import Try from "../../try";
+import Login from "./login";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -93,16 +95,7 @@ class Friends extends Component{
 
     return(
       <View style = {styles.container}>
-          <Carousel
-            data={UserList1}
-            renderItem={this.userList}
-            layout={'tinder'}
-            layoutCardOffset={`9`}
-            style={{opacity: 0.4}}
-            sliderWidth={sliderWidth}
-            itemWidth={sliderWidth * 0.95}
-            itemHeight={itemHeight}
-          />
+        <Login/>
       </View>
     );
   }

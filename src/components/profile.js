@@ -45,7 +45,7 @@ class Profile extends Component{
           <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
             <View style = {styles.bar}>
                 <TouchableOpacity>
-                  <FontAwesome style = {{color: "#ffff", fontSize: 20, marginLeft: 20}}>{Icons.cogs}</FontAwesome>
+                  <FontAwesome style = {{color: "#ffff", fontSize: 22, marginLeft: 20}}>{Icons.fff}</FontAwesome>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
@@ -55,7 +55,7 @@ class Profile extends Component{
 
             <View style = {{paddingBottom: 10}}>
 
-              <View style = {{flexDirection:"row", margin: 20}}>
+              <View style = {{flexDirection:"row", margin: 20, marginBottom: 15, marginTop: 12}}>
                 <Image style={styles.imageStyle} source={{uri: User.image}}/>
 
                 <View>
@@ -87,7 +87,7 @@ class Profile extends Component{
           </LinearGradient>
         </View>
 
-            <View style = {{justifyContent:"space-between", flexDirection:"row", marginBottom: 25, marginTop:20}}>
+            <View style = {{justifyContent:"space-between", flexDirection:"row", marginBottom: 18, marginTop:20}}>
                 <View style = {{marginLeft: 16}}>
                   <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "gray", marginBottom: 5}]}>
                     Amount
@@ -225,9 +225,9 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 14,
+    marginTop: 10,
     paddingBottom: 10,
-    marginBottom: 11
+    marginBottom: 8
   },
   text: {
     fontSize: 13,

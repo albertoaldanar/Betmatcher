@@ -22,7 +22,7 @@ class BetModal extends Component{
       finalValue: [],
       infoBox: false,
       showFriends: false,
-      betTo: "Public"
+      opponent: "Public"
     }
   }
 
@@ -32,6 +32,10 @@ class BetModal extends Component{
 
   friendsModal(){
     this.setState({showFriends: !this.state.showFriends})
+  }
+
+  selectOpponent(value){
+    this.setState({ opponent: value })
   }
 
   // componentWillMount(){
@@ -234,7 +238,7 @@ class BetModal extends Component{
               {this.gameType(game, position)}
 
               <TouchableOpacity style = {{marginTop: 40, alignSelf:"center"}} onPress = {this.friendsModal.bind(this)}>
-                <Text style = {{color: "white"}}> Send this bet to: {this.state.betTo} <FontAwesome style = {{marginBottom: 10}}>{Icons.sortDown}</FontAwesome></Text>
+                <Text style = {{color: "white"}}> Send this bet to: {this.state.opponent} <FontAwesome style = {{marginBottom: 10}}>{Icons.sortDown}</FontAwesome></Text>
               </TouchableOpacity>
 
             </View>
@@ -244,8 +248,6 @@ class BetModal extends Component{
 
   render(){
       let button;
-
-    console.log(this.state.finalValue.bet)
 
       if(this.props.choice == 2){
         button =  <TouchableOpacity style = {styles.buttonContainer}>
@@ -278,7 +280,7 @@ class BetModal extends Component{
             visible = {this.state.showFriends}
             animationType = "slide"
           >
-            <FriendsModal hideShow = {this.friendsModal.bind(this)}/>
+            <FriendsModal hideShow = {this.friendsModal.bind(this)} opponent = {this.state.opponent} selectOpponent = {this.selectOpponent.bind(this)}/>
           </Modal>
 
           {button}

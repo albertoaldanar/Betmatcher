@@ -1,15 +1,15 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput, Dimensions} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput, Dimensions, Modal} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import SwipeCards from 'react-native-swipe-cards';
 import Carousel from "react-native-snap-carousel";
 import LinearGradient from "react-native-linear-gradient";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
+import FriendsModal from "./friendsModal"
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
-
 
 class BetModal extends Component{
 
@@ -20,12 +20,18 @@ class BetModal extends Component{
       cUserCoins: 3460,
       values: [50, 3460],
       finalValue: [],
-      infoBox: false
+      infoBox: false,
+      showFriends: false,
+      betTo: "Public"
     }
   }
 
   setCoins(value){
     this.setState({bet: value})
+  }
+
+  friendsModal(){
+    this.setState({showFriends: !this.state.showFriends})
   }
 
   // componentWillMount(){
@@ -227,6 +233,10 @@ class BetModal extends Component{
 
               {this.gameType(game, position)}
 
+              <TouchableOpacity style = {{marginTop: 40, alignSelf:"center"}} onPress = {this.friendsModal.bind(this)}>
+                <Text style = {{color: "white"}}> Send this bet to: {this.state.betTo} <FontAwesome style = {{marginBottom: 10}}>{Icons.sortDown}</FontAwesome></Text>
+              </TouchableOpacity>
+
             </View>
           );
     }
@@ -263,6 +273,13 @@ class BetModal extends Component{
           <ScrollView>
             {this.betChoice()}
           </ScrollView>
+
+          <Modal
+            visible = {this.state.showFriends}
+            animationType = "slide"
+          >
+            <FriendsModal hideShow = {this.friendsModal.bind(this)}/>
+          </Modal>
 
           {button}
           </LinearGradient>

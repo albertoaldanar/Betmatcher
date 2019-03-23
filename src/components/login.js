@@ -5,28 +5,32 @@ import LinearGradient from "react-native-linear-gradient";
 class Login extends Component{
   render(){
     return(
-     <LinearGradient style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
+     <LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
 
         <Image source = {require('../images/smkt.png')} style = {{width: Dimensions.get("window").width * 0.6, height: 50, alignSelf: "center", marginTop: 55}}/>
 
         <View style = {styles.inputs}>
           <TextInput
-            style={{height: 40, borderBottomColor: 'gray', borderBottomWidth: 0.5, marginBottom: 25, color: "white"}}
+            style={{height: 40, borderBottomColor: 'white', borderBottomWidth: 0.5, marginBottom: 25, color: "white"}}
             placeholder = "Username"
             placeholderTextColor = "gray"
             autoCapitalize = 'none'
           />
           <TextInput
-            style={{height: 40, borderBottomColor: 'gray', borderBottomWidth: 0.5, color:"white", color: "white"}}
+            style={{height: 40, borderBottomColor: 'white', borderBottomWidth: 0.5, color:"white", color: "white"}}
             placeholder = "Password"
             placeholderTextColor = "gray"
             secureTextEntry={true}
             autoCapitalize = 'none'
           />
 
-          <View style = {{marginLeft: 15, marginRight: 15, marginTop: 25}}>
-            <TouchableOpacity style = {{padding: 15, backgroundColor: "black"}}>
+          <View style = {{marginLeft: 15, marginRight: 15, marginTop: 55}}>
+            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}}>
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Login</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style = {{marginTop: 12}}>
+              <Text style = {{alignSelf:"center", color:"gray"}}>Forgot your password ?</Text>
             </TouchableOpacity>
           </View>
 
@@ -37,7 +41,6 @@ class Login extends Component{
             </TouchableOpacity>
           </View>
         </View>
-
 
       </LinearGradient>
     );

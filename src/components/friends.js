@@ -9,7 +9,6 @@ import SwipeCards from 'react-native-swipe-cards';
 import { Pages } from 'react-native-pages';
 import UserList1 from "../constants/userList1";
 import Carousel from 'react-native-snap-carousel';
-import Try from "../../try";
 import Login from "./login";
 
 const sliderWidth = Dimensions.get('window').width;

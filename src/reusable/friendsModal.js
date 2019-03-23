@@ -37,6 +37,17 @@ class FriendsModal extends Component{
   }
 
   render(){
+      let button;
+
+      if(this.props.opponent != "Public"){
+        button =  <TouchableOpacity style = {{position: "absolute", bottom: 0, padding: 15, backgroundColor: "#00B073", left: 0, right: 0}} onPress = {this.props.hideShow}>
+                    <View style = {{flexDirection: "row", alignSelf:"center"}}>
+                      <Text style = {{color: "white", alignSelf: "center", fontSize: 17, fontWeight: "300"}}> Send bet to: </Text>
+                      <Text style = {{color: "white", alignSelf: "center", fontSize: 17, fontStyle: "oblique", fontWeight: "600"}}> {this.props.opponent}</Text>
+                    </View>
+                  </TouchableOpacity>
+      }
+
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
           <TouchableOpacity onPress= {this.props.hideShow}>
@@ -46,6 +57,8 @@ class FriendsModal extends Component{
           <ScrollView>
             {this.renderFriendList()}
           </ScrollView>
+
+          {button}
       </LinearGradient>
     );
   }

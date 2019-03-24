@@ -51,14 +51,12 @@ class FriendsModal extends Component{
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
           <TouchableOpacity onPress= {this.props.hideShow}>
-            <Text style= {{color: "#00B073", margin: 5, fontWeight: "300"}}>Close</Text>
+            <Text style= {{color: "#00B073", margin: 5, marginLeft: 10, fontWeight: "600"}}>Close</Text>
           </TouchableOpacity>
           <Text style = {styles.title}>Pick a betfriend to send bet</Text>
           <ScrollView>
             {this.renderFriendList()}
           </ScrollView>
-
-          {button}
       </LinearGradient>
     );
   }

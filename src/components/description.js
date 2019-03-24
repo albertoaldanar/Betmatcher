@@ -78,6 +78,16 @@ class Description extends Component{
     this.setState({ index })
   }
 
+  sendToMatchFromLay(){
+      const navigateAction = NavigationActions.navigate({
+      routeName: "Match",
+      params: {
+                index: 1
+              }
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
+
   birghtColor(team){
     let game = this.props.navigation.state.params.par;
     switch(team.name){
@@ -196,6 +206,7 @@ class Description extends Component{
             segmentedController = {this.handleSegmentedController.bind(this)}
             visible = {this.showModal.bind(this)}
             confirm = {this.sendToConfirmation.bind(this)}
+            sendToMatchFromLay= {this.sendToMatchFromLay.bind(this)}
           />
         </Modal>
 

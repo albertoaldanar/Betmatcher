@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput, Dimensions, Modal} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput, Dimensions, Modal, Alert} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import SwipeCards from 'react-native-swipe-cards';
@@ -36,7 +36,7 @@ class BetModal extends Component{
   }
 
   selectOpponent(value){
-    this.setState({ opponent: value })
+    this.setState({ opponent: value, showFriends: false })
   }
 
   // componentWillMount(){
@@ -49,11 +49,27 @@ class BetModal extends Component{
   //     this.setState({ finalValue: [{user: this.props.list2, bet: quote}] })
   // }
 
-    multiSliderValuesChange = (values) => {
-        this.setState({
-            values
-        });
-    }
+  multiSliderValuesChange = (values) => {
+      this.setState({
+          values
+      });
+  }
+
+  alerts(){
+    const title = this.state.publicBet ? "Your bet has been placed!" : `Your bet has been sent`
+    const message = this.state.publicBet ? "Wait for someone to match your bet, if no one matches you get your coins back" : `Wait for ${this.state.opponent} to accept bet`
+
+      Alert.alert(
+          title,
+          message,
+        [
+          {text: 'Continue', onPress: this.props.sendToMatchFromLay},
+        ],
+        {cancelable: false},
+      );
+  }
+
+
 
   userList(list, quote){
 
@@ -231,18 +247,18 @@ class BetModal extends Component{
               {this.gameType(game, position)}
 
               <TouchableOpacity style = {{marginTop: 35, alignSelf:"center"}} onPress = {this.friendsModal.bind(this)}>
-                <Text style = {{color: "gray", fontSize: 15, fontWeight: "600"}}> SEND THIS BET TO: </Text>
+                <Text style = {{color: "gray", fontSize: 15, fontWeight: "400"}}> SEND THIS BET TO: </Text>
               </TouchableOpacity>
 
               <View style = {{marginTop: 18, flexDirection:"row", justifyContent:"space-around"}}>
                 <TouchableOpacity style= {this.state.publicBet ? styles.choiceButtonSelected : styles.choiceButton} onPress = {() => this.setState({publicBet: true, opponent: ""})}>
-                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center"}}>Public   <FontAwesome>{Icons.users}</FontAwesome></Text>
+                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 16}}>Public   <FontAwesome>{Icons.users}</FontAwesome></Text>
                 </TouchableOpacity>
 
                 <Text style = {{color: "gray", fontSize: 15, marginTop: 7}}> or </Text>
 
                 <TouchableOpacity style= {this.state.opponent == "" ? styles.choiceButton : styles.choiceButtonSelected} onPress = {() => this.setState({showFriends: true, publicBet: false})}>
-                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center"}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
+                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 16}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
                 </TouchableOpacity>
               </View>
 
@@ -258,6 +274,7 @@ class BetModal extends Component{
         button =  <TouchableOpacity
                     style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}
                     disabled = {this.state.opponent != "" || this.state.publicBet ? false : true}
+                    onPress = {this.alerts.bind(this)}
                     >
                     <Text style = {[styles.layBet, {fontSize: 19}]}> Place bet</Text>
                   </TouchableOpacity>

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
-import UserList1 from "../constants/userList1";
+import UserList2 from "../constants/userList2";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
 
@@ -11,7 +11,7 @@ class FriendsModal extends Component{
   }
 
   renderFriendList(){
-    return UserList1.map((u, index) => {
+    return UserList2.map((u, index) => {
       return(
         <View>
           <View key = {index}>
@@ -39,7 +39,7 @@ class FriendsModal extends Component{
   render(){
       let button;
 
-      if(this.props.opponent != "Public"){
+      if(this.props.opponent != ""){
         button =  <TouchableOpacity style = {{position: "absolute", bottom: 0, padding: 15, backgroundColor: "#00B073", left: 0, right: 0}} onPress = {this.props.hideShow}>
                     <View style = {{flexDirection: "row", alignSelf:"center"}}>
                       <Text style = {{color: "white", alignSelf: "center", fontSize: 17, fontWeight: "300"}}> Send bet to: </Text>

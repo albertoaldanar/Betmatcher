@@ -12,7 +12,7 @@ class Match extends Component{
 
   constructor(props){
     super(props);
-    this.state = {index: this.props.navigation.state.params.index || 0, chat: false}
+    this.state = {index: 0, chat: false}
   }
 
   handleIndexChange(index){

@@ -13,7 +13,6 @@ class FriendsModal extends Component{
   renderFriendList(){
     return UserList2.map((u, index) => {
       return(
-        <View>
           <View key = {index}>
             <View style = {styles.tableStyle}>
               <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
@@ -31,7 +30,6 @@ class FriendsModal extends Component{
               </View>
             </View>
           </View>
-        </View>
       );
     })
   }

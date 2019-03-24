@@ -241,11 +241,6 @@ class BetModal extends Component{
                   value={this.state.bet}
                   thumbStyle ={{color: "#00B073"}}
                 />
-
-              </View>
-
-              {this.gameType(game, position)}
-
               <TouchableOpacity style = {{marginTop: 35, alignSelf:"center"}} onPress = {this.friendsModal.bind(this)}>
                 <Text style = {{color: "gray", fontSize: 15, fontWeight: "400"}}> SEND THIS BET TO: </Text>
               </TouchableOpacity>
@@ -261,6 +256,10 @@ class BetModal extends Component{
                   <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 16}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
                 </TouchableOpacity>
               </View>
+
+              </View>
+
+              {this.gameType(game, position)}
 
             </View>
           );

@@ -10,6 +10,7 @@ import { Pages } from 'react-native-pages';
 import UserList1 from "../constants/userList1";
 import Carousel from 'react-native-snap-carousel';
 import Login from "./login";
+import SegmentedControlTab from "react-native-segmented-control-tab";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -59,42 +60,65 @@ class Friends extends Component{
       panResponder: cardsPanResponder,
       cardsStackedAnim: new Animated.Value( 0 ),
       currentIndex: 0,
+      index: 0
     }
   }
 
-    userList({item}, index){
-      return(
-        <View style = {styles.card}>
-          <View style = {{flexDirection:"row", justifyContent:"space-between"}}>
-            <View style = {{flexDirection:"row"}}>
-              <Image
-                source = {{uri: item.image}}
-                style = {styles.image}
-              />
-              <View style = {{marginLeft: 15, marginBottom: 10}}>
-                <Text style = {{ marginTop: 10, color: "#00B073", fontSize: 17}}>{item.user}</Text>
-                <Text style = {{color: "gray", fontSize: 13, marginTop: 4}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.country} </Text>
+  handleIndexChange(index){
+    this.setState({index})
+  }
+
+  selectView(){
+    switch(this.state.index){
+        case 0:
+          return this.userList(UserList1)
+          break;
+
+        case 1:
+          return null
+          break;
+    }
+  }
+
+    userList(item){
+      return item.map((u, index) => {
+        return(
+          <View key = {index}>
+            <View style = {styles.tableStyle}>
+              <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+                <View style= {{flexDirection:"row"}}>
+                  <Image
+                    source = {{uri: u.image}}
+                    style = {styles.image}
+                  />
+                  <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
+                </View>
+
+                <TouchableOpacity>
+                  <FontAwesome style = {{color: "#00B073", alignItems: "center", paddingTop: 10, fontSize: 20}}>{Icons.share}</FontAwesome>
+                </TouchableOpacity>
               </View>
             </View>
-
-            <Text style = {{color: "white", fontSize: 14, marginTop: 10, marginLeft: 15}}> +19 % <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome> </Text>
           </View>
-
-
-            <Text style = {{color: "#DAA520", fontSize: 19, marginTop: 15, alignSelf:"center"}}> {item.bet}  <FontAwesome>{Icons.bitcoin}</FontAwesome> </Text>
-
-          <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, marginTop: 30, borderRadius: 5}}>
-            <Text style = {{color: "white", fontSize: 14, alignSelf:"center"}}> VIEW BET </Text>
-          </TouchableOpacity>
-        </View>
-      );
-  }
+        );
+      })
+    }
 
   render(){
 
     return(
       <View style = {styles.container}>
-        <Login/>
+          <SegmentedControlTab
+            values={["My friends", "Search"]}
+            tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
+            tabStyle = {{borderColor: "#00B073", backgroundColor: "#161616"}}
+            selectedIndex={this.state.index}
+            activeTabStyle = {{backgroundColor: "#00B073"}}
+            onTabPress={this.handleIndexChange.bind(this)}
+          />
+        <ScrollView>
+          {this.selectView()}
+        </ScrollView>
       </View>
     );
   }
@@ -150,6 +174,10 @@ const styles = {
     height: 60,
     marginRight: 5,
     marginLeft: 6
+  },
+  tableStyle: {
+    marginBottom: 5,
+    padding: 15,
   },
 }
 

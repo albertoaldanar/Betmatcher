@@ -10,6 +10,7 @@ import { Pages } from 'react-native-pages';
 import UserList1 from "../constants/userList1";
 import Carousel from 'react-native-snap-carousel';
 import Login from "./login";
+import Scroll from "./scroll";
 import SegmentedControlTab from "react-native-segmented-control-tab";
 
 const sliderWidth = Dimensions.get('window').width;
@@ -108,17 +109,7 @@ class Friends extends Component{
 
     return(
       <View style = {styles.container}>
-          <SegmentedControlTab
-            values={["My friends", "Search"]}
-            tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
-            tabStyle = {{borderColor: "#00B073", backgroundColor: "#161616"}}
-            selectedIndex={this.state.index}
-            activeTabStyle = {{backgroundColor: "#00B073"}}
-            onTabPress={this.handleIndexChange.bind(this)}
-          />
-        <ScrollView>
-          {this.selectView()}
-        </ScrollView>
+        <Login/>
       </View>
     );
   }

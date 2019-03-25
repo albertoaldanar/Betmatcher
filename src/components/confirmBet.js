@@ -82,6 +82,8 @@ class ConfirmBet extends Component{
           </View>
         </View>
 
+        <Text style = {{marginTop: 40, alignSelf: "center", color: "gray", fontStyle: "oblique"}}>Betmatcher will charge 2% of commission to winner</Text>
+
         <TouchableOpacity style = {styles.buttonMatch} onPress = {this.postMatch.bind(this)}>
           <Text style = {{color: "#ffff", alignSelf:"center"}}>MATCH THIS BET</Text>
         </TouchableOpacity>

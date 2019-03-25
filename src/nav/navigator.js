@@ -96,12 +96,7 @@ const AppNavigator = StackNavigator({
   Friends: {
     screen: Friends,
     navigationOptions: {
-      title: "Friends",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
+      header: null
     }
   },
   ConfirmBet: {

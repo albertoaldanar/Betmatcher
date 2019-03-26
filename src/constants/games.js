@@ -46,12 +46,12 @@ const Games = [
   },
   {
     local: {
-      name: "Fiorentina",
+      name: "Liverpool",
       quotes: {1: 13, 2: 19},
       position: 3
     },
     visit: {
-      name: "Lazio",
+      name: "Porto",
       quotes: {1: 10, 3: -13},
       position: 2
     },
@@ -61,7 +61,7 @@ const Games = [
       position: 1
     },
     time: "6 FEB 6:00 pm",
-    league: "Serie A",
+    league: "Champions League",
     sport: "Soccer",
     image: "https://icons-for-free.com/free-icons/png/512/315754.png",
     traded: 2345,

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View,Text, TouchableOpacity, Image, ScrollView, Modal} from "react-native";
+import {View,Text, TouchableOpacity, Image, ScrollView} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
@@ -7,16 +7,21 @@ import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Chat from "../reusable/chat";
 import LinearGradient from "react-native-linear-gradient";
+import Modal from "react-native-modal";
 
 class Match extends Component{
 
   constructor(props){
     super(props);
-    this.state = {index: 0, chat: false}
+    this.state = {index: 0, chat: false, modal: false}
   }
 
   handleIndexChange(index){
     this.setState({index})
+  }
+
+  toggleModal(){
+    this.setState({modal: !this.state.modal})
   }
 
   renderChat(){
@@ -51,7 +56,7 @@ class Match extends Component{
                       </View>
                     </View>
 
-                    <TouchableOpacity onPress = {this.renderChat.bind(this)}>
+                    <TouchableOpacity onPress = {this.toggleModal.bind(this)}>
                       <FontAwesome style = {[styles.icon, {color: "#00B073"}]}>{Icons.comments}</FontAwesome>
                     </TouchableOpacity>
                   </View>
@@ -110,12 +115,18 @@ class Match extends Component{
           </View>
         </ScrollView>
 
-        <Modal
-          visible = {this.state.chat}
-          animationType = "slide"
-        >
-          <Chat closeModal = {this.renderChat.bind(this)}/>
-        </Modal>
+            <Modal
+              style={{ flex: 1, position: "relative" }}
+              isVisible={this.state.modal}
+              backdropOpacity = {0.85}
+            >
+              <Text style = {styles.expText}>You have to bet more becuase freigeriguergegieirugerug</Text>
+
+              <TouchableOpacity style = {{backgroundColor:"#00B073", padding: 10, borderRadius: 5, margin: 50}} onPress={this.toggleModal.bind(this)}>
+                <Text style = {{color: "white", fontSize: 17, alignSelf:"center",}}>Got it  <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>
+              </TouchableOpacity>
+            </Modal>
+
       </View>
     );
   }

@@ -1,7 +1,7 @@
 const Lgs = [
   {
     name: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    image: "https://www.shareicon.net/data/256x256/2015/09/07/97299_ball_512x512.png",
     count: 7,
     leagues: ["UEFA Champions League (EU)", "Premier League (ENG)", "La liga (ES)", "Bundesliga", "Ligue Une (FR)", "Serie A (IT)", "Liga MX (MX)"]
   },

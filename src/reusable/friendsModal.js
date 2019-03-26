@@ -47,7 +47,7 @@ class FriendsModal extends Component{
       }
 
     return(
-      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+      <View style = {styles.container}>
           <TouchableOpacity onPress= {this.props.hideShow}>
             <Text style= {{color: "#00B073", margin: 5, marginLeft: 10, fontWeight: "600"}}>Close</Text>
           </TouchableOpacity>
@@ -55,7 +55,7 @@ class FriendsModal extends Component{
           <ScrollView>
             {this.renderFriendList()}
           </ScrollView>
-      </LinearGradient>
+      </View>
     );
   }
 }
@@ -64,7 +64,7 @@ class FriendsModal extends Component{
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#161616"
+    backgroundColor: "transparent"
   },
   title: {
     color: "white",

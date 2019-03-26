@@ -1,12 +1,10 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput, Dimensions, Modal, Alert} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Slider, Image, TextInput, Dimensions, Alert} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import SwipeCards from 'react-native-swipe-cards';
-import Carousel from "react-native-snap-carousel";
 import LinearGradient from "react-native-linear-gradient";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import FriendsModal from "./friendsModal"
+import Modal from "react-native-modal";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -20,11 +18,54 @@ class BetModal extends Component{
       cUserCoins: 3460,
       values: [50, 3460],
       finalValue: [],
-      infoBox: false,
       showFriends: false,
       opponent: "",
-      publicBet: false
+      publicBet: false,
+      infoModal: false
     }
+  }
+
+  dataAnalysis(){
+      const {choice, game, teamsNotSelected, team} = this.props;
+      var position = this.props.team.position;
+
+      if(game.sport == "Soccer"){
+        return(
+          <View>
+            <View style = {{flexDirection:"row"}}>
+              <Text style = {{color: "white"}}>Your team</Text>
+              <Text style = {{color: "#00B073"}}>{team.name}</Text>
+              <Text style = {{color: "white"}}> has {teamsNotSelected[0].quotes[position] || teamsNotSelected[1].quotes[position] < 0 ? "advantage" : "disadvantage"} over  {teamsNotSelected[0].name || teamsNotSelected[1].name} </Text>
+            </View>
+
+            <Text style = {styles.expText}>
+               So you have to bet {teamsNotSelected[0].quotes[position] || teamsNotSelected[1].quotes[position]}% {teamsNotSelected[0].quotes[position] || teamsNotSelected[1].quotes[position] < 0 ? "more" : "less"}
+            </Text>
+
+            <TouchableOpacity style = {{backgroundColor:"#00B073", padding: 10, borderRadius: 5, margin: 50}} onPress={() => this.setState({infoModal: false})}>
+              <Text style = {{color: "white", fontSize: 17, alignSelf:"center",}}>Got it  <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>
+            </TouchableOpacity>
+          </View>
+        );
+      } else {
+          return(
+            <View>
+              <View style = {{flexDirection:"row"}}>
+                <Text style = {{color: "white"}}>Your team</Text>
+                <Text style = {{color: "#00B073"}}> {team.name}</Text>
+                <Text style = {{color: "white"}}> has {teamsNotSelected[0].quotes < 0 ? "advantage" : "disadvantage"} over  {teamsNotSelected[0].name} </Text>
+              </View>
+
+              <Text style = {styles.expText}>
+                 So you have to bet {teamsNotSelected[0].quotes > 0 ? teamsNotSelected[0].quotes : (teamsNotSelected[0].quotes * -1) }% {teamsNotSelected[0].quotes < 0 ? "more" : "less"}
+              </Text>
+
+              <TouchableOpacity style = {{backgroundColor:"#00B073", padding: 10, borderRadius: 5, margin: 50}} onPress={() => this.setState({infoModal: false})}>
+                <Text style = {{color: "white", fontSize: 17, alignSelf:"center",}}>Got it  <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>
+              </TouchableOpacity>
+            </View>
+          );
+      }
   }
 
   setCoins(value){
@@ -39,15 +80,6 @@ class BetModal extends Component{
     this.setState({ opponent: value, showFriends: false })
   }
 
-  // componentWillMount(){
-  //     var position = this.props.team.position;
-  //     let quote = this.props.teamsNotSelected[1].quotes[position];
-
-  //     var bet = this.props.list2.map(u => {
-  //       quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
-  //     })
-  //     this.setState({ finalValue: [{user: this.props.list2, bet: quote}] })
-  // }
 
   multiSliderValuesChange = (values) => {
       this.setState({
@@ -234,7 +266,7 @@ class BetModal extends Component{
                           INFO
                        </Text>
 
-                      <TouchableOpacity style = {{alignSelf:"center"}} onPress = {() => this.setState({infoBox: true})}>
+                      <TouchableOpacity style = {{alignSelf:"center"}} onPress = {() => this.setState({infoModal: true})}>
                         <FontAwesome style = {{color: "white", fontSize: 20, alignSelf:"center", paddingTop: 7}}>{Icons.questionCircle}</FontAwesome>
                       </TouchableOpacity>
                     </View>
@@ -274,7 +306,7 @@ class BetModal extends Component{
                           INFO
                        </Text>
 
-                      <TouchableOpacity style = {{alignSelf:"center"}} onPress = {() => this.setState({infoBox: true})}>
+                      <TouchableOpacity style = {{alignSelf:"center"}} onPress = {() => this.setState({infoModal: true})}>
                         <FontAwesome style = {{color: "white", fontSize: 20, alignSelf:"center", paddingTop: 7}}>{Icons.questionCircle}</FontAwesome>
                       </TouchableOpacity>
                     </View>
@@ -368,11 +400,23 @@ class BetModal extends Component{
             {this.betChoice()}
           </ScrollView>
 
+
           <Modal
-            visible = {this.state.showFriends}
-            animationType = "slide"
+            style={{ flex: 1}}
+            isVisible={this.state.showFriends}
+            backdropOpacity = {0.89}
           >
             <FriendsModal hideShow = {this.friendsModal.bind(this)} opponent = {this.state.opponent} selectOpponent = {this.selectOpponent.bind(this)}/>
+          </Modal>
+
+
+          <Modal
+            style={{ flex: 1, position: "relative" }}
+            isVisible={this.state.infoModal}
+            backdropOpacity = {0.85}
+          >
+          {this.dataAnalysis()}
+
           </Modal>
 
           {button}
@@ -493,6 +537,10 @@ const styles ={
     borderRadius: 5, padding: 10,
     borderColor:"gray", borderWidth: 0.3,
     backgroundColor: "#00B073",
+  },
+    expText: {
+    fontSize: 20, color: "#ffff",
+    textAlign: "center",
   }
 };
 

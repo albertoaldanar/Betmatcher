@@ -49,7 +49,6 @@ class Leagues extends Component{
     return(
       <LinearGradient  style = {{flex: 1, position: "relative"}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
         <View>
-          <Image source = {require('../images/flechasd.png')} style = {{width: 120, height: 110, alignSelf: "center", marginBottom: -10, marginTop: 15}}/>
           <Text style = {styles.title}>{this.props.league.name} leagues</Text>
         </View>
         <View style = {styles.pickerContainer}>
@@ -78,7 +77,7 @@ class Leagues extends Component{
 const styles = {
   button: {
     position: "absolute",
-    backgroundColor: "#34D1B6",
+    backgroundColor: "#00B073",
     padding: 12,
     width: WIDTH,
     bottom: 0
@@ -106,10 +105,11 @@ const styles = {
     right: 0, bottom: 0,
   },
   title: {
-    color: "#34D1B6",
+    color: "#00B073",
     fontSize: 29,
     fontStyle: "oblique",
-    alignSelf: "center"
+    alignSelf: "center",
+    marginTop: 55
   }
 }
 

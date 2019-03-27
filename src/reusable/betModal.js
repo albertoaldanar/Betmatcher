@@ -5,6 +5,7 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import LinearGradient from "react-native-linear-gradient";
 import FriendsModal from "./friendsModal"
 import Modal from "react-native-modal";
+import MaterialTabs from "react-native-material-tabs";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -219,14 +220,19 @@ class BetModal extends Component{
 
     if(choice == 1 && game.sport == "Soccer"){
       return(
-        <SegmentedControlTab
-          values={values}
-          tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
-          tabStyle = {{borderColor: "#00B073", backgroundColor: "transparent"}}
-          selectedIndex={this.props.index}
-          activeTabStyle = {{backgroundColor: "#00B073"}}
-          onTabPress= {this.props.segmentedController}
+
+
+        <MaterialTabs
+            items={values}
+            indicatorColor ="#00B073"
+            activeTextColor ="white"
+            inactiveTextColor ="gray"
+            barColor ="transparent"
+            selectedIndex={this.props.index}
+            onChange={this.props.segmentedController}
         />
+
+
       );
     } else if(choice == 1 && game.sport != "Soccer"){ return null };
   }
@@ -348,7 +354,7 @@ class BetModal extends Component{
               {this.gameType(game, position)}
 
 
-              <Text style = {{color: "gray", fontSize: 15, marginTop: 40, alignSelf: "center", fontStyle: "oblique"}}> SEND THIS BET TO: </Text>
+              <Text style = {{color: "gray", fontSize: 15, marginTop: 40, alignSelf: "center"}}> SEND THIS BET TO: </Text>
 
               <View style = {{marginTop: 20, flexDirection:"row", justifyContent:"space-around"}}>
                 <TouchableOpacity style= {this.state.publicBet ? styles.choiceButtonSelected : styles.choiceButton} onPress = {() => this.setState({publicBet: true, opponent: ""})}>
@@ -358,7 +364,7 @@ class BetModal extends Component{
                 <Text style = {{color: "gray", fontSize: 15, marginTop: 7}}> or </Text>
 
                 <TouchableOpacity style= {this.state.opponent == "" ? styles.choiceButton : styles.choiceButtonSelected} onPress = {() => this.setState({showFriends: true, publicBet: false})}>
-                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 13}}> {this.state.opponent || "Send bet to friend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
+                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 13}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -404,7 +410,7 @@ class BetModal extends Component{
           <Modal
             style={{ flex: 1}}
             isVisible={this.state.showFriends}
-            backdropOpacity = {0.89}
+            backdropOpacity = {0.85}
           >
             <FriendsModal hideShow = {this.friendsModal.bind(this)} opponent = {this.state.opponent} selectOpponent = {this.selectOpponent.bind(this)}/>
           </Modal>

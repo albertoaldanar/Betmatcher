@@ -1,33 +1,29 @@
 import React, {Component} from "react";
 import {ScrollView, Text, View, Image, TouchableOpacity} from "react-native";
+import MaterialTabs from "react-native-material-tabs"
 
 class Scroll extends Component {
-
-  renderScroll(list){
-    return list.map((u, index) => {
-      return(
-        <TouchableOpacity>
-          <View style = {{flexDirection:"column", alignSelf:"center", marginLeft:10}}>
-            <View style = {{marginRight: 50}}>
-              <Image
-                  source = {{uri: u.image}}
-                  style = {styles.image}
-              />
-              <Text style = {{color: "white", alignSelf:"center"}}>{u.user}</Text>
-              <Text style = {{color: "#DAA520", marginTop: 15, alignSelf: "center"}}>{u.bet}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    })
+  constructor(props){
+    super(props);
+    this.state = {
+      selectedTab: 0
+    }
   }
 
   render(){
     return(
         <View style = {{flex: 1, backgroundColor: "#161616"}}>
-          <ScrollView horizontal height = {280}>
-            {this.renderScroll(this.props.list)}
-          </ScrollView>
+          <View style = {{marginTop: 40}}>
+            <MaterialTabs
+              items={['Match', "Unmatched", "Finished"]}
+              indicatorColor ="#00B073"
+              activeTextColor ="white"
+              inactiveTextColor ="gray"
+              barColor ="transparent"
+              selectedIndex={this.state.selectedTab}
+              onChange={index => this.setState({ selectedTab: index })}
+            />
+          </View>
         </View>
     );
   }

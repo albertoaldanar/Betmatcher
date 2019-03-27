@@ -8,6 +8,7 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import Chat from "../reusable/chat";
 import LinearGradient from "react-native-linear-gradient";
 import Modal from "react-native-modal";
+import MaterialTabs from "react-native-material-tabs";
 
 class Match extends Component{
 
@@ -99,16 +100,17 @@ class Match extends Component{
   render(){
     return(
       <View style = {styles.container}>
-        <Header title = "Matches"/>
-        <SegmentedControlTab
-            values={['Match ', 'Unmatched', "Finished"]}
-            tabsContainerStyle = {styles.segmentedController}
-            tabTextStyle = {{color: "#00B073", fontWeight: "400", fontSize: 15}}
-            tabStyle = {{borderColor: "#00B073", backgroundColor: "transparent"}}
-            selectedIndex={this.state.index}
-            activeTabStyle = {{backgroundColor: "#00B073"}}
-            onTabPress={this.handleIndexChange.bind(this)}
-        />
+        <View style = {{marginTop: 20}}>
+          <MaterialTabs
+              items={['Matches', "Unmatched", "Finished"]}
+              indicatorColor ="#00B073"
+              activeTextColor ="white"
+              inactiveTextColor ="gray"
+              barColor ="transparent"
+              selectedIndex={this.state.index}
+              onChange={index => this.setState({ index })}
+          />
+        </View>
         <ScrollView>
           <View>
             {this.choseView()}

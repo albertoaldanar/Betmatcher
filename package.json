@@ -22,6 +22,7 @@
     "react-native-fusioncharts": "^3.0.0",
     "react-native-image-slider": "^2.0.3",
     "react-native-linear-gradient": "^2.5.2",
+    "react-native-material-tabs": "^3.8.1",
     "react-native-modal": "^9.0.0",
     "react-native-multiple-select-list": "^1.0.4",
     "react-native-pages": "^0.7.0",

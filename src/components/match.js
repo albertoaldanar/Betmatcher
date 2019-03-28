@@ -101,7 +101,7 @@ class Match extends Component{
     return(
       <View style = {styles.container}>
         <View style = {{marginTop: 25}}>
-          <View style = {{marginBottom: 10}}>
+          <View style = {{marginBottom: 12}}>
             <MaterialTabs
                 items={['Matches', "Unmatched", "Finished"]}
                 indicatorColor ="#00B073"

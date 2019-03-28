@@ -118,7 +118,7 @@ class BetModal extends Component{
                 />
 
                 <View>
-                  <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
+                  <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
                   <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
                 </View>
               </View>
@@ -220,7 +220,7 @@ class BetModal extends Component{
 
     if(choice == 1 && game.sport == "Soccer"){
       return(
-        <View style = {{paddingBottom: 15}}>
+        <View style = {{paddingBottom: 15, paddingTop: 10}}>
           <MaterialTabs
               items={values}
               indicatorColor ="#00B073"
@@ -236,7 +236,7 @@ class BetModal extends Component{
       );
     } else if(choice == 1 && game.sport != "Soccer"){
           return(
-            <View style = {{paddingBottom: 15}}>
+            <View style = {{paddingBottom: 15, marginTop:10}}>
               <MaterialTabs
                   items={[`Bets for ${teamsNotSelected[0].name}`]}
                   indicatorColor ="#00B073"
@@ -368,8 +368,7 @@ class BetModal extends Component{
 
               {this.gameType(game, position)}
 
-
-              <Text style = {{color: "gray", fontSize: 13, marginTop: 30, alignSelf: "center"}}> SEND THIS BET TO: </Text>
+              <Text style = {{color: "gray", fontSize: 11, marginTop: 30, alignSelf: "center"}}> SEND THIS BET TO: </Text>
 
               <View style = {{marginTop: 20, flexDirection:"row", justifyContent:"space-around"}}>
                 <TouchableOpacity style= {this.state.publicBet ? styles.choiceButtonSelected : styles.choiceButton} onPress = {() => this.setState({publicBet: true, opponent: ""})}>
@@ -382,6 +381,8 @@ class BetModal extends Component{
                   <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 13}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
                 </TouchableOpacity>
               </View>
+
+
             </View>
           );
     }
@@ -504,7 +505,7 @@ const styles ={
   image: {
     width: 45,
     height: 45,
-    marginRight: 15,
+    marginRight: 22,
     marginLeft: 6,
     shadowColor: "#000",
     shadowOffset: {

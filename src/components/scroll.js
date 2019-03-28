@@ -13,13 +13,6 @@ class Scroll extends Component {
 
   render(){
 
-    let data = [{
-      value: 'Banana',
-    }, {
-      value: 'Mango',
-    }, {
-      value: 'Pear',
-    }];
     return(
         <View style = {{flex: 1, backgroundColor: "#161616"}}>
 

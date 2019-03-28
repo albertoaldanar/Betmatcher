@@ -100,16 +100,19 @@ class Match extends Component{
   render(){
     return(
       <View style = {styles.container}>
-        <View style = {{marginTop: 20}}>
-          <MaterialTabs
-              items={['Matches', "Unmatched", "Finished"]}
-              indicatorColor ="#00B073"
-              activeTextColor ="white"
-              inactiveTextColor ="gray"
-              barColor ="transparent"
-              selectedIndex={this.state.index}
-              onChange={index => this.setState({ index })}
-          />
+        <View style = {{marginTop: 25}}>
+          <View style = {{marginBottom: 10}}>
+            <MaterialTabs
+                items={['Matches', "Unmatched", "Finished"]}
+                indicatorColor ="#00B073"
+                activeTextColor ="white"
+                textStyle= {{fontSize: 12.5}}
+                inactiveTextColor ="gray"
+                barColor ="transparent"
+                selectedIndex={this.state.index}
+                onChange={index => this.setState({ index })}
+            />
+          </View>
         </View>
         <ScrollView>
           <View>

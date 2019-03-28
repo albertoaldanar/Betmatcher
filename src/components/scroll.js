@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {ScrollView, Text, View, Image, TouchableOpacity} from "react-native";
-import MaterialTabs from "react-native-material-tabs"
+import MaterialTabs from "react-native-material-tabs";
+import { Dropdown } from 'react-native-material-dropdown';
 
 class Scroll extends Component {
   constructor(props){
@@ -11,17 +12,23 @@ class Scroll extends Component {
   }
 
   render(){
+
+    let data = [{
+      value: 'Banana',
+    }, {
+      value: 'Mango',
+    }, {
+      value: 'Pear',
+    }];
     return(
         <View style = {{flex: 1, backgroundColor: "#161616"}}>
-          <View style = {{marginTop: 40}}>
-            <MaterialTabs
-              items={['Match', "Unmatched", "Finished"]}
-              indicatorColor ="#00B073"
-              activeTextColor ="white"
-              inactiveTextColor ="gray"
-              barColor ="transparent"
-              selectedIndex={this.state.selectedTab}
-              onChange={index => this.setState({ selectedTab: index })}
+
+          <View style = {{marginTop: 50}}>
+            <Dropdown
+              label='Send this bet to:'
+              baseColor ="gray"
+              containerStyle = {{margin: 40}}
+              data={data}
             />
           </View>
         </View>

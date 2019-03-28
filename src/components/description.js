@@ -55,11 +55,11 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.8.10:3000/api/variable")
+    return fetch("http://192.168.0.3:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
-                message:` ${response.data} users to match`,
+                message: `${response.data} users to match`,
                 loading: false,
                 showButtons: true
           })
@@ -215,7 +215,7 @@ class Description extends Component{
           showProgress={this.state.loading}
           progressColor= "#00B073"
           title= {this.state.message}
-          message = {`Users that bet against ${this.state.teamSelected.name} `}
+          message = "Users that bet against your team"
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={true}
           showCancelButton={this.state.showButtons}

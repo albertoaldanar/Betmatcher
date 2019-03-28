@@ -216,25 +216,40 @@ class BetModal extends Component{
 
   renderSegmentedController(){
     const { choice, game, teamsNotSelected } = this.props;
-    var values = [teamsNotSelected[0].name, teamsNotSelected[1].name];
+    var values = [ `Bets for ${teamsNotSelected[0].name}`, `Bets for ${teamsNotSelected[1].name}`];
 
     if(choice == 1 && game.sport == "Soccer"){
       return(
-
-
-        <MaterialTabs
-            items={values}
-            indicatorColor ="#00B073"
-            activeTextColor ="white"
-            inactiveTextColor ="gray"
-            barColor ="transparent"
-            selectedIndex={this.props.index}
-            onChange={this.props.segmentedController}
-        />
-
+        <View style = {{paddingBottom: 15}}>
+          <MaterialTabs
+              items={values}
+              indicatorColor ="#00B073"
+              activeTextColor ="white"
+              inactiveTextColor ="gray"
+              textStyle= {{fontSize: 12}}
+              barColor ="transparent"
+              selectedIndex={this.props.index}
+              onChange={this.props.segmentedController}
+          />
+      </View>
 
       );
-    } else if(choice == 1 && game.sport != "Soccer"){ return null };
+    } else if(choice == 1 && game.sport != "Soccer"){
+          return(
+            <View style = {{paddingBottom: 15}}>
+              <MaterialTabs
+                  items={[`Bets for ${teamsNotSelected[0].name}`]}
+                  indicatorColor ="#00B073"
+                  activeTextColor ="white"
+                  inactiveTextColor ="gray"
+                  textStyle= {{fontSize: 12}}
+                  barColor ="transparent"
+                  selectedIndex={this.props.index}
+                  onChange={this.props.segmentedController}
+              />
+            </View>
+          );
+     };
   }
 
   betChoice(){
@@ -249,33 +264,33 @@ class BetModal extends Component{
 
                 <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
                     <View>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
+                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           QUOTE
                        </Text>
-                        <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
+                        <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes}% {teamsNotSelected[0].quotes || teamsNotSelected[0].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
                        </Text>
                     </View>
 
                     <View>
-                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
-                          BETS FOR
+                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
+                          YOUR TEAM
                         </Text>
-                        <Text style = {{color: "#00B073", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
-                          {teamsNotSelected[0].name}
+                        <Text style = {{color: "#00B073", margin: 10, marginBottom: 4, fontSize: 14, alignSelf:"center"}}>
+                          {team.name}
                         </Text>
                     </View>
 
 
-                    <View>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
-                          INFO
+                    <TouchableOpacity onPress = {() => this.setState({infoModal: true})}>
+                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
+                          HOW IT WORKS?
                        </Text>
 
-                      <TouchableOpacity style = {{alignSelf:"center"}} onPress = {() => this.setState({infoModal: true})}>
+                      <View style = {{alignSelf:"center"}}>
                         <FontAwesome style = {{color: "white", fontSize: 20, alignSelf:"center", paddingTop: 7}}>{Icons.questionCircle}</FontAwesome>
-                      </TouchableOpacity>
-                    </View>
+                      </View>
+                    </TouchableOpacity>
                 </View>
 
 
@@ -289,33 +304,33 @@ class BetModal extends Component{
 
                 <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
                     <View>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
+                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           QUOTE
                        </Text>
-                        <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
+                        <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           {teamsNotSelected[1].quotes[position]}% { teamsNotSelected[1].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
                        </Text>
                     </View>
 
                     <View>
-                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
-                          BETS FOR
+                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
+                          YOUR TEAM
                         </Text>
-                        <Text style = {{color: "#00B073", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
-                          {teamsNotSelected[1].name}
+                        <Text style = {{color: "#00B073", margin: 10, marginBottom: 4, fontSize: 14, alignSelf:"center"}}>
+                          {team.name}
                         </Text>
                     </View>
 
 
-                    <View>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 13, alignSelf:"center"}}>
-                          INFO
+                    <TouchableOpacity onPress = {() => this.setState({infoModal: true})}>
+                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
+                          HOW IT WORKS?
                        </Text>
 
-                      <TouchableOpacity style = {{alignSelf:"center"}} onPress = {() => this.setState({infoModal: true})}>
+                      <View style = {{alignSelf:"center"}}>
                         <FontAwesome style = {{color: "white", fontSize: 20, alignSelf:"center", paddingTop: 7}}>{Icons.questionCircle}</FontAwesome>
-                      </TouchableOpacity>
-                    </View>
+                      </View>
+                    </TouchableOpacity>
                 </View>
 
 
@@ -354,7 +369,7 @@ class BetModal extends Component{
               {this.gameType(game, position)}
 
 
-              <Text style = {{color: "gray", fontSize: 15, marginTop: 40, alignSelf: "center"}}> SEND THIS BET TO: </Text>
+              <Text style = {{color: "gray", fontSize: 13, marginTop: 30, alignSelf: "center"}}> SEND THIS BET TO: </Text>
 
               <View style = {{marginTop: 20, flexDirection:"row", justifyContent:"space-around"}}>
                 <TouchableOpacity style= {this.state.publicBet ? styles.choiceButtonSelected : styles.choiceButton} onPress = {() => this.setState({publicBet: true, opponent: ""})}>

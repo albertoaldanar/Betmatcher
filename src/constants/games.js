@@ -38,7 +38,7 @@ const Games = [
     time: "5 FEB 9:00 pm",
     league: "La liga",
     sport: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    image: "https://www.shareicon.net/data/256x256/2015/09/07/97299_ball_512x512.png",
     traded: 51600,
     matches: 15,
     unmatched: 20,
@@ -63,7 +63,7 @@ const Games = [
     time: "6 FEB 6:00 pm",
     league: "Champions League",
     sport: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    image: "https://www.shareicon.net/data/256x256/2015/09/07/97299_ball_512x512.png",
     traded: 2345,
     matches: 2,
     unmatched: 5,
@@ -71,12 +71,12 @@ const Games = [
   },
   {
     local: {
-      name: "Juventus",
+      name: "Ajax",
       quotes: {1: 13, 2: 19},
       position: 3
     },
     visit: {
-      name: "Ajax",
+      name: "Juventus",
       quotes: {1: 10, 3: -13},
       position: 2
     },
@@ -88,7 +88,7 @@ const Games = [
     time: "6 FEB 6:00 pm",
     league: "Champions League",
     sport: "Soccer",
-    image: "https://icons-for-free.com/free-icons/png/512/315754.png",
+    image: "https://www.shareicon.net/data/256x256/2015/09/07/97299_ball_512x512.png",
     traded: 2345,
     matches: 2,
     unmatched: 5,

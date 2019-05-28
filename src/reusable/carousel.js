@@ -28,7 +28,7 @@ class Carousell extends Component{
                     {...parallaxProps}
                 />
                 <Text style={styles.title} numberOfLines={2}>
-                    { item.text }
+                    { item.name }
                 </Text>
               </TouchableOpacity>
             </View>
@@ -39,7 +39,7 @@ class Carousell extends Component{
       console.log(this.props.selectedGames);
         return (
           <Carousel
-            data={Images}
+            data={this.props.leagues}
             renderItem={this.renderItem}
             hasParallaxImages={true}
             style={{opacity: 0.4}}

@@ -56,7 +56,7 @@ class GameCard extends Component{
       })
     }else {
       return(
-        <View style = {{marginTop: 100, alignSelf: "center"}}>
+        <View style = {{marginTop: 300, alignSelf: "center"}}>
           <ActivityIndicator size="large" color="white"/>
         </View>
       );

@@ -81,7 +81,8 @@ class Home extends Component{
   // }
 
   topRequests(){
-    const requests = this.state.topRequests
+    const requests = this.state.topRequests;
+
     return requests.map((r, index) => {
       return(
         <TouchableOpacity key = {index}>
@@ -117,38 +118,47 @@ class Home extends Component{
   }
 
   topEventDetials(){
-    return Games.map((g, index) => {
-      return(
-        <TouchableOpacity key = {index} onPress = {this.sendToDescription.bind(this, g)}>
-            <Card style = {{padding: 10}}>
-              <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
-                <Text style = {styles.desc}>{g.local.name}</Text>
-                <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
-                <Text style = {styles.desc}>{g.visit.name}</Text>
-              </View>
+      const {topTradedEvents} = this.state;
+      return topTradedEvents.map((event, index) => {
+        if (topTradedEvents.length > 0){
+          return(
+            <TouchableOpacity key = {index} onPress = {this.sendToDescription.bind(this, event)}>
+                <Card style = {{padding: 10}}>
+                  <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
+                    <Text style = {styles.desc}>{event.local.name}</Text>
+                    <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
+                    <Text style = {styles.desc}>{event.visit.name}</Text>
+                  </View>
 
-              <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
-                <View>
-                  <Text style = {styles.exp}>Traded</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{g.traded} £</Text>
-                </View>
+                  <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
+                    <View>
+                      <Text style = {styles.exp}>Traded</Text>
+                      <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{event.data.traded} £</Text>
+                    </View>
 
-                <View>
-                  <Text style = {styles.exp}>Matches</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{g.matches}</Text>
-                </View>
+                    <View>
+                      <Text style = {styles.exp}>Matches</Text>
+                      <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{event.data.matched_bets}</Text>
+                    </View>
 
-                <View>
-                  <Text style = {styles.exp}>Unmatched</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{g.unmatched}</Text>
-                </View>
+                    <View>
+                      <Text style = {styles.exp}>Unmatched</Text>
+                      <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{event.data.unmatched_bets}</Text>
+                    </View>
 
-                <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
-              </View>
+                    <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
+                  </View>
+                </Card>
+            </TouchableOpacity>
+          );
+        } else {
+          return(
+            <Card style = {{padding: 50}}>
+              <Text>gergergerg</Text>
             </Card>
-        </TouchableOpacity>
-      );
-    })
+          )
+        }
+      })
   }
 
   render(){
@@ -203,7 +213,7 @@ class Home extends Component{
 
           <View>
             <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-              <Text style = {styles.title}> Users top events </Text>
+              <Text style = {styles.title}> Top traded events </Text>
               <TouchableOpacity>
                 <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
               </TouchableOpacity>
@@ -219,7 +229,7 @@ class Home extends Component{
               </TouchableOpacity>
             </View>
 
-            <Carousell opacity = {0.55} text ="helo"/>
+            <Carousell opacity = {0.55} leagues = {this.state.leagues}/>
           </View>
 
           <View>

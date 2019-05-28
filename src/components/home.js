@@ -17,9 +17,37 @@ import { NavigationActions } from 'react-navigation';
 
 class Home extends Component{
 
+   _isMounted = false;
+
   constructor(props){
     super(props);
-    this.state = {showSidebar: false, leaguesModal: false}
+    this.state = {
+      showSidebar: false,
+      leaguesModal: false,
+      leagues: [],
+      topRequests: [],
+      topTradedEvents: []
+   }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  componentDidMount(){
+    this._isMounted = true;
+
+    return fetch("http://localhost:8000/home_data")
+        .then(res => res.json())
+          .then(response => {
+            if (this._isMounted){
+              this.setState({
+                  leagues: response["leagues"],
+                  topRequests: response["top_request"],
+                  topTradedEvents: response["top_traded"]
+              })
+            }
+          })
   }
 
   showSidebar(){
@@ -53,30 +81,31 @@ class Home extends Component{
   // }
 
   topRequests(){
-    return Requests.map((r, index) => {
+    const requests = this.state.topRequests
+    return requests.map((r, index) => {
       return(
         <TouchableOpacity key = {index}>
             <Card style = {{padding: 10}}>
               <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
-                <Text style = {styles.desc}>{r.local}</Text>
+                <Text style = {styles.desc}>Barca</Text>
                 <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
-                <Text style = {styles.desc}>{r.visit}</Text>
+                <Text style = {styles.desc}>Madrid</Text>
               </View>
 
               <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
                 <View>
                   <Text style = {styles.exp}>User</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14}]}>{r.user}</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14}]}>{r.back_user.username}</Text>
                 </View>
 
                 <View>
                   <Text style = {styles.exp}>Bet</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}>{r.bet} £</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}>{r.amount} £</Text>
                 </View>
 
                 <View>
                   <Text style = {styles.exp}>For</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{r.lay}</Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10}]}>{r.back_team}</Text>
                 </View>
 
                 <FontAwesome style ={styles.chevron}>{Icons.chevronRight}</FontAwesome>
@@ -125,6 +154,7 @@ class Home extends Component{
   render(){
 
     console.log(Dimensions.get("window").width);
+    console.log(this.state.topRequests)
     const menu = <Menu leagues= {Lgs}/>
 
     const images = [

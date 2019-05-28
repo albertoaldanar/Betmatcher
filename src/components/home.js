@@ -87,9 +87,9 @@ class Home extends Component{
         <TouchableOpacity key = {index}>
             <Card style = {{padding: 10}}>
               <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
-                <Text style = {styles.desc}>Barca</Text>
+                <Text style = {styles.desc}>{r.event.local.name}</Text>
                 <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
-                <Text style = {styles.desc}>Madrid</Text>
+                <Text style = {styles.desc}>{r.event.visit.name}</Text>
               </View>
 
               <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>

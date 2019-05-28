@@ -49,9 +49,9 @@ class Menu extends Component {
               />
 
               <View>
-                <Text style= {{color:"#00B073", marginBottom: 10, fontSize: 20, fontWeight: "400"}}>albertoaldanar</Text>
-                <Text style= {{color:"#DCDCDC", marginBottom: 10, fontSize: 12, fontWeight: "400", fontStyle: "oblique"}}>Mexico <FontAwesome>{Icons.flag}</FontAwesome></Text>
-                <Text style= {{color:"#DAA520"}}>14,567 <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <Text style= {{color:"#00B073", marginBottom: 10, fontSize: 20, fontWeight: "400"}}>jackwilson</Text>
+                <Text style= {{color:"#DCDCDC", marginBottom: 10, fontSize: 12, fontWeight: "400", fontStyle: "oblique"}}>England <FontAwesome>{Icons.flag}</FontAwesome></Text>
+                <Text style= {{color:"#DAA520"}}>14,567  £</Text>
               </View>
             </View>
           </LinearGradient>
@@ -107,7 +107,7 @@ const styles = {
     paddingLeft: 10,
     paddingTop: 35,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-around"
   }
 }
 

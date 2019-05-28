@@ -1,13 +1,15 @@
 import React, {Component} from "react";
-import {ScrollView, Text, View, Image, TouchableOpacity} from "react-native";
+import {ScrollView, Text, View, Image, TouchableOpacity, Switch} from "react-native";
 import MaterialTabs from "react-native-material-tabs";
 import { Dropdown } from 'react-native-material-dropdown';
+import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class Scroll extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedTab: 0
+      selectedTab: 0,
+      public: true
     }
   }
 
@@ -16,13 +18,16 @@ class Scroll extends Component {
     return(
         <View style = {{flex: 1, backgroundColor: "#161616"}}>
 
-          <View style = {{marginTop: 50}}>
-            <Dropdown
-              label='Send this bet to:'
-              baseColor ="gray"
-              containerStyle = {{margin: 40}}
-              data={data}
-            />
+          <View style = {{alignSelf: "center"}}>
+                <View style = {{flexDirection:"row"}}>
+                    <Text style = {{color:"white", marginRight: 10, marginTop: 7}}>Public bet <FontAwesome>{Icons.users}</FontAwesome> </Text>
+                    <Switch
+                      onValueChange= {() => this.setState({public: !this.state.public})}
+                      value = {this.state.public}
+                      trackColor={{true: 'red', false: 'grey'}}
+                    />
+                    <Text  style = {{color:"white", marginLeft: 10, marginTop: 7}}>Betfriend <FontAwesome>{Icons.user}</FontAwesome></Text>
+                </View>
           </View>
         </View>
     );

@@ -71,7 +71,7 @@ class Home extends Component{
 
                 <View>
                   <Text style = {styles.exp}>Bet</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}>{r.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}>{r.bet} £</Text>
                 </View>
 
                 <View>
@@ -101,7 +101,7 @@ class Home extends Component{
               <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
                 <View>
                   <Text style = {styles.exp}>Traded</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{g.traded} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{g.traded} £</Text>
                 </View>
 
                 <View>

@@ -1,7 +1,7 @@
 const Matches = [
   {
     user1: "jackrussell",
-    user2: "albertoaldanar",
+    user2: "many54",
     local: "Barcelona",
     visit: "Real Madrid",
     time: "5 FEB 9:00pm",
@@ -10,7 +10,7 @@ const Matches = [
     live: false
   },
   {
-    user1: "albertoaldanar",
+    user1: "ricardojimen",
     user2: "danielPerez",
     local: "PSG",
     visit: "Liverpool",
@@ -22,7 +22,7 @@ const Matches = [
     minute: "12"
   },
   {
-    user1: "albertoaldanar",
+    user1: "kimyung",
     user2: "juanvazquez",
     local: "Boca Juniors",
     visit: "River Plate",

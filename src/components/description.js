@@ -55,7 +55,7 @@ class Description extends Component{
   }
 
   renderUsersToMatch(){
-    return fetch("http://192.168.0.3:3000/api/variable")
+    return fetch("http://192.168.8.2:3000/api/variable")
       .then(res => res.json())
         .then(response => {
           this.setState({
@@ -116,7 +116,7 @@ class Description extends Component{
   renderButton(){
     let game = this.props.navigation.state.params.par;
     const {teamSelected, local, visit, draw} = this.state;
-      if(game.sport == "Soccer"){
+      if(game.data.sport.name == "Soccer"){
         return(
           <View>
             <TouchableOpacity style = {local ? styles.buttonSelected : styles.button} onPress ={this.onSelectTeam.bind(this, game.local)}>
@@ -165,11 +165,11 @@ class Description extends Component{
         <ScrollView>
         <View style = {styles.space}>
             <View style = {styles.card}>
-              <Image source = {{uri: game.image}} style = {{width: 60, height: 60, marginRight: 15}}/>
+              <Image source = {{uri: game.data.sport.icon}} style = {{width: 60, height: 60, marginRight: 15}}/>
 
               <View>
-                <Text style = {styles.text}>{game.league}</Text>
-                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique"}]}>{game.time}</Text>
+                <Text style = {styles.text}>{game.data.league.name}</Text>
+                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique"}]}>{game.data.date}</Text>
 
                 <View style = {styles.game}>
                   <Text style = {styles.word}>{game.local.name}</Text>
@@ -194,8 +194,6 @@ class Description extends Component{
             visible = {this.state.visible}
             animationType ="fade"
         >
-
-
           <BetModal
             teamsNotSelected = {teamsNotSelected}
             choice = {betChoice} team = {teamSelected} index = {this.state.index}
@@ -206,7 +204,7 @@ class Description extends Component{
             segmentedController = {this.handleSegmentedController.bind(this)}
             visible = {this.showModal.bind(this)}
             confirm = {this.sendToConfirmation.bind(this)}
-            sendToMatchFromLay= {this.sendToMatchFromLay.bind(this)}
+            sendToMatchFromLay = {this.sendToMatchFromLay.bind(this)}
           />
         </Modal>
 

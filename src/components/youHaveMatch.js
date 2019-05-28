@@ -38,7 +38,7 @@ class YouHaveMatch extends Component{
               </View>
             </View>
 
-            <Text style = {[styles.text, {color: "#DAA520"}]}>{this.props.user.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome> </Text>
+            <Text style = {[styles.text, {color: "#DAA520"}]}>{this.props.user.bet} <FontAwesome>{Icons.database}</FontAwesome> </Text>
 
             <TouchableOpacity style = {styles.buttonCointainer} onPress = {this.props.sendToMatches}>
               <Text style = {styles.buttonText}>CONTINUE</Text>

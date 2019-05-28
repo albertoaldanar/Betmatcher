@@ -1,12 +1,22 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ScrollView, Image} from "react-native";
+import {View, Text, TouchableOpacity, ScrollView, Image, ActivityIndicator} from "react-native";
 import Card from "./card";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import FontAwesome, {Icons} from "react-native-fontawesome";
 class GameCard extends Component{
 
+  _isMounted = false;
+
   constructor(props){
     super(props);
+  }
+
+  componentDidMount(){
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   getRoute(params, route){
@@ -18,30 +28,39 @@ class GameCard extends Component{
   }
 
   renderGameInfo(){
-    return this.props.data.map((d, index) => {
-      return(
-        <TouchableOpacity key = {index} onPress = { () => {this.getRoute(d, this.props.route)}}>
-          <Card>
-              <View style = {styles.desc}>
-                <Text style = {styles.league}>{d.league}</Text>
-                <Text style = {styles.hour}>{d.time}</Text>
-              </View>
-
-              <View style = {styles.match}>
-                <Image source = {{uri: d.image}} style = {{width: 45, height: 45, marginRight: 15}}/>
-
-                <View style = {{paddingRight: 90}}>
-                  <Text style = {styles.text}>{d.local.name}</Text>
-                  <Text style = {[styles.text, {fontSize: 9, fontStyle: "oblique", fontWeight: "400"}]}>VS.</Text>
-                  <Text style = {styles.text}>{d.visit.name}</Text>
+    var topEvents = this.props.data["top_events"]
+    if (this._isMounted){
+      return topEvents.map((d, index) => {
+        return(
+          <TouchableOpacity key = {index} onPress = { () => {this.getRoute(d, this.props.route)}}>
+            <Card>
+                <View style = {styles.desc}>
+                  <Text style = {styles.league}>{d.data.league.name}</Text>
+                  <Text style = {styles.hour}>{d.data.date}</Text>
                 </View>
 
-                <FontAwesome style= {styles.chevron}>{Icons.chevronRight}</FontAwesome>
-              </View>
-          </Card>
-        </TouchableOpacity>
+                <View style = {styles.match}>
+                  <Image source = {{uri: d.data.sport.icon}} style = {{width: 45, height: 45, marginRight: 15}}/>
+
+                  <View style = {{paddingRight: 90}}>
+                    <Text style = {styles.text}>{d.local.name}</Text>
+                    <Text style = {[styles.text, {fontSize: 9, fontStyle: "oblique", fontWeight: "400"}]}>VS.</Text>
+                    <Text style = {styles.text}>{d.visit.name}</Text>
+                  </View>
+
+                  <FontAwesome style= {styles.chevron}>{Icons.chevronRight}</FontAwesome>
+                </View>
+            </Card>
+          </TouchableOpacity>
+        );
+      })
+    }else {
+      return(
+        <View style = {{marginTop: 100, alignSelf: "center"}}>
+          <ActivityIndicator size="large" color="white"/>
+        </View>
       );
-    })
+    }
   }
 
   render(){

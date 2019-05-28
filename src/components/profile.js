@@ -59,9 +59,9 @@ class Profile extends Component{
                 <Image style={styles.imageStyle} source={{uri: User.image}}/>
 
                 <View>
-                  <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {User.userName} </Text>
-                  <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 5, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
-                    <FontAwesome>{Icons.mapMarker}</FontAwesome> {User.country}
+                  <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> jackwilson </Text>
+                  <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 7, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
+                    <FontAwesome>{Icons.mapMarker}</FontAwesome> England
                   </Text>
                 </View>
               </View>
@@ -93,7 +93,7 @@ class Profile extends Component{
                     Amount
                   </Text>
                   <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                    {User.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.bitcoin}</FontAwesome>
+                    {User.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.database}</FontAwesome>
                   </Text>
                 </View>
 

@@ -13,7 +13,7 @@ const UserList2 = [
     country: "Spain"
   },
   {
-    user: "jackWilson5",
+    user: "jackwilson5",
     bet: 1800,
     image: "https://www.scripturaengage.com/wp-content/uploads/2017/05/Profile-Picture-Toon-Wouters-circle-ScripturaEngage.png",
     country: "France"
@@ -31,14 +31,14 @@ const UserList2 = [
     country: "Brasil"
   },
     {
-    user: "cr7gay",
+    user: "alanmack",
     bet: 100,
     image: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png",
     country: "Camerun"
   },
     {
-    user: "messiD10S",
-    bet: 220000,
+    user: "messi90",
+    bet: 2100,
     image: "https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png"
   },
     {

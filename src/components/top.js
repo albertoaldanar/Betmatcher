@@ -13,7 +13,17 @@ class Top extends Component{
 
   constructor(props){
     super(props);
-    this.state = {isOpen: false}
+    this.state = {isOpen: false, events: {}}
+  }
+
+  componentWillMount(){
+    return fetch("http://localhost:8000/top_events")
+        .then(res => res.json())
+          .then(response => {
+            this.setState({
+                events: response
+            })
+          })
   }
 
   onPressButton(){
@@ -21,7 +31,8 @@ class Top extends Component{
   }
 
   render(){
-    const {isOpen} = this.state;
+    console.log(this.state.events["top_events"])
+    const {isOpen, events} = this.state;
     const menu = <Menu leagues ={Lgs}/>
 
     return(
@@ -32,7 +43,7 @@ class Top extends Component{
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Weekley Top" showSidebar = {this.onPressButton.bind(this)}/>
           <ScrollView>
-            <GameCard data= {Games} route = "Description" nav = {this.props.navigation.dispatch}/>
+            <GameCard data= {events} route = "Description" nav = {this.props.navigation.dispatch}/>
           </ScrollView>
         </View>
       </SideMenu>

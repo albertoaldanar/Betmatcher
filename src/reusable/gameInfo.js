@@ -62,7 +62,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={styles.number}>
-                {data.traded} <FontAwesome> {Icons.bitcoin} </FontAwesome>
+                {data.data.traded} <FontAwesome> {Icons.database} </FontAwesome>
             </Text>
         </View>
 
@@ -73,7 +73,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={[styles.number, {color: "#00B073"}]}>
-                {data.matches}
+                {data.data.matched_bets}
             </Text>
         </View>
 
@@ -84,7 +84,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={[styles.number, {color: "#B22222"}]}>
-                {data.unmatched}
+                {data.data.unmatched_bets}
             </Text>
         </View>
 
@@ -117,7 +117,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={styles.number}>
-                {data.topBet} <FontAwesome> {Icons.bitcoin} </FontAwesome>
+                {data.topBet} <FontAwesome>  {Icons.database} </FontAwesome>
             </Text>
         </View>
       </View>

@@ -1,13 +1,13 @@
 const Requests = [
   {
-    user: "alberto77",
+    user: "andermtz",
     local: "Barcelona",
     visit: "Real Madrid",
     bet: 5360,
     lay: "Barcelona"
   },
   {
-    user: "albertoaldanar",
+    user: "peterjackson",
     local: "Boca Juniors",
     visit: "River Plate",
     bet: 4300,

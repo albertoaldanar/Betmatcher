@@ -36,7 +36,7 @@ class Match extends Component{
                 <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
                   <View style = {styles.spaceBetween}>
                     <Text style = {[styles.topItem, {fontStyle: "oblique"}]}>{m.league}</Text>
-                    <Text style = {[styles.topItem, {color: "gold"}]}>{m.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                    <Text style = {[styles.topItem, {color: "gold"}]}>{m.bet}  <FontAwesome>{Icons.database}</FontAwesome></Text>
                   </View>
 
                   <View style = {[styles.spaceBetween, {margin: 10}]}>

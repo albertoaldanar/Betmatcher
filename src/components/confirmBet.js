@@ -64,7 +64,7 @@ class ConfirmBet extends Component{
                   <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: {AD[0]}</Text>
               </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[0]} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[0]}  <FontAwesome>{Icons.database}</FontAwesome></Text>
             </View>
 
             <Text style = {styles.vs}>VS.</Text>
@@ -77,7 +77,7 @@ class ConfirmBet extends Component{
                   <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: {AD[1]}</Text>
               </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[1]} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[1]}  <FontAwesome>{Icons.database}</FontAwesome></Text>
             </View>
           </View>
         </View>

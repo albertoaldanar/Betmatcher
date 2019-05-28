@@ -7,6 +7,7 @@ import FriendsModal from "./friendsModal"
 import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
 
+
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
 
@@ -119,7 +120,7 @@ class BetModal extends Component{
 
                 <View>
                   <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
-                  <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                  <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {bet}  <FontAwesome>{Icons.database}</FontAwesome></Text>
                 </View>
               </View>
               <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
@@ -143,14 +144,13 @@ class BetModal extends Component{
                   style = {styles.image}
               />
               <Text style = {{color: "white", alignSelf:"center", marginTop: 10}}>{u.user}</Text>
-              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 16, marginTop: 10}}> {bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 16, marginTop: 10}}> {bet}  <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
             </View>
           </View>
         </TouchableOpacity>
       );
     })
   }
-
 
 
   gameType(game, position){
@@ -180,8 +180,8 @@ class BetModal extends Component{
 
               <View>
                 <Text style = {{color: "gray", fontWeight: "400", marginRight: 5, fontStyle: "oblique"}}>YOU CAN WIN</Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes[position] / 100) * bet + (bet * 2) )} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[1].quotes[position] / 100) * bet + (bet * 2) )} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes[position] / 100) * bet + (bet * 2) )}  <FontAwesome> {Icons.database} </FontAwesome> </Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[1].quotes[position] / 100) * bet + (bet * 2) )}  <FontAwesome> {Icons.database} </FontAwesome> </Text>
               </View>
 
             </View>
@@ -205,7 +205,7 @@ class BetModal extends Component{
 
               <View>
                 <Text style = {{color: "gray", fontWeight: "400", marginRight: 5, fontStyle: "oblique"}}>YOU CAN WIN</Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes / 100) * bet + (bet * 2) )} <FontAwesome> {Icons.bitcoin} </FontAwesome> </Text>
+                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes / 100) * bet + (bet * 2) )}  <FontAwesome> {Icons.database} </FontAwesome> </Text>
               </View>
 
             </View>
@@ -351,7 +351,7 @@ class BetModal extends Component{
                   <Text style = {[styles.layBet, {marginLeft: 5, color: "#00B073", fontSize: 17}]}>{this.props.team.name}</Text>
                 </View>
 
-                <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 25, marginTop: 5, fontWeight: "300"}}>{this.state.bet} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+                <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 25, marginTop: 5, fontWeight: "300"}}>{this.state.bet}  <FontAwesome>{Icons.database}</FontAwesome></Text>
 
                 <Slider
                   step= {10}
@@ -410,7 +410,7 @@ class BetModal extends Component{
                   Close
                 </Text>
               </TouchableOpacity>
-              <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.state.cUserCoins} <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
+              <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.state.cUserCoins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
             </View>
           </View>
 
@@ -484,6 +484,8 @@ const styles ={
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+    backgroundColor: "black",
+    paddingBottom: 7
   },
   teamsDescription: {
     alignSelf: "center",

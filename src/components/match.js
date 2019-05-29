@@ -39,6 +39,17 @@ class Match extends Component{
     this.setState({chat: !this.state.chat})
   }
 
+  displayData = async () => {
+    let token = ""
+    try{
+      token = await AsyncStorage.getItem("token");
+    }
+    catch(error){
+      console.log(error)
+    }
+    this.setState({data: token})
+  }
+
   renderMatches(){
     return Matches.map(m => {
         return (
@@ -100,7 +111,10 @@ class Match extends Component{
       case 2:
         return(
           <View>
-            <Text style = {styles.emptyMessage}>No Finished bets</Text>
+            <TouchableOpacity onPress = {this.displayData.bind(this)}>
+              <Text style = {styles.emptyMessage}>No Finished bets</Text>
+            </TouchableOpacity>
+            <Text style = {styles.emptyMessage}>{this.state.data}</Text>
           </View>
         );
         break;

@@ -13,7 +13,9 @@ class Login extends Component{
       email: "",
       password: "",
       password_confirmation:"",
-      isSignup: false
+      isSignup: false,
+      loginUsername: "",
+      loginPassword: ""
     }
   }
 
@@ -35,12 +37,32 @@ class Login extends Component{
         } catch (error) {
         // Error retrieving data
           console.log(error.message);
+          this.sendToHome.bind(this);
         }
       })
       .catch(error => console.log(error));
 
-      this.sendToHome.bind(this);
+
   }
+
+  userLogin(){
+    const {loginPassword, loginUsername} = this.state;
+
+      return fetch("http://localhost:8000/users/login/", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({"username": loginUsername, "password": loginPassword})
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+          console.log(jsonRes);
+      })
+      .catch(error => console.log(error));
+  }
+
 
 
   sendToHome(){
@@ -58,7 +80,7 @@ class Login extends Component{
   }
 
   registrationForm(){
-    const {email, password_confirmation, password, username} = this.state;
+    const {email, password_confirmation, password, username, loginUsername, loginPassword} = this.state;
     if(this.state.isSignup){
       return(
         <View style = {styles.inputs}>
@@ -120,6 +142,8 @@ class Login extends Component{
             placeholder = "Username"
             placeholderTextColor = "gray"
             autoCapitalize = 'none'
+            onChangeText ={this.onChangeInput('loginUsername')}
+            value = {loginUsername}
           />
           <TextInput
             style={{height: 40, borderBottomColor: 'white', borderBottomWidth: 0.5, color:"white", color: "white"}}
@@ -127,10 +151,12 @@ class Login extends Component{
             placeholderTextColor = "gray"
             secureTextEntry={true}
             autoCapitalize = 'none'
+            onChangeText ={this.onChangeInput('loginPassword')}
+            value = {loginPassword}
           />
 
           <View style = {{marginLeft: 15, marginRight: 15, marginTop: 55}}>
-            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}}>
+            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}} onPress = {this.userLogin.bind(this)}>
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Login</Text>
             </TouchableOpacity>
 

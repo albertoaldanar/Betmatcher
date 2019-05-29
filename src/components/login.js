@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {View, Text, TextInput, TouchableOpacity, Image, Dimensions} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import axios from "axios";
-import deviceStorage from '../services/deviceStorage';
+import {NavigationActions} from "react-navigation";
 
 class Login extends Component{
 
@@ -30,9 +30,20 @@ class Login extends Component{
       })
       .then(res => res.json())
       .then(jsonRes => {
-        console.log(jsonRes)
+        console.log(jsonRes);
       })
       .catch(error => console.log(error));
+
+      this.sendToHome.bind(this);
+  }
+
+
+  sendToHome(){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "MainScreen"
+    });
+
+    this.props.navigation.dispatch(navigateAction);
   }
 
   onChangeInput = (state) => (event,value) => {

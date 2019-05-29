@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View,Text, TouchableOpacity, Image, ScrollView} from "react-native";
+import {View,Text, TouchableOpacity, Image, ScrollView, AsyncStorage} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
@@ -16,7 +16,7 @@ class Match extends Component{
 
   constructor(props){
     super(props);
-    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: []}
+    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: [], data: ""}
   }
 
   componentWillUnmount() {
@@ -92,7 +92,7 @@ class Match extends Component{
       case 1:
         return(
           <View>
-            <Text style = {styles.emptyMessage}> No Unmatched Bets</Text>
+           <Text style = {styles.emptyMessage}>No Unmatched bets</Text>
           </View>
         );
         break;
@@ -100,7 +100,7 @@ class Match extends Component{
       case 2:
         return(
           <View>
-            <Text style = {styles.emptyMessage}> No Finished Bets</Text>
+            <Text style = {styles.emptyMessage}>No Finished bets</Text>
           </View>
         );
         break;

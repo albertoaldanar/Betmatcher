@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator} from "react-native";
+import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Games from "../constants/games";
 import Header from "../reusable/header";
@@ -26,7 +26,8 @@ class Home extends Component{
       leaguesModal: false,
       leagues: [],
       topRequests: [],
-      topTradedEvents: []
+      topTradedEvents: [],
+      data: ""
    }
   }
 
@@ -62,23 +63,6 @@ class Home extends Component{
     })
     this.props.navigation.dispatch(navigateAction);
   }
-
-  // renderLeagues(){
-  //   return Images.map(i => {
-  //     return(
-  //       <View>
-  //         <TouchableOpacity>
-  //           <Image
-  //             source = {{uri: i.image}}
-  //             opacity = {0.45}
-  //             style = {styles.categories}
-  //           />
-  //           <Text style = {{color: "#ffff", position: "absolute", top: 15, left: 15, fontWeight :"600" }}>{i.text}</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     );
-  //   })
-  // }
 
   topRequests(){
     const requests = this.state.topRequests;

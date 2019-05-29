@@ -12,9 +12,19 @@ import MaterialTabs from "react-native-material-tabs";
 
 class Match extends Component{
 
+  _isMounted = false;
+
   constructor(props){
     super(props);
-    this.state = {index: 0, chat: false, modal: false}
+    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: []}
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  componentDidMount(){
+    this._isMounted = true;
   }
 
   handleIndexChange(index){
@@ -98,6 +108,7 @@ class Match extends Component{
   }
 
   render(){
+    console.log(this.state.matches)
     return(
       <View style = {styles.container}>
         <View style = {{marginTop: 25}}>

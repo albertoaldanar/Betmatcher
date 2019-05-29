@@ -68,7 +68,12 @@ export const MainScreen = createBottomTabNavigator({
 );
 
 const AppNavigator = StackNavigator({
-
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null
+    }
+  },
   MainScreen: {
     screen: MainScreen,
       navigationOptions:{
@@ -125,12 +130,6 @@ const AppNavigator = StackNavigator({
         backgroundColor: "black",
         borderBottomColor: "black"
       }
-    }
-  },
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      header: null
     }
   },
   SelectedGames: {

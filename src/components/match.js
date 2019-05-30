@@ -16,15 +16,32 @@ class Match extends Component{
 
   constructor(props){
     super(props);
-    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: [], data: ""}
+    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: [], data: this.displayData(), currentUser: this.displayUsername()}
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
+
   componentDidMount(){
     this._isMounted = true;
+
+    const {data} = this.state;
+
+      return fetch("http://localhost:8000/matches/", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+          "Authorization": "Token 7352054a3bdeac091f70a06220b5e545afae583e"
+        }
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        console.log(jsonRes)
+      })
+      .catch(error => console.log(error));
   }
 
   handleIndexChange(index){
@@ -48,6 +65,17 @@ class Match extends Component{
       console.log(error)
     }
     this.setState({data: token})
+  }
+
+  displayUsername = async () => {
+    let username = ""
+    try{
+      username = await AsyncStorage.getItem("username");
+    }
+    catch(error){
+      console.log(error)
+    }
+    this.setState({currentUser: username})
   }
 
   renderMatches(){
@@ -122,7 +150,7 @@ class Match extends Component{
   }
 
   render(){
-    console.log(this.state.matches)
+    console.log(this.state.data, this.state.currentUser);
     return(
       <View style = {styles.container}>
         <View style = {{marginTop: 25}}>

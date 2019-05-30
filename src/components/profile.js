@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TextInput, TouchableOpacity, Dimensions, StatusBar, ScrollView} from "react-native";
+import {View, Text, Image, TextInput, TouchableOpacity, Dimensions, StatusBar, ScrollView, AsyncStorage} from "react-native";
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
 import Header from "../reusable/header";
 import User from "../constants/user";
@@ -18,6 +18,65 @@ import {Pages} from "react-native-pages";
 
 class Profile extends Component{
 
+  constructor(props){
+    super(props);
+    this.state = { token: this.displayToken(), currentUser: this.displayUsername(), username:"", won: "", lost:"", draw:"", country: ""}
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  componentDidMount(){
+    this._isMounted = true;
+
+    const {data, currentUser} = this.state;
+
+      return fetch("http://localhost:8000/users/albertoaldanar/", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+          "Authorization": "Token 262e2589f0861b10c3fabc34020c13151fcf24d6"
+        }
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        if(this._isMounted){
+          this.setState({
+                username: jsonRes.user.username,
+                won: jsonRes.user.profile.won,
+                lost: jsonRes.user.profile.lost,
+                draw: jsonRes.user.profile.draw,
+                country: jsonRes.user.profile.country
+          })
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+  displayToken = async () => {
+    let token = ""
+    try{
+      token = await AsyncStorage.getItem("token");
+    }
+    catch(error){
+      console.log(error)
+    }
+    this.setState({token: token})
+  }
+
+  displayUsername = async () => {
+    let username = ""
+    try{
+      username = await AsyncStorage.getItem("username");
+    }
+    catch(error){
+      console.log(error)
+    }
+    this.setState({currentUser: username})
+  }
+
   renderFriends(){
     const navigateAction = NavigationActions.navigate({
       routeName: "Friends"
@@ -26,6 +85,7 @@ class Profile extends Component{
   }
 
   render(){
+    const {won, lost, draw, country, username} = this.state;
 
     const data = [
       { name: 'Won', number: 3, color: '#00B073', legendFontColor: '#7F7F7F', legendFontSize: 15 },
@@ -59,26 +119,26 @@ class Profile extends Component{
                 <Image style={styles.imageStyle} source={{uri: User.image}}/>
 
                 <View>
-                  <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> jackwilson </Text>
+                  <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {this.state.username} </Text>
                   <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 7, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
-                    <FontAwesome>{Icons.mapMarker}</FontAwesome> England
+                    <FontAwesome>{Icons.mapMarker}</FontAwesome> {country}
                   </Text>
                 </View>
               </View>
 
           <View style = {styles.stats}>
             <View>
-              <Text style = {styles.count}>{User.won}</Text>
+              <Text style = {styles.count}>{won}</Text>
               <Text style = {styles.text}> Won </Text>
             </View>
 
             <View>
-              <Text style = {styles.count}>{User.draw}</Text>
+              <Text style = {styles.count}>{draw}</Text>
               <Text style = {styles.text}> Draw </Text>
             </View>
 
             <View>
-              <Text style = {styles.count}>{User.lost}</Text>
+              <Text style = {styles.count}>{lost}</Text>
               <Text style = {styles.text}> Lost </Text>
             </View>
 

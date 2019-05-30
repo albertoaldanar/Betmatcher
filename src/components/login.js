@@ -58,7 +58,13 @@ class Login extends Component{
       })
       .then(res => res.json())
       .then(jsonRes => {
-          console.log(jsonRes);
+        try {
+          AsyncStorage.setItem('token', jsonRes.jwt);
+          AsyncStorage.setItem('username', jsonRes.user.username);
+        } catch (error) {
+        // Error retrieving data
+          console.log(error.message);
+        }
       })
       .catch(error => console.log(error));
   }

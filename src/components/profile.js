@@ -30,8 +30,6 @@ class Profile extends Component{
   componentDidMount(){
     this._isMounted = true;
 
-    const {data, currentUser} = this.state;
-
       return fetch("http://localhost:8000/users/albertoaldanar/", {
         method: "GET",
         headers: {
@@ -86,6 +84,7 @@ class Profile extends Component{
 
   render(){
     const {won, lost, draw, country, username} = this.state;
+    console.log(this.state.currentUser)
 
     const data = [
       { name: 'Won', number: 3, color: '#00B073', legendFontColor: '#7F7F7F', legendFontSize: 15 },

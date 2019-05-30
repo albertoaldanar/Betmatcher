@@ -15,7 +15,8 @@ class Login extends Component{
       password_confirmation:"",
       isSignup: false,
       loginUsername: "",
-      loginPassword: ""
+      loginPassword: "",
+      errorMessage: ""
     }
   }
 
@@ -37,12 +38,9 @@ class Login extends Component{
         } catch (error) {
         // Error retrieving data
           console.log(error.message);
-          this.sendToHome.bind(this);
         }
       })
       .catch(error => console.log(error));
-
-
   }
 
   userLogin(){
@@ -58,18 +56,20 @@ class Login extends Component{
       })
       .then(res => res.json())
       .then(jsonRes => {
-        try {
-          AsyncStorage.setItem('token', jsonRes.jwt);
-          AsyncStorage.setItem('username', jsonRes.user.username);
-        } catch (error) {
-        // Error retrieving data
-          console.log(error.message);
-        }
-      })
-      .catch(error => console.log(error));
+          if(jsonRes.jwt && jsonRes.user){
+            try {
+              AsyncStorage.setItem('token', jsonRes.jwt);
+              AsyncStorage.setItem('username', jsonRes.user.username);
+            } catch (error) {
+
+            console.log(error.message);
+            }
+            this.sendToHome()
+          } else {
+            this.setState({errorMessage: jsonRes.password})
+          }
+      }).catch(error => console.log(error))
   }
-
-
 
   sendToHome(){
     const navigateAction = NavigationActions.navigate({
@@ -166,6 +166,8 @@ class Login extends Component{
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Login</Text>
             </TouchableOpacity>
 
+            <Text style = {{color: "white", alignSelf:"center", margin: 5}}>{this.state.errorMessage}</Text>
+
             <TouchableOpacity style = {{marginTop: 12}}>
               <Text style = {{alignSelf:"center", color:"gray"}}>Forgot your password ?</Text>
             </TouchableOpacity>
@@ -183,8 +185,7 @@ class Login extends Component{
   }
 
   render(){
-    console.log(this.state.username, this.state.email);
-
+    console.log(this.state.errorMessage[0]);
     return(
       <LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
 

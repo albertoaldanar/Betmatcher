@@ -20,39 +20,40 @@ class Login extends Component{
     }
   }
 
-  userSignup(){
+  // userSignup(){
+  //   const {username, password, password_confirmation, email} = this.state;
+
+  //     return fetch("http://localhost:8000/users/signup/", {
+  //       method: "POST",
+  //       headers: {
+  //         "Accept": "application/json",
+  //         "Content-type": "application/json"
+  //       },
+  //       body: JSON.stringify({"username": username, "email": email, "password": password, "password_confirmation": password_confirmation})
+  //     })
+  //     .then(res => res.json())
+  //     .then(jsonRes => {
+  //       try {
+  //         AsyncStorage.setItem('token', jsonRes.jwt);
+  //       } catch (error) {
+  //       // Error retrieving data
+  //         console.log(error.message);
+  //       }
+  //     })
+  //     .catch(error => console.log(error));
+  // }
+
+  userAction(action){
     const {username, password, password_confirmation, email} = this.state;
+    var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation}
 
-      return fetch("http://localhost:8000/users/signup/", {
+      return fetch(`http://localhost:8000/users/${action}/`, {
         method: "POST",
         headers: {
           "Accept": "application/json",
           "Content-type": "application/json"
         },
-        body: JSON.stringify({"username": username, "email": email, "password": password, "password_confirmation": password_confirmation})
-      })
-      .then(res => res.json())
-      .then(jsonRes => {
-        try {
-          AsyncStorage.setItem('token', jsonRes.jwt);
-        } catch (error) {
-        // Error retrieving data
-          console.log(error.message);
-        }
-      })
-      .catch(error => console.log(error));
-  }
-
-  userLogin(){
-    const {loginPassword, loginUsername} = this.state;
-
-      return fetch("http://localhost:8000/users/login/", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({"username": loginUsername, "password": loginPassword})
+        body: JSON.stringify(postArgs)
       })
       .then(res => res.json())
       .then(jsonRes => {
@@ -66,7 +67,7 @@ class Login extends Component{
             }
             this.sendToHome()
           } else {
-            this.setState({errorMessage: jsonRes.password})
+            console.log(jsonRes)
           }
       }).catch(error => console.log(error))
   }
@@ -77,6 +78,29 @@ class Login extends Component{
     });
 
     this.props.navigation.dispatch(navigateAction);
+  }
+
+  handleResponse(response){
+    //In case the response is not right
+    // switch(response){
+
+    //   case typeof response.password !== 'undefined':
+    //     return this.setState({errorMessage: "Password can´t be blank"})
+    //     break;
+
+    //   case typeof response.non_field_errors !== 'undefined':
+    //     return this.setState({errorMessage: "Username or password is incorrect"})
+    //     break;
+    // }
+    //Case user login
+   if(response.password){
+      return this.setState({errorMessage: "Username can't be blank"})
+    } else if(response.non_field_errors){
+      return this.setState({errorMessage: "Invalid credentials"})
+    } else if(response.username){
+      return this.setState({errorMessage: "Username can't be blank"})
+    }
+
   }
 
   onChangeInput = (state) => (event,value) => {
@@ -127,14 +151,14 @@ class Login extends Component{
           />
 
           <View style = {{marginLeft: 15, marginRight: 15, marginTop: 55}}>
-            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}} onPress= {this.userSignup.bind(this)}>
+            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}} onPress= {this.userAction.bind(this, "signup")}>
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Sign up</Text>
             </TouchableOpacity>
           </View>
 
           <View style = {{ position: "absolute", bottom: 15, flexDirection: "row", alignSelf:"center"}}>
             <Text style= {{fontWeight: "300", color: "#DCDCDC"}}>Do yoy have an acount? </Text>
-            <TouchableOpacity onPress= {() => this.setState({isSignup: false, username: "", password: ""})}>
+            <TouchableOpacity onPress= {() => this.setState({isSignup: false, username: "", password: "", email: "", password_confirmation: ""})}>
               <Text style= {{fontWeight: "600", color: "#00B073"}}> Sign in </Text>
             </TouchableOpacity>
           </View>
@@ -148,8 +172,8 @@ class Login extends Component{
             placeholder = "Username"
             placeholderTextColor = "gray"
             autoCapitalize = 'none'
-            onChangeText ={this.onChangeInput('loginUsername')}
-            value = {loginUsername}
+            onChangeText ={this.onChangeInput('username')}
+            value = {username}
           />
           <TextInput
             style={{height: 40, borderBottomColor: 'white', borderBottomWidth: 0.5, color:"white", color: "white"}}
@@ -157,12 +181,12 @@ class Login extends Component{
             placeholderTextColor = "gray"
             secureTextEntry={true}
             autoCapitalize = 'none'
-            onChangeText ={this.onChangeInput('loginPassword')}
-            value = {loginPassword}
+            onChangeText ={this.onChangeInput('password')}
+            value = {password}
           />
 
           <View style = {{marginLeft: 15, marginRight: 15, marginTop: 55}}>
-            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}} onPress = {this.userLogin.bind(this)}>
+            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}} onPress = {this.userAction.bind(this, "login")}>
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Login</Text>
             </TouchableOpacity>
 
@@ -185,7 +209,7 @@ class Login extends Component{
   }
 
   render(){
-    console.log(this.state.errorMessage[0]);
+    console.log(this.state.errorMessage);
     return(
       <LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
 

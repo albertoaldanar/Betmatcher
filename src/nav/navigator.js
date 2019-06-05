@@ -68,6 +68,7 @@ export const MainScreen = createBottomTabNavigator({
 );
 
 const AppNavigator = StackNavigator({
+
   Login: {
     screen: Login,
     navigationOptions: {

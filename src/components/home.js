@@ -36,6 +36,16 @@ class Home extends Component{
     this._isMounted = false;
   }
 
+  async removeItemValue(key) {
+    try {
+      await AsyncStorage.removeItem(key);
+      return true;
+    }
+    catch(exception) {
+      return false;
+    }
+  }
+
 
   componentDidMount(){
     this._isMounted = true;
@@ -61,6 +71,13 @@ class Home extends Component{
 
   handleLogout(){
     this.setState({showModal: true})
+
+    try {
+     AsyncStorage.removeItem("username");
+     AsyncStorage.removeItem('token');
+    } catch (error) {
+    console.log(error.message);
+    }
 
     setTimeout(()=> {
       const navigateAction = NavigationActions.navigate({

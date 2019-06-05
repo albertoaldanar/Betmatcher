@@ -23,7 +23,6 @@ class Match extends Component{
     this._isMounted = false;
   }
 
-
   componentDidMount(){
     this._isMounted = true;
 

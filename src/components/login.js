@@ -73,7 +73,7 @@ class Login extends Component{
 
   sendToHome(){
     const {username, password, password_confirmation, email} = this.state;
-    this.setState({username: "", password: "", password_confirmation: "", email: ""})
+    this.setState({username: "", password: "", password_confirmation: "", email: "", errorMessage: ""})
 
     const navigateAction = NavigationActions.navigate({
       routeName: "MainScreen"
@@ -95,12 +95,10 @@ class Login extends Component{
     //     break;
     // }
     //Case user login
-   if(response.password){
-      return this.setState({errorMessage: "Username can't be blank"})
+   if(response.password || response.username){
+      return this.setState({errorMessage: "Can´t have blank fields"})
     } else if(response.non_field_errors){
       return this.setState({errorMessage: "Invalid credentials", username: "", password: ""})
-    } else if(response.username){
-      return this.setState({errorMessage: "Username can't be blank"})
     }
   }
 

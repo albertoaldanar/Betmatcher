@@ -27,13 +27,15 @@ class Home extends Component{
       leagues: [],
       topRequests: [],
       topTradedEvents: [],
-      data: ""
+      data: "",
+      showModal: true
    }
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
+
 
   componentDidMount(){
     this._isMounted = true;
@@ -48,7 +50,9 @@ class Home extends Component{
                   topTradedEvents: response["top_traded"]
               })
             }
-          })
+          }).then(setTimeout(() => {this.setState({showModal: false})}, 3000))
+
+
   }
 
   showSidebar(){
@@ -148,7 +152,7 @@ class Home extends Component{
   render(){
 
     console.log(Dimensions.get("window").width);
-    console.log(this.state.topRequests)
+    console.log(this.state.showModal)
     const menu = <Menu leagues= {Lgs}/>
 
     const images = [
@@ -170,6 +174,13 @@ class Home extends Component{
         isOpen ={this.state.showSidebar}
         menu = {menu}
       >
+        <Modal
+          visible = {this.state.showModal}
+        >
+          <View style = {{flex: 1, backgroundColor: "#161616"}}>
+            <Text style = {{marginTop: 100, color: "white", textAlign: "center", fontSize: 20}}>Welcome to Betmatcher</Text>
+          </View>
+        </Modal>
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)}/>
           <ScrollView>

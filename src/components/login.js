@@ -62,12 +62,11 @@ class Login extends Component{
               AsyncStorage.setItem('token', jsonRes.jwt);
               AsyncStorage.setItem('username', jsonRes.user.username);
             } catch (error) {
-
             console.log(error.message);
             }
             this.sendToHome()
           } else {
-            console.log(jsonRes)
+             this.handleResponse(jsonRes)
           }
       }).catch(error => console.log(error))
   }
@@ -96,11 +95,10 @@ class Login extends Component{
    if(response.password){
       return this.setState({errorMessage: "Username can't be blank"})
     } else if(response.non_field_errors){
-      return this.setState({errorMessage: "Invalid credentials"})
+      return this.setState({errorMessage: "Invalid credentials", username: "", password: ""})
     } else if(response.username){
       return this.setState({errorMessage: "Username can't be blank"})
     }
-
   }
 
   onChangeInput = (state) => (event,value) => {
@@ -211,7 +209,7 @@ class Login extends Component{
   render(){
     console.log(this.state.errorMessage);
     return(
-      <LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
+      <LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {["#161616", "gray"]}>
 
         <Image source = {require('../images/smkt.png')} style = {{width: Dimensions.get("window").width * 0.6, height: 50, alignSelf: "center", marginTop: 55}}/>
 

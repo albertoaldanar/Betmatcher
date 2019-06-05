@@ -11,7 +11,8 @@ class Menu extends Component {
     super(props);
     this.state= {
       leaguesModal: false,
-      leagueSelected: ""
+      leagueSelected: "",
+      showModal: false
     }
   }
 
@@ -22,6 +23,23 @@ class Menu extends Component {
 
   closeOpenLeagues(){
     this.setState({leaguesModal: !this.state.leaguesModal})
+  }
+
+//  const deleteUserId = async () => {
+//   try {
+//     await AsyncStorage.removeItem('userId');
+//   } catch (error) {
+//     // Error retrieving data
+//     console.log(error.message);
+//   }
+// }
+
+  sendToLogin(){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Login"
+    });
+
+    this.props.navigation.dispatch(navigateAction);
   }
 
   renderSport(){
@@ -41,6 +59,15 @@ class Menu extends Component {
     console.log(this.state.leagueSelected);
     return(
       <View style = {styles.container}>
+
+        <Modal
+          visible = {this.state.showModal}
+        >
+          <View style = {{flex: 1, backgroundColor: "#161616"}}>
+            <Text style = {{marginTop: 100, color: "white", textAlign: "center", fontSize: 20}}>Welcome to Betmatcher</Text>
+          </View>
+        </Modal>
+
           <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "black", "gray"]}>
             <View style = {styles.userContainer}>
               <Image
@@ -70,9 +97,9 @@ class Menu extends Component {
               </View>
 
             <Text style  ={[styles.categorie, {marginTop: 12}]}> Account </Text>
-              <View style ={{marginLeft: 8}}>
+              <TouchableOpacity style ={{marginLeft: 8}} onPress = {this.props.handleLogout}>
                 <Text style = {styles.sport}><FontAwesome>{Icons.signOut}</FontAwesome> Logout</Text>
-              </View>
+              </TouchableOpacity>
           </View>
           </ScrollView>
 

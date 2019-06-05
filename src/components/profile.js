@@ -15,12 +15,14 @@ import {
 } from 'react-native-chart-kit'
 import {Pages} from "react-native-pages";
 
+const currentUser = AsyncStorage.getItem("username");
+
 
 class Profile extends Component{
 
   constructor(props){
     super(props);
-    this.state = { token: this.displayToken(), currentUser: this.displayUsername(), username:"", won: "", lost:"", draw:"", country: ""}
+    this.state = {username:"", won: "", lost:"", draw:"", country: ""}
   }
 
   componentWillUnmount() {
@@ -35,7 +37,7 @@ class Profile extends Component{
         headers: {
           "Accept": "application/json",
           "Content-type": "application/json",
-          "Authorization": "Token 262e2589f0861b10c3fabc34020c13151fcf24d6"
+          "Authorization": `Token ${this.token}`
         }
       })
       .then(res => res.json())
@@ -53,27 +55,28 @@ class Profile extends Component{
       .catch(error => console.log(error));
   }
 
-  displayToken = async () => {
-    let token = ""
-    try{
-      token = await AsyncStorage.getItem("token");
-    }
-    catch(error){
-      console.log(error)
-    }
-    this.setState({token: token})
-  }
 
-  displayUsername = async () => {
-    let username = ""
-    try{
-      username = await AsyncStorage.getItem("username");
-    }
-    catch(error){
-      console.log(error)
-    }
-    this.setState({currentUser: username})
-  }
+  // displayUsername = async () => {
+  //   let username = ""
+  //   try{
+  //     username = await AsyncStorage.getItem("username");
+  //   }
+  //   catch(error){
+  //     console.log(error)
+  //   }
+  //   this.setState({currentUser: username})
+  // }
+
+    // displayToken = async () => {
+    //     let token = ""
+    //     try{
+    //       token = await AsyncStorage.getItem("token");
+    //     }
+    //     catch(error){
+    //       console.log(error)
+    //     }
+    //     this.setState({currentUser: username})
+    //   }
 
   renderFriends(){
     const navigateAction = NavigationActions.navigate({

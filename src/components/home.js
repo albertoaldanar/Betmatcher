@@ -59,6 +59,18 @@ class Home extends Component{
     this.setState({showSidebar: true})
   }
 
+  handleLogout(){
+    this.setState({showModal: true})
+
+    setTimeout(()=> {
+      const navigateAction = NavigationActions.navigate({
+        routeName: "Login"
+      })
+      this.props.navigation.dispatch(navigateAction);
+    }, 3000)
+
+  }
+
 
   sendToDescription(game){
     const navigateAction = NavigationActions.navigate({
@@ -153,7 +165,7 @@ class Home extends Component{
 
     console.log(Dimensions.get("window").width);
     console.log(this.state.showModal)
-    const menu = <Menu leagues= {Lgs}/>
+    const menu = <Menu leagues= {Lgs} handleLogout = {this.handleLogout.bind(this)}/>
 
     const images = [
       "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",

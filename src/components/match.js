@@ -142,7 +142,7 @@ class Match extends Component{
             <TouchableOpacity onPress = {this.displayData.bind(this)}>
               <Text style = {styles.emptyMessage}>No Finished bets</Text>
             </TouchableOpacity>
-            <Text style = {styles.emptyMessage}>{this.state.data}</Text>
+            <Text style = {styles.emptyMessage}>{this.state.currentUser}</Text>
           </View>
         );
         break;

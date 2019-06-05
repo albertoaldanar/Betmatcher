@@ -72,6 +72,9 @@ class Login extends Component{
   }
 
   sendToHome(){
+    const {username, password, password_confirmation, email} = this.state;
+    this.setState({username: "", password: "", password_confirmation: "", email: ""})
+
     const navigateAction = NavigationActions.navigate({
       routeName: "MainScreen"
     });

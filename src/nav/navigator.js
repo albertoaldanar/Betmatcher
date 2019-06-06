@@ -78,6 +78,7 @@ const AppNavigator = StackNavigator({
   MainScreen: {
     screen: MainScreen,
       navigationOptions:{
+        gesturesEnabled: false,
       // title: "",
       // headerStyle: {
       //   backgroundColor: "black",

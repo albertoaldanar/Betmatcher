@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {TouchableOpacity, Image} from "react-native";
+import {TouchableOpacity, Image, AsyncStorage} from "react-native";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import Home from "../components/home";
 import Top from "../components/top";

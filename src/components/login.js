@@ -20,29 +20,6 @@ class Login extends Component{
     }
   }
 
-  // userSignup(){
-  //   const {username, password, password_confirmation, email} = this.state;
-
-  //     return fetch("http://localhost:8000/users/signup/", {
-  //       method: "POST",
-  //       headers: {
-  //         "Accept": "application/json",
-  //         "Content-type": "application/json"
-  //       },
-  //       body: JSON.stringify({"username": username, "email": email, "password": password, "password_confirmation": password_confirmation})
-  //     })
-  //     .then(res => res.json())
-  //     .then(jsonRes => {
-  //       try {
-  //         AsyncStorage.setItem('token', jsonRes.jwt);
-  //       } catch (error) {
-  //       // Error retrieving data
-  //         console.log(error.message);
-  //       }
-  //     })
-  //     .catch(error => console.log(error));
-  // }
-
   userAction(action){
     const {username, password, password_confirmation, email} = this.state;
     var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation}

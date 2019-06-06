@@ -18,49 +18,42 @@ import {Pages} from "react-native-pages";
 class Profile extends Component{
 
   _isMounted = false;
-  // _username = AsyncStorage.getItem("username").then(response => {return response});
+
 
   constructor(props){
     super(props);
-    this.state = {username:"", won: "", lost:"", draw:"", country: "", currentUser: this.displayUsername()}
+    this.state = {username:"", won: "", lost:"", draw:"", country: "", currentUser: "", currentToken: ""}
+
   }
-
-  // async retrieveItem() {
-  //   try {
-  //     const retrievedItem =  await AsyncStorage.getItem("username");
-  //     const item = JSON.parse(retrievedItem);
-  //     return item;
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  //   return console.log(item);
-  // }
-
-    displayUsername = async () => {
-      let username = ""
-      try{
-        username = await AsyncStorage.getItem("username");
-      }
-      catch(error){
-        console.log(error)
-      }
-      this.setState({currentUser: username})
-    }
-
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  componentDidMount(){
-    this._isMounted = true;
 
-      return fetch(`http://localhost:8000/users/albertoaldanar/`, {
+  async componentDidMount(){
+      this._isMounted = true;
+
+      const usernameGet = await AsyncStorage.getItem('username');
+        if (usernameGet) {
+          this.setState({ currentUser: usernameGet });
+        } else {
+          this.setState({ currentUser: false });
+      }
+
+      const tokenGet = await AsyncStorage.getItem('token');
+        if (tokenGet) {
+          this.setState({ currentToken: tokenGet });
+        } else {
+          this.setState({ currentToken: false });
+      }
+
+      return fetch(`http://localhost:8000/users/${this.state.currentUser}/`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
           "Content-type": "application/json",
-          "Authorization": `Token 262e2589f0861b10c3fabc34020c13151fcf24d6`
+          "Authorization": `Token ${this.state.currentToken}`
         }
       })
       .then(res => res.json())

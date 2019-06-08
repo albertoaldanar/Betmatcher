@@ -157,7 +157,7 @@ class BetModal extends Component{
     let {bet} = this.state;
     const {teamsNotSelected} = this.props;
 
-   if(game.sport == "Soccer"){
+   if(game.data.sport.name == "Soccer"){
       return(
           <View style = {{marginTop: 35}}>
             <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth:0.5, borderTopColor: "gray", borderTopWidth:0.5}}>

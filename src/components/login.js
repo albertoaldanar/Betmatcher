@@ -39,7 +39,7 @@ class Login extends Component{
               AsyncStorage.setItem('token', jsonRes.jwt);
               AsyncStorage.setItem('username', jsonRes.user.username);
             } catch (error) {
-            console.log(error.message);
+              console.log(error.message);
             }
             this.sendToHome()
           } else {

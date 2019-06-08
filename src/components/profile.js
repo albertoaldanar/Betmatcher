@@ -23,7 +23,6 @@ class Profile extends Component{
   constructor(props){
     super(props);
     this.state = {username:"", won: "", lost:"", draw:"", country: "", currentUser: "", currentToken: ""}
-
   }
 
   componentWillUnmount() {
@@ -36,7 +35,7 @@ class Profile extends Component{
 
       const usernameGet = await AsyncStorage.getItem('username');
         if (usernameGet) {
-          this.setState({ currentUser: usernameGet });
+          this.setState({ currentUser: usernameGet});
         } else {
           this.setState({ currentUser: false });
       }

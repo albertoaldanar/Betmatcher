@@ -1,5 +1,5 @@
 import React, {Component}from "react";
-import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions, Image, ScrollView, FlatList} from "react-native";
+import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions, Image, ScrollView, FlatList, AsyncStorage} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
 import UserList1 from "../constants/userList1";
@@ -27,9 +27,23 @@ class Description extends Component{
       showLightBox: false,
       message: "",
       loading: true,
-      showButtons: false
+      showButtons: false,
+      currentUser: ""
     }
   }
+
+    //This method sets the currentUser to the state
+    async componentDidMount(){
+      this._isMounted = true;
+
+      const usernameGet = await AsyncStorage.getItem('username');
+        if (usernameGet) {
+          this.setState({ currentUser: usernameGet});
+        } else {
+          this.setState({ currentUser: false });
+      }
+  }
+
 
   sendToConfirmation(route, user, quote, bet){
     let game = this.props.navigation.state.params.par;
@@ -54,24 +68,37 @@ class Description extends Component{
     this.setState({visible: false})
   }
 
-  renderUsersToMatch(){
-    return fetch("http://192.168.8.2:3000/api/variable")
-      .then(res => res.json())
-        .then(response => {
-          this.setState({
-                message: `${response.data} users to match`,
+  //Gets possible matches
+  renderUsersToMatch(team){
+
+    const back_team = encodeURIComponent(team.name);
+    const back_user = encodeURIComponent(this.state.currentUser);
+
+    return fetch(`http://localhost:8000/requests?back_user=${back_user}&back_team=${back_team}`, {
+      method: "GET",
+      headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(jsonRes => {
+      this.setState({
+                message: `${jsonRes.count} users to match`,
                 loading: false,
                 showButtons: true
-          })
-        })
-      this.setState({loading: false})
+      });
+
+    })
+    .catch(error => console.log(error));
   }
 
+  //Handle team selection
   onSelectTeam(team){
     const {showLightBox} = this.state;
     this.setState({ teamSelected: team, showLightBox: true })
     this.birghtColor(team);
-    this.renderUsersToMatch();
+    this.renderUsersToMatch(team);
   }
 
   handleSegmentedController(index){
@@ -150,12 +177,14 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected, showLightBox, teamSelectedObj} = this.state;
     let game = this.props.navigation.state.params.par;
-    const gameType = game.sport == "Soccer" ? game.draw : "Draw"
+    const gameType = game.data.sport.name == "Soccer" ? game.draw : "Draw"
 
     const options = [game.local, game.visit, gameType];
     const teamsNotSelected = options.filter(x => x.name!= teamSelected.name);
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
+
+    console.log(teamSelected);
 
 
     return(

@@ -36,17 +36,6 @@ class Home extends Component{
     this._isMounted = false;
   }
 
-  async removeItemValue(key) {
-    try {
-      await AsyncStorage.removeItem(key);
-      return true;
-    }
-    catch(exception) {
-      return false;
-    }
-  }
-
-
   componentDidMount(){
     this._isMounted = true;
 

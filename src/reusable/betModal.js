@@ -103,6 +103,22 @@ class BetModal extends Component{
       );
   }
 
+  postRequest({
+    return fetch(`http://localhost:8000/get_requests/`, {
+      method: "POST",
+      headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+      },
+      body: JSON.stringify({})
+    })
+    .then(res => res.json())
+    .then(jsonRes => {
+      console.log(jsonRes)
+    })
+    .catch(error => console.log(error));
+  }
+
 
   gameType(game, position){
     let {bet} = this.state;

@@ -46,7 +46,6 @@ class Description extends Component{
       }
   }
 
-
   sendToConfirmation(route, user, quote, bet){
     let game = this.props.navigation.state.params.par;
     const gameType = game.sport == "Soccer" ? game.draw : "Draw"

@@ -95,6 +95,7 @@ class MatchARequest extends Component{
                       </View>
                     </TouchableOpacity>
                 </View>
+                {this.userList(teamsNotSelected[0].name)}
               </View>
           );
       } else {
@@ -131,41 +132,47 @@ class MatchARequest extends Component{
                       </View>
                     </TouchableOpacity>
                 </View>
+
+                {this.userList(teamsNotSelected[1].name)}
               </View>
           );
         }
     }
 
-
   // Show users that you can match
-  // userList(list, quote){
-  //   return list.map((u, index) => {
-  //     var bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
-  //     return(
-  //       <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
-  //         <View style = {styles.tableStyle}>
-  //           <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
-  //             <View style= {{flexDirection:"row"}}>
-  //               <Image
-  //                 source = {{uri: u.image}}
-  //                 style = {styles.image}
-  //               />
+  userList(team){
+    return this.props.requests.map((u, index) => {
+      // var bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
+      if(team == u.back_team){
+        return(
+          <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, u.amount)}>
+            <View style = {styles.tableStyle}>
+              <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+                <View style= {{flexDirection:"row"}}>
+                  <Image
+                    source = {{uri: u.image}}
+                    style = {styles.image}
+                  />
 
-  //               <View>
-  //                 <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
-  //                 <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {bet}  <FontAwesome>{Icons.database}</FontAwesome></Text>
-  //               </View>
-  //             </View>
-  //             <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
-  //           </View>
-  //         </View>
+                  <View>
+                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.back_user.username}</Text>
+                    <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {u.amount}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+                  </View>
+                </View>
+                <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
+              </View>
+            </View>
 
-  //       </TouchableOpacity>
-  //     );
-  //   })
-  // }
+          </TouchableOpacity>
+        );
+      } else {
+        return null
+      }
+    })
+  }
 
   render(){
+    console.log(this.props.requests);
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
         {this.renderSegmentedController()}
@@ -173,6 +180,24 @@ class MatchARequest extends Component{
       </LinearGradient>
     );
   }
+}
+
+const styles ={
+  image: {
+    width: 45,
+    height: 45,
+    marginRight: 22,
+    marginLeft: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
+    alignSelf:"center"
+  },
 }
 
 export default MatchARequest;

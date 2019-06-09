@@ -29,7 +29,8 @@ class Description extends Component{
       message: "",
       loading: true,
       showButtons: false,
-      currentUser: ""
+      currentUser: "",
+      requests: []
     }
   }
 
@@ -90,7 +91,8 @@ class Description extends Component{
       this.setState({
                 message: `${jsonRes.count} users to match`,
                 loading: false,
-                showButtons: true
+                showButtons: true,
+                requests: jsonRes.results
       });
 
     })
@@ -252,6 +254,7 @@ class Description extends Component{
             segmentedController = {this.handleSegmentedController.bind(this)}
             visible = {this.showModal.bind(this)}
             confirm = {this.sendToConfirmation.bind(this)}
+            requests = {this.state.requests}
             renderUsersToMatch = {this.renderUsersToMatch.bind(this)}
           />
         </Modal>

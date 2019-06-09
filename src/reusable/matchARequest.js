@@ -13,13 +13,14 @@ class MatchARequest extends Component{
   constructor(props){
     super(props);
     this.state = {
-      list: []
+      list: [],
+      cUserCoins: 3504
     }
   }
 
   //Segmented controller for team(s)NotSelected
   renderSegmentedController(){
-    const { game, teamsNotSelected } = this.props;
+    const { game, teamsNotSelected, team } = this.props;
     var values = [ `Bets for ${teamsNotSelected[0].name}`, `Bets for ${teamsNotSelected[1].name}`];
 
     if(game.data.sport.name == "Soccer"){
@@ -33,7 +34,7 @@ class MatchARequest extends Component{
               textStyle= {{fontSize: 12}}
               barColor ="transparent"
               selectedIndex={this.props.index}
-              onChange={this.props.segmentedController}
+              onChange={this.props.segmentedController.bind(this)}
           />
       </View>
 
@@ -49,7 +50,7 @@ class MatchARequest extends Component{
                   textStyle= {{fontSize: 12}}
                   barColor ="transparent"
                   selectedIndex={this.props.index}
-                  onChange={this.props.segmentedController}
+                  onChange={this.props.segmentedController.bind(this)}
               />
             </View>
           );
@@ -176,6 +177,16 @@ class MatchARequest extends Component{
     console.log(this.props.requests);
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+        <View style ={{marginTop: 7}}>
+          <View style = {styles.info}>
+            <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
+                  <Text style = {{color: "#00B073", fontSize: 17}}>
+                    Close
+                  </Text>
+            </TouchableOpacity>
+            <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.state.cUserCoins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+          </View>
+        </View>
         {this.renderSegmentedController()}
         {this.betChoice()}
       </LinearGradient>
@@ -198,6 +209,12 @@ const styles ={
     shadowRadius: 7.49,
     elevation: 12,
     alignSelf:"center"
+  },
+  info: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingBottom: 7
   },
 }
 

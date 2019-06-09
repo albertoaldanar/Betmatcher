@@ -104,55 +104,6 @@ class BetModal extends Component{
   }
 
 
-  userList(list, quote){
-
-    return list.map((u, index) => {
-      var bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
-      return(
-        <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
-          <View style = {styles.tableStyle}>
-            <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
-              <View style= {{flexDirection:"row"}}>
-                <Image
-                  source = {{uri: u.image}}
-                  style = {styles.image}
-                />
-
-                <View>
-                  <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
-                  <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {bet}  <FontAwesome>{Icons.database}</FontAwesome></Text>
-                </View>
-              </View>
-              <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
-            </View>
-          </View>
-
-        </TouchableOpacity>
-      );
-    })
-  }
-
-  renderScroll(list, quote){
-    return list.map((u, index) => {
-      var bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
-      return(
-        <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
-          <View style = {{flexDirection:"column", alignSelf:"center", marginLeft:10}}>
-            <View style = {{marginRight: 35}}>
-              <Image
-                  source = {{uri: u.image}}
-                  style = {styles.image}
-              />
-              <Text style = {{color: "white", alignSelf:"center", marginTop: 10}}>{u.user}</Text>
-              <Text style = {{color: "#DAA520", alignSelf:"center", fontSize: 16, marginTop: 10}}> {bet}  <FontAwesome>{Icons.bitcoin}</FontAwesome></Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    })
-  }
-
-
   gameType(game, position){
     let {bet} = this.state;
     const {teamsNotSelected} = this.props;
@@ -214,137 +165,13 @@ class BetModal extends Component{
     }
   }
 
-  renderSegmentedController(){
-    const { choice, game, teamsNotSelected } = this.props;
-    var values = [ `Bets for ${teamsNotSelected[0].name}`, `Bets for ${teamsNotSelected[1].name}`];
 
-    if(choice == 1 && game.sport == "Soccer"){
-      return(
-        <View style = {{paddingBottom: 15, paddingTop: 10}}>
-          <MaterialTabs
-              items={values}
-              indicatorColor ="#00B073"
-              activeTextColor ="white"
-              inactiveTextColor ="gray"
-              textStyle= {{fontSize: 12}}
-              barColor ="transparent"
-              selectedIndex={this.props.index}
-              onChange={this.props.segmentedController}
-          />
-      </View>
-
-      );
-    } else if(choice == 1 && game.sport != "Soccer"){
-          return(
-            <View style = {{paddingBottom: 15, marginTop:10}}>
-              <MaterialTabs
-                  items={[`Bets for ${teamsNotSelected[0].name}`]}
-                  indicatorColor ="#00B073"
-                  activeTextColor ="white"
-                  inactiveTextColor ="gray"
-                  textStyle= {{fontSize: 12}}
-                  barColor ="transparent"
-                  selectedIndex={this.props.index}
-                  onChange={this.props.segmentedController}
-              />
-            </View>
-          );
-     };
-  }
-
-  betChoice(){
+  betFilter(){
     const {choice, game, teamsNotSelected, team} = this.props;
     var position = this.props.team.position;
-                //  -- MODAL FOR USER MATCH -- //
 
-    if(this.props.choice == 1){
-      if(this.props.index == 0){
-          return(
-              <View style = {{marginTop: 15 }}>
-
-                <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
-                    <View>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          QUOTE
-                       </Text>
-                        <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes}% {teamsNotSelected[0].quotes || teamsNotSelected[0].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
-                       </Text>
-                    </View>
-
-                    <View>
-                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          YOUR TEAM
-                        </Text>
-                        <Text style = {{color: "#00B073", margin: 10, marginBottom: 4, fontSize: 14, alignSelf:"center"}}>
-                          {team.name}
-                        </Text>
-                    </View>
-
-
-                    <TouchableOpacity onPress = {() => this.setState({infoModal: true})}>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          HOW IT WORKS?
-                       </Text>
-
-                      <View style = {{alignSelf:"center"}}>
-                        <FontAwesome style = {{color: "white", fontSize: 20, alignSelf:"center", paddingTop: 7}}>{Icons.questionCircle}</FontAwesome>
-                      </View>
-                    </TouchableOpacity>
-                </View>
-
-
-                {this.userList(this.props.list1, teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes)}
-
-              </View>
-          );
-      } else {
-          return(
-              <View style = {{marginTop: 15 }}>
-
-                <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
-                    <View>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          QUOTE
-                       </Text>
-                        <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          {teamsNotSelected[1].quotes[position]}% { teamsNotSelected[1].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
-                       </Text>
-                    </View>
-
-                    <View>
-                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          YOUR TEAM
-                        </Text>
-                        <Text style = {{color: "#00B073", margin: 10, marginBottom: 4, fontSize: 14, alignSelf:"center"}}>
-                          {team.name}
-                        </Text>
-                    </View>
-
-
-                    <TouchableOpacity onPress = {() => this.setState({infoModal: true})}>
-                       <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          HOW IT WORKS?
-                       </Text>
-
-                      <View style = {{alignSelf:"center"}}>
-                        <FontAwesome style = {{color: "white", fontSize: 20, alignSelf:"center", paddingTop: 7}}>{Icons.questionCircle}</FontAwesome>
-                      </View>
-                    </TouchableOpacity>
-                </View>
-
-
-                {this.userList(this.props.list2, teamsNotSelected[1].quotes[position])}
-              </View>
-          );
-        }
-
-                //  -- MODAL FOR LAY BET -- //
-
-    } else if(this.props.choice == 2) {
-          return(
+        return(
             <View>
-
               <View style = {{padding: 20, paddingTop: 10}}>
                 <View style = {{flexDirection:"row", alignSelf: "center", marginTop: 5, marginBottom:20}}>
                   <Text style = {styles.layBet}>Set your bet for: </Text>
@@ -381,17 +208,12 @@ class BetModal extends Component{
                   <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 13}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
                 </TouchableOpacity>
               </View>
-
-
             </View>
-          );
-    }
+        );
   }
 
   render(){
       let button;
-
-      if(this.props.choice == 2){
         button =  <TouchableOpacity
                     style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}
                     disabled = {this.state.opponent != "" || this.state.publicBet ? false : true}
@@ -399,7 +221,6 @@ class BetModal extends Component{
                     >
                     <Text style = {[styles.layBet, {fontSize: 19}]}> Place bet</Text>
                   </TouchableOpacity>
-      }
 
     return(
          <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
@@ -414,14 +235,7 @@ class BetModal extends Component{
             </View>
           </View>
 
-          <View>
-            {this.renderSegmentedController()}
-          </View>
-
-          <ScrollView>
-            {this.betChoice()}
-          </ScrollView>
-
+          {this.betFilter()}
 
           <Modal
             style={{ flex: 1}}
@@ -484,7 +298,6 @@ const styles ={
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
-    backgroundColor: "black",
     paddingBottom: 7
   },
   teamsDescription: {

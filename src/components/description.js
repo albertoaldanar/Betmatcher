@@ -109,6 +109,7 @@ class Description extends Component{
 
   handleSegmentedController(index){
     this.setState({ index })
+    this.renderUsersToMatch(this.state.teamSelected);
   }
 
   sendToMatchFromLay(){
@@ -228,18 +229,12 @@ class Description extends Component{
         >
           <BetModal
             teamsNotSelected = {teamsNotSelected}
-            choice = {betChoice} team = {teamSelected} index = {this.state.index}
-            list1 = {UserList1}
-            list2 = {UserList2}
-            rivalChoice = {myIndex}
+            team = {teamSelected}
             game = {game}
-            segmentedController = {this.handleSegmentedController.bind(this)}
             visible = {this.showModal.bind(this)}
-            confirm = {this.sendToConfirmation.bind(this)}
             sendToMatchFromLay = {this.sendToMatchFromLay.bind(this)}
           />
         </Modal>
-
 
 
         <Modal

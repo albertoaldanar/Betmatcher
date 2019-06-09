@@ -95,7 +95,7 @@ class MatchARequest extends Component{
                       </View>
                     </TouchableOpacity>
                 </View>
-                {this.userList(teamsNotSelected[0].name)}
+                {this.userList(teamsNotSelected[0].name, teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes)}
               </View>
           );
       } else {
@@ -133,19 +133,20 @@ class MatchARequest extends Component{
                     </TouchableOpacity>
                 </View>
 
-                {this.userList(teamsNotSelected[1].name)}
+                {this.userList(teamsNotSelected[1].name, teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes)}
               </View>
           );
         }
     }
 
   // Show users that you can match
-  userList(team){
+  userList(team, quote){
     return this.props.requests.map((u, index) => {
-      // var bet = quote > 0 ? Math.round(u.bet - ((quote / 100) * u.bet)) : u.bet;
+      var bet = quote > 0 ? Math.round(u.amount - ((quote / 100) * u.amount)) : u.amount;
+
       if(team == u.back_team){
         return(
-          <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, u.amount)}>
+          <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
             <View style = {styles.tableStyle}>
               <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
                 <View style= {{flexDirection:"row"}}>

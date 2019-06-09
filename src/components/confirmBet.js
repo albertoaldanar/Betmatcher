@@ -30,7 +30,7 @@ class ConfirmBet extends Component{
   render(){
     const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
     var finalQuote = quote < 0 ? quote * -1 : quote;
-    var ADQuote = Math.round((finalQuote / 100) * user.bet);
+    var ADQuote = Math.round((finalQuote / 100) * user.amount);
     // Refactorizar esto
     const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
     return(
@@ -40,8 +40,8 @@ class ConfirmBet extends Component{
               <Image source= {{uri: game.image}} style = {{width: 60, height: 60, marginTop:5, marginRight: 10}}/>
 
               <View>
-                <Text style = {styles.text}>{game.league}</Text>
-                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{game.time}</Text>
+                <Text style = {styles.text}>{game.data.league.name}</Text>
+                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{game.data.date}</Text>
 
                 <View style = {styles.game}>
                   <Text style = {styles.word}>{game.local.name}</Text>
@@ -71,7 +71,7 @@ class ConfirmBet extends Component{
 
             <View style = {[styles.singleUser, {backgroundColor: "transparent"}]}>
               <View style = {styles.info}>
-                  <Text style = {styles.userName}>{user.user}</Text>
+                  <Text style = {styles.userName}>{user.back_user.username}</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected.name}</Text>
                   <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {bet}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: {AD[1]}</Text>

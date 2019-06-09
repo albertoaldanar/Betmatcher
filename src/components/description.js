@@ -2,6 +2,7 @@ import React, {Component}from "react";
 import {View, Text, TouchableOpacity, Modal, ActivityIndicator, Dimensions, Image, ScrollView, FlatList, AsyncStorage} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import BetModal from "../reusable/betModal";
+import MatchARequest from "../reusable/matchARequest";
 import UserList1 from "../constants/userList1";
 import UserList2 from "../constants/userList2";
 import {NavigationActions} from "react-navigation";
@@ -70,11 +71,13 @@ class Description extends Component{
 
   //Gets possible matches
   renderUsersToMatch(team){
+    let game = this.props.navigation.state.params.par;
 
     const back_team = encodeURIComponent(team.name);
     const back_user = encodeURIComponent(this.state.currentUser);
+    const event = encodeURIComponent(game.data.name);
 
-    return fetch(`http://localhost:8000/requests?back_user=${back_user}&back_team=${back_team}`, {
+    return fetch(`http://localhost:8000/requests?back_user=${back_user}&back_team=${back_team}&event=${event}`, {
       method: "GET",
       headers: {
           "Accept": "application/json",
@@ -83,6 +86,7 @@ class Description extends Component{
     })
     .then(res => res.json())
     .then(jsonRes => {
+      console.log(jsonRes)
       this.setState({
                 message: `${jsonRes.count} users to match`,
                 loading: false,
@@ -184,9 +188,6 @@ class Description extends Component{
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
-    console.log(teamSelected);
-
-
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
         <GameInfo data= {game}/>
@@ -220,7 +221,7 @@ class Description extends Component{
         <DescChart game = {game}/>
         <Modal
             transparent = {false}
-            visible = {this.state.visible}
+            visible = {false}
             animationType ="fade"
         >
           <BetModal
@@ -234,6 +235,24 @@ class Description extends Component{
             visible = {this.showModal.bind(this)}
             confirm = {this.sendToConfirmation.bind(this)}
             sendToMatchFromLay = {this.sendToMatchFromLay.bind(this)}
+          />
+        </Modal>
+
+
+
+        <Modal
+            transparent = {false}
+            visible = {this.state.visible}
+            animationType ="fade"
+        >
+          <MatchARequest
+            teamsNotSelected = {teamsNotSelected}
+            team = {teamSelected} index = {this.state.index}
+            rivalChoice = {myIndex} game = {game}
+            segmentedController = {this.handleSegmentedController.bind(this)}
+            visible = {this.showModal.bind(this)}
+            confirm = {this.sendToConfirmation.bind(this)}
+            renderUsersToMatch = {this.renderUsersToMatch.bind(this)}
           />
         </Modal>
 

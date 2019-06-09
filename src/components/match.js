@@ -16,15 +16,29 @@ class Match extends Component{
 
   constructor(props){
     super(props);
-    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: [], data: this.displayData(), currentUser: this.displayUsername()}
+    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: [], token: "", currentUser: ""}
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     this._isMounted = true;
+
+    const usernameGet = await AsyncStorage.getItem('username');
+        if (usernameGet) {
+          this.setState({ currentUser: usernameGet});
+        } else {
+          this.setState({ currentUser: false });
+    }
+
+    const tokenGet = await AsyncStorage.getItem('token');
+        if (tokenGet) {
+          this.setState({ token: tokenGet});
+        } else {
+          this.setState({ token: false });
+    }
 
     const {data} = this.state;
 
@@ -33,7 +47,7 @@ class Match extends Component{
         headers: {
           "Accept": "application/json",
           "Content-type": "application/json",
-          "Authorization": "Token 7352054a3bdeac091f70a06220b5e545afae583e"
+          "Authorization": `Token ${this.state.token}`
         }
       })
       .then(res => res.json())
@@ -53,28 +67,6 @@ class Match extends Component{
 
   renderChat(){
     this.setState({chat: !this.state.chat})
-  }
-
-  displayData = async () => {
-    let token = ""
-    try{
-      token = await AsyncStorage.getItem("token");
-    }
-    catch(error){
-      console.log(error)
-    }
-    this.setState({data: token})
-  }
-
-  displayUsername = async () => {
-    let username = ""
-    try{
-      username = await AsyncStorage.getItem("username");
-    }
-    catch(error){
-      console.log(error)
-    }
-    this.setState({currentUser: username})
   }
 
   renderMatches(){

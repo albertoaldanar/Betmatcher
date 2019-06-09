@@ -103,18 +103,26 @@ class BetModal extends Component{
       );
   }
 
-  postRequest({
-    return fetch(`http://localhost:8000/get_requests/`, {
+  postRequest(){
+    let {currentUser, game, team} = this.props;
+
+    return fetch(`http://localhost:8000/post_request/`, {
       method: "POST",
       headers: {
           "Accept": "application/json",
           "Content-type": "application/json"
       },
-      body: JSON.stringify({})
+      body: JSON.stringify({
+        back_user: currentUser, event: game.data.name,
+        back_team: team.name, amount: this.state.bet,
+        is_public: this.state.publicBet
+      })
     })
     .then(res => res.json())
     .then(jsonRes => {
-      console.log(jsonRes)
+      if(jsonRes.request){
+        this.alerts()
+      }
     })
     .catch(error => console.log(error));
   }
@@ -233,7 +241,7 @@ class BetModal extends Component{
         button =  <TouchableOpacity
                     style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}
                     disabled = {this.state.opponent != "" || this.state.publicBet ? false : true}
-                    onPress = {this.alerts.bind(this)}
+                    onPress = {this.postRequest.bind(this)}
                     >
                     <Text style = {[styles.layBet, {fontSize: 19}]}> Place bet</Text>
                   </TouchableOpacity>

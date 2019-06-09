@@ -223,13 +223,14 @@ class Description extends Component{
         <DescChart game = {game}/>
         <Modal
             transparent = {false}
-            visible = {false}
+            visible = {this.state.visible}
             animationType ="fade"
         >
           <BetModal
             teamsNotSelected = {teamsNotSelected}
             team = {teamSelected}
             game = {game}
+            currentUser = {this.state.currentUser}
             visible = {this.showModal.bind(this)}
             sendToMatchFromLay = {this.sendToMatchFromLay.bind(this)}
           />
@@ -238,7 +239,7 @@ class Description extends Component{
 
         <Modal
             transparent = {false}
-            visible = {this.state.visible}
+            visible = {false}
             animationType ="fade"
         >
           <MatchARequest

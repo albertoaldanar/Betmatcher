@@ -40,7 +40,7 @@ class ConfirmBet extends Component{
       body: JSON.stringify({
         back_user: user.back_user.username, back_team: teamsNotSelected.name,
         lay_user: this.state.currentUser, lay_team: teamSelected.name,
-        amount: bet, event: game.data.name
+        amount: bet, event: game.data.name, request: user.id
 
       })
     })

@@ -35,7 +35,7 @@ class Description extends Component{
   }
 
     //This method sets the currentUser to the state
-    async componentDidMount(){
+  async componentDidMount(){
       this._isMounted = true;
 
       const usernameGet = await AsyncStorage.getItem('username');
@@ -223,7 +223,7 @@ class Description extends Component{
         <DescChart game = {game}/>
         <Modal
             transparent = {false}
-            visible = {this.state.visible}
+            visible = {false}
             animationType ="fade"
         >
           <BetModal
@@ -239,7 +239,7 @@ class Description extends Component{
 
         <Modal
             transparent = {false}
-            visible = {false}
+            visible = {this.state.visible}
             animationType ="fade"
         >
           <MatchARequest

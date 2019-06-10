@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, Modal, Image, LayoutAnimation} from "react-native";
+import {View, Text, TouchableOpacity, Modal, Image, LayoutAnimation, AsyncStorage} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import YouHaveMatch from "./youHaveMatch";
@@ -10,13 +10,49 @@ class ConfirmBet extends Component{
   constructor(props){
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      currentUser: ""
     }
   }
 
+
+  async componentDidMount(){
+      this._isMounted = true;
+
+      const usernameGet = await AsyncStorage.getItem('username');
+        if (usernameGet) {
+          this.setState({ currentUser: usernameGet});
+        } else {
+          this.setState({ currentUser: false });
+      }
+  }
+
   postMatch(){
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-    this.setState({visible: !this.state.visible})
+    // let {currentUser, game, team} = this.props;
+    const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
+
+    return fetch(`http://localhost:8000/post_match/`, {
+      method: "POST",
+      headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        back_user: user.back_user.username, back_team: teamsNotSelected.name,
+        lay_user: this.state.currentUser, lay_team: teamSelected.name,
+        amount: bet, event: game.data.name
+
+      })
+    })
+    .then(res => res.json())
+    .then(jsonRes => {
+      console.log(jsonRes)
+      if(jsonRes.match){
+         this.setState({visible: !this.state.visible})
+      }
+    })
+    .catch(error => console.log(error));
+     this.setState({visible: !this.state.visible})
   }
 
   sendToMatches(){
@@ -29,6 +65,8 @@ class ConfirmBet extends Component{
 
   render(){
     const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
+    console.log(user, teamSelected, teamsNotSelected);
+
     var finalQuote = quote < 0 ? quote * -1 : quote;
     var ADQuote = Math.round((finalQuote / 100) * user.amount);
     // Refactorizar esto
@@ -72,7 +110,7 @@ class ConfirmBet extends Component{
             <View style = {[styles.singleUser, {backgroundColor: "transparent"}]}>
               <View style = {styles.info}>
                   <Text style = {styles.userName}>{user.back_user.username}</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected.name}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected.name || "Draw"}</Text>
                   <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {bet}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: {AD[1]}</Text>
               </View>

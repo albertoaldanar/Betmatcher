@@ -130,7 +130,7 @@ class Match extends Component{
       case 2:
         return(
           <View>
-            <TouchableOpacity onPress = {this.displayData.bind(this)}>
+            <TouchableOpacity>
               <Text style = {styles.emptyMessage}>No Finished bets</Text>
             </TouchableOpacity>
             <Text style = {styles.emptyMessage}>{this.state.currentUser}</Text>

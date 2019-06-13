@@ -28,7 +28,7 @@ class GameCard extends Component{
   }
 
   renderGameInfo(){
-    var topEvents = this.props.data["top_events"]
+    var topEvents = this.props.data
     if (this._isMounted){
       return topEvents.map((d, index) => {
         return(

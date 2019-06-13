@@ -28,7 +28,8 @@ class Home extends Component{
       topRequests: [],
       topTradedEvents: [],
       data: "",
-      showModal: true
+      showModal: true,
+      sports: []
    }
   }
 
@@ -46,7 +47,8 @@ class Home extends Component{
               this.setState({
                   leagues: response["leagues"],
                   topRequests: response["top_request"],
-                  topTradedEvents: response["top_traded"]
+                  topTradedEvents: response["top_traded"],
+                  sports: response["sports"]
               })
             }
           }).then(setTimeout(() => {this.setState({showModal: false})}, 3000))
@@ -173,6 +175,7 @@ class Home extends Component{
     console.log(this.state.showModal)
     const menu =  <Menu
                     leagues= {Lgs}
+                    sports = {this.state.sports}
                     handleLogout = {this.handleLogout.bind(this)}
                   />
 

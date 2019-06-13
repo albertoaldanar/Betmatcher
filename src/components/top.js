@@ -13,7 +13,7 @@ class Top extends Component{
 
   constructor(props){
     super(props);
-    this.state = {isOpen: false, events: {}}
+    this.state = {isOpen: false, events: {}, sports: []}
   }
 
   componentWillMount(){
@@ -21,7 +21,8 @@ class Top extends Component{
         .then(res => res.json())
           .then(response => {
             this.setState({
-                events: response
+                events: response["top_events"],
+                sports: response["sports"]
             })
           })
   }
@@ -31,9 +32,9 @@ class Top extends Component{
   }
 
   render(){
-    console.log(this.state.events["top_events"])
-    const {isOpen, events} = this.state;
-    const menu = <Menu leagues ={Lgs}/>
+    console.log(this.state.events)
+    const {isOpen, events, sports} = this.state;
+    const menu = <Menu leagues ={Lgs} sports= {sports}/>
 
     return(
       <SideMenu

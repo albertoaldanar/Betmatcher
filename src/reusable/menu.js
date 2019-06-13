@@ -44,6 +44,7 @@ class Menu extends Component {
       })
       .then(res => res.json())
       .then(jsonRes => {
+        console.log(jsonRes)
         if(this._isMounted){
           this.setState({
                 username: jsonRes.user.username,
@@ -56,9 +57,24 @@ class Menu extends Component {
   }
 
 
-  selectLeagues(leagues){
-    this.setState({leagueSelected: leagues})
-    this.closeOpenLeagues();
+  selectLeagues(sport){
+    return fetch(`http://localhost:8000/leagues?sport=${sport}`, {
+      method: "GET",
+      headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(jsonRes => {
+      console.log(jsonRes)
+      // this.setState({
+      //           leagueSelected: jsonRes
+      // });
+
+    })
+    .catch(error => console.log(error));
+    // this.closeOpenLeagues();
   }
 
   closeOpenLeagues(){
@@ -75,11 +91,11 @@ class Menu extends Component {
   }
 
   renderSport(){
-    return this.props.leagues.map((item, index) => {
+    return this.props.sports.map((item, index) => {
       return(
         <View>
-          <TouchableOpacity key = {index} style = {{flexDirection:"row", justifyContent: "space-between"}} onPress = {this.selectLeagues.bind(this, item)}>
-            <Text style = {styles.sport}> <Image source= {{uri: item.image}} style = {{width: 21, height: 21}}/> {item.name} </Text>
+          <TouchableOpacity key = {index} style = {{flexDirection:"row", justifyContent: "space-between"}} onPress = {this.selectLeagues.bind(this, item.name)}>
+            <Text style = {styles.sport}> <Image source= {{uri: "https://www.shareicon.net/data/256x256/2015/09/07/97299_ball_512x512.png"}} style = {{width: 21, height: 21}}/> {item.name} </Text>
             <Text style = {{marginTop: 7, color: "gray"}}> {item.count} <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
           </TouchableOpacity>
         </View>
@@ -88,7 +104,7 @@ class Menu extends Component {
   }
 
   render(){
-    console.log(this.state.leagueSelected);
+    console.log(this.props.sports)
     const {coins, username, country} = this.state;
     return(
       <View style = {styles.container}>

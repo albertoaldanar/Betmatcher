@@ -171,7 +171,10 @@ class Home extends Component{
 
     console.log(Dimensions.get("window").width);
     console.log(this.state.showModal)
-    const menu = <Menu leagues= {Lgs} handleLogout = {this.handleLogout.bind(this)}/>
+    const menu =  <Menu
+                    leagues= {Lgs}
+                    handleLogout = {this.handleLogout.bind(this)}
+                  />
 
     const images = [
       "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",

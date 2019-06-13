@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, FlatList, ScrollView, Image, TouchableOpacity, Modal} from "react-native";
+import {View, Text, FlatList, ScrollView, Image, TouchableOpacity, Modal, AsyncStorage} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
 import Leagues from "../components/leagues";
@@ -12,9 +12,49 @@ class Menu extends Component {
     this.state = {
       leaguesModal: false,
       leagueSelected: "",
-      showModal: false
+      showModal: false,
+      username: "", country: "", coins: 0, currentUser: "", currentToken:""
     }
   }
+
+  async componentDidMount(){
+      this._isMounted = true;
+
+      const usernameGet = await AsyncStorage.getItem('username');
+        if (usernameGet) {
+          this.setState({ currentUser: usernameGet});
+        } else {
+          this.setState({ currentUser: false });
+      }
+
+      const tokenGet = await AsyncStorage.getItem('token');
+        if (tokenGet) {
+          this.setState({ currentToken: tokenGet });
+        } else {
+          this.setState({ currentToken: false });
+      }
+
+      return fetch(`http://localhost:8000/users/${this.state.currentUser}/`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+          "Authorization": `Token ${this.state.currentToken}`
+        }
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        if(this._isMounted){
+          this.setState({
+                username: jsonRes.user.username,
+                country: jsonRes.user.profile.country,
+                coins: jsonRes.user.profile.coins
+          })
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
 
   selectLeagues(leagues){
     this.setState({leagueSelected: leagues})
@@ -25,14 +65,6 @@ class Menu extends Component {
     this.setState({leaguesModal: !this.state.leaguesModal})
   }
 
-//  const deleteUserId = async () => {
-//   try {
-//     await AsyncStorage.removeItem('userId');
-//   } catch (error) {
-//     // Error retrieving data
-//     console.log(error.message);
-//   }
-// }
 
   sendToLogin(){
     const navigateAction = NavigationActions.navigate({
@@ -57,6 +89,7 @@ class Menu extends Component {
 
   render(){
     console.log(this.state.leagueSelected);
+    const {coins, username, country} = this.state;
     return(
       <View style = {styles.container}>
 
@@ -76,9 +109,9 @@ class Menu extends Component {
               />
 
               <View>
-                <Text style= {{color:"#00B073", marginBottom: 10, fontSize: 20, fontWeight: "400"}}>jackwilson</Text>
-                <Text style= {{color:"#DCDCDC", marginBottom: 10, fontSize: 12, fontWeight: "400", fontStyle: "oblique"}}>England <FontAwesome>{Icons.flag}</FontAwesome></Text>
-                <Text style= {{color:"#DAA520"}}>14,567  £</Text>
+                <Text style= {{color:"#00B073", marginBottom: 10, fontSize: 20, fontWeight: "400"}}>{username}</Text>
+                <Text style= {{color:"#DCDCDC", marginBottom: 10, fontSize: 12, fontWeight: "400", fontStyle: "oblique"}}>{country} <FontAwesome>{Icons.flag}</FontAwesome></Text>
+                <Text style= {{color:"#DAA520"}}>{coins}  £</Text>
               </View>
             </View>
           </LinearGradient>

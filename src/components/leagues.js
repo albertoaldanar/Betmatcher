@@ -41,17 +41,14 @@ class Leagues extends Component{
       },
     };
 
-    let renderLeagues = this.props.league.leagues.map((l, i) => {
-      return <Picker.Item key = {i} label = {l} value ={l}/>
+    let renderLeagues = this.props.leagues.map((l, i) => {
+      return <Picker.Item key = {i} label = {l.name} value ={l.name}/>
 
     })
 
     return(
       <LinearGradient  style = {{flex: 1, position: "relative"}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
-        <View>
-          <Text style = {styles.title}>{this.props.league.name} leagues</Text>
-        </View>
-        <View style = {styles.pickerContainer}>
+         <View style = {styles.pickerContainer}>
           <Picker
               itemStyle ={styles.pickerStyle}
               selectedValue={this.state.league}

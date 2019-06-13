@@ -68,13 +68,12 @@ class Menu extends Component {
     .then(res => res.json())
     .then(jsonRes => {
       console.log(jsonRes)
-      // this.setState({
-      //           leagueSelected: jsonRes
-      // });
-
+        this.setState({
+            leagueSelected: jsonRes.results,
+            leaguesModal: !this.state.leaguesModal
+        });
     })
     .catch(error => console.log(error));
-    // this.closeOpenLeagues();
   }
 
   closeOpenLeagues(){
@@ -153,7 +152,7 @@ class Menu extends Component {
           </ScrollView>
 
           <Modal visible = {this.state.leaguesModal} animationType ="slide">
-            <Leagues close = {this.closeOpenLeagues.bind(this)} league = {this.state.leagueSelected}/>
+            <Leagues close = {this.closeOpenLeagues.bind(this)} leagues = {this.state.leagueSelected}/>
           </Modal>
       </View>
     );

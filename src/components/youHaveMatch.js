@@ -33,12 +33,12 @@ class YouHaveMatch extends Component{
                   source = {{uri: "https://pizzasundayclub.com/wp/wp-content/uploads/2016/08/george-profile-350-circle.png.png"}}
                   style= {styles.image}
                 />
-                <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>{this.props.user.user}</Text>
-                <Text style = {styles.text}>{this.props.teamsNotSelected.name}</Text>
+                <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>{this.props.user.back_user.username}</Text>
+                <Text style = {styles.text}>{this.props.teamsNotSelected.name || "Draw"}</Text>
               </View>
             </View>
 
-            <Text style = {[styles.text, {color: "#DAA520"}]}>{this.props.user.bet} <FontAwesome>{Icons.database}</FontAwesome> </Text>
+            <Text style = {[styles.text, {color: "#DAA520"}]}>{this.props.user.amount} <FontAwesome>{Icons.database}</FontAwesome> </Text>
 
             <TouchableOpacity style = {styles.buttonCointainer} onPress = {this.props.sendToMatches}>
               <Text style = {styles.buttonText}>CONTINUE</Text>

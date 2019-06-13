@@ -22,7 +22,7 @@ class Profile extends Component{
 
   constructor(props){
     super(props);
-    this.state = {username:"", won: "", lost:"", draw:"", country: "", currentUser: "", currentToken: ""}
+    this.state = {username:"", won: "", lost:"", draw:"", country: "", currentUser: "", currentToken: "", coins: 0}
   }
 
   componentWillUnmount() {
@@ -63,7 +63,8 @@ class Profile extends Component{
                 won: jsonRes.user.profile.won,
                 lost: jsonRes.user.profile.lost,
                 draw: jsonRes.user.profile.draw,
-                country: jsonRes.user.profile.country
+                country: jsonRes.user.profile.country,
+                coins: jsonRes.user.profile.coins
           })
         }
       })
@@ -90,7 +91,7 @@ class Profile extends Component{
   }
 
   render(){
-    const {won, lost, draw, country, username} = this.state;
+    const {won, lost, draw, country, username, coins} = this.state;
     console.log(this.state.currentUser);
 
     const data = [
@@ -156,10 +157,10 @@ class Profile extends Component{
             <View style = {{justifyContent:"space-between", flexDirection:"row", marginBottom: 18, marginTop:20}}>
                 <View style = {{marginLeft: 16}}>
                   <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "gray", marginBottom: 5}]}>
-                    Amount
+                    Coins
                   </Text>
                   <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                    {User.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.database}</FontAwesome>
+                    {coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.database}</FontAwesome>
                   </Text>
                 </View>
 

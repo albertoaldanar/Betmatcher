@@ -15,7 +15,6 @@ class ConfirmBet extends Component{
     }
   }
 
-
   async componentDidMount(){
       this._isMounted = true;
 
@@ -31,6 +30,8 @@ class ConfirmBet extends Component{
     // let {currentUser, game, team} = this.props;
     const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
 
+    let opponentTeam = teamsNotSelected.name || "Draw"
+
     return fetch(`http://localhost:8000/post_match/`, {
       method: "POST",
       headers: {
@@ -38,7 +39,7 @@ class ConfirmBet extends Component{
           "Content-type": "application/json"
       },
       body: JSON.stringify({
-        back_user: user.back_user.username, back_team: teamsNotSelected.name,
+        back_user: user.back_user.username, back_team: opponentTeam,
         lay_user: this.state.currentUser, lay_team: teamSelected.name,
         amount: bet, event: game.data.name, request: user.id
 

@@ -52,8 +52,6 @@ class Home extends Component{
               })
             }
           }).then(setTimeout(() => {this.setState({showModal: false})}, 3000))
-
-
   }
 
   showSidebar(){
@@ -77,6 +75,17 @@ class Home extends Component{
       this.props.navigation.dispatch(navigateAction);
     }, 3000)
 
+  }
+
+  filteredEvents(league){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "FilteredEvents",
+      params: {
+        league: league
+      }
+    });
+
+    this.props.navigation.dispatch(navigateAction);
   }
 
 
@@ -177,6 +186,7 @@ class Home extends Component{
                     leagues= {Lgs}
                     sports = {this.state.sports}
                     handleLogout = {this.handleLogout.bind(this)}
+                    filteredEvents = {this.filteredEvents.bind(this)}
                   />
 
     const images = [

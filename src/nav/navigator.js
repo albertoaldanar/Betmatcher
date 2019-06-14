@@ -6,7 +6,7 @@ import Top from "../components/top";
 import Friends from "../components/friends"
 import Description from "../components/description";
 import Match from "../components/match";
-import SelectedGames from "../components/selectedGames";
+import FilteredEvents from "../components/filteredEvents";
 import ConfirmBet from "../components/confirmBet";
 import Profile from "../components/profile";
 import Login from "../components/login";
@@ -68,14 +68,7 @@ export const MainScreen = createBottomTabNavigator({
 );
 
 const AppNavigator = StackNavigator({
-
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      header: null
-    }
-  },
-  MainScreen: {
+    MainScreen: {
     screen: MainScreen,
       navigationOptions:{
         gesturesEnabled: false,
@@ -89,6 +82,13 @@ const AppNavigator = StackNavigator({
       header: null
     }
   },
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null
+    }
+  },
+
   Description: {
     screen: Description,
     navigationOptions: {
@@ -134,10 +134,10 @@ const AppNavigator = StackNavigator({
       }
     }
   },
-  SelectedGames: {
-    screen: SelectedGames,
+  FilteredEvents: {
+    screen: FilteredEvents,
     navigationOptions: {
-      title: "League",
+      title: "Events",
       headerTintColor: "#00B073",
       headerStyle: {
         backgroundColor: "black",

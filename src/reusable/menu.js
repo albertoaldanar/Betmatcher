@@ -76,7 +76,7 @@ class Menu extends Component {
     .catch(error => console.log(error));
   }
 
-  closeOpenLeagues(){
+  closeModal(){
     this.setState({leaguesModal: !this.state.leaguesModal})
   }
 
@@ -151,8 +151,12 @@ class Menu extends Component {
           </View>
           </ScrollView>
 
-          <Modal visible = {this.state.leaguesModal} animationType ="slide">
-            <Leagues close = {this.closeOpenLeagues.bind(this)} leagues = {this.state.leagueSelected}/>
+          <Modal visible = {this.state.leaguesModal} >
+            <Leagues
+                 filter = {this.props.filteredEvents}
+                 leagues = {this.state.leagueSelected}
+                 close = {() => this.setState({leaguesModal: false})}
+            />
           </Modal>
       </View>
     );

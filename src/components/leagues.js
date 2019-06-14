@@ -13,6 +13,7 @@ class Leagues extends Component{
   }
 
   render(){
+    console.log(this.state.league);
     const pick = {
       inputIOS: {
         color: 'white',
@@ -59,7 +60,7 @@ class Leagues extends Component{
         </View>
 
           <TouchableOpacity
-             onPress = {this.props.close}
+             onPress = {this.props.filter.bind(this, this.state.league)}
              style= {styles.button}
           >
            <Text style = {styles.buttonText}>

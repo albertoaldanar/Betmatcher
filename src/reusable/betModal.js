@@ -399,7 +399,7 @@ const styles ={
     borderColor:"gray", borderWidth: 0.3,
     backgroundColor: "#00B073",
   },
-    expText: {
+  expText: {
     fontSize: 20, color: "#ffff",
     textAlign: "center",
   }

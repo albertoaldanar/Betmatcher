@@ -30,7 +30,9 @@ class Description extends Component{
       loading: true,
       showButtons: false,
       currentUser: "",
-      requests: []
+      requests: [],
+      showMakeMatch: false,
+      showMakeBet: false
     }
   }
 
@@ -138,9 +140,17 @@ class Description extends Component{
     }
   }
 
-  showModal(){
+  makeBet(){
     this.setState({
-          visible: !this.state.visible,
+          showMakeBet: !this.state.showMakeBet,
+          showLightBox: false,
+          teamSelected: ""
+    })
+  }
+
+  makeMatch(){
+    this.setState({
+          showMakeMatch: !this.state.showMakeMatch,
           showLightBox: false,
           teamSelected: ""
     })
@@ -223,7 +233,7 @@ class Description extends Component{
         <DescChart game = {game}/>
         <Modal
             transparent = {false}
-            visible = {false}
+            visible = {this.state.showMakeBet}
             animationType ="fade"
         >
           <BetModal
@@ -231,7 +241,7 @@ class Description extends Component{
             team = {teamSelected}
             game = {game}
             currentUser = {this.state.currentUser}
-            visible = {this.showModal.bind(this)}
+            visible = {this.makeBet.bind(this)}
             sendToMatchFromLay = {this.sendToMatchFromLay.bind(this)}
           />
         </Modal>
@@ -239,7 +249,7 @@ class Description extends Component{
 
         <Modal
             transparent = {false}
-            visible = {this.state.visible}
+            visible = {this.state.showMakeMatch}
             animationType ="fade"
         >
           <MatchARequest
@@ -247,7 +257,7 @@ class Description extends Component{
             team = {teamSelected} index = {this.state.index}
             rivalChoice = {myIndex} game = {game}
             segmentedController = {this.handleSegmentedController.bind(this)}
-            visible = {this.showModal.bind(this)}
+            visible = {this.makeMatch.bind(this)}
             confirm = {this.sendToConfirmation.bind(this)}
             requests = {this.state.requests}
             renderUsersToMatch = {this.renderUsersToMatch.bind(this)}
@@ -268,10 +278,10 @@ class Description extends Component{
           confirmText="Make new bet"
           confirmButtonColor="#1E90FF"
           onCancelPressed={() => {
-            this.setState({visible: true, betChoice: 1, showLightBox: false})
+            this.setState({showMakeMatch: true, showLightBox: false})
           }}
           onConfirmPressed={() => {
-            this.setState({visible: true, betChoice: 2, showLightBox: false})
+            this.setState({showMakeBet: true, showLightBox: false})
           }}
           titleStyle = {{color: "white", fontWeight:"600", fontSize: 20}}
           cancelButtonColor =  "#00B073"

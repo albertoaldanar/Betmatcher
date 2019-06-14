@@ -216,6 +216,12 @@ const styles ={
     flexDirection: "row",
     paddingBottom: 7
   },
+  closeModal: {
+    marginTop: 12,
+    marginLeft: 16,
+    fontWeight: "bold",
+    fontSize: 13
+  },
 }
 
 export default MatchARequest;

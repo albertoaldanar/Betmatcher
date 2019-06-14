@@ -40,7 +40,7 @@ class GameCard extends Component{
                 </View>
 
                 <View style = {styles.match}>
-                  <Image source = {{uri: d.data.sport.icon}} style = {{width: 45, height: 45, marginRight: 15}}/>
+                  <Image source = {{uri: d.data.sport.img}} style = {{width: 45, height: 45, marginRight: 15}}/>
 
                   <View style = {{paddingRight: 90}}>
                     <Text style = {styles.text}>{d.local.name}</Text>

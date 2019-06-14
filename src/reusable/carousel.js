@@ -18,7 +18,7 @@ class Carousell extends Component{
             <View style={styles.item}>
               <TouchableOpacity>
                 <ParallaxImage
-                    source={{ uri: item.image }}
+                    source={{ uri: item.img }}
                     containerStyle={styles.imageContainer}
                     style={styles.image}
                     index = {2}

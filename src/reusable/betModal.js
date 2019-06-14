@@ -90,8 +90,8 @@ class BetModal extends Component{
   }
 
   alerts(){
-    const title = this.state.publicBet ? "Your bet has been placed!" : `Your bet has been sent`
-    const message = this.state.publicBet ? "Wait for someone to match your bet, if no one matches you get your coins back" : `Wait for ${this.state.opponent} to accept bet`
+      const title = this.state.publicBet ? "Your bet has been placed!" : `Your bet has been sent`
+      const message = this.state.publicBet ? "Wait for someone to match your bet, if no one matches you get your coins back" : `Wait for ${this.state.opponent} to accept bet`
 
       Alert.alert(
           title,
@@ -120,9 +120,7 @@ class BetModal extends Component{
     })
     .then(res => res.json())
     .then(jsonRes => {
-      if(jsonRes.request){
-        this.alerts()
-      }
+       return this.alerts()
     })
     .catch(error => console.log(error));
   }

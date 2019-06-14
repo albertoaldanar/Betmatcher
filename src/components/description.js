@@ -113,11 +113,9 @@ class Description extends Component{
   }
 
   sendToMatchFromLay(){
-      const navigateAction = NavigationActions.navigate({
-      routeName: "Match",
-      params: {
-                index: 1
-              }
+    this.setState({showMakeBet: false})
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Match"
     });
     this.props.navigation.dispatch(navigateAction);
   }
@@ -208,7 +206,7 @@ class Description extends Component{
         <ScrollView>
         <View style = {styles.space}>
             <View style = {styles.card}>
-              <Image source = {{uri: game.data.sport.icon}} style = {{width: 60, height: 60, marginRight: 15}}/>
+              <Image source = {{uri: game.data.sport.img}} style = {{width: 60, height: 60, marginRight: 15}}/>
 
               <View>
                 <Text style = {styles.text}>{game.data.league.name}</Text>

@@ -92,7 +92,6 @@ class Description extends Component{
       this.setState({
                 message: `${jsonRes.count} users to match`,
                 loading: false,
-                showButtons: true,
                 requests: jsonRes.results
       });
 
@@ -193,6 +192,8 @@ class Description extends Component{
   render(){
     const {betChoice, teamSelected, showLightBox, teamSelectedObj} = this.state;
     let game = this.props.navigation.state.params.par;
+    let reqs = this.state.requests.length > 0 ? [true, "Users that bet against your team"] : [false, "No users to match, but can make bet"];
+
     const gameType = game.data.sport.name == "Soccer" ? game.draw : "Draw"
 
     const options = [game.local, game.visit, gameType];
@@ -269,11 +270,11 @@ class Description extends Component{
           showProgress={this.state.loading}
           progressColor= "#00B073"
           title= {this.state.message}
-          message = "Users that bet against your team"
+          message = {reqs[1]}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={true}
-          showCancelButton={this.state.showButtons}
-          showConfirmButton={this.state.showButtons}
+          showCancelButton={reqs[0]}
+          showConfirmButton={true}
           cancelText="Match a user"
           confirmText="Make new bet"
           confirmButtonColor="#1E90FF"

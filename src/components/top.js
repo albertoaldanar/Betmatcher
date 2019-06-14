@@ -13,10 +13,14 @@ class Top extends Component{
 
   constructor(props){
     super(props);
-    this.state = {isOpen: false, events: {}, sports: []}
+    this.state = {isOpen: false, events: {}, sports: [], refreshing: false}
   }
 
   componentWillMount(){
+    return this.callEvents()
+  }
+
+  callEvents(){
     return fetch("http://localhost:8000/top_events")
         .then(res => res.json())
           .then(response => {
@@ -24,7 +28,7 @@ class Top extends Component{
                 events: response["top_events"],
                 sports: response["sports"]
             })
-          })
+          }).then(this.setState({refreshing: false}))
   }
 
   onPressButton(){
@@ -43,7 +47,14 @@ class Top extends Component{
       >
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Weekley Top" showSidebar = {this.onPressButton.bind(this)}/>
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.callEvents.bind(this)}
+              />
+            }
+          >
             <GameCard data= {events} route = "Description" nav = {this.props.navigation.dispatch}/>
           </ScrollView>
         </View>

@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity, ScrollView, Image, ActivityIndicator} from
 import Card from "./card";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import Moment from 'moment';
+
 class GameCard extends Component{
 
   _isMounted = false;
@@ -36,7 +38,7 @@ class GameCard extends Component{
             <Card>
                 <View style = {styles.desc}>
                   <Text style = {styles.league}>{d.data.league.name}</Text>
-                  <Text style = {styles.hour}>{d.data.date}</Text>
+                  <Text style = {styles.hour}>{Moment(d.data.date).format("MMM Do YY")}</Text>
                 </View>
 
                 <View style = {styles.match}>

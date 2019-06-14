@@ -10,6 +10,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import DescChart from "../reusable/descChart";
 import GameInfo from "../reusable/gameInfo";
 import LinearGradient from "react-native-linear-gradient";
+import Moment from 'moment';
 
 const mainColor = "#00B073";
 
@@ -210,7 +211,7 @@ class Description extends Component{
 
               <View>
                 <Text style = {styles.text}>{game.data.league.name}</Text>
-                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique"}]}>{game.data.date}</Text>
+                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique"}]}>{Moment(game.data.date).format("MMM Do YY")}</Text>
 
                 <View style = {styles.game}>
                   <Text style = {styles.word}>{game.local.name}</Text>

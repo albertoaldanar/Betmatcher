@@ -94,7 +94,7 @@ class Menu extends Component {
       return(
         <View>
           <TouchableOpacity key = {index} style = {{flexDirection:"row", justifyContent: "space-between"}} onPress = {this.selectLeagues.bind(this, item.name)}>
-            <Text style = {styles.sport}> <Image source= {{uri: "https://www.shareicon.net/data/256x256/2015/09/07/97299_ball_512x512.png"}} style = {{width: 21, height: 21}}/> {item.name} </Text>
+            <Text style = {styles.sport}> <Image source= {{uri: item.img}} style = {{width: 21, height: 21}}/> {item.name} </Text>
             <Text style = {{marginTop: 7, color: "gray"}}> {item.count} <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
           </TouchableOpacity>
         </View>

@@ -5,7 +5,7 @@ import BetModal from "../reusable/betModal";
 import MatchARequest from "../reusable/matchARequest";
 import UserList1 from "../constants/userList1";
 import UserList2 from "../constants/userList2";
-import {NavigationActions} from "react-navigation";
+import { NavigationActions } from "react-navigation";
 import AwesomeAlert from 'react-native-awesome-alerts';
 import DescChart from "../reusable/descChart";
 import GameInfo from "../reusable/gameInfo";
@@ -33,7 +33,8 @@ class Description extends Component{
       currentUser: "",
       requests: [],
       showMakeMatch: false,
-      showMakeBet: false
+      showMakeBet: false,
+      currenCoins: 0
     }
   }
 
@@ -47,6 +48,9 @@ class Description extends Component{
         } else {
           this.setState({ currentUser: false });
       }
+
+      const getCoins = await AsyncStorage.getItem('coins');
+      this.setState({ currenCoins: getCoins});
   }
 
   sendToConfirmation(route, user, quote, bet){
@@ -69,7 +73,7 @@ class Description extends Component{
               }
     });
     this.props.navigation.dispatch(navigateAction);
-    this.setState({visible: false})
+    this.setState({showMakeMatch: false})
   }
 
   //Gets possible matches
@@ -243,6 +247,7 @@ class Description extends Component{
             currentUser = {this.state.currentUser}
             visible = {this.makeBet.bind(this)}
             sendToMatchFromLay = {this.sendToMatchFromLay.bind(this)}
+            coins = {this.state.currenCoins}
           />
         </Modal>
 
@@ -261,6 +266,7 @@ class Description extends Component{
             confirm = {this.sendToConfirmation.bind(this)}
             requests = {this.state.requests}
             renderUsersToMatch = {this.renderUsersToMatch.bind(this)}
+            coins = {this.state.currenCoins}
           />
         </Modal>
 

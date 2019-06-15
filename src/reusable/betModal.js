@@ -17,7 +17,6 @@ class BetModal extends Component{
     super(props);
     this.state = {
       bet: 50,
-      cUserCoins: 3460,
       values: [50, 3460],
       finalValue: [],
       showFriends: false,
@@ -104,25 +103,29 @@ class BetModal extends Component{
   }
 
   postRequest(){
-    let {currentUser, game, team} = this.props;
+    let {currentUser, game, team, coins} = this.props;
 
-    return fetch(`http://localhost:8000/post_request/`, {
-      method: "POST",
-      headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        back_user: currentUser, event: game.data.name,
-        back_team: team.name, amount: this.state.bet,
-        is_public: this.state.publicBet
-      })
-    })
-    .then(res => res.json())
-    .then(jsonRes => {
-       return this.alerts()
-    })
-    .catch(error => console.log(error));
+    if(this.state.bet > coins){
+      return Alert.alert("Can´t send bet", `You don´t have ${this.state.bet} coins, sorry :( `, [{text: 'Continue', onPress: this.props.sendToMatchFromLay}])
+    } else {
+        return fetch(`http://localhost:8000/post_request/`, {
+          method: "POST",
+          headers: {
+              "Accept": "application/json",
+              "Content-type": "application/json"
+          },
+          body: JSON.stringify({
+            back_user: currentUser, event: game.data.name,
+            back_team: team.name, amount: this.state.bet,
+            is_public: this.state.publicBet
+          })
+        })
+        .then(res => res.json())
+        .then(jsonRes => {
+           return this.alerts()
+        })
+        .catch(error => console.log(error));
+    }
   }
 
 
@@ -189,7 +192,7 @@ class BetModal extends Component{
 
 
   betFilter(){
-    const {choice, game, teamsNotSelected, team} = this.props;
+    const {choice, game, teamsNotSelected, team, coins} = this.props;
     var position = this.props.team.position;
 
         return(
@@ -205,7 +208,7 @@ class BetModal extends Component{
                 <Slider
                   step= {10}
                   style ={{marginLeft: 15, marginRight: 15, marginTop: 15}}
-                  maximumValue={this.state.cUserCoins}
+                  maximumValue={Number(coins)}
                   minimumValue = {50}
                   thumbTintColor = "#00B073"
                   minimumTrackTintColor = "#00B073"
@@ -253,7 +256,7 @@ class BetModal extends Component{
                   Close
                 </Text>
               </TouchableOpacity>
-              <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.state.cUserCoins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+              <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.props.coins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
             </View>
           </View>
 

@@ -174,7 +174,8 @@ class MatchARequest extends Component{
   }
 
   render(){
-    console.log(this.props.requests);
+    const {coins} = this.props;
+
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
         <View style ={{marginTop: 7}}>
@@ -184,7 +185,7 @@ class MatchARequest extends Component{
                     Close
                   </Text>
             </TouchableOpacity>
-            <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.state.cUserCoins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+            <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {coins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
           </View>
         </View>
         {this.renderSegmentedController()}

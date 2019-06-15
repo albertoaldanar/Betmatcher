@@ -64,6 +64,7 @@ class Home extends Component{
     try {
      AsyncStorage.removeItem("username");
      AsyncStorage.removeItem('token');
+     AsyncStorage.removeItem('coins');
     } catch (error) {
     console.log(error.message);
     }

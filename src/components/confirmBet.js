@@ -11,7 +11,8 @@ class ConfirmBet extends Component{
     super(props);
     this.state = {
       visible: false,
-      currentUser: ""
+      currentUser: "",
+      currentCoins: 0
     }
   }
 
@@ -24,6 +25,19 @@ class ConfirmBet extends Component{
         } else {
           this.setState({ currentUser: false });
       }
+      const getCoins = await AsyncStorage.getItem('coins');
+      this.setState({ currentCoins: Number(getCoins)});
+  }
+
+  analyseQuotes(myQuote){
+    const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
+    var finalQuote = quote < 0 ? quote * -1 : quote;
+    var ADQuote = Math.round((finalQuote / 100) * user.amount);
+    // Refactorizar esto
+    const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
+
+    const result = myQuote == "total" ? bet + AD[0] + AD[1] : bet + AD[0]
+    return result;
   }
 
   postMatch(){
@@ -31,6 +45,8 @@ class ConfirmBet extends Component{
     const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
 
     let opponentTeam = teamsNotSelected.name || "Draw"
+    const total = this.analyseQuotes("total");
+    const layQuote = this.analyseQuotes("myTotal");
 
     return fetch(`http://localhost:8000/post_match/`, {
       method: "POST",
@@ -41,7 +57,7 @@ class ConfirmBet extends Component{
       body: JSON.stringify({
         back_user: user.back_user.username, back_team: opponentTeam,
         lay_user: this.state.currentUser, lay_team: teamSelected.name,
-        amount: bet, event: game.data.name, request: user.id
+        amount: total, event: game.data.name, request: user.id, quote: layQuote
 
       })
     })
@@ -64,6 +80,24 @@ class ConfirmBet extends Component{
     this.props.navigation.dispatch(navigateAction);
   }
 
+  isMatchable(){
+    const myTotal = this.analyseQuotes("myTotal");
+
+    if(this.state.currentCoins < myTotal){
+      return(
+        <View style = {[styles.buttonMatch, {backgroundColor: "transparent", bottom: 15}]}>
+          <Text style = {{color: "#ffff", alignSelf:"center"}}> You don´t have coins enough to match this bet, sorry :(</Text>
+        </View>
+      );
+    } else {
+      return(
+        <TouchableOpacity style = {styles.buttonMatch} onPress = {this.postMatch.bind(this)}>
+          <Text style = {{color: "#ffff", alignSelf:"center"}}>MATCH THIS BET</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
+
   render(){
     const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
     console.log(user, teamSelected, teamsNotSelected);
@@ -76,7 +110,7 @@ class ConfirmBet extends Component{
       <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
         <View style = {styles.space}>
             <View style = {styles.card}>
-              <Image source= {{uri: game.image}} style = {{width: 60, height: 60, marginTop:5, marginRight: 10}}/>
+              <Image source= {{uri: game.data.sport.img}} style = {{width: 60, height: 60, marginTop:5, marginRight: 10}}/>
 
               <View>
                 <Text style = {styles.text}>{game.data.league.name}</Text>
@@ -123,9 +157,7 @@ class ConfirmBet extends Component{
 
         <Text style = {{marginTop: 40, alignSelf: "center", color: "gray", fontStyle: "oblique"}}>Betmatcher will charge 2% of commission to winner</Text>
 
-        <TouchableOpacity style = {styles.buttonMatch} onPress = {this.postMatch.bind(this)}>
-          <Text style = {{color: "#ffff", alignSelf:"center"}}>MATCH THIS BET</Text>
-        </TouchableOpacity>
+        {this.isMatchable()}
 
         <Modal
           animationType = "slide"
@@ -136,6 +168,7 @@ class ConfirmBet extends Component{
             postMatch = {this.postMatch.bind(this)}
             sendToMatches = {this.sendToMatches.bind(this)}
             user = {user}
+            total = {bet + AD[0] + AD [1]}
             teamSelected = {teamSelected}
             teamsNotSelected = {teamsNotSelected}
           />

@@ -34,10 +34,13 @@ class Login extends Component{
       })
       .then(res => res.json())
       .then(jsonRes => {
+          const coins = jsonRes.user.profile.coins;
+
           if(jsonRes.jwt && jsonRes.user){
             try {
               AsyncStorage.setItem('token', jsonRes.jwt);
               AsyncStorage.setItem('username', jsonRes.user.username);
+              AsyncStorage.setItem('coins', coins.toString());
             } catch (error) {
               console.log(error.message);
             }

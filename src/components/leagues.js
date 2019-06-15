@@ -49,6 +49,14 @@ class Leagues extends Component{
 
     return(
       <LinearGradient  style = {{flex: 1, position: "relative"}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+          <TouchableOpacity
+               onPress = {this.props.close}
+               style= {{margin: 10}}
+            >
+             <Text style = {{color: "#00B073", fontSize: 15}}>
+                Close
+             </Text>
+          </TouchableOpacity>
          <View style = {styles.pickerContainer}>
           <Picker
               itemStyle ={styles.pickerStyle}

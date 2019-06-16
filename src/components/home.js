@@ -13,7 +13,12 @@ import Carousell from "../reusable/carousel";
 import GameCard from "../reusable/gameCard";
 import Menu from "../reusable/menu";
 import SideMenu from "react-native-side-menu";
+import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { NavigationActions } from 'react-navigation';
+
+
+const sliderWidth = Dimensions.get('window').width;
+const itemHeight = Dimensions.get('window').height;
 
 class Home extends Component{
 
@@ -31,6 +36,7 @@ class Home extends Component{
       showModal: true,
       sports: []
    }
+   this.filteredEvents = this.filteredEvents.bind(this);
   }
 
   componentWillUnmount() {
@@ -179,6 +185,26 @@ class Home extends Component{
       })
   }
 
+    renderItem ({item, index}, parallaxProps) {
+        return (
+              <TouchableOpacity>
+                <ParallaxImage
+                    source={{ uri: item.img }}
+                    containerStyle={styles.imgContainer}
+                    style={styles.image}
+                    index = {2}
+                    parallaxFactor={0.6}
+                    showSpinner = {true}
+                    spinnerColor = {"#00B073"}
+                    {...parallaxProps}
+                />
+                <Text style={styles.tit} numberOfLines={2}>
+                    { item.name }
+                </Text>
+              </TouchableOpacity>
+        );
+    }
+
   render(){
 
     console.log(Dimensions.get("window").width);
@@ -259,7 +285,17 @@ class Home extends Component{
               </TouchableOpacity>
             </View>
 
-            <Carousell opacity = {0.55} leagues = {this.state.leagues}/>
+            <Carousel
+                    data={this.state.leagues}
+                    renderItem={this.renderItem}
+                    ref={'carousel'}
+                    hasParallaxImages={true}
+                    style={{opacity: 0.4}}
+                    sliderWidth={sliderWidth}
+                    itemWidth={sliderWidth* 0.36}
+                    itemHeight={itemHeight}
+                    firstItem= {1}
+            />
           </View>
 
           <View>
@@ -360,7 +396,27 @@ const styles = {
     fontSize: 15,
     fontStyle: "oblique",
     paddingBottom: 10
-  }
+  },
+  imgContainer: {
+      borderRadius: 5,
+      width: sliderWidth * 0.35,
+      height: itemHeight * 0.2,
+      opacity: 0.55
+    },
+  tit: {
+      color: "#ffff",
+      fontSize: 15,
+      fontWeight: "600",
+      position: "absolute",
+      top: 5,
+      left: 2
+    },
+  it:{
+      margin: 20,
+      marginLeft: 0,
+      marginBottom: 20,
+      marginTop: 10
+    }
 }
 
 export default Home;

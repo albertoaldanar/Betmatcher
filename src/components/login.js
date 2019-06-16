@@ -34,9 +34,8 @@ class Login extends Component{
       })
       .then(res => res.json())
       .then(jsonRes => {
-          const coins = jsonRes.user.profile.coins;
-
           if(jsonRes.jwt && jsonRes.user){
+            const coins = jsonRes.user.profile.coins;
             try {
               AsyncStorage.setItem('token', jsonRes.jwt);
               AsyncStorage.setItem('username', jsonRes.user.username);

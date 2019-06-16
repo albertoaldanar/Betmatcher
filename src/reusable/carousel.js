@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, Dimensions, TouchableOpacity} from "react-native";
+import {View, Text, Image, Dimensions, TouchableOpacity, Alert} from "react-native";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import Images from "../constants/images";
 import { NavigationActions } from 'react-navigation';
@@ -39,7 +39,7 @@ class Carousell extends Component{
       console.log(this.props.selectedGames);
         return (
           <Carousel
-            data={this.props.leagues}
+            data={this.props.leagues.leagues}
             renderItem={this.renderItem}
             hasParallaxImages={true}
             style={{opacity: 0.4}}

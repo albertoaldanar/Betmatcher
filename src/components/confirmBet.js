@@ -36,7 +36,7 @@ class ConfirmBet extends Component{
     // Refactorizar esto
     const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
 
-    const result = myQuote == "total" ? bet + AD[0] + AD[1] : bet + AD[0]
+    const result = myQuote == "total" ? ((bet * 2) + (AD[0] + AD[1])): bet + AD[0]
     return result;
   }
 
@@ -168,7 +168,7 @@ class ConfirmBet extends Component{
             postMatch = {this.postMatch.bind(this)}
             sendToMatches = {this.sendToMatches.bind(this)}
             user = {user}
-            total = {bet + AD[0] + AD [1]}
+            total = {this.analyseQuotes("total")}
             teamSelected = {teamSelected}
             teamsNotSelected = {teamsNotSelected}
           />

@@ -239,13 +239,13 @@ class BetModal extends Component{
 
   render(){
       let button;
-        button =  <TouchableOpacity
+        button = this.props.coins > 50 ? <TouchableOpacity
                     style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}
                     disabled = {this.state.opponent != "" || this.state.publicBet ? false : true}
                     onPress = {this.postRequest.bind(this)}
                     >
                     <Text style = {[styles.layBet, {fontSize: 19}]}> Place bet</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> : <Text style = {[styles.buttonDisableContainer, {fontSize: 15, backgroundColor: "transparent", color: "white", bottom: 14, textAlign: "center"}]}> You need at least 50 coins to make a bet :(</Text>
 
     return(
          <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>

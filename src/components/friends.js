@@ -1,11 +1,13 @@
 import React, {Component} from "react";
-import {View, Text, Dimensions, TouchableOpacity, ScrollView, Image, Alert} from "react-native";
+import {View, Text, Dimensions, TouchableOpacity, ScrollView, Image, Alert, Modal} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import { YAxis, Grid } from 'react-native-svg-charts';
 import UserList1 from "../constants/userList1";
 import MaterialTabs from "react-native-material-tabs";
 import SquareGrid from "react-native-square-grid";
+import UserSearch from "../reusable/userSearch";
+
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -17,7 +19,8 @@ class Friends extends Component{
     this.state = {
       index: 0,
       betfriends: [],
-      friendRequests: []
+      friendRequests: [],
+      searchModal: false
     }
   }
 
@@ -25,7 +28,29 @@ class Friends extends Component{
     return this.getData()
   }
 
-  getData(){
+  searchModal(){
+    this.setState({searchModal: !this.state.searchModal})
+  }
+
+  deleteRequest(bfrequest){
+      return fetch(`http://192.168.0.5:8000/decline_request`, {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          friend_request: bfrequest.id
+        })
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        this.getData(1)
+      })
+      .catch(error => console.log(error));
+  }
+
+  getData(index){
       let currentUser = this.props.navigation.state.params.currentUser;
       this._isMounted = true;
 
@@ -42,7 +67,7 @@ class Friends extends Component{
           this.setState({
             betfriends: jsonRes.betfriends,
             friendRequests: jsonRes.friend_requests,
-            index: 0
+            index: index
           })
         }
       })
@@ -70,7 +95,7 @@ class Friends extends Component{
             "OK!",
             `Now you can bet against ${bfrequest.sent_by.username}`,
             [
-              {text: 'Continue', onPress: this.getData.bind(this)},
+              {text: 'Continue', onPress: this.getData.bind(this, 0)},
             ],
             {cancelable: false},
           );
@@ -88,11 +113,11 @@ class Friends extends Component{
 
     switch(index){
       case 0:
-        return this.betfriendList(UserList1)
+        return this.betfriendList(betfriends || [])
         break;
 
       case 1:
-        return this.requestsList(friendRequests)
+        return this.requestsList(friendRequests || [])
         break;
     }
   }
@@ -109,8 +134,8 @@ class Friends extends Component{
                     style = {styles.image}
                   />
                   <View>
-                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{item.user}</Text>
-                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.country} </Text>
+                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{item.user_a.username}</Text>
+                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.user_a.profile.country} </Text>
                   </View>
                 </View>
                 <TouchableOpacity>
@@ -145,7 +170,7 @@ class Friends extends Component{
                       <Text style= {{alignSelf: "center", color: "white"}}>Accept</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style = {{padding: 5, borderRadius: 5, backgroundColor: "red", alignSelf: "center", marginLeft: 4}}>
+                    <TouchableOpacity style = {{padding: 5, borderRadius: 5, backgroundColor: "red", alignSelf: "center", marginLeft: 4}} onPress = {this.deleteRequest.bind(this, item)}>
                       <Text style= {{alignSelf: "center", color: "white"}}>Decline</Text>
                     </TouchableOpacity>
                   </View>
@@ -159,7 +184,7 @@ class Friends extends Component{
   render(){
     console.log(this.state.betfriends, this.state.friendRequests);
     var addButton= this.state.index == 0 ?
-          <TouchableOpacity style = {styles.addButton}>
+          <TouchableOpacity style = {styles.addButton} onPress= {this.searchModal.bind(this)}>
               <FontAwesome style = {{color: "white", alignItems: "center", padding: 10, fontSize: 20}}>{Icons.userPlus}</FontAwesome>
           </TouchableOpacity> :
           null
@@ -179,6 +204,13 @@ class Friends extends Component{
           <ScrollView style = {{marginTop: 10}}>
             {this.choseView()}
           </ScrollView>
+
+          <Modal
+            visible = {this.state.searchModal}
+            animationType ="slide"
+          >
+            <UserSearch closeModal = {this.searchModal.bind(this)}/>
+          </Modal>
 
           {addButton}
       </LinearGradient>

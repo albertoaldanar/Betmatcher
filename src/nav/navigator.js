@@ -74,6 +74,17 @@ const AppNavigator = StackNavigator({
         header: null
       }
   },
+  Friends: {
+    screen: Friends,
+    navigationOptions: {
+      title: "Betfriends",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
   MainScreen: {
     screen: MainScreen,
       navigationOptions:{
@@ -92,17 +103,6 @@ const AppNavigator = StackNavigator({
     screen: Description,
     navigationOptions: {
       title: "Info",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
-    }
-  },
-  Friends: {
-    screen: Friends,
-    navigationOptions: {
-      title: "Betfriends",
       headerTintColor: "#00B073",
       headerStyle: {
         backgroundColor: "black",

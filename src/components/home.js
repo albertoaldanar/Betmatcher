@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage} from "react-native";
+import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Games from "../constants/games";
 import Header from "../reusable/header";
@@ -34,7 +34,7 @@ class Home extends Component{
       topTradedEvents: [],
       data: "",
       showModal: true,
-      sports: []
+      sports: [], refreshing: false
    }
    this.filteredEvents = this.filteredEvents.bind(this);
   }
@@ -43,10 +43,11 @@ class Home extends Component{
     this._isMounted = false;
   }
 
-  componentDidMount(){
+
+  callHome(){
     this._isMounted = true;
 
-    return fetch("http://localhost:8000/home_data")
+    return fetch("http://192.168.0.5:8000/home_data")
         .then(res => res.json())
           .then(response => {
             if (this._isMounted){
@@ -58,6 +59,10 @@ class Home extends Component{
               })
             }
           }).then(setTimeout(() => {this.setState({showModal: false})}, 3000))
+  }
+
+  componentDidMount(){
+    return this.callHome()
   }
 
   showSidebar(){
@@ -244,7 +249,14 @@ class Home extends Component{
         </Modal>
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)}/>
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.callHome.bind(this)}
+              />
+            }
+          >
           <StatusBar hidden = {true}/>
 
           <View style = {styles.images}>

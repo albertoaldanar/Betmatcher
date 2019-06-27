@@ -48,7 +48,7 @@ class ConfirmBet extends Component{
     const total = this.analyseQuotes("total");
     const layQuote = this.analyseQuotes("myTotal");
 
-    return fetch(`http://localhost:8000/post_match/`, {
+    return fetch(`http://192.168.8.7:8000/post_match/`, {
       method: "POST",
       headers: {
           "Accept": "application/json",
@@ -86,7 +86,7 @@ class ConfirmBet extends Component{
     if(this.state.currentCoins < myTotal){
       return(
         <View style = {[styles.buttonMatch, {backgroundColor: "transparent", bottom: 15}]}>
-          <Text style = {{color: "#ffff", alignSelf:"center"}}> You don´t have coins enough to match this bet, sorry :(</Text>
+          <Text style = {{color: "#ffff", alignSelf:"center"}}> You need more coins to match this bet, sorry :(</Text>
         </View>
       );
     } else {
@@ -116,11 +116,10 @@ class ConfirmBet extends Component{
                 <Text style = {styles.text}>{game.data.league.name}</Text>
                 <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{game.data.date}</Text>
 
-                <View style = {styles.game}>
+
                   <Text style = {styles.word}>{game.local.name}</Text>
                   <Text style = {[styles.word, {fontStyle: "oblique"}]}>VS.</Text>
                   <Text style = {styles.word}>{game.visit.name}</Text>
-                </View>
               </View>
             </View>
         </View>

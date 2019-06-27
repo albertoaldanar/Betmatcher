@@ -21,7 +21,7 @@ class Top extends Component{
   }
 
   callEvents(){
-    return fetch("http://localhost:8000/top_events")
+    return fetch("http://192.168.0.5:8000/top_events")
         .then(res => res.json())
           .then(response => {
             this.setState({

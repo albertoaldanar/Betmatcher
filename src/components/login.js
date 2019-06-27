@@ -24,7 +24,7 @@ class Login extends Component{
     const {username, password, password_confirmation, email} = this.state;
     var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation}
 
-      return fetch(`http://localhost:8000/users/${action}/`, {
+      return fetch(`http://192.168.0.5:8000/users/${action}/`, {
         method: "POST",
         headers: {
           "Accept": "application/json",

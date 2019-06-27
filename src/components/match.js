@@ -42,7 +42,7 @@ class Match extends Component{
 
     const {data} = this.state;
 
-      return fetch("http://localhost:8000/matches/", {
+      return fetch("http://192.168.8.7:8000/matches/", {
         method: "GET",
         headers: {
           "Accept": "application/json",

@@ -108,7 +108,7 @@ class BetModal extends Component{
     if(this.state.bet > coins){
       return Alert.alert("Can´t send bet", `You don´t have ${this.state.bet} coins, sorry :( `, [{text: 'Continue', onPress: this.props.sendToMatchFromLay}])
     } else {
-        return fetch(`http://localhost:8000/post_request/`, {
+        return fetch(`http://192.168.8.7:8000/post_request/`, {
           method: "POST",
           headers: {
               "Accept": "application/json",

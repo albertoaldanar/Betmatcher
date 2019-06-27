@@ -47,7 +47,7 @@ class Profile extends Component{
           this.setState({ currentToken: false });
       }
 
-      return fetch(`http://localhost:8000/users/${this.state.currentUser}/`, {
+      return fetch(`http://192.168.0.5:8000/users/${this.state.currentUser}/`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -85,7 +85,10 @@ class Profile extends Component{
 
   renderFriends(){
     const navigateAction = NavigationActions.navigate({
-      routeName: "Friends"
+      routeName: "Friends",
+      params: {
+        currentUser: this.state.currentUser
+      }
     })
     this.props.navigation.dispatch(navigateAction);
   }

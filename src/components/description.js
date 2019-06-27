@@ -84,7 +84,7 @@ class Description extends Component{
     const back_user = encodeURIComponent(this.state.currentUser);
     const event = encodeURIComponent(game.data.name);
 
-    return fetch(`http://localhost:8000/requests?back_user=${back_user}&back_team=${back_team}&event=${event}`, {
+    return fetch(`http://192.168.1.72:8000/requests?back_user=${back_user}&back_team=${back_team}&event=${event}`, {
       method: "GET",
       headers: {
           "Accept": "application/json",

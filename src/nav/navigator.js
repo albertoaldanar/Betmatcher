@@ -69,12 +69,12 @@ export const MainScreen = createBottomTabNavigator({
 
 const AppNavigator = StackNavigator({
   Login: {
-    screen: Login,
-    navigationOptions: {
-      header: null
-    }
+      screen: Login,
+      navigationOptions: {
+        header: null
+      }
   },
-    MainScreen: {
+  MainScreen: {
     screen: MainScreen,
       navigationOptions:{
         gesturesEnabled: false,
@@ -102,7 +102,12 @@ const AppNavigator = StackNavigator({
   Friends: {
     screen: Friends,
     navigationOptions: {
-      header: null
+      title: "Betfriends",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
     }
   },
   ConfirmBet: {

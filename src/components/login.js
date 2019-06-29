@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import axios from "axios";
+import Url from "../constants/url";
 import {NavigationActions} from "react-navigation";
 
 class Login extends Component{
@@ -24,7 +25,7 @@ class Login extends Component{
     const {username, password, password_confirmation, email} = this.state;
     var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation}
 
-      return fetch(`http://192.168.0.5:8000/users/${action}/`, {
+      return fetch(`http://${Url}:8000/users/${action}/`, {
         method: "POST",
         headers: {
           "Accept": "application/json",

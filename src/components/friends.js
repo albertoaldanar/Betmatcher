@@ -9,6 +9,7 @@ import SquareGrid from "react-native-square-grid";
 import UserSearch from "../reusable/userSearch";
 import Modal from "react-native-modal";
 import User from "../constants/user";
+import Url from "../constants/url";
 
 
 const sliderWidth = Dimensions.get('window').width;
@@ -45,7 +46,7 @@ class Friends extends Component{
       let currentUser = this.props.navigation.state.params.currentUser;
       this._isMounted = true;
 
-      return fetch(`http://192.168.0.5:8000/user_info?user=${user}&current_user=${currentUser}`, {
+      return fetch(`http://${Url}:8000/user_info?user=${user}&current_user=${currentUser}`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -56,14 +57,14 @@ class Friends extends Component{
       .then(jsonRes => {
         console.log(jsonRes)
         if(this._isMounted){
-          this.setState({userSelected: jsonRes.user, userCard: true, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+          this.setState({userSelected: jsonRes.user, userCard: !this.state.userCard, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
         }
       })
       .catch(error => console.log(error));
   }
 
   deleteRequest(bfrequest){
-      return fetch(`http://192.168.0.5:8000/decline_request`, {
+      return fetch(`http://${Url}:8000/decline_request`, {
         method: "DELETE",
         headers: {
           "Accept": "application/json",
@@ -84,7 +85,7 @@ class Friends extends Component{
       let currentUser = this.props.navigation.state.params.currentUser;
       this._isMounted = true;
 
-      return fetch(`http://192.168.0.5:8000/betfriends_data?current_user=${currentUser}`, {
+      return fetch(`http://${Url}:8000/betfriends_data?current_user=${currentUser}`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -106,7 +107,7 @@ class Friends extends Component{
   createFriends(bfrequest){
       let currentUser = this.props.navigation.state.params.currentUser;
 
-      return fetch(`http://192.168.0.5:8000/create_friendship/`, {
+      return fetch(`http://${Url}:8000/create_friendship/`, {
         method: "POST",
         headers: {
             "Accept": "application/json",
@@ -217,6 +218,7 @@ class Friends extends Component{
 
   render(){
     const {userSelected, profile} = this.state;
+    let currentUser = this.props.navigation.state.params.currentUser;
     var addButton= this.state.index == 0 ?
           <TouchableOpacity style = {styles.addButton} onPress= {()=> this.setState({searchModal: true})}>
               <FontAwesome style = {{color: "white", alignItems: "center", padding: 10, fontSize: 20}}>{Icons.userPlus}</FontAwesome>
@@ -251,7 +253,7 @@ class Friends extends Component{
           >
 
             <LinearGradient style = {{margin: 20, borderRadius: 5, marginLeft: 5, marginRight: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
-                <TouchableOpacity onPress= {()=> this.setState({userCard: false})} style = {{margin: 10}}>
+                <TouchableOpacity onPress= {()=> this.setState({userCard: !this.state.userCard})} style = {{margin: 10}}>
                   <Text style= {{fontSize: 18, color: "white"}}>X</Text>
                 </TouchableOpacity>
 
@@ -288,11 +290,11 @@ class Friends extends Component{
           </Modal>
 
           <Modal
-              style={{ flex: 1, position: "relative" , margin: 40, marginLeft: 25, marginLeft: 25}}
+              style={{ flex: 1, position: "relative" , margin: 50, marginLeft: 25, marginRight: 25}}
               isVisible={this.state.searchModal}
-              backdropOpacity = {0.85}
+              backdropOpacity = {0.45}
           >
-            <UserSearch closeModal = {this.searchModal.bind(this)}/>
+            <UserSearch closeModal = {this.searchModal.bind(this)} getUser = {this.getUser.bind(this)} currentUser = {currentUser}/>
           </Modal>
 
           {addButton}

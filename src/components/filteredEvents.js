@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, TouchableOpacity, ScrollView} from "react-native";
 import GameCard from "../reusable/gameCard";
 import {NavigationActions} from "react-navigation";
+import Url from "../constants/url";
 
 class FilteredEvents extends Component{
 
@@ -17,7 +18,7 @@ class FilteredEvents extends Component{
     let league = this.props.navigation.state.params.league;
     this._isMounted = true;
 
-    return fetch(`http://localhost:8000/events?league=${league}`, {
+    return fetch(`http://${Url}:8000/events?league=${league}`, {
       method: "GET",
       headers: {
           "Accept": "application/json",

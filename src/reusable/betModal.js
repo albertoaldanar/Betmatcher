@@ -6,7 +6,8 @@ import LinearGradient from "react-native-linear-gradient";
 import FriendsModal from "./friendsModal"
 import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
-
+import Url from "../constants/url";
+import User from "../constants/user";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -22,8 +23,32 @@ class BetModal extends Component{
       showFriends: false,
       opponent: "",
       publicBet: false,
-      infoModal: false
+      infoModal: false,
+      betfriends: [],
     }
+  }
+
+  getFriends(){
+      this._isMounted = true;
+
+      return fetch(`http://${Url}:8000/betfriends_data?current_user=${this.props.currentUser}`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        }
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        if(this._isMounted){
+          this.setState({
+            betfriends: jsonRes.betfriends,
+            showFriends: true,
+            publicBet: false
+          })
+        }
+      })
+      .catch(error => console.log(error));
   }
 
   dataAnalysis(){
@@ -108,7 +133,7 @@ class BetModal extends Component{
     if(this.state.bet > coins){
       return Alert.alert("Can´t send bet", `You don´t have ${this.state.bet} coins, sorry :( `, [{text: 'Continue', onPress: this.props.sendToMatchFromLay}])
     } else {
-        return fetch(`http://192.168.8.7:8000/post_request/`, {
+        return fetch(`http://192.168.0.5:8000/post_request/`, {
           method: "POST",
           headers: {
               "Accept": "application/json",
@@ -229,7 +254,7 @@ class BetModal extends Component{
 
                 <Text style = {{color: "gray", fontSize: 15, marginTop: 7}}> or </Text>
 
-                <TouchableOpacity style= {this.state.opponent == "" ? styles.choiceButton : styles.choiceButtonSelected} onPress = {() => this.setState({showFriends: true, publicBet: false})}>
+                <TouchableOpacity style= {this.state.opponent == "" ? styles.choiceButton : styles.choiceButtonSelected} onPress = {this.getFriends.bind(this)}>
                   <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 13}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
                 </TouchableOpacity>
               </View>
@@ -265,16 +290,20 @@ class BetModal extends Component{
           <Modal
             style={{ flex: 1}}
             isVisible={this.state.showFriends}
-            backdropOpacity = {0.85}
+            backdropOpacity = {0.95}
           >
-            <FriendsModal hideShow = {this.friendsModal.bind(this)} opponent = {this.state.opponent} selectOpponent = {this.selectOpponent.bind(this)}/>
+            <FriendsModal
+                hideShow = {this.friendsModal.bind(this)} opponent = {this.state.opponent}
+                selectOpponent = {this.selectOpponent.bind(this)} betfriends = {this.state.betfriends}
+                currentUser = {this.props.currentUser}
+            />
           </Modal>
 
 
           <Modal
             style={{ flex: 1, position: "relative" }}
             isVisible={this.state.infoModal}
-            backdropOpacity = {0.85}
+            backdropOpacity = {0.9}
           >
           {this.dataAnalysis()}
 

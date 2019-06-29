@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-import Games from "../constants/games";
+import Url from "../constants/url";
 import Header from "../reusable/header";
 import Leagues from "./leagues";
 import ImageSlider from 'react-native-image-slider';
@@ -47,7 +47,7 @@ class Home extends Component{
   callHome(){
     this._isMounted = true;
 
-    return fetch("http://192.168.0.5:8000/home_data")
+    return fetch(`http://${Url}:8000/home_data`)
         .then(res => res.json())
           .then(response => {
             if (this._isMounted){

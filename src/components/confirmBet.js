@@ -4,6 +4,7 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import YouHaveMatch from "./youHaveMatch";
 import LinearGradient from "react-native-linear-gradient";
+import Url from "../constants/url";
 
 class ConfirmBet extends Component{
 
@@ -48,7 +49,7 @@ class ConfirmBet extends Component{
     const total = this.analyseQuotes("total");
     const layQuote = this.analyseQuotes("myTotal");
 
-    return fetch(`http://192.168.8.7:8000/post_match/`, {
+    return fetch(`http://${Url}:8000/post_match/`, {
       method: "POST",
       headers: {
           "Accept": "application/json",

@@ -9,6 +9,7 @@ import Chat from "../reusable/chat";
 import LinearGradient from "react-native-linear-gradient";
 import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
+import Url from "../constants/url";
 
 class Match extends Component{
 
@@ -42,7 +43,7 @@ class Match extends Component{
 
     const {data} = this.state;
 
-      return fetch("http://192.168.8.7:8000/matches/", {
+      return fetch(`http://${Url}:8000/matches/`, {
         method: "GET",
         headers: {
           "Accept": "application/json",

@@ -11,6 +11,7 @@ import DescChart from "../reusable/descChart";
 import GameInfo from "../reusable/gameInfo";
 import LinearGradient from "react-native-linear-gradient";
 import Moment from 'moment';
+import Url from "../constants/url";
 
 const mainColor = "#00B073";
 
@@ -84,7 +85,7 @@ class Description extends Component{
     const back_user = encodeURIComponent(this.state.currentUser);
     const event = encodeURIComponent(game.data.name);
 
-    return fetch(`http://192.168.1.72:8000/requests?back_user=${back_user}&back_team=${back_team}&event=${event}`, {
+    return fetch(`http://${Url}:8000/requests?back_user=${back_user}&back_team=${back_team}&event=${event}`, {
       method: "GET",
       headers: {
           "Accept": "application/json",

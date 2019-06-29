@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, Image, ScrollView} from "react-native";
 import UserList2 from "../constants/userList2";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
+import User from "../constants/user";
 
 class FriendsModal extends Component{
 
@@ -11,26 +12,31 @@ class FriendsModal extends Component{
   }
 
   renderFriendList(){
-    return UserList2.map((u, index) => {
-      return(
-          <View key = {index}>
-            <View style = {styles.tableStyle}>
-              <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
-                <View style= {{flexDirection:"row"}}>
-                  <Image
-                    source = {{uri: u.image}}
-                    style = {styles.image}
-                  />
-                  <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.user}</Text>
-                </View>
+    const {betfriends} = this.props;
 
-                <TouchableOpacity onPress = {this.props.selectOpponent.bind(this, u.user)}>
-                  <FontAwesome style = {{color: "#00B073", alignItems: "center", paddingTop: 10, fontSize: 20}}>{Icons.share}</FontAwesome>
-                </TouchableOpacity>
+    return betfriends.map((item, index) => {
+      const users = [item.user_a.username, item.user_b.username];
+      const friend = users.filter(user => user!= this.props.currentUser);
+
+        return(
+            <View key = {index}>
+              <View style = {styles.tableStyle}>
+                <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+                  <View style= {{flexDirection:"row"}}>
+                    <Image
+                      source = {{uri: User.image}}
+                      style = {styles.image}
+                    />
+                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{friend}</Text>
+                  </View>
+
+                  <TouchableOpacity onPress = {this.props.selectOpponent.bind(this, friend)}>
+                    <FontAwesome style = {{color: "#00B073", alignItems: "center", paddingTop: 10, fontSize: 20}}>{Icons.share}</FontAwesome>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
-      );
+        );
     })
   }
 
@@ -49,7 +55,7 @@ class FriendsModal extends Component{
     return(
       <View style = {styles.container}>
           <TouchableOpacity onPress= {this.props.hideShow}>
-            <Text style= {{color: "#00B073", margin: 5, marginLeft: 10, fontWeight: "600"}}>Close</Text>
+            <Text style= {{color: "#00B073", margin: 5, marginLeft: 10, fontWeight: "600", fontSize: 22}}>X</Text>
           </TouchableOpacity>
           <Text style = {styles.title}>Pick a betfriend to send bet</Text>
           <ScrollView>

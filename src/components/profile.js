@@ -14,6 +14,7 @@ import {
   ContributionGraph
 } from 'react-native-chart-kit'
 import {Pages} from "react-native-pages";
+import Url from "../constants/url";
 
 class Profile extends Component{
 
@@ -47,7 +48,7 @@ class Profile extends Component{
           this.setState({ currentToken: false });
       }
 
-      return fetch(`http://192.168.0.5:8000/users/${this.state.currentUser}/`, {
+      return fetch(`http://${Url}:8000/users/${this.state.currentUser}/`, {
         method: "GET",
         headers: {
           "Accept": "application/json",

@@ -1,5 +1,8 @@
 import React, {Component} from "react";
-import {View, Text, ScrollView, TouchableOpacity, TextInput} from "react-native";
+import {View, Text, ScrollView, TouchableOpacity, TextInput, Image, Alert} from "react-native";
+import FontAwesome, {Icons} from "react-native-fontawesome";
+import User from "../constants/user";
+import Url from "../constants/url";
 
 class UserSearch extends Component{
 
@@ -15,10 +18,11 @@ class UserSearch extends Component{
     this.setState({
       [state]:event
     });
+    this.liveSearch(event)
   }
 
   liveSearch(user){
-      return fetch(`http://192.168.0.5:8000/user_live?user=${this.state.user}`, {
+      return fetch(`http://${Url}:8000/user_live?user=${user}`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -28,38 +32,106 @@ class UserSearch extends Component{
       .then(res => res.json())
       .then(jsonRes => {
         console.log(jsonRes)
+        this.setState({users: jsonRes.users})
       })
       .catch(error => console.log(error));
+  }
+
+  createFriendRequest(user){
+      return fetch(`http://${Url}:8000/create_request/`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          current_user: this.props.currentUser, receiver: user.username
+        })
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        console.log(jsonRes)
+        if(jsonRes.bfrequest){
+          return Alert.alert(
+            "Request sent!",
+            `Wait for ${user.username} to accept`,
+            [
+              {text: 'Continue', onPress: this.props.closeModal},
+            ],
+            {cancelable: false},
+          );
+        }
+      })
+      .catch(error => alert(error));
+  }
+
+  userList(){
+      const {users} = this.state;
+
+      return users.map((item, index) => {
+        return(
+          <View key = {index}>
+            <View style = {styles.tableStyle}>
+              <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+                <View style= {{flexDirection:"row"}}>
+                  <Image
+                    source = {{uri: User.image}}
+                    style = {styles.image}
+                  />
+                  <View>
+                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{item.username}</Text>
+                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> Spain </Text>
+                  </View>
+                </View>
+                <TouchableOpacity onPress = {this.createFriendRequest.bind(this, item)}>
+                  <FontAwesome style = {{color: "gray", alignItems: "center", padding: 10, fontSize: 20}}>{Icons.userPlus}</FontAwesome>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        );
+      })
   }
 
   render(){
     const {user} = this.state;
 
     return(
-      <View style = {{backgroundColor: "transparent", flex: 1, borderRadius: 8, borderWidth: 0.5, borderColor: "gray"}}>
-        <TouchableOpacity style = {{position: "absolute", left: 10, top: 10}} onPress= {this.props.closeModal}>
+      <View style = {{backgroundColor: "black", flex: 1, borderRadius: 8, borderColor: "gray", borderWidth: 0.5}}>
+        <TouchableOpacity style = {{position: "absolute", left: 10, top: 10, marginBottom: 10}} onPress= {this.props.closeModal}>
           <Text style = {{color:"#ffff", fontSize: 17}}> X </Text>
         </TouchableOpacity>
 
         <TextInput
-            style={{height: 40, borderBottomColor: 'white', borderBottomWidth: 0.5, margin: 25, color: "white", marginTop: 40}}
+            style={{height: 26, borderBottomColor: 'white', borderBottomWidth: 0.3, margin: 25, color: "white", marginTop: 40, borderRadius: 5}}
             placeholder = "Search user"
             placeholderTextColor = "gray"
             onChangeText = {this.onChangeInput("user")}
             value = {this.state.user}
             autoCapitalize = 'none'
+            autoCorrect= {false}
         />
 
-        <Text style = {{alignSelf: "center", color: "#ffff"}}>{this.state.user}</Text>
-
-
-        <TouchableOpacity style = {{position: "absolute", left: 10, top: 10}} onPress= {this.liveSearch.bind(this)}>
-          <Text style = {{color:"#ffff", fontSize: 17}}> Search </Text>
-        </TouchableOpacity>
+        <ScrollView>
+          {this.userList()}
+        </ScrollView>
       </View>
     );
   }
 }
 
+const styles = {
+  tableStyle: {
+    marginBottom: 5,
+    padding: 15,
+  },
+  image: {
+    width: 50,
+    height: 50,
+    alignSelf: "center",
+    marginRight: 15,
+    marginBottom: 10
+  }
+}
 
 export default UserSearch;

@@ -4,7 +4,7 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
 import Leagues from "../components/leagues";
 import { NavigationActions } from 'react-navigation';
-
+import Url from "../constants/url";
 class Menu extends Component {
 
   constructor(props){
@@ -34,7 +34,7 @@ class Menu extends Component {
           this.setState({ currentToken: false });
       }
 
-      return fetch(`http://192.168.1.67:8000/users/${this.state.currentUser}/`, {
+      return fetch(`http://${Url}:8000/users/${this.state.currentUser}/`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -58,7 +58,7 @@ class Menu extends Component {
 
 
   selectLeagues(sport){
-    return fetch(`http://192.168.1.67:8000/leagues?sport=${sport}`, {
+    return fetch(`http://${Url}:8000/leagues?sport=${sport}`, {
       method: "GET",
       headers: {
           "Accept": "application/json",

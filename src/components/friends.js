@@ -23,6 +23,7 @@ class Friends extends Component{
       betfriends: [],
       friendRequests: [],
       searchModal: false,
+      userCard: false,
       userSelected: {},
       profile: [],
       friendAnalysis: null
@@ -33,6 +34,9 @@ class Friends extends Component{
     return this.getData()
   }
 
+  cardModal(){
+    this.setState({userCard: !this.state.userCard})
+  }
   searchModal(){
     this.setState({searchModal: !this.state.searchModal})
   }
@@ -52,7 +56,7 @@ class Friends extends Component{
       .then(jsonRes => {
         console.log(jsonRes)
         if(this._isMounted){
-          this.setState({userSelected: jsonRes.user, searchModal: true, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+          this.setState({userSelected: jsonRes.user, userCard: true, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
         }
       })
       .catch(error => console.log(error));
@@ -214,13 +218,13 @@ class Friends extends Component{
   render(){
     const {userSelected, profile} = this.state;
     var addButton= this.state.index == 0 ?
-          <TouchableOpacity style = {styles.addButton} onPress= {this.searchModal.bind(this)}>
+          <TouchableOpacity style = {styles.addButton} onPress= {()=> this.setState({searchModal: true})}>
               <FontAwesome style = {{color: "white", alignItems: "center", padding: 10, fontSize: 20}}>{Icons.userPlus}</FontAwesome>
           </TouchableOpacity> :
           null
 
     var modalButton= this.state.friendAnalysis ?
-              null : <TouchableOpacity onPress= {this.searchModal.bind(this)} style = {{margin: 15, backgroundColor: "#00B073", borderRadius: 5, marginTop: 10, alignSelf: "center", padding: 15, paddingTop: 8, paddingBottom: 8, marginBottom: 24}}>
+              null : <TouchableOpacity style = {{margin: 15, backgroundColor: "#00B073", borderRadius: 5, marginTop: 10, alignSelf: "center", padding: 15, paddingTop: 8, paddingBottom: 8, marginBottom: 24}}>
                 <Text style= {{fontSize: 17, color: "white", alignSelf: "center"}}> <FontAwesome> {Icons.userPlus} </FontAwesome> Add as friend</Text>
               </TouchableOpacity>
 
@@ -242,12 +246,12 @@ class Friends extends Component{
 
           <Modal
               style={{ flex: 1, position: "relative" , margin: 20}}
-              isVisible={this.state.searchModal}
+              isVisible={this.state.userCard}
               backdropOpacity = {0.65}
           >
 
             <LinearGradient style = {{margin: 20, borderRadius: 5, marginLeft: 5, marginRight: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
-                <TouchableOpacity onPress= {this.searchModal.bind(this)} style = {{margin: 10}}>
+                <TouchableOpacity onPress= {()=> this.setState({userCard: false})} style = {{margin: 10}}>
                   <Text style= {{fontSize: 18, color: "white"}}>X</Text>
                 </TouchableOpacity>
 
@@ -281,6 +285,14 @@ class Friends extends Component{
 
                 {modalButton}
             </LinearGradient>
+          </Modal>
+
+          <Modal
+              style={{ flex: 1, position: "relative" , margin: 40, marginLeft: 25, marginLeft: 25}}
+              isVisible={this.state.searchModal}
+              backdropOpacity = {0.85}
+          >
+            <UserSearch closeModal = {this.searchModal.bind(this)}/>
           </Modal>
 
           {addButton}

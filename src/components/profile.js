@@ -112,48 +112,47 @@ class Profile extends Component{
 
         <StatusBar hidden = {true}/>
           <View style = {{backgroundColor: "#00B073"}}>
-          <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
-            <View style = {styles.bar}>
-                <TouchableOpacity>
-                  <FontAwesome style = {{color: "#ffff", fontSize: 22, marginLeft: 20}}>{Icons.fff}</FontAwesome>
-                </TouchableOpacity>
+            <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
+              <View style = {styles.bar}>
+                  <TouchableOpacity>
+                    <FontAwesome style = {{color: "#ffff", fontSize: 22, marginLeft: 20}}>{Icons.fff}</FontAwesome>
+                  </TouchableOpacity>
 
-                <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
-                  <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 20}}>{Icons.users}</FontAwesome>
-                </TouchableOpacity>
-            </View>
-
-            <View style = {{paddingBottom: 10}}>
-
-              <View style = {{flexDirection:"row", margin: 20, marginBottom: 15, marginTop: 12}}>
-                <Image style={styles.imageStyle} source={{uri: User.image}}/>
-
-                <View>
-                  <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {this.state.username} </Text>
-                  <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 7, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
-                    <FontAwesome>{Icons.mapMarker}</FontAwesome> {country}
-                  </Text>
-                </View>
+                  <TouchableOpacity onPress = {this.renderFriends.bind(this)}>
+                    <FontAwesome style = {{color: "#ffff", fontSize: 20,  marginRight: 20}}>{Icons.users}</FontAwesome>
+                  </TouchableOpacity>
               </View>
 
-          <View style = {styles.stats}>
-            <View>
-              <Text style = {styles.count}>{won}</Text>
-              <Text style = {styles.text}> Won </Text>
-            </View>
+              <View style = {{paddingBottom: 10}}>
+                  <View style = {{flexDirection:"row", margin: 20, marginBottom: 15, marginTop: 12}}>
+                    <Image style={styles.imageStyle} source={{uri: User.image}}/>
 
-            <View>
-              <Text style = {styles.count}>{draw}</Text>
-              <Text style = {styles.text}> Draw </Text>
-            </View>
+                    <View>
+                      <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {this.state.username} </Text>
+                      <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 7, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
+                        <FontAwesome>{Icons.mapMarker}</FontAwesome> {country}
+                      </Text>
+                    </View>
+                  </View>
 
-            <View>
-              <Text style = {styles.count}>{lost}</Text>
-              <Text style = {styles.text}> Lost </Text>
-            </View>
+                <View style = {styles.stats}>
+                  <View>
+                    <Text style = {styles.count}>{won}</Text>
+                    <Text style = {styles.text}> Won </Text>
+                  </View>
 
-          </View>
-            </View>
+                  <View>
+                    <Text style = {styles.count}>{draw}</Text>
+                    <Text style = {styles.text}> Draw </Text>
+                  </View>
+
+                  <View>
+                    <Text style = {styles.count}>{lost}</Text>
+                    <Text style = {styles.text}> Lost </Text>
+                  </View>
+
+                </View>
+              </View>
           </LinearGradient>
         </View>
 
@@ -185,7 +184,7 @@ class Profile extends Component{
                     67.7 %
                   </Text>
                 </View>
-              </View>
+            </View>
 
           <Pages>
               <LineChart

@@ -68,6 +68,21 @@ export const MainScreen = createBottomTabNavigator({
 );
 
 const AppNavigator = StackNavigator({
+
+  MainScreen: {
+    screen: MainScreen,
+      navigationOptions:{
+        gesturesEnabled: false,
+      // title: "",
+      // headerStyle: {
+      //   backgroundColor: "black",
+      //   borderBottomColor: "black",
+      //   elevation: 3
+      // },
+      // headerTintColor: "#7DDECC",
+      header: null
+    }
+  },
   Login: {
       screen: Login,
       navigationOptions: {
@@ -83,20 +98,6 @@ const AppNavigator = StackNavigator({
         backgroundColor: "black",
         borderBottomColor: "black"
       }
-    }
-  },
-  MainScreen: {
-    screen: MainScreen,
-      navigationOptions:{
-        gesturesEnabled: false,
-      // title: "",
-      // headerStyle: {
-      //   backgroundColor: "black",
-      //   borderBottomColor: "black",
-      //   elevation: 3
-      // },
-      // headerTintColor: "#7DDECC",
-      header: null
     }
   },
   Description: {

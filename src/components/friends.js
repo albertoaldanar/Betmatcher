@@ -7,6 +7,7 @@ import UserList1 from "../constants/userList1";
 import MaterialTabs from "react-native-material-tabs";
 import SquareGrid from "react-native-square-grid";
 import UserSearch from "../reusable/userSearch";
+import UserCard from "../reusable/userCard";
 import Modal from "react-native-modal";
 import User from "../constants/user";
 import Url from "../constants/url";
@@ -217,7 +218,7 @@ class Friends extends Component{
   }
 
   render(){
-    const {userSelected, profile} = this.state;
+    const {userSelected, profile, friendAnalysis} = this.state;
     let currentUser = this.props.navigation.state.params.currentUser;
     var addButton= this.state.index == 0 ?
           <TouchableOpacity style = {styles.addButton} onPress= {()=> this.setState({searchModal: true})}>
@@ -251,42 +252,10 @@ class Friends extends Component{
               isVisible={this.state.userCard}
               backdropOpacity = {0.65}
           >
-
-            <LinearGradient style = {{margin: 20, borderRadius: 5, marginLeft: 5, marginRight: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
-                <TouchableOpacity onPress= {()=> this.setState({userCard: !this.state.userCard})} style = {{margin: 10}}>
-                  <Text style= {{fontSize: 18, color: "white"}}>X</Text>
-                </TouchableOpacity>
-
-                  <View style = {{flexDirection:"row", margin: 20, marginBottom: 15, marginTop: 12}}>
-                    <Image style={styles.imageStyle} source={{uri: User.image}}/>
-
-                    <View>
-                      <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {userSelected.username} </Text>
-                      <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 7, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
-                        <FontAwesome>{Icons.mapMarker}</FontAwesome> {profile.country}
-                      </Text>
-                    </View>
-                  </View>
-
-                <View style = {styles.stats}>
-                  <View>
-                    <Text style = {styles.count}>{profile.won}</Text>
-                    <Text style = {styles.textB}> Won </Text>
-                  </View>
-
-                  <View>
-                    <Text style = {styles.count}>{profile.draw}</Text>
-                    <Text style = {styles.textB}> Draw </Text>
-                  </View>
-
-                  <View>
-                    <Text style = {styles.count}>{profile.lost}</Text>
-                    <Text style = {styles.textB}> Lost </Text>
-                  </View>
-                </View>
-
-                {modalButton}
-            </LinearGradient>
+            <UserCard
+              closeModal = {this.cardModal.bind(this)} userSelected = {userSelected}
+              profile = {profile} isFriend ={friendAnalysis}
+            />
           </Modal>
 
           <Modal
@@ -363,41 +332,7 @@ const styles = {
     shadowOffset:{  width: 1,  height: 0.7,  },
     shadowColor: '#DCDCDC',
     shadowOpacity: 0.7,
-  },
-  stats: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 10,
-    paddingBottom: 10,
-    marginBottom: 8
-  },
-  count: {
-    color: "#00B073",
-    fontWeight: "400",
-    fontSize: 17,
-    marginBottom: 8,
-    marginLeft: 15,
-    fontStyle: "oblique"
-  },
-  textB: {
-    fontSize: 13,
-    color: "gray",
-    fontWeight: "500",
-    alignSelf: "center"
-  },
-  imageStyle:{
-    width: Dimensions.get('window').width * 0.2,
-    height: Dimensions.get('window').width * 0.2,
-    marginRight: 10
-  },
-  username: {
-    color: "white",
-    fontSize: 19,
-    fontWeight: "500",
-    alignSelf: "center",
-    marginTop: 8,
-  },
+  }
 }
 
 

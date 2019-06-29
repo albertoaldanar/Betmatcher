@@ -3,6 +3,7 @@ import {View, Text, ScrollView, TouchableOpacity, TextInput, Image, Alert} from 
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import User from "../constants/user";
 import Url from "../constants/url";
+import LinearGradient from "react-native-linear-gradient"
 
 class UserSearch extends Component{
 
@@ -97,7 +98,7 @@ class UserSearch extends Component{
     const {user} = this.state;
 
     return(
-      <View style = {{backgroundColor: "black", flex: 1, borderRadius: 8, borderColor: "gray", borderWidth: 0.5}}>
+      <LinearGradient style = {{ borderRadius: 5, flex: 1, borderRadius: 8,}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
         <TouchableOpacity style = {{position: "absolute", left: 10, top: 10, marginBottom: 10}} onPress= {this.props.closeModal}>
           <Text style = {{color:"#ffff", fontSize: 17}}> X </Text>
         </TouchableOpacity>
@@ -115,7 +116,7 @@ class UserSearch extends Component{
         <ScrollView>
           {this.userList()}
         </ScrollView>
-      </View>
+      </LinearGradient>
     );
   }
 }

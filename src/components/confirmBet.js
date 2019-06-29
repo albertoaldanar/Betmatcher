@@ -13,7 +13,11 @@ class ConfirmBet extends Component{
     this.state = {
       visible: false,
       currentUser: "",
-      currentCoins: 0
+      currentCoins: 0,
+      userCard: false,
+      userSelected: {},
+      profile: [],
+      friendAnalysis: null
     }
   }
 
@@ -28,6 +32,23 @@ class ConfirmBet extends Component{
       }
       const getCoins = await AsyncStorage.getItem('coins');
       this.setState({ currentCoins: Number(getCoins)});
+  }
+
+  getUser(user){
+
+      return fetch(`http://${Url}:8000/user_info?user=${user}&current_user=${this.state.currentUser}`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        }
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        console.log(jsonRes)
+          this.setState({userSelected: jsonRes.user, userCard: !this.state.userCard, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+      })
+      .catch(error => console.log(error));
   }
 
   analyseQuotes(myQuote){

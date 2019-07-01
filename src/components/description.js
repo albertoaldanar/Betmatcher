@@ -259,6 +259,7 @@ class Description extends Component{
             animationType ="fade"
         >
           <MatchARequest
+            currentUser = {this.state.currentUser}
             teamsNotSelected = {teamsNotSelected}
             team = {teamSelected} index = {this.state.index}
             rivalChoice = {myIndex} game = {game}

@@ -4,6 +4,9 @@ import MaterialTabs from "react-native-material-tabs";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import LinearGradient from "react-native-linear-gradient";
+import Url from "../constants/url";
+import UserCard from "../reusable/userCard";
+import Modal from "react-native-modal";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -14,8 +17,33 @@ class MatchARequest extends Component{
     super(props);
     this.state = {
       list: [],
-      cUserCoins: 3504
+      cUserCoins: 3504,
+      userSelected: "",
+      userCard: false,
+      profile: [],
+      friendAnalysis: null
     }
+  }
+
+  getUser(user){
+
+      return fetch(`http://${Url}:8000/user_info?user=${user}&current_user=${this.props.currentUser}`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        }
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        console.log(jsonRes)
+          this.setState({userSelected: jsonRes.user, userCard: !this.state.userCard, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+      })
+      .catch(error => console.log(error));
+  }
+
+  userCard(){
+    this.setState({userCard: !this.state.userCard})
   }
 
   //Segmented controller for team(s)NotSelected
@@ -147,7 +175,7 @@ class MatchARequest extends Component{
 
       if(team == u.back_team){
         return(
-          <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
+          <View>
             <View style = {styles.tableStyle}>
               <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
                 <View style= {{flexDirection:"row"}}>
@@ -156,16 +184,18 @@ class MatchARequest extends Component{
                     style = {styles.image}
                   />
 
-                  <View>
+                  <TouchableOpacity onPress = {this.getUser.bind(this, u.back_user.username)}>
                     <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.back_user.username}</Text>
                     <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {u.amount}  <FontAwesome>{Icons.database}</FontAwesome></Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
-                <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
+                <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, quote, bet)}>
+                  <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
+                </TouchableOpacity>
               </View>
             </View>
 
-          </TouchableOpacity>
+          </View>
         );
       } else {
         return null
@@ -175,6 +205,7 @@ class MatchARequest extends Component{
 
   render(){
     const {coins} = this.props;
+    const {friendAnalysis, profile, userSelected} = this.state;
 
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
@@ -190,6 +221,18 @@ class MatchARequest extends Component{
         </View>
         {this.renderSegmentedController()}
         {this.betChoice()}
+
+        <Modal
+            style={{ flex: 1, position: "relative" , margin: 50, marginLeft: 25, marginRight: 25}}
+            isVisible={this.state.userCard}
+            backdropOpacity = {0.45}
+        >
+            <UserCard
+              closeModal = {this.userCard.bind(this)}
+              isFriend ={friendAnalysis} profile = {profile} userSelected = {userSelected}
+            />
+        </Modal>
+
       </LinearGradient>
     );
   }

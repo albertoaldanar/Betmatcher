@@ -41,8 +41,6 @@ class Match extends Component{
           this.setState({ token: false });
     }
 
-    const {data} = this.state;
-
       return fetch(`http://${Url}:8000/matches/`, {
         method: "GET",
         headers: {
@@ -54,6 +52,11 @@ class Match extends Component{
       .then(res => res.json())
       .then(jsonRes => {
         console.log(jsonRes)
+          this.setState({
+            unmatchedBets: jsonRes.unmatched_bets,
+            matchedBets: jsonRes.matched_bets,
+            finishedBets: jsonRes.finished_bets
+          })
       })
       .catch(error => console.log(error));
   }
@@ -112,8 +115,25 @@ class Match extends Component{
     });
   }
 
+
+  unmatchedBets(data){
+    return data.map(value => {
+      return(
+        <View style = {{marginTop: 7}}>
+          <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
+            <View style = {{flexDirection: "row", justifyContent: "space-around"}}>
+              <View>
+                <Text style = {{color: "gray", fontSize: 15}}>{value.back_team}</Text>
+              </View>
+            </View>
+          </Card>
+        </View>
+      );
+    })
+  }
+
   choseView(){
-    const {index} = this.state;
+    const {index, unmatchedBets} = this.state;
 
     switch(index){
       case 0:
@@ -121,11 +141,7 @@ class Match extends Component{
         break;
 
       case 1:
-        return(
-          <View>
-           <Text style = {styles.emptyMessage}>No Unmatched bets</Text>
-          </View>
-        );
+        return this.unmatchedBets(unmatchedBets || [])
         break;
 
       case 2:
@@ -142,7 +158,7 @@ class Match extends Component{
   }
 
   render(){
-    console.log(this.state.data, this.state.currentUser);
+    console.log(this.state.unmatchedBets);
     return(
       <View style = {styles.container}>
         <View style = {{marginTop: 25}}>

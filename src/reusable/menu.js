@@ -151,7 +151,7 @@ class Menu extends Component {
           </View>
           </ScrollView>
 
-          <Modal visible = {this.state.leaguesModal} animationType = "slide">
+          <Modal visible = {this.state.leaguesModal} animationType = "slide" style={{ flex: 1, position: "relative" , margin: 20}}>
             <Leagues
                  filter = {this.props.filteredEvents}
                  leagues = {this.state.leagueSelected}

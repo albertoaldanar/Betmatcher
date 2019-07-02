@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Dimensions, TouchableOpacity, ScrollView, Image, Alert} from "react-native";
+import {View, Text, Dimensions, TouchableOpacity, ScrollView, Image, Alert, Switch} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import { YAxis, Grid } from 'react-native-svg-charts';
@@ -23,12 +23,14 @@ class Friends extends Component{
     this.state = {
       index: 0,
       betfriends: [],
-      friendRequests: [],
+      receivedRequests: [],
+      sentRequests: [],
       searchModal: false,
       userCard: false,
       userSelected: {},
       profile: [],
-      friendAnalysis: null
+      friendAnalysis: null,
+      requestsIndex: true
     }
   }
 
@@ -98,7 +100,8 @@ class Friends extends Component{
         if(this._isMounted){
           this.setState({
             betfriends: jsonRes.betfriends,
-            friendRequests: jsonRes.friend_requests,
+            receivedRequests: jsonRes.received_requests,
+            sentRequests: jsonRes.sent_requests,
           })
         }
       })
@@ -140,7 +143,7 @@ class Friends extends Component{
   }
 
   choseView(){
-    const {index, betfriends, friendRequests} = this.state;
+    const {index, betfriends, receivedRequests, requestsIndex, sentRequests} = this.state;
 
     switch(index){
       case 0:
@@ -148,7 +151,11 @@ class Friends extends Component{
         break;
 
       case 1:
-        return this.requestsList(friendRequests || [])
+        if(requestsIndex){
+          return this.requestsList(receivedRequests || [])
+        } else {
+          return this.requestsList(sentRequests || [])
+        }
         break;
     }
   }
@@ -196,20 +203,28 @@ class Friends extends Component{
                       style = {styles.image}
                     />
                     <View>
-                      <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{item.sent_by.username}</Text>
-                      <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.sent_by.profile.country} </Text>
+                      <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{ this.state.requestsIndex ? item.sent_by.username : item.received_by.username}</Text>
+                      <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {this.state.requestsIndex ? item.sent_by.profile.country : item.received_by.profile.country} </Text>
                     </View>
                   </View>
+                  {this.state.requestsIndex ?
+                    <View style = {{position: "absolute", right: 5, flexDirection: "row", top: 10}}>
+                      <TouchableOpacity style = {{padding: 5, borderRadius: 5, backgroundColor: "#00B073", alignSelf: "center"}} onPress = {this.createFriends.bind(this, item)}>
+                        <Text style= {{alignSelf: "center", color: "white"}}>Accept</Text>
+                      </TouchableOpacity>
 
-                  <View style = {{position: "absolute", right: 5, flexDirection: "row", top: 10}}>
-                    <TouchableOpacity style = {{padding: 5, borderRadius: 5, backgroundColor: "#00B073", alignSelf: "center"}} onPress = {this.createFriends.bind(this, item)}>
-                      <Text style= {{alignSelf: "center", color: "white"}}>Accept</Text>
-                    </TouchableOpacity>
+                      <TouchableOpacity style = {{padding: 5, borderRadius: 5, backgroundColor: "red", alignSelf: "center", marginLeft: 4}} onPress = {this.deleteRequest.bind(this, item)}>
+                        <Text style= {{alignSelf: "center", color: "white"}}>Decline</Text>
+                      </TouchableOpacity>
+                    </View> :
 
-                    <TouchableOpacity style = {{padding: 5, borderRadius: 5, backgroundColor: "red", alignSelf: "center", marginLeft: 4}} onPress = {this.deleteRequest.bind(this, item)}>
-                      <Text style= {{alignSelf: "center", color: "white"}}>Decline</Text>
-                    </TouchableOpacity>
-                  </View>
+                    <View style = {{position: "absolute", right: 5, flexDirection: "row", top: 10}}>
+                      <View style = {{padding: 5, borderRadius: 5, backgroundColor: "transparent", alignSelf: "center", marginLeft: 4}}>
+                        <FontAwesome style= {{alignSelf: "center", color: "white", fontSize: 20}}> {Icons.hourglassStart}</FontAwesome>
+                      </View >
+                    </View>
+                  }
+
                 </View>
               </View>
             </View>
@@ -218,8 +233,18 @@ class Friends extends Component{
   }
 
   render(){
-    const {userSelected, profile, friendAnalysis} = this.state;
+    const {userSelected, profile, friendAnalysis, index} = this.state;
     let currentUser = this.props.navigation.state.params.currentUser;
+
+
+    const myFirends = this.state.betfriends.map(item => {
+      const us = [item.user_a.username, item.user_b.username];
+      const friends = us.filter(user => user!= currentUser);
+
+      return friends
+
+    });
+
     var addButton= this.state.index == 0 ?
           <TouchableOpacity style = {styles.addButton} onPress= {()=> this.setState({searchModal: true})}>
               <FontAwesome style = {{color: "white", alignItems: "center", padding: 10, fontSize: 20}}>{Icons.userPlus}</FontAwesome>
@@ -230,6 +255,7 @@ class Friends extends Component{
               null : <TouchableOpacity style = {{margin: 15, backgroundColor: "#00B073", borderRadius: 5, marginTop: 10, alignSelf: "center", padding: 15, paddingTop: 8, paddingBottom: 8, marginBottom: 24}}>
                 <Text style= {{fontSize: 17, color: "white", alignSelf: "center"}}> <FontAwesome> {Icons.userPlus} </FontAwesome> Add as friend</Text>
               </TouchableOpacity>
+
 
     return(
       <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
@@ -243,6 +269,19 @@ class Friends extends Component{
                 selectedIndex={this.state.index}
                 onChange={index => this.setState({ index })}
           />
+          { index == 1 ?
+            <View style = {{flexDirection: "row", justifyContent: "space-around", marginTop: 30}}>
+              <Text style = {{color: "white"}}> Sent </Text>
+              <Switch
+                style={{alignSelf: "center"}}
+                onValueChange = {()=> this.setState({requestsIndex: !this.state.requestsIndex})}
+                value = {this.state.requestsIndex}
+                trackColor = {{false: "transparent", true: "transparent"}}
+              />
+              <Text style = {{color: "white"}}> Received </Text>
+            </View> :
+            null
+          }
           <ScrollView style = {{marginTop: 10}}>
             {this.choseView()}
           </ScrollView>
@@ -263,7 +302,11 @@ class Friends extends Component{
               isVisible={this.state.searchModal}
               backdropOpacity = {0.45}
           >
-            <UserSearch closeModal = {this.searchModal.bind(this)} getUser = {this.getUser.bind(this)} currentUser = {currentUser}/>
+            <UserSearch
+              closeModal = {this.searchModal.bind(this)}
+              getUser = {this.getUser.bind(this)} currentUser = {currentUser}
+              myFriends = {myFirends} bfrequests = {this.state.friendRequests}
+            />
           </Modal>
 
           {addButton}

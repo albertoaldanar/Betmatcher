@@ -11,7 +11,8 @@ class UserSearch extends Component{
     super(props);
     this.state= {
       user: "",
-      users: []
+      users: [],
+      list: []
     }
   }
 
@@ -23,7 +24,7 @@ class UserSearch extends Component{
   }
 
   liveSearch(user){
-      return fetch(`http://${Url}:8000/user_live?user=${user}`, {
+      return fetch(`http://${Url}:8000/user_live?user=${user}&current_user=${this.props.currentUser}`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -68,34 +69,39 @@ class UserSearch extends Component{
 
   userList(){
       const {users} = this.state;
+      const {myFriends} = this.props;
+      var merged = [].concat.apply([], myFriends);
 
       return users.map((item, index) => {
-        return(
-          <View key = {index}>
-            <View style = {styles.tableStyle}>
-              <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
-                <View style= {{flexDirection:"row"}}>
-                  <Image
-                    source = {{uri: User.image}}
-                    style = {styles.image}
-                  />
-                  <View>
-                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{item.username}</Text>
-                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> Spain </Text>
+          const res = merged.map((friend, i) => {
+              return item.username == friend ?  <Text style = {{color: "white"}}>F</Text> : <Text style = {{color: "white"}}>NN</Text>
+          })
+            return(
+                <View key = {index}>
+                  <View style = {styles.tableStyle}>
+                    <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+                      <View style= {{flexDirection:"row"}}>
+                        <Image
+                          source = {{uri: User.image}}
+                          style = {styles.image}
+                        />
+                        <View>
+                          <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{item.username}</Text>
+                          <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> Spain </Text>
+                        </View>
+                      </View>
+                      {res}
+                    </View>
                   </View>
                 </View>
-                <TouchableOpacity onPress = {this.createFriendRequest.bind(this, item)}>
-                  <FontAwesome style = {{color: "gray", alignItems: "center", padding: 10, fontSize: 20}}>{Icons.userPlus}</FontAwesome>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        );
+            );
       })
   }
 
   render(){
     const {user} = this.state;
+    var merged = [].concat.apply([], this.props.myFriends);
+    console.log(merged)
 
     return(
       <LinearGradient style = {{ borderRadius: 5, flex: 1, borderRadius: 8,}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
@@ -116,6 +122,7 @@ class UserSearch extends Component{
         <ScrollView>
           {this.userList()}
         </ScrollView>
+
       </LinearGradient>
     );
   }

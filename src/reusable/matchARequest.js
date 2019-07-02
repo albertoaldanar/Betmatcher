@@ -230,6 +230,7 @@ class MatchARequest extends Component{
             <UserCard
               closeModal = {this.userCard.bind(this)}
               isFriend ={friendAnalysis} profile = {profile} userSelected = {userSelected}
+              addButton = {false}
             />
         </Modal>
 

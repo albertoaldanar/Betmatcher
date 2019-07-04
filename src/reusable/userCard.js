@@ -14,7 +14,7 @@ class UserCard extends Component{
                     <Text style= {{fontSize: 17, color: "white", alignSelf: "center"}}> <FontAwesome> {Icons.userPlus} </FontAwesome> Add as friend</Text>
                   </TouchableOpacity>
 
-    var renderButton = this.props.addButton ? modalButton : null
+
 
     return(
       <LinearGradient style = {{margin: 20, borderRadius: 5, marginLeft: 5, marginRight: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
@@ -50,7 +50,7 @@ class UserCard extends Component{
                   </View>
                 </View>
 
-                {renderButton}
+                {modalButton}
           </LinearGradient>
     );
   }

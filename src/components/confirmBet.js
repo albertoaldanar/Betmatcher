@@ -5,6 +5,7 @@ import {NavigationActions} from "react-navigation";
 import YouHaveMatch from "./youHaveMatch";
 import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
+import Moment from "moment";
 
 class ConfirmBet extends Component{
 
@@ -97,7 +98,7 @@ class ConfirmBet extends Component{
   sendToMatches(){
     const navigateAction = NavigationActions.navigate({
       routeName: "Match",
-      params: {}
+      params: {refreshing: true}
     });
     this.props.navigation.dispatch(navigateAction);
   }
@@ -136,12 +137,12 @@ class ConfirmBet extends Component{
 
               <View>
                 <Text style = {styles.text}>{game.data.league.name}</Text>
-                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{game.data.date}</Text>
-
-
+                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{Moment(game.data.date).endOf("day").fromNow()}</Text>
+                <View style = {{flexDirection: "row"}}>
                   <Text style = {styles.word}>{game.local.name}</Text>
                   <Text style = {[styles.word, {fontStyle: "oblique"}]}>VS.</Text>
                   <Text style = {styles.word}>{game.visit.name}</Text>
+                </View>
               </View>
             </View>
         </View>

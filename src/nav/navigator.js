@@ -36,7 +36,7 @@ export const MainScreen = createBottomTabNavigator({
     screen: Match,
     navigationOptions: {
       tabBarLabel: "MY BETS",
-      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.retweet}</FontAwesome>
+      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.comments}</FontAwesome>
     }
   },
   Profile: {
@@ -68,13 +68,7 @@ export const MainScreen = createBottomTabNavigator({
 );
 
 const AppNavigator = StackNavigator({
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        header: null
-      }
-    },
-    MainScreen: {
+  MainScreen: {
     screen: MainScreen,
       navigationOptions:{
         gesturesEnabled: false,
@@ -87,6 +81,12 @@ const AppNavigator = StackNavigator({
       // headerTintColor: "#7DDECC",
       header: null
     }
+  },
+  Login: {
+      screen: Login,
+      navigationOptions: {
+        header: null
+      }
   },
 
   Friends: {

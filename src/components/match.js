@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View,Text, TouchableOpacity, Image, ScrollView, AsyncStorage} from "react-native";
+import {View,Text, TouchableOpacity, Image, ScrollView, AsyncStorage, Dimensions, RefreshControl} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
@@ -10,6 +10,8 @@ import LinearGradient from "react-native-linear-gradient";
 import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
 import Url from "../constants/url";
+import UserCard from "../reusable/userCard";
+import Moment from "moment";
 
 class Match extends Component{
 
@@ -17,14 +19,20 @@ class Match extends Component{
 
   constructor(props){
     super(props);
-    this.state = {index: 0, chat: false, modal: false, matches: [], unmatched: [], finished: [], token: "", currentUser: ""}
+    this.state = {
+      index: 0, chat: false, modal: false,
+       matches: [], unmatched: [], finished: [],
+       token: "", currentUser: "", userCard: false,
+       friendAnalysis: [], userSelected: "", profile: [],
+       refreshing: false
+     }
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  async componentDidMount(){
+  async getMatches(){
     this._isMounted = true;
 
     const usernameGet = await AsyncStorage.getItem('username');
@@ -55,10 +63,15 @@ class Match extends Component{
           this.setState({
             unmatchedBets: jsonRes.unmatched_bets,
             matchedBets: jsonRes.matched_bets,
-            finishedBets: jsonRes.finished_bets
+            finishedBets: jsonRes.finished_bets,
+            refreshing: false
           })
       })
       .catch(error => console.log(error));
+  }
+
+  componentDidMount(){
+      return this.getMatches()
   }
 
   handleIndexChange(index){
@@ -69,63 +82,151 @@ class Match extends Component{
     this.setState({modal: !this.state.modal})
   }
 
-  renderChat(){
-    this.setState({chat: !this.state.chat})
+  userCard(){
+    this.setState({userCard: !this.state.userCard})
   }
 
-  renderMatches(){
-    return Matches.map(m => {
+  getUser(user){
+      return fetch(`http://${Url}:8000/user_info?user=${user}&current_user=${this.state.currentUser}`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        }
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        console.log(jsonRes)
+          this.setState({userSelected: jsonRes.user, userCard: !this.state.userCard, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+      })
+      .catch(error => console.log(error));
+  }
+
+  renderMatches(data){
+    return data.map(item => {
+      const order = this.state.currentUser == item.back_user.username ? [["You", item.back_team], [item.lay_user.username, item.lay_team]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
+
         return (
-              <View style= {{marginTop: 7}}>
-                <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
-                  <View style = {styles.spaceBetween}>
-                    <Text style = {[styles.topItem, {fontStyle: "oblique"}]}>{m.league}</Text>
-                    <Text style = {[styles.topItem, {color: "gold"}]}>{m.bet}  <FontAwesome>{Icons.database}</FontAwesome></Text>
-                  </View>
+          <View style = {{marginTop: 7}}>
+          <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
 
-                  <View style = {[styles.spaceBetween, {margin: 10}]}>
 
-                    <View style = {styles.spaceAround}>
-                      <View style ={styles.space}>
-                        <Text style = {styles.lay}>{m.local}</Text>
-                        <Text style = {styles.user}>{m.user1}</Text>
-                      </View>
+              <View style = {{justifyContent: "space-between", flexDirection:"row"}}>
+                <View>
+                    <View style = {{flexDirection: "row"}}>
+                      <Text style = {[styles.league, {marginRight: 5}]}>{item.event.sport.name}</Text>
+                      <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
+                      <Text style = {[styles.league, {marginLeft: 5}]}>{item.event.league.name}</Text>
+                    </View>
+                    <View style = {[styles.game, {marginTop: 4}]}>
+                      <Text style = {styles.word}>{item.event.local.name}</Text>
+                      <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 10, marginTop: 3}]}>VS.</Text>
+                      <Text style = {styles.word}>{item.event.visit.name}</Text>
+                    </View>
+                </View>
 
-                      <View style ={styles.space}>
-                        <Text style = {styles.lay}> Draw </Text>
-                      </View>
+                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}}>
+                  <FontAwesome style = {{fontSize: 30, color: "#00B073"}}>{Icons.comments}</FontAwesome>
+                </TouchableOpacity>
+              </View>
 
-                      <View style ={styles.space}>
-                        <Text style = {styles.lay}>{m.visit}</Text>
-                        <Text style = {styles.user}>{m.user2}</Text>
-                      </View>
+              <View style = {{display: "flex", flexDirection: "row", marginTop: 20, marginBottom: 15, justifyContent: "space-around"}}>
+                    <View>
+                      <Text style = {[styles.word, {fontSize: 15, alignSelf: "center", fontWeight: "bold"}]}>{order[0][0]}</Text>
+                      <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{order[0][1]}</Text>
                     </View>
 
-                    <TouchableOpacity onPress = {this.toggleModal.bind(this)}>
-                      <FontAwesome style = {[styles.icon, {color: "#00B073"}]}>{Icons.comments}</FontAwesome>
-                    </TouchableOpacity>
-                  </View>
 
-                  <View style = {styles.hourScore}>
-                    <Text style = {styles.hour}>{m.time}</Text>
-                  </View>
-                </Card>
+                    <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 14, marginTop: 3}]}>VS.</Text>
+
+                    <View>
+                      <TouchableOpacity style = {{borderBottomWidth: 0.5, borderBottomColor: "white"}} onPress= {this.getUser.bind(this, order[1][0])}>
+                        <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>{order[1][0]}</Text>
+                      </TouchableOpacity>
+                      <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{order[1][1]}</Text>
+                    </View>
               </View>
+
+              <View style = {{borderTopWidth: 0.3, borderTopColor: "#DCDCDC", marginLeft: 6, marginRight: 6}}>
+                <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
+                  {item.event.in_play ?
+                    <View style = {{flexDirection: "row"}}>
+                      <Text style = {{color: "#D24D57", fontSize: 13, fontWeight: "600"}}> LIVE </Text>
+                      <Image style={{width: 15, height: 15}} source={{uri: "https://images-na.ssl-images-amazon.com/images/I/41bOFc-Yt8L.png"}}/>
+                      <Text style = {{color: "gray", fontSize: 14, fontWeight: "600", alignSelf: "center", fontStyle: "oblique", marginTop: -5, marginLeft: 5}}> 16 '</Text>
+                    </View> :
+                    <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+                  }
+
+                  {item.event.is_finished || item.event.in_play ?
+                      <Text style = {{color: "gray", fontSize: 16, fontWeight: "600", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>
+                      : null
+                  }
+                  <View style = {{flexDirection: "row"}}>
+                    <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> AMOUNT: </Text>
+                    <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{item.amount} £</Text>
+                  </View>
+                </View>
+              </View>
+          </Card>
+        </View>
         );
     });
   }
 
 
   unmatchedBets(data){
-    return data.map(value => {
+    return data.map(item => {
+      const userOrder = item.event.local.name == item.back_team ? [item.back_user.username, "Wating"] : ["Wating", item.back_user.username];
+
+      let requesType = item.is_public  ?
+         <FontAwesome style= {{alignSelf: "center", color: "white", fontSize: 20}}> {Icons.hourglassStart}</FontAwesome>
+        :   <View>
+              <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>lautaroac</Text>
+              <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
+            </View>
+
+
       return(
         <View style = {{marginTop: 7}}>
           <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
-            <View style = {{flexDirection: "row", justifyContent: "space-around"}}>
-              <View>
-                <Text style = {{color: "gray", fontSize: 15}}>{value.back_team}</Text>
+
+              <View style = {{flexDirection: "row"}}>
+                <Text style = {[styles.league, {marginRight: 5}]}>{item.event.sport.name}</Text>
+                <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
+                <Text style = {[styles.league, {marginLeft: 5}]}>{item.event.league.name}</Text>
               </View>
-            </View>
+
+              <View style = {[styles.game, {marginTop: 4}]}>
+                  <Text style = {styles.word}>{item.event.local.name}</Text>
+                  <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 10, marginTop: 3}]}>VS.</Text>
+                  <Text style = {styles.word}>{item.event.visit.name}</Text>
+              </View>
+
+              <View style = {{display: "flex", justifyContent: "space-around", flexDirection: "row", marginTop: 20, marginBottom: 15}}>
+                <View>
+                  <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>You</Text>
+                  <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{item.back_team}</Text>
+                </View>
+
+
+                <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 14, marginTop: 3}]}>VS.</Text>
+
+                <View>
+                  {requesType}
+                </View>
+
+              </View>
+
+              <View style = {{borderTopWidth: 0.3, borderTopColor: "#DCDCDC", marginLeft: 6, marginRight: 6}}>
+                <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
+                  <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+                  <View style = {{flexDirection: "row"}}>
+                    <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> BET: </Text>
+                    <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{item.amount} £</Text>
+                  </View>
+                </View>
+              </View>
           </Card>
         </View>
       );
@@ -133,11 +234,11 @@ class Match extends Component{
   }
 
   choseView(){
-    const {index, unmatchedBets} = this.state;
+    const {index, unmatchedBets, matchedBets, finishedBets} = this.state;
 
     switch(index){
       case 0:
-        return this.renderMatches()
+        return this.renderMatches(matchedBets || [])
         break;
 
       case 1:
@@ -145,20 +246,15 @@ class Match extends Component{
         break;
 
       case 2:
-        return(
-          <View>
-            <TouchableOpacity>
-              <Text style = {styles.emptyMessage}>No Finished bets</Text>
-            </TouchableOpacity>
-            <Text style = {styles.emptyMessage}>{this.state.currentUser}</Text>
-          </View>
-        );
+        return this.unmatchedBets(finishedBets || [])
         break;
     }
   }
 
   render(){
     console.log(this.state.unmatchedBets);
+    const {userSelected, profile, friendAnalysis} = this.state;
+
     return(
       <View style = {styles.container}>
         <View style = {{marginTop: 25}}>
@@ -175,23 +271,41 @@ class Match extends Component{
             />
           </View>
         </View>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.getMatches.bind(this)}
+              />
+          }
+        >
           <View>
             {this.choseView()}
           </View>
         </ScrollView>
 
-            <Modal
-              style={{ flex: 1, position: "relative" }}
-              isVisible={this.state.modal}
-              backdropOpacity = {0.85}
-            >
+        <Modal
+              style={{ flex: 1, position: "relative" , margin: 50, marginLeft: 25, marginRight: 25}}
+              isVisible={this.state.userCard}
+              backdropOpacity = {0.45}
+        >
+            <UserCard
+              closeModal = {this.userCard.bind(this)} userSelected = {userSelected}
+              profile = {profile} isFriend ={friendAnalysis}
+            />
+        </Modal>
+
+        <Modal
+          style={{ flex: 1, position: "relative" }}
+          isVisible={this.state.modal}
+          backdropOpacity = {0.85}
+        >
               <Text style = {styles.expText}>You have to bet more becuase freigeriguergegieirugerug</Text>
 
               <TouchableOpacity style = {{backgroundColor:"#00B073", padding: 10, borderRadius: 5, margin: 50}} onPress={this.toggleModal.bind(this)}>
                 <Text style = {{color: "white", fontSize: 17, alignSelf:"center",}}>Got it  <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>
               </TouchableOpacity>
-            </Modal>
+        </Modal>
 
       </View>
     );
@@ -257,7 +371,32 @@ const styles = {
     fontSize: 16,
     alignSelf: "center",
     marginTop: 20
-  }
+  },
+  text: {
+    color: "white",
+    fontWeight: "500",
+    fontSize: 16,
+    paddingBottom: 5
+  },
+  imageStyle:{
+    width: Dimensions.get('window').width * 0.1,
+    height: Dimensions.get('window').width * 0.1,
+    marginRight: 10
+  },
+  league: {
+    color: "#00B073",
+    fontWeight: "bold",
+    fontSize: 11
+  },
+  game: {
+    flexDirection:"row"
+  },
+  word: {
+    color: "white",
+    marginRight: 6,
+    fontSize: 13,
+    fontWeight: "400"
+  },
 }
 
 export default Match;

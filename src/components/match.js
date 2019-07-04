@@ -154,8 +154,9 @@ class Match extends Component{
                       <Text style = {{color: "#D24D57", fontSize: 13, fontWeight: "600"}}> LIVE </Text>
                       <Image style={{width: 15, height: 15}} source={{uri: "https://images-na.ssl-images-amazon.com/images/I/41bOFc-Yt8L.png"}}/>
                       <Text style = {{color: "gray", fontSize: 14, fontWeight: "600", alignSelf: "center", fontStyle: "oblique", marginTop: -5, marginLeft: 5}}> 16 '</Text>
-                    </View> :
-                    <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+                    </View> : item.event.is_finished ?
+                      <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text> :
+                      <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
                   }
 
                   {item.event.is_finished || item.event.in_play ?
@@ -221,6 +222,7 @@ class Match extends Component{
               <View style = {{borderTopWidth: 0.3, borderTopColor: "#DCDCDC", marginLeft: 6, marginRight: 6}}>
                 <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
                   <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+                  {item.is_public  ? <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "400", fontStyle: "oblique"}}> Public bet </Text> : <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "600"}}> Private bet </Text>}
                   <View style = {{flexDirection: "row"}}>
                     <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> BET: </Text>
                     <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{item.amount} £</Text>
@@ -246,7 +248,7 @@ class Match extends Component{
         break;
 
       case 2:
-        return this.unmatchedBets(finishedBets || [])
+        return this.renderMatches(finishedBets || [])
         break;
     }
   }

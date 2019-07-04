@@ -24,8 +24,10 @@ class Match extends Component{
        matches: [], unmatched: [], finished: [],
        token: "", currentUser: "", userCard: false,
        friendAnalysis: [], userSelected: "", profile: [],
-       refreshing: false
+       refreshing: false, positionSelected: ""
      }
+
+     // this.resultAnalysis = this.resultAnalysis.bind(this);
   }
 
   componentWillUnmount() {
@@ -86,6 +88,33 @@ class Match extends Component{
     this.setState({userCard: !this.state.userCard})
   }
 
+  resultAnalysis(back_user, back_team, lay_team, event){
+    const teamSelected = this.state.currentUser == back_user ? back_team : lay_team
+    const {positionSelected} = this.state;
+
+    if(event.local.name == teamSelected){
+      this.setState({positionSelected: "Local"})
+    } else if (event.visit.name == teamSelected){
+      this.setState({positionSelected: "Visit"})
+    }
+    else {
+      this.setState({positionSelected: "Draw"})
+    }
+
+    if(event.score_local > event.score_visit){
+      if(positionSelected == "Local"){
+        return(
+           <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text>
+        )
+      } else if(positionSelected == "Visit"){
+        return(
+          <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.timesCircle}</FontAwesome> LOST </Text>
+        )
+      }
+    }
+
+  }
+
   getUser(user){
       return fetch(`http://${Url}:8000/user_info?user=${user}&current_user=${this.state.currentUser}`, {
         method: "GET",
@@ -109,7 +138,6 @@ class Match extends Component{
         return (
           <View style = {{marginTop: 7}}>
           <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
-
 
               <View style = {{justifyContent: "space-between", flexDirection:"row"}}>
                 <View>
@@ -153,9 +181,7 @@ class Match extends Component{
                     <View style = {{flexDirection: "row"}}>
                       <Text style = {{color: "#D24D57", fontSize: 13, fontWeight: "600"}}> LIVE </Text>
                       <Image style={{width: 15, height: 15}} source={{uri: "https://images-na.ssl-images-amazon.com/images/I/41bOFc-Yt8L.png"}}/>
-                      <Text style = {{color: "gray", fontSize: 14, fontWeight: "600", alignSelf: "center", fontStyle: "oblique", marginTop: -5, marginLeft: 5}}> 16 '</Text>
-                    </View> : item.event.is_finished ?
-                      <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text> :
+                    </View> : item.event.is_finished ? this.resultAnalysis(item.back_user.username, item.back_team, item.lay_team, item.event) :
                       <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
                   }
 
@@ -186,7 +212,6 @@ class Match extends Component{
               <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>lautaroac</Text>
               <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
             </View>
-
 
       return(
         <View style = {{marginTop: 7}}>
@@ -256,6 +281,7 @@ class Match extends Component{
   render(){
     console.log(this.state.unmatchedBets);
     const {userSelected, profile, friendAnalysis} = this.state;
+    console.log(this.state.positionSelected)
 
     return(
       <View style = {styles.container}>

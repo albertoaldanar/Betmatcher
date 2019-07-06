@@ -353,6 +353,7 @@ const styles = {
     color: "#ffff",
     fontSize: 17,
     alignSelf: "center",
+    fontFamily: "Avenir"
   },
   messageContainer: {
     display: "flex",
@@ -366,7 +367,7 @@ const styles = {
     fontSize: 25,
     margin: 10,
     fontWeight: "600",
-    fontStyle: "oblique"
+    fontStyle: "oblique",
   },
   directCard: {
     display: "flex",

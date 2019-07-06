@@ -88,31 +88,75 @@ class Match extends Component{
     this.setState({userCard: !this.state.userCard})
   }
 
+
+  currentUserResult(result){
+      if(result == "Visit"){
+          return(
+            <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text>
+          )
+      } else if (result == "Local") {
+          return(
+            <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.timesCircle}</FontAwesome> LOST </Text>
+          )
+        }
+  }
+
   resultAnalysis(back_user, back_team, lay_team, event){
     const teamSelected = this.state.currentUser == back_user ? back_team : lay_team
     const {positionSelected} = this.state;
 
     if(event.local.name == teamSelected){
-      this.setState({positionSelected: "Local"})
+       return this.currentUserResult("Local")
     } else if (event.visit.name == teamSelected){
-      this.setState({positionSelected: "Visit"})
+       return this.currentUserResult("Visit")
     }
     else {
-      this.setState({positionSelected: "Draw"})
+      return this.currentUserResult("Draw")
     }
 
-    if(event.score_local > event.score_visit){
-      if(positionSelected == "Local"){
-        return(
-           <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text>
-        )
-      } else if(positionSelected == "Visit"){
-        return(
-          <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.timesCircle}</FontAwesome> LOST </Text>
-        )
-      }
-    }
+    // if(event.score_local > event.score_visit){
+    //   if(positionSelected == "Local"){
+    //     return(
+    //        <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text>
+    //     )
+    //   } else if(positionSelected == "Visit"){
+    //     return(
+    //       <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.timesCircle}</FontAwesome> LOST </Text>
+    //     )
+    //   }
+    // }
+      // if(event.score_local > event.score_visit){
+      //     return(
+      //       <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text>
+      //     )
+      // } else {
+      //     return(
+      //       <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.timesCircle}</FontAwesome> LOST </Text>
+      //     )
+      //   }
+    // return <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.timesCircle}</FontAwesome> LOST </Text>
+  }
 
+  dateOrResult(item){
+
+    const teamSelected = this.state.currentUser == item.back_user.username ? item.back_team : item.lay_team
+    const {positionSelected} = this.state;
+
+    if(item.event.in_play){
+      return(
+          <View style = {{flexDirection: "row"}}>
+              <Text style = {{color: "#D24D57", fontSize: 13, fontWeight: "600"}}> LIVE </Text>
+              <Image style={{width: 15, height: 15}} source={{uri: "https://images-na.ssl-images-amazon.com/images/I/41bOFc-Yt8L.png"}}/>
+          </View>
+      );
+    } else if(item.event.is_finished){
+        return this.resultAnalysis(item.back_user.username, item.back_team.username, item.lay_team, item.event)
+         // return <Text style = {{color: "#00B073", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.check}</FontAwesome> WON </Text>
+    } else {
+      return(
+          <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+      );
+    }
   }
 
   getUser(user){
@@ -177,13 +221,7 @@ class Match extends Component{
 
               <View style = {{borderTopWidth: 0.3, borderTopColor: "#DCDCDC", marginLeft: 6, marginRight: 6}}>
                 <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
-                  {item.event.in_play ?
-                    <View style = {{flexDirection: "row"}}>
-                      <Text style = {{color: "#D24D57", fontSize: 13, fontWeight: "600"}}> LIVE </Text>
-                      <Image style={{width: 15, height: 15}} source={{uri: "https://images-na.ssl-images-amazon.com/images/I/41bOFc-Yt8L.png"}}/>
-                    </View> : item.event.is_finished ? this.resultAnalysis(item.back_user.username, item.back_team, item.lay_team, item.event) :
-                      <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
-                  }
+                  {this.dateOrResult(item)}
 
                   {item.event.is_finished || item.event.in_play ?
                       <Text style = {{color: "gray", fontSize: 16, fontWeight: "600", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>

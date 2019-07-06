@@ -79,7 +79,7 @@ const styles = {
     color: "white",
     fontWeight: "500",
     fontSize: 16,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   league: {
     color: "#00B073",

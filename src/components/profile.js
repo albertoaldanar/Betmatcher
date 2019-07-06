@@ -72,18 +72,6 @@ class Profile extends Component{
       .catch(error => console.log(error));
   }
 
-
-    // displayToken = async () => {
-    //     let token = ""
-    //     try{
-    //       token = await AsyncStorage.getItem("token");
-    //     }
-    //     catch(error){
-    //       console.log(error)
-    //     }
-    //     return token
-    //   }
-
   renderFriends(){
     const navigateAction = NavigationActions.navigate({
       routeName: "Friends",

@@ -27,10 +27,10 @@ class FriendsModal extends Component{
                       source = {{uri: User.image}}
                       style = {styles.image}
                     />
-                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{friend}</Text>
+                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{friend[0]}</Text>
                   </View>
 
-                  <TouchableOpacity onPress = {this.props.selectOpponent.bind(this, friend)}>
+                  <TouchableOpacity onPress = {this.props.selectOpponent.bind(this, friend[0])}>
                     <FontAwesome style = {{color: "#00B073", alignItems: "center", paddingTop: 10, fontSize: 20}}>{Icons.share}</FontAwesome>
                   </TouchableOpacity>
                 </View>

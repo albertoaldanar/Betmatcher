@@ -206,6 +206,7 @@ class MatchARequest extends Component{
   render(){
     const {coins} = this.props;
     const {friendAnalysis, profile, userSelected} = this.state;
+    console.log(this.props.requests);
 
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>

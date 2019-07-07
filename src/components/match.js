@@ -96,7 +96,7 @@ class Match extends Component{
       );
     } else if(currentUser == item.looser){
       return(
-        <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400"}} > <FontAwesome>{Icons.check}</FontAwesome>  LOST</Text>
+        <Text style = {{color: "#D24D57", fontStyle: "oblique", fontWeight: "400"}} > <FontAwesome>{Icons.timesCircle}</FontAwesome>  LOST</Text>
       );
     } else {
       return(
@@ -201,7 +201,9 @@ class Match extends Component{
       let requesType = item.is_public  ?
          <FontAwesome style= {{alignSelf: "center", color: "white", fontSize: 20}}> {Icons.hourglassStart}</FontAwesome>
         :   <View>
-              <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>lautaroac</Text>
+                <TouchableOpacity style = {{borderBottomWidth: 0.5, borderBottomColor: "white"}} onPress= {this.getUser.bind(this, item.opponent)}>
+                    <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>{item.opponent}</Text>
+                </TouchableOpacity>
               <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
             </View>
 

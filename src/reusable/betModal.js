@@ -129,6 +129,7 @@ class BetModal extends Component{
 
   postRequest(){
     let {currentUser, game, team, coins} = this.props;
+    const {opponent} = this.state;
 
     if(this.state.bet > coins){
       return Alert.alert("Can´t send bet", `You don´t have ${this.state.bet} coins, sorry :( `, [{text: 'Continue', onPress: this.props.sendToMatchFromLay}])
@@ -142,7 +143,7 @@ class BetModal extends Component{
           body: JSON.stringify({
             back_user: currentUser, event: game.data.name,
             back_team: team.name, amount: this.state.bet,
-            is_public: this.state.publicBet
+            is_public: this.state.publicBet, opponent: this.state.opponent
           })
         })
         .then(res => res.json())
@@ -152,7 +153,6 @@ class BetModal extends Component{
         .catch(error => console.log(error));
     }
   }
-
 
   gameType(game, position){
     let {bet} = this.state;
@@ -263,6 +263,7 @@ class BetModal extends Component{
   }
 
   render(){
+      console.log(this.state.opponent)
       let button;
         button = this.props.coins > 50 ? <TouchableOpacity
                     style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}

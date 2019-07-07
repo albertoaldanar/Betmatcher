@@ -7,6 +7,7 @@ import UserList1 from "../constants/userList1";
 import MaterialTabs from "react-native-material-tabs";
 import SquareGrid from "react-native-square-grid";
 import UserSearch from "../reusable/userSearch";
+import Card from "../reusable/card";
 import UserCard from "../reusable/userCard";
 import Modal from "react-native-modal";
 import User from "../constants/user";
@@ -30,7 +31,8 @@ class Friends extends Component{
       userSelected: {},
       profile: [],
       friendAnalysis: null,
-      requestsIndex: true
+      requestsIndex: true,
+      directBets: {}
     }
   }
 
@@ -102,6 +104,7 @@ class Friends extends Component{
             betfriends: jsonRes.betfriends,
             receivedRequests: jsonRes.received_requests,
             sentRequests: jsonRes.sent_requests,
+            directBets: jsonRes.direct_bets
           })
         }
       })
@@ -143,7 +146,7 @@ class Friends extends Component{
   }
 
   choseView(){
-    const {index, betfriends, receivedRequests, requestsIndex, sentRequests} = this.state;
+    const {index, betfriends, receivedRequests, requestsIndex, sentRequests, directBets} = this.state;
 
     switch(index){
       case 0:
@@ -156,6 +159,10 @@ class Friends extends Component{
         } else {
           return this.requestsList(sentRequests || [])
         }
+        break;
+
+      case 2:
+        return this.directBetCard(directBets || [])
         break;
     }
   }
@@ -232,10 +239,39 @@ class Friends extends Component{
         })
   }
 
+  directBetCard(data){
+    const {directBets} = this.state;
+
+    return directBets.map(db => {
+      return(
+        <View style = {{margin: 5, padding: 5}}>
+            <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+
+              <View>
+                <View style = {{flexDirection: "row"}}>
+                  <Text style = {[styles.league, {marginRight: 5}]}>{db.event.sport.name}</Text>
+                  <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
+                  <Text style = {[styles.league, {marginLeft: 5}]}>{db.event.league.name}</Text>
+                </View>
+
+                <View style = {[styles.game, {marginTop: 4}]}>
+                    <Text style = {styles.word}>{db.event.local.name}</Text>
+                    <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 10, marginTop: 3}]}>VS.</Text>
+                    <Text style = {styles.word}>{db.event.visit.name}</Text>
+                </View>
+              </View>
+
+             <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{db.amount} £</Text>
+            </View>
+        </View>
+      );
+    })
+  }
+
   render(){
     const {userSelected, profile, friendAnalysis, index} = this.state;
     let currentUser = this.props.navigation.state.params.currentUser;
-
+    console.log(this.state.directBets)
 
     const myFirends = this.state.betfriends.map(item => {
       const us = [item.user_a.username, item.user_b.username];
@@ -260,7 +296,7 @@ class Friends extends Component{
     return(
       <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
           <MaterialTabs
-                items={['Betfriends', "Friend requests"]}
+                items={['Betfriends', "Requests", "Direct bets"]}
                 indicatorColor ="#00B073"
                 activeTextColor ="white"
                 textStyle= {{fontSize: 12.5}}
@@ -375,7 +411,21 @@ const styles = {
     shadowOffset:{  width: 1,  height: 0.7,  },
     shadowColor: '#DCDCDC',
     shadowOpacity: 0.7,
-  }
+  },
+  league: {
+    color: "#00B073",
+    fontWeight: "bold",
+    fontSize: 11
+  },
+  game: {
+    flexDirection:"row"
+  },
+  word: {
+    color: "white",
+    marginRight: 6,
+    fontSize: 13,
+    fontWeight: "400"
+  },
 }
 
 

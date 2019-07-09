@@ -15,6 +15,8 @@ const itemHeight = Dimensions.get('window').height;
 class BetModal extends Component{
 
   constructor(props){
+    const qts = props.game.data.sport.name == "Soccer" ? [props.teamsNotSelected[0].quotes[props.team.position], props.teamsNotSelected[1].quotes[props.team.position]] : [props.teamsNotSelected[0].quotes, null];
+
     super(props);
     this.state = {
       bet: 50,
@@ -25,6 +27,8 @@ class BetModal extends Component{
       publicBet: false,
       infoModal: false,
       betfriends: [],
+      fq: qts[0],
+      sq: qts[1]
     }
   }
 
@@ -128,7 +132,7 @@ class BetModal extends Component{
   }
 
   postRequest(){
-    let {currentUser, game, team, coins} = this.props;
+    let {currentUser, game, team, coins, teamsNotSelected} = this.props;
     const {opponent} = this.state;
 
     if(this.state.bet > coins){
@@ -263,7 +267,7 @@ class BetModal extends Component{
   }
 
   render(){
-      console.log(this.state.opponent)
+      console.log(this.state.fq, this.state.sq)
       let button;
         button = this.props.coins > 50 ? <TouchableOpacity
                     style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}

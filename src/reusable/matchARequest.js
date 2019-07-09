@@ -26,7 +26,6 @@ class MatchARequest extends Component{
   }
 
   getUser(user){
-
       return fetch(`http://${Url}:8000/user_info?user=${user}&current_user=${this.props.currentUser}`, {
         method: "GET",
         headers: {
@@ -162,7 +161,7 @@ class MatchARequest extends Component{
                     </TouchableOpacity>
                 </View>
 
-                {this.userList(teamsNotSelected[1].name, teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes)}
+                {this.userList(teamsNotSelected[1].name, teamsNotSelected[1].quotes[position] || teamsNotSelected[1].quotes)}
               </View>
           );
         }
@@ -172,6 +171,8 @@ class MatchARequest extends Component{
   userList(team, quote){
     return this.props.requests.map((u, index) => {
       var bet = quote > 0 ? Math.round(u.amount - ((quote / 100) * u.amount)) : u.amount;
+
+      const currentQuote = position == 1 ? u.fq : u.sq
 
       if(team == u.back_team){
         return(

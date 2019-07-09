@@ -8,11 +8,11 @@ import MaterialTabs from "react-native-material-tabs";
 import SquareGrid from "react-native-square-grid";
 import UserSearch from "../reusable/userSearch";
 import Card from "../reusable/card";
+import MatchDirect from "../reusable/matchDirect";
 import UserCard from "../reusable/userCard";
 import Modal from "react-native-modal";
 import User from "../constants/user";
 import Url from "../constants/url";
-
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -32,7 +32,9 @@ class Friends extends Component{
       profile: [],
       friendAnalysis: null,
       requestsIndex: true,
-      directBets: {}
+      directBets: {},
+      directBetModal: false,
+      selectedBet: {}
     }
   }
 
@@ -40,11 +42,19 @@ class Friends extends Component{
     return this.getData()
   }
 
+  directBetModal(){
+    this.setState({directBetModal: !this.state.directBetModal})
+  }
+
   cardModal(){
     this.setState({userCard: !this.state.userCard})
   }
   searchModal(){
     this.setState({searchModal: !this.state.searchModal})
+  }
+
+  selectBet(value){
+    this.setState({selectedBet: value, directBetModal: !this.state.searchModal})
   }
 
   getUser(user){
@@ -244,7 +254,7 @@ class Friends extends Component{
 
     return directBets.map(db => {
       return(
-        <View style = {{margin: 5, padding: 5}}>
+        <Card>
             <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
 
               <View>
@@ -263,7 +273,22 @@ class Friends extends Component{
 
              <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{db.amount} £</Text>
             </View>
-        </View>
+
+            <View style = {{alignSelf: "center", marginTop: 10, marginBottom: 10}}>
+              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center", marginBottom: 5}]}>{db.back_user.username}</Text>
+              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center"}]}>{db.back_team}</Text>
+            </View>
+
+            <View style = {{justifyContent:"space-around", flexDirection:"row"}}>
+              <TouchableOpacity onPress = {this.selectBet.bind(this, db)} style = {{backgroundColor: "#00B073", borderRadius: 5, padding: 10}}>
+                <Text style = {{color: "white", alignSelf: "center"}}>Accept bet</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style = {{backgroundColor: "#D24D57", borderRadius: 5, padding: 10}}>
+                <Text>Decline</Text>
+              </TouchableOpacity>
+            </View>
+        </Card>
       );
     })
   }
@@ -342,6 +367,19 @@ class Friends extends Component{
               closeModal = {this.searchModal.bind(this)}
               getUser = {this.getUser.bind(this)} currentUser = {currentUser}
               myFriends = {myFirends} bfrequests = {this.state.friendRequests}
+            />
+          </Modal>
+
+
+          <Modal
+              style={{ flex: 1}}
+              isVisible={this.state.directBetModal}
+              backdropOpacity = {0.45}
+              animationInTiming = {600}
+          >
+            <MatchDirect
+              closeModal = {this.directBetModal.bind(this)}
+              directBet = {this.state.selectedBet}
             />
           </Modal>
 

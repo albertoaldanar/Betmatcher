@@ -380,6 +380,7 @@ class Friends extends Component{
             <MatchDirect
               closeModal = {this.directBetModal.bind(this)}
               directBet = {this.state.selectedBet}
+              currentUser = {currentUser}
             />
           </Modal>
 

@@ -147,7 +147,8 @@ class BetModal extends Component{
           body: JSON.stringify({
             back_user: currentUser, event: game.data.name,
             back_team: team.name, amount: bet,
-            is_public: publicBet, opponent: opponent, fq: fq, sq: sq
+            is_public: publicBet, opponent: opponent, fq: fq, sq: sq,
+            fq_position: teamsNotSelected[0].position, sq_position: teamsNotSelected[1].position || null
           })
         })
         .then(res => res.json())

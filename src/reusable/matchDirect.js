@@ -1,17 +1,21 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity} from "react-native";
+import {View, Text, TouchableOpacity, Dimensions} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class MatchDirect extends Component{
 
   constructor(props){
+    const options = [props.directBet.event.local.name, props.directBet.event.visit.name, "Draw"];
+    const teamsNotSelected = options.filter(x => x!= props.directBet.back_team);
+    const data = props.directBet.event.sport.name == "Soccer" ? ["", null] : [teamsNotSelected[0], props.directBet.fq];
+
     super(props);
     this.state = {
-      teamOpponentSelected: "",
+      teamOpponentSelected: data[0],
       first: false,
       second: false,
-      quoteSelected: null
+      quoteSelected: data[1]
     }
   }
 
@@ -30,80 +34,88 @@ class MatchDirect extends Component{
           return this.setState({first: false, second: true})
           break;
     }
-}
+  }
 
-  renderButtons(){
-      const {directBet} = this.props;
-      const {first, second} = this.state;
-      // const gameType = directBet.event.sport.name == "Soccer" ? directBet.event.draw.name : null;
+  switchView(){
+    const {directBet} = this.props;
+    var sport = this.props.directBet.event.sport;
+    const {quoteSelected, teamOpponentSelected, first, second} = this.state;
 
-      const options = [directBet.event.local.name, directBet.event.visit.name, "Draw"];
-      const teamsNotSelected = options.filter(x => x!= directBet.back_team);
+    const options = [directBet.event.local.name, directBet.event.visit.name, "Draw"];
+    const teamsNotSelected = options.filter(x => x!= directBet.back_team);
 
-      if(directBet.event.sport.name == "Soccer"){
-        return(
+    if(sport.name == "Soccer"){
+      return(
           <View>
-            <TouchableOpacity style = {first ? styles.buttonSelected : styles.button} onPress = {this.onSelectTeam.bind(this, teamsNotSelected[0], directBet.fq , 1)}>
-              <Text style = {styles.t}>{teamsNotSelected[0]}</Text>
-            </TouchableOpacity>
+            <Text style = {[styles.title, {marginBottom: 15}]}>Select a team</Text>
+            <View>
+                <TouchableOpacity style = {first ? styles.buttonSelected : styles.button} onPress = {this.onSelectTeam.bind(this, teamsNotSelected[0], directBet.fq , 1)}>
+                  <Text style = {styles.t}>{teamsNotSelected[0]}</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style = {second? styles.buttonSelected : styles.button} onPress = {this.onSelectTeam.bind(this, teamsNotSelected[1], directBet.sq, 2)}>
-              <Text style = {styles.t}>{teamsNotSelected[1]}</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style = {second? styles.buttonSelected : styles.button} onPress = {this.onSelectTeam.bind(this, teamsNotSelected[1], directBet.sq, 2)}>
+                  <Text style = {styles.t}>{teamsNotSelected[1]}</Text>
+                </TouchableOpacity>
+            </View>
           </View>
-        );
-      } else {return null}
+      );
+    } else {return null}
   }
 
   render(){
 
     const {directBet} = this.props;
     const {quoteSelected, teamOpponentSelected} = this.state;
-    var bet = quoteSelected > 0 ? Math.round(directBet.amount - ((quoteSelected / 100) * directBet.amount)) : directBet.amount;
+        var bet = quoteSelected > 0 ? Math.round(directBet.amount - ((quoteSelected / 100) * directBet.amount)) : directBet.amount;
 
     return(
       <LinearGradient  style = {{flex: 1, margin: 0}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
 
         <TouchableOpacity
-            style = {{position: "absolute", left: 4, top: 4}}
+            style = {{position: "absolute", left: 6, top: 6, marginBottom: 40}}
             onPress = {this.props.closeModal}
         >
           <Text style= {{color: "#00B073", fontSize: 19}}>X</Text>
         </TouchableOpacity>
 
-        <View style = {{marginTop: 30, marginBottom: 10}}>
-          <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}>{directBet.amount} <FontAwesome> {Icons.database} </FontAwesome></Text>
-          <Text style = {{color: "white", alignSelf: "center", fontSize: 14}}>{this.state.quoteSelected} <FontAwesome> {Icons.database} </FontAwesome></Text>
+        <View style = {directBet.event.sport.name =="Soccer" ? {marginTop: 50} : {marginTop: 80}}>
+          <View style = {{display: "flex", flexDirection: "row", marginBottom: 30, justifyContent: "space-around"}}>
+              <View>
+                  <Text style = {[styles.word, {fontSize: 15, alignSelf: "center", fontWeight: "bold"}]}>{directBet.back_user.username}</Text>
+                  <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{directBet.back_team}</Text>
+              </View>
+
+
+              <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 14, marginTop: 3}]}>VS.</Text>
+
+              <View>
+                  <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>You</Text>
+                  {this.state.teamOpponentSelected ?
+                    <Text style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {this.state.teamOpponentSelected} </Text> :
+                    <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
+                  }
+              </View>
+          </View>
         </View>
 
-        <View style = {{display: "flex", flexDirection: "row", marginBottom: 30, justifyContent: "space-around"}}>
-            <View>
-                <Text style = {[styles.word, {fontSize: 15, alignSelf: "center", fontWeight: "bold"}]}>{directBet.back_user.username}</Text>
-                <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{directBet.back_team}</Text>
-            </View>
+        {this.switchView()}
 
+        {directBet.event.sport.name == "Soccer" ?
+          <TouchableOpacity
+                  style = {this.state.teamOpponentSelected != "" ? styles.buttonContainer : styles.buttonDisableContainer}
+                  disabled = {this.state.teamOpponentSelected != "" ? false : true}
+                  onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
+            >
+              <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
+          </TouchableOpacity> :
+          <TouchableOpacity
+              style = {styles.buttonContainer }
+              onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
+            >
+              <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
+          </TouchableOpacity>
+        }
 
-            <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 14, marginTop: 3}]}>VS.</Text>
-
-            <View>
-                <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>You</Text>
-                {<Text style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {this.state.teamOpponentSelected} </Text>|| <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>}
-            </View>
-        </View>
-
-        <Text style = {[styles.title, {marginBottom: 20}]}>Select a team</Text>
-
-        <View>
-          {this.renderButtons()}
-        </View>
-
-        <TouchableOpacity
-            style = {this.state.teamOpponentSelected != "" ? styles.buttonContainer : styles.buttonDisableContainer}
-            disabled = {this.state.teamOpponentSelected != "" ? false : true}
-            onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
-        >
-          <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
-        </TouchableOpacity>
       </LinearGradient>
 
     );
@@ -172,6 +184,14 @@ const styles= {
     left: 0,
     right: 0
   },
+  matchContainer: {
+    width: Dimensions.get("window").width, height: 150,
+    position: 'absolute',
+    top: 0,left: 0,
+    right: 0, bottom: 0,
+    justifyContent: "center",
+    backgroundColor: "red",
+  }
 }
 
 export default MatchDirect;

@@ -124,7 +124,6 @@ class ConfirmBet extends Component{
 
   render(){
     const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
-    console.log(teamSelected, teamsNotSelected, quote, bet);
 
     var finalQuote = quote < 0 ? quote * -1 : quote;
     var ADQuote = Math.round((finalQuote / 100) * user.amount);

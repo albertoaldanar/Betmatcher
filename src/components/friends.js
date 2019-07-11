@@ -33,7 +33,7 @@ class Friends extends Component{
       profile: [],
       friendAnalysis: null,
       requestsIndex: true,
-      directBets: {},
+      directBets: [],
       directBetModal: false,
       selectedBet: {}
     }

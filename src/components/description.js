@@ -71,7 +71,7 @@ class Description extends Component{
                 teamsNotSelected: index,
                 quote: quote,
                 bet: bet,
-                sentFrom: "Public"
+                sentFrom: "Public",
               }
     });
     this.props.navigation.dispatch(navigateAction);

@@ -68,9 +68,8 @@ class ConfirmBet extends Component{
     const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
     let event = sentFrom == "Direct" ? game : game.data;
 
-    // let opponentTeam = teamsNotSelected.name || "Draw"
     const total = this.analyseQuotes("total");
-    const layQuote = this.analyseQuotes("myTotal");
+    const layAmount = this.analyseQuotes("myTotal");
 
     return fetch(`http://${Url}:8000/post_match/`, {
       method: "POST",
@@ -81,7 +80,8 @@ class ConfirmBet extends Component{
       body: JSON.stringify({
         back_user: user.back_user.username, back_team: teamsNotSelected,
         lay_user: this.state.currentUser, lay_team: teamSelected,
-        amount: total, event: event.name, request: user.id, quote: layQuote
+        amount: total, event: event.name, request: user.id, quote: quote,
+        traded: layAmount
 
       })
     })

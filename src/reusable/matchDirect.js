@@ -66,7 +66,7 @@ class MatchDirect extends Component{
 
     const {directBet} = this.props;
     const {quoteSelected, teamOpponentSelected} = this.state;
-        var bet = quoteSelected > 0 ? Math.round(directBet.amount - ((quoteSelected / 100) * directBet.amount)) : directBet.amount;
+    var bet = quoteSelected > 0 ? Math.round(directBet.amount - ((quoteSelected / 100) * directBet.amount)) : directBet.amount;
 
     return(
       <LinearGradient  style = {{flex: 1, margin: 0}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
@@ -78,24 +78,29 @@ class MatchDirect extends Component{
           <Text style= {{color: "#00B073", fontSize: 19}}>X</Text>
         </TouchableOpacity>
 
-        <View style = {directBet.event.sport.name =="Soccer" ? {marginTop: 50} : {marginTop: 80}}>
+        <View style = {directBet.event.sport.name =="Soccer" ? {marginTop: 60} : {marginTop: 100}}>
           <View style = {{display: "flex", flexDirection: "row", marginBottom: 30, justifyContent: "space-around"}}>
               <View>
-                  <Text style = {[styles.word, {fontSize: 15, alignSelf: "center", fontWeight: "bold"}]}>{directBet.back_user.username}</Text>
-                  <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{directBet.back_team}</Text>
+                  <Text style = {[styles.word, {fontSize: 18, alignSelf: "center"}]}>{directBet.back_user.username}</Text>
+                  <Text style = {[styles.word, {fontSize: 15, color: "gray", marginTop: 8, alignSelf: "center"}]}>{directBet.back_team}</Text>
               </View>
 
 
               <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 14, marginTop: 3}]}>VS.</Text>
 
               <View>
-                  <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>You</Text>
+                  <Text style = {[styles.word, {fontSize: 18, alignSelf: "center"}]}>You</Text>
                   {this.state.teamOpponentSelected ?
-                    <Text style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {this.state.teamOpponentSelected} </Text> :
-                    <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
+                    <Text style= {{alignSelf: "center", color: "gray", fontSize: 15, marginTop: 9}}> {this.state.teamOpponentSelected} </Text> :
+                    <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 15, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
                   }
               </View>
           </View>
+        </View>
+
+        <View style = {directBet.event.sport.name =="Soccer" ? {marginTop: 10, marginBottom: 15}: {marginTop: 30, marginBottom: 10}}>
+            <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}>{directBet.amount} £</Text>
+            <Text style = {{color: "#00B073", alignSelf: "center", fontSize: 13, marginTop: 10}}>+ {this.state.quoteSelected} %</Text>
         </View>
 
         {this.switchView()}
@@ -110,7 +115,7 @@ class MatchDirect extends Component{
           </TouchableOpacity> :
           <TouchableOpacity
               style = {styles.buttonContainer }
-              onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
+              onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team)}
             >
               <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
           </TouchableOpacity>

@@ -53,8 +53,8 @@ class Leagues extends Component{
                onPress = {this.props.close}
                style= {{margin: 10}}
             >
-             <Text style = {{color: "#00B073", fontSize: 15}}>
-                Close
+             <Text style = {{color: "#00B073", fontSize: 21}}>
+                X
              </Text>
           </TouchableOpacity>
          <View style = {styles.pickerContainer}>

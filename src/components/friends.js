@@ -57,7 +57,7 @@ class Friends extends Component{
                 teamSelected: teamSelected,
                 quote: quote, bet: bet,
                 teamsNotSelected: teamsNotSelected,
-                sentFrom: "Direct"
+                sentFrom: "Direct",
               }
     });
     this.props.navigation.dispatch(navigateAction);

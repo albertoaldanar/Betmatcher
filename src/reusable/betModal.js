@@ -283,8 +283,8 @@ class BetModal extends Component{
           <View style ={{marginBottom: 7}}>
             <View style = {styles.info}>
               <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
-                <Text style = {{color: "#00B073", fontSize: 17}}>
-                  Close
+                <Text style = {{color: "#00B073", fontSize: 21}}>
+                  X
                 </Text>
               </TouchableOpacity>
               <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.props.coins}  <FontAwesome>{Icons.database}</FontAwesome></Text>

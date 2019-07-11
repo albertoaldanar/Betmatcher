@@ -75,6 +75,7 @@ const AppNavigator = StackNavigator({
         header: null
       }
   },
+
   MainScreen: {
     screen: MainScreen,
       navigationOptions:{
@@ -89,7 +90,6 @@ const AppNavigator = StackNavigator({
       header: null
     }
   },
-
   Friends: {
     screen: Friends,
     navigationOptions: {

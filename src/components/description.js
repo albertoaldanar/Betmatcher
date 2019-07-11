@@ -60,17 +60,18 @@ class Description extends Component{
     const options = [game.local, game.visit, gameType];
     const teamsNotSelected = options.filter(x => x.name!= this.state.teamSelected.name);
 
-    var index = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
+    var index = this.state.index == 1 ? teamsNotSelected[1].name : teamsNotSelected[0].name;
 
     const navigateAction = NavigationActions.navigate({
       routeName: route,
       params: {
                 user: user,
                 game: game,
-                teamSelected: this.state.teamSelected,
+                teamSelected: this.state.teamSelected.name,
                 teamsNotSelected: index,
                 quote: quote,
-                bet: bet
+                bet: bet,
+                sentFrom: "Public"
               }
     });
     this.props.navigation.dispatch(navigateAction);

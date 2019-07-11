@@ -8,7 +8,7 @@ class MatchDirect extends Component{
   constructor(props){
     super(props);
     this.state = {
-      teamOpponentSeleted: "",
+      teamOpponentSelected: "",
       first: false,
       second: false,
       quoteSelected: null
@@ -16,7 +16,7 @@ class MatchDirect extends Component{
   }
 
   onSelectTeam(team, quote, position){
-    this.setState({teamOpponentSeleted: team, quoteSelected: quote })
+    this.setState({teamOpponentSelected: team, quoteSelected: quote })
     this.birghtColor(position)
   }
 
@@ -58,10 +58,18 @@ class MatchDirect extends Component{
   render(){
 
     const {directBet} = this.props;
-    console.log(this.state.teamOpponentSeleted);
+    const {quoteSelected, teamOpponentSelected} = this.state;
+    var bet = quoteSelected > 0 ? Math.round(directBet.amount - ((quoteSelected / 100) * directBet.amount)) : directBet.amount;
 
     return(
-      <LinearGradient  style = {{flex: 1, borderRadius: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+      <LinearGradient  style = {{flex: 1, margin: 0}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+
+        <TouchableOpacity
+            style = {{position: "absolute", left: 4, top: 4}}
+            onPress = {this.props.closeModal}
+        >
+          <Text style= {{color: "#00B073", fontSize: 19}}>X</Text>
+        </TouchableOpacity>
 
         <View style = {{marginTop: 30, marginBottom: 10}}>
           <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}>{directBet.amount} <FontAwesome> {Icons.database} </FontAwesome></Text>
@@ -79,7 +87,7 @@ class MatchDirect extends Component{
 
             <View>
                 <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>You</Text>
-                {<Text style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {this.state.teamOpponentSeleted} </Text>|| <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>}
+                {<Text style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {this.state.teamOpponentSelected} </Text>|| <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>}
             </View>
         </View>
 
@@ -89,8 +97,11 @@ class MatchDirect extends Component{
           {this.renderButtons()}
         </View>
 
-
-        <TouchableOpacity onPress = {this.props.closeModal} style = {styles.continueButton}>
+        <TouchableOpacity
+            style = {this.state.teamOpponentSelected != "" ? styles.buttonContainer : styles.buttonDisableContainer}
+            disabled = {this.state.teamOpponentSelected != "" ? false : true}
+            onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
+        >
           <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
         </TouchableOpacity>
       </LinearGradient>
@@ -144,6 +155,22 @@ const styles= {
     fontWeight: "600",
     margin: 5,
     color: "#00B073",
+  },
+  buttonContainer: {
+    backgroundColor: "#00B073",
+    padding: 12,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0
+  },
+  buttonDisableContainer: {
+    backgroundColor: "#DCDCDC",
+    padding: 12,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0
   },
 }
 

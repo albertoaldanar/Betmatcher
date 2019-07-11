@@ -13,6 +13,7 @@ import UserCard from "../reusable/userCard";
 import Modal from "react-native-modal";
 import User from "../constants/user";
 import Url from "../constants/url";
+import { NavigationActions } from "react-navigation";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -40,6 +41,27 @@ class Friends extends Component{
 
   componentDidMount(){
     return this.getData()
+  }
+
+  sendToConfirmation(user, quote, bet, game, teamSelected, teamsNotSelected){
+    // let game = this.props.navigation.state.params.par;
+    // const gameType = game.sport == "Soccer" ? game.draw : "Draw"
+    // const options = [game.local, game.visit, gameType];
+    // const teamsNotSelected = options.filter(x => x.name!= this.state.teamSelected.name);
+    // var index = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
+
+    const navigateAction = NavigationActions.navigate({
+      routeName: "ConfirmBet",
+      params: {
+                user: user, game: game,
+                teamSelected: teamSelected,
+                quote: quote, bet: bet,
+                teamsNotSelected: teamsNotSelected,
+                sentFrom: "Direct"
+              }
+    });
+    this.props.navigation.dispatch(navigateAction);
+    this.setState({directBetModal: false})
   }
 
   directBetModal(){
@@ -372,15 +394,16 @@ class Friends extends Component{
 
 
           <Modal
-              style={{ flex: 1}}
+              style={{ flex: 1, margin: 0}}
               isVisible={this.state.directBetModal}
               backdropOpacity = {0.45}
-              animationInTiming = {600}
+              animationInTiming = {500}
           >
             <MatchDirect
               closeModal = {this.directBetModal.bind(this)}
               directBet = {this.state.selectedBet}
               currentUser = {currentUser}
+              sendToConfirmation = {this.sendToConfirmation.bind(this)}
             />
           </Modal>
 

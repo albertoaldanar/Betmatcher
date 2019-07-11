@@ -65,9 +65,10 @@ class ConfirmBet extends Component{
 
   postMatch(){
     // let {currentUser, game, team} = this.props;
-    const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
+    const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
+    let event = sentFrom == "Direct" ? game : game.data;
 
-    let opponentTeam = teamsNotSelected.name || "Draw"
+    // let opponentTeam = teamsNotSelected.name || "Draw"
     const total = this.analyseQuotes("total");
     const layQuote = this.analyseQuotes("myTotal");
 
@@ -78,9 +79,9 @@ class ConfirmBet extends Component{
           "Content-type": "application/json"
       },
       body: JSON.stringify({
-        back_user: user.back_user.username, back_team: opponentTeam,
-        lay_user: this.state.currentUser, lay_team: teamSelected.name,
-        amount: total, event: game.data.name, request: user.id, quote: layQuote
+        back_user: user.back_user.username, back_team: teamsNotSelected,
+        lay_user: this.state.currentUser, lay_team: teamSelected,
+        amount: total, event: event.name, request: user.id, quote: layQuote
 
       })
     })
@@ -122,22 +123,25 @@ class ConfirmBet extends Component{
   }
 
   render(){
-    const {user, game, teamSelected, teamsNotSelected, quote, bet} = this.props.navigation.state.params;
-    console.log(user, teamSelected, teamsNotSelected);
+    const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
+    console.log(teamSelected, teamsNotSelected, quote, bet);
 
     var finalQuote = quote < 0 ? quote * -1 : quote;
     var ADQuote = Math.round((finalQuote / 100) * user.amount);
     // Refactorizar esto
-    const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
+    const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0];
+
+    let event = sentFrom == "Direct" ? game : game.data;
+
     return(
       <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
         <View style = {styles.space}>
             <View style = {styles.card}>
-              <Image source= {{uri: game.data.sport.img}} style = {{width: 60, height: 60, marginTop:5, marginRight: 10}}/>
+              <Image source= {{uri: event.sport.img}} style = {{width: 60, height: 60, marginTop:5, marginRight: 10}}/>
 
               <View>
-                <Text style = {styles.text}>{game.data.league.name}</Text>
-                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{Moment(game.data.date).endOf("day").fromNow()}</Text>
+                <Text style = {styles.text}>{event.league.name}</Text>
+                <Text style = {[styles.text, {fontWeight: "300", fontSize: 11, fontStyle: "oblique" , marginBottom: 5}]}>{Moment(event.date).endOf("day").fromNow()}</Text>
                 <View style = {{flexDirection: "row"}}>
                   <Text style = {styles.word}>{game.local.name}</Text>
                   <Text style = {[styles.word, {fontStyle: "oblique"}]}>VS.</Text>
@@ -154,7 +158,7 @@ class ConfirmBet extends Component{
             <View style = {[styles.singleUser, {backgroundColor: "#161616"}]}>
               <View style = {styles.info}>
                   <Text style = {styles.userName}>You</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamSelected.name}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamSelected}</Text>
                   <Text style = {styles.secondText}>Bet: {bet}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: {AD[0]}</Text>
               </View>
@@ -167,7 +171,7 @@ class ConfirmBet extends Component{
             <View style = {[styles.singleUser, {backgroundColor: "transparent"}]}>
               <View style = {styles.info}>
                   <Text style = {styles.userName}>{user.back_user.username}</Text>
-                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected.name || "Draw"}</Text>
+                  <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected || "Draw"}</Text>
                   <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {bet}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: {AD[1]}</Text>
               </View>

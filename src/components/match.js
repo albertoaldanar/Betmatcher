@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View,Text, TouchableOpacity, Image, ScrollView, AsyncStorage, Dimensions, RefreshControl} from "react-native";
+import {View,Text, TouchableOpacity, Image, ScrollView, AsyncStorage, Dimensions, RefreshControl, Alert} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
@@ -12,6 +12,7 @@ import MaterialTabs from "react-native-material-tabs";
 import Url from "../constants/url";
 import UserCard from "../reusable/userCard";
 import Moment from "moment";
+import Swipeout from 'react-native-swipeout';
 
 class Match extends Component{
 
@@ -87,6 +88,36 @@ class Match extends Component{
   userCard(){
     this.setState({userCard: !this.state.userCard})
   }
+
+  cancelAlerts(){
+      Alert.alert(
+          "Done!",
+          "Your bet request has been deleted :)",
+        [
+          {text: 'OK', onPress: this.getMatches.bind(this)},
+        ],
+        {cancelable: false},
+      );
+  }
+
+  cancelRequest(requestID){
+    return fetch(`http://${Url}:8000/cancel_request/`, {
+      method: "DELETE",
+      headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        req: requestID
+      })
+    })
+    .then(res => res.json())
+    .then(jsonRes => {
+      return this.cancelAlerts()
+    })
+    .catch(error => console.log(error));
+  }
+
 
   resultDisplay(item){
     const {currentUser} = this.state;
@@ -193,7 +224,6 @@ class Match extends Component{
     });
   }
 
-
   unmatchedBets(data){
     return data.map(item => {
       const userOrder = item.event.local.name == item.back_team ? [item.back_user.username, "Wating"] : ["Wating", item.back_user.username];
@@ -207,48 +237,62 @@ class Match extends Component{
               <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
             </View>
 
+      var swipeoutBtns = [
+          {
+            text: 'Cancel request',
+            backgroundColor: "#D24D57",
+            onPress: this.cancelRequest.bind(this, item.id)
+          }
+      ]
+
       return(
         <View style = {{marginTop: 7}}>
-          <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
+          <Swipeout
+            backgroundColor ="#161616"
+            right={swipeoutBtns}
+            onPress ={()=> alert("Helllo")}
+          >
+            <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
 
-              <View style = {{flexDirection: "row"}}>
-                <Text style = {[styles.league, {marginRight: 5}]}>{item.event.sport.name}</Text>
-                <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
-                <Text style = {[styles.league, {marginLeft: 5}]}>{item.event.league.name}</Text>
-              </View>
-
-              <View style = {[styles.game, {marginTop: 4}]}>
-                  <Text style = {styles.word}>{item.event.local.name}</Text>
-                  <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 10, marginTop: 3}]}>VS.</Text>
-                  <Text style = {styles.word}>{item.event.visit.name}</Text>
-              </View>
-
-              <View style = {{display: "flex", justifyContent: "space-around", flexDirection: "row", marginTop: 20, marginBottom: 15}}>
-                <View>
-                  <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>You</Text>
-                  <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{item.back_team}</Text>
+                <View style = {{flexDirection: "row"}}>
+                  <Text style = {[styles.league, {marginRight: 5}]}>{item.event.sport.name}</Text>
+                  <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
+                  <Text style = {[styles.league, {marginLeft: 5}]}>{item.event.league.name}</Text>
                 </View>
 
-
-                <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 14, marginTop: 3}]}>VS.</Text>
-
-                <View>
-                  {requesType}
+                <View style = {[styles.game, {marginTop: 4}]}>
+                    <Text style = {styles.word}>{item.event.local.name}</Text>
+                    <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 10, marginTop: 3}]}>VS.</Text>
+                    <Text style = {styles.word}>{item.event.visit.name}</Text>
                 </View>
 
-              </View>
+                <View style = {{display: "flex", justifyContent: "space-around", flexDirection: "row", marginTop: 20, marginBottom: 15}}>
+                  <View>
+                    <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>You</Text>
+                    <Text style = {[styles.word, {fontSize: 12, color: "gray", marginTop: 8, alignSelf: "center"}]}>{item.back_team}</Text>
+                  </View>
 
-              <View style = {{borderTopWidth: 0.3, borderTopColor: "#DCDCDC", marginLeft: 6, marginRight: 6}}>
-                <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
-                  <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
-                  {item.is_public  ? <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "400", fontStyle: "oblique"}}> Public bet </Text> : <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "600"}}> Private bet </Text>}
-                  <View style = {{flexDirection: "row"}}>
-                    <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> BET: </Text>
-                    <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{item.amount} £</Text>
+
+                  <Text style = {[styles.word, {fontStyle: "oblique", fontSize: 14, marginTop: 3}]}>VS.</Text>
+
+                  <View>
+                    {requesType}
+                  </View>
+
+                </View>
+
+                <View style = {{borderTopWidth: 0.3, borderTopColor: "#DCDCDC", marginLeft: 6, marginRight: 6}}>
+                  <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
+                    <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+                    {item.is_public  ? <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "400", fontStyle: "oblique"}}> Public bet </Text> : <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "600"}}> Private bet </Text>}
+                    <View style = {{flexDirection: "row"}}>
+                      <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> BET: </Text>
+                      <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{item.amount} £</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-          </Card>
+            </Card>
+          </Swipeout>
         </View>
       );
     })

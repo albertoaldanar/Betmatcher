@@ -115,7 +115,7 @@ class MatchDirect extends Component{
           </TouchableOpacity> :
           <TouchableOpacity
               style = {styles.buttonContainer }
-              onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team)}
+              onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team, quoteSelected)}
             >
               <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
           </TouchableOpacity>

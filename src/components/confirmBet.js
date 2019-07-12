@@ -71,6 +71,8 @@ class ConfirmBet extends Component{
     const total = this.analyseQuotes("total");
     const layAmount = this.analyseQuotes("myTotal");
 
+    var totalAmount = user.amount * (quote / 100);
+
     return fetch(`http://${Url}:8000/post_match/`, {
       method: "POST",
       headers: {
@@ -78,9 +80,9 @@ class ConfirmBet extends Component{
           "Content-type": "application/json"
       },
       body: JSON.stringify({
-        back_user: user.back_user.username, back_team: teamsNotSelected,
+        back_user: user.back_user.username, back_team: teamsNotSelected || "Draw",
         lay_user: this.state.currentUser, lay_team: teamSelected,
-        amount: total, event: event.name, request: user.id, quote: quote,
+        amount: total, event: event.name, request: user.id, quote: totalAmount,
         traded: layAmount
 
       })
@@ -124,6 +126,7 @@ class ConfirmBet extends Component{
 
   render(){
     const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
+    console.log(teamsNotSelected);
 
     var finalQuote = quote < 0 ? quote * -1 : quote;
     var ADQuote = Math.round((finalQuote / 100) * user.amount);

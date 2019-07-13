@@ -120,6 +120,15 @@ class Home extends Component{
     this.props.navigation.dispatch(navigateAction);
   }
 
+  topCredentials(data, type){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Top Unmatched",
+      params: {
+        topCredentials: data, type: type
+      }
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
 
   sendToDescription(game){
     const navigateAction = NavigationActions.navigate({
@@ -131,15 +140,16 @@ class Home extends Component{
 
   topRequests(){
     const requests = this.state.topRequests;
+    const requestsToShow = requests.slice(0,5);
 
-    return requests.map((r, index) => {
+    return requestsToShow.map((r, index) => {
       return(
         <TouchableOpacity key = {index} onPress = {() => this.setState({requestSelected: r, requestModal: true})}>
             <Card style = {{padding: 10}}>
               <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
-                <Text style = {styles.desc}>{r.event.local.name}</Text>
-                <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
-                <Text style = {styles.desc}>{r.event.visit.name}</Text>
+                <Text style = {[styles.desc, {color:"#DCDCDC", fontWeight: "300", fontStyle: "oblique"}]}>{r.event.local.name}</Text>
+                <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300", color: "#DCDCDC"}]}>VS.</Text>
+                <Text style = {[styles.desc, {color:"#DCDCDC", fontWeight: "300", fontStyle: "oblique"}]}>{r.event.visit.name}</Text>
               </View>
 
               <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
@@ -168,6 +178,7 @@ class Home extends Component{
 
   topEventDetials(){
       const {topTradedEvents} = this.state;
+      const evnetsToShow = topTradedEvents.slice(0,5);
       return topTradedEvents.map((event, index) => {
         if (topTradedEvents.length > 0){
           return(
@@ -302,19 +313,13 @@ class Home extends Component{
             <View>
               <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
                 <Text style = {styles.title}> Top traded events </Text>
-                <TouchableOpacity>
-                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-                </TouchableOpacity>
               </View>
               {this.topEventDetials()}
             </View>
 
             <View style = {{marginTop: 15, marginBottom: 15}}>
               <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-                <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
-                <TouchableOpacity>
-                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-                </TouchableOpacity>
+                <Text style = {[styles.title, {marginBottom: 19}]}> Top leagues </Text>
               </View>
 
               <Carousel
@@ -333,7 +338,7 @@ class Home extends Component{
             <View>
               <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
                 <Text style = {styles.title}> Unmatched bets </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {this.topCredentials.bind(this, this.state.topRequests, "requests")}>
                   <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
                 </TouchableOpacity>
               </View>

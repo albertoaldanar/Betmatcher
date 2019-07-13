@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, Modal, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl} from "react-native";
+import {View, Text, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl, Modal} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Url from "../constants/url";
 import Header from "../reusable/header";
@@ -10,12 +10,12 @@ import Lgs from "../constants/leagues";
 import Card from "../reusable/card";
 import Requests from "../constants/requests";
 import Carousell from "../reusable/carousel";
+import MatchDirect from "../reusable/matchDirect";
 import GameCard from "../reusable/gameCard";
 import Menu from "../reusable/menu";
 import SideMenu from "react-native-side-menu";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { NavigationActions } from 'react-navigation';
-
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -34,7 +34,8 @@ class Home extends Component{
       topTradedEvents: [],
       data: "",
       showModal: true,
-      sports: [], refreshing: false
+      sports: [], refreshing: false, currentUser: "",
+      requestModal: false, requestSelected: {}
    }
    this.filteredEvents = this.filteredEvents.bind(this);
   }
@@ -43,11 +44,13 @@ class Home extends Component{
     this._isMounted = false;
   }
 
-
-  callHome(){
+  async callHome(){
     this._isMounted = true;
 
-    return fetch(`http://${Url}:8000/home_data`)
+    const usernameGet = await AsyncStorage.getItem('username');
+    this.setState({ currentUser: usernameGet});
+
+    return fetch(`http://${Url}:8000/home_data?current_user=${this.state.currentUser}`)
         .then(res => res.json())
           .then(response => {
             if (this._isMounted){
@@ -69,6 +72,10 @@ class Home extends Component{
     this.setState({showSidebar: true})
   }
 
+  requestModal(){
+    this.setState({requestModal: !this.state.requestModal})
+  }
+
   handleLogout(){
     this.setState({showModal: true})
 
@@ -86,7 +93,21 @@ class Home extends Component{
       })
       this.props.navigation.dispatch(navigateAction);
     }, 3000)
+  }
 
+  sendToConfirmation(user, quote, bet, game, teamSelected, teamsNotSelected){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "ConfirmBet",
+      params: {
+                user: user, game: game,
+                teamSelected: teamSelected,
+                quote: quote, bet: bet,
+                teamsNotSelected: teamsNotSelected,
+                sentFrom: "Direct",
+              }
+    });
+    this.props.navigation.dispatch(navigateAction);
+    this.setState({requestModal: false})
   }
 
   filteredEvents(league){
@@ -96,7 +117,6 @@ class Home extends Component{
         league: league
       }
     });
-
     this.props.navigation.dispatch(navigateAction);
   }
 
@@ -114,7 +134,7 @@ class Home extends Component{
 
     return requests.map((r, index) => {
       return(
-        <TouchableOpacity key = {index}>
+        <TouchableOpacity key = {index} onPress = {() => this.setState({requestSelected: r, requestModal: true})}>
             <Card style = {{padding: 10}}>
               <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
                 <Text style = {styles.desc}>{r.event.local.name}</Text>
@@ -211,9 +231,9 @@ class Home extends Component{
     }
 
   render(){
+    const {requestSelected, currentUser} = this.state;
+    console.log(this.state.requestSelected);
 
-    console.log(Dimensions.get("window").width);
-    console.log(this.state.showModal)
     const menu =  <Menu
                     leagues= {Lgs}
                     sports = {this.state.sports}
@@ -247,6 +267,7 @@ class Home extends Component{
             <Text style = {{marginTop: 100, color: "white", textAlign: "center", fontSize: 20}}>Welcome to Betmatcher</Text>
           </View>
         </Modal>
+
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)}/>
           <ScrollView
@@ -257,69 +278,81 @@ class Home extends Component{
               />
             }
           >
-          <StatusBar hidden = {true}/>
+            <StatusBar hidden = {true}/>
+            <View style = {styles.images}>
+                <ImageSlider
+                    images= {images}
+                    autoPlayWithInterval={2500}
+                    customSlide={({ index, item, style, width }) => (
+                      <View key={index}>
+                        <Image source = {{uri: item}} style = {style} opacity = {0.35}/>
 
-          <View style = {styles.images}>
-              <ImageSlider
-                  images= {images}
-                  autoPlayWithInterval={2500}
-                  customSlide={({ index, item, style, width }) => (
-                    <View key={index}>
-                      <Image source = {{uri: item}} style = {style} opacity = {0.35}/>
-
-                      <View style = {styles.messageContainer}>
-                        <Text style = {styles.title}> {header[index]} </Text>
-                        <Text style = {styles.secondText}> {msg[index]} </Text>
-                        <TouchableOpacity style = {styles.button}>
-                          <Text style = {styles.buttonText}>BET NOW</Text>
-                        </TouchableOpacity>
+                        <View style = {styles.messageContainer}>
+                          <Text style = {styles.title}> {header[index]} </Text>
+                          <Text style = {styles.secondText}> {msg[index]} </Text>
+                          <TouchableOpacity style = {styles.button}>
+                            <Text style = {styles.buttonText}>BET NOW</Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
-                    </View>
-                  )}
+                    )}
+                />
+            </View>
+
+            <View>
+              <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+                <Text style = {styles.title}> Top traded events </Text>
+                <TouchableOpacity>
+                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                </TouchableOpacity>
+              </View>
+              {this.topEventDetials()}
+            </View>
+
+            <View style = {{marginTop: 15, marginBottom: 15}}>
+              <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+                <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
+                <TouchableOpacity>
+                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                </TouchableOpacity>
+              </View>
+
+              <Carousel
+                      data={this.state.leagues}
+                      renderItem={this.renderItem}
+                      ref={'carousel'}
+                      hasParallaxImages={true}
+                      style={{opacity: 0.4}}
+                      sliderWidth={sliderWidth}
+                      itemWidth={sliderWidth* 0.36}
+                      itemHeight={itemHeight}
+                      firstItem= {1}
               />
-          </View>
-
-          <View>
-            <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-              <Text style = {styles.title}> Top traded events </Text>
-              <TouchableOpacity>
-                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-              </TouchableOpacity>
-            </View>
-            {this.topEventDetials()}
-          </View>
-
-          <View style = {{marginTop: 15, marginBottom: 15}}>
-            <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-              <Text style = {[styles.title, {marginBottom: 0}]}> Top leagues </Text>
-              <TouchableOpacity>
-                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-              </TouchableOpacity>
             </View>
 
-            <Carousel
-                    data={this.state.leagues}
-                    renderItem={this.renderItem}
-                    ref={'carousel'}
-                    hasParallaxImages={true}
-                    style={{opacity: 0.4}}
-                    sliderWidth={sliderWidth}
-                    itemWidth={sliderWidth* 0.36}
-                    itemHeight={itemHeight}
-                    firstItem= {1}
-            />
-          </View>
-
-          <View>
-            <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-              <Text style = {styles.title}> Unmatched bets </Text>
-              <TouchableOpacity>
-                <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-              </TouchableOpacity>
+            <View>
+              <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+                <Text style = {styles.title}> Unmatched bets </Text>
+                <TouchableOpacity>
+                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                </TouchableOpacity>
+              </View>
+              {this.topRequests()}
             </View>
-            {this.topRequests()}
-          </View>
           </ScrollView>
+
+          <Modal
+            visible = {this.state.requestModal}
+            animationType = "slide"
+            >
+              <MatchDirect
+                  closeModal = {this.requestModal.bind(this)}
+                  directBet = {requestSelected}
+                  currentUser = {currentUser}
+                  sendToConfirmation = {this.sendToConfirmation.bind(this)}
+              />
+          </Modal>
+
         </View>
       </SideMenu>
     );

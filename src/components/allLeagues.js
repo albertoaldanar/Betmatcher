@@ -5,18 +5,11 @@ import {NavigationActions} from "react-navigation";
 
 class AllLeagues extends Component{
 
-  constructor(props){
-    supre(props);
-    this.state = {leagueSelected: ""}
-  }
-
   filteredEvents(league){
-    this.setState({league: league});
-
     const navigateAction = NavigationActions.navigate({
       routeName: "FilteredEvents",
       params: {
-        league: league
+        par: league
       }
     });
     this.props.navigation.dispatch(navigateAction);
@@ -32,10 +25,7 @@ class AllLeagues extends Component{
                 style={styles.image}
                 source ={{uri: item.img}}
               />
-
-              <View style = {styles.league}>
-                <Text style= {{color: "#00B073", position: "absolute", lef: 5, top: 5}}>{item.name}</Text>
-              </View>
+              <Text style= {styles.league}>{item.name} <FontAwesome>{Icons.chevronRight}</FontAwesome></Text>
             </TouchableOpacity>
         );
     })
@@ -54,14 +44,14 @@ const styles = {
   image: {
     width: Dimensions.get("window").width,
     height: 150,
-    margin: 10,
-    opacity: 0.7
+    marginBottom: 10,
+    opacity: 0.4, borderRadius: 10
   },
   league: {
-    backgroundColor: "#ffff",
-    padding: 5, borderRadius: 5,
-    position: "absolute", left: 10,
-    top: 10, width: 10, height: 10
+    color: "white",
+    position: "absolute", right: 10,
+    bottom: 10, height: 20, borderRadius: 5,
+    marginTop: 5,
   }
 }
 export default AllLeagues;

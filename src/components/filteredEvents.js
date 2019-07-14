@@ -15,7 +15,7 @@ class FilteredEvents extends Component{
 
   componentDidMount(){
 
-    let league = this.props.navigation.state.params.league;
+    let league = this.props.navigation.state.params.par;
     this._isMounted = true;
 
     return fetch(`http://${Url}:8000/events?league=${league}`, {

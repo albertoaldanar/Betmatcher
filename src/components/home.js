@@ -110,31 +110,13 @@ class Home extends Component{
     this.setState({requestModal: false})
   }
 
-  filteredEvents(league){
+  callNavigation(route, data){
     const navigateAction = NavigationActions.navigate({
-      routeName: "FilteredEvents",
+      routeName: route,
       params: {
-        league: league
+        par: data, currentUser: this.state.currentUser
       }
     });
-    this.props.navigation.dispatch(navigateAction);
-  }
-
-  topCredentials(data, type){
-    const navigateAction = NavigationActions.navigate({
-      routeName: "Top Unmatched",
-      params: {
-        topCredentials: data, type: type
-      }
-    });
-    this.props.navigation.dispatch(navigateAction);
-  }
-
-  sendToDescription(game){
-    const navigateAction = NavigationActions.navigate({
-      routeName: "Description",
-      params: {par: game}
-    })
     this.props.navigation.dispatch(navigateAction);
   }
 
@@ -182,7 +164,7 @@ class Home extends Component{
       return topTradedEvents.map((event, index) => {
         if (topTradedEvents.length > 0){
           return(
-            <TouchableOpacity key = {index} onPress = {this.sendToDescription.bind(this, event)}>
+            <TouchableOpacity key = {index} onPress = {this.callNavigation.bind(this, "Description", event)}>
                 <Card style = {{padding: 10}}>
                   <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
                     <Text style = {styles.desc}>{event.local.name}</Text>
@@ -249,7 +231,7 @@ class Home extends Component{
                     leagues= {Lgs}
                     sports = {this.state.sports}
                     handleLogout = {this.handleLogout.bind(this)}
-                    filteredEvents = {this.filteredEvents.bind(this)}
+                    filteredEvents = {this.callNavigation.bind(this)}
                   />
 
     const images = [
@@ -319,7 +301,10 @@ class Home extends Component{
 
             <View style = {{marginTop: 15, marginBottom: 15}}>
               <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-                <Text style = {[styles.title, {marginBottom: 19}]}> Top leagues </Text>
+                <Text style = {[styles.title, {margin:0}]}> Top leagues </Text>
+                <TouchableOpacity>
+                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View all <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                </TouchableOpacity>
               </View>
 
               <Carousel
@@ -338,7 +323,7 @@ class Home extends Component{
             <View>
               <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
                 <Text style = {styles.title}> Unmatched bets </Text>
-                <TouchableOpacity onPress = {this.topCredentials.bind(this, this.state.topRequests, "requests")}>
+                <TouchableOpacity onPress = {this.callNavigation.bind(this, "TopRequests",  this.state.topRequests)}>
                   <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
                 </TouchableOpacity>
               </View>

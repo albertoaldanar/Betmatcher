@@ -200,17 +200,17 @@ class Match extends Component{
               <View style = {{borderTopWidth: 0.3, borderTopColor: "#DCDCDC", marginLeft: 6, marginRight: 6}}>
                 <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
 
-                  {item.event.is_finished || item.event.in_play ?
-                      <Text style = {{color: "gray", fontSize: 16, fontWeight: "600", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>
-                      : null
-                  }
-
                   {item.event.in_play ?
                     <View style = {{flexDirection: "row"}}>
-                      <Text style = {{color: "#D24D57", fontSize: 13, fontWeight: "600"}}> LIVE </Text>
-                      <Image style={{width: 15, height: 15}} source={{uri: "https://images-na.ssl-images-amazon.com/images/I/41bOFc-Yt8L.png"}}/>
+                      <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
+                      <Text style = {{color: "#D24D57", fontSize: 12, fontWeight: "400", marginTop: 2, marginLeft: 3}}> LIVE NOW </Text>
                     </View> : item.event.is_finished ? this.resultDisplay(item) :
                       <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+                  }
+
+                  {item.event.is_finished || item.event.in_play ?
+                      <Text style = {{color: "#00B073", fontSize: 16, fontWeight: "bold", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>
+                      : null
                   }
                   <View style = {{flexDirection: "row"}}>
                     <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> AMOUNT: </Text>

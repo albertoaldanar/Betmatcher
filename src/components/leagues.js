@@ -68,7 +68,7 @@ class Leagues extends Component{
         </View>
 
           <TouchableOpacity
-             onPress = {this.props.filter.bind(this, "FilteredEvents", "league", this.state.league)}
+             onPress = {this.props.filter.bind(this, "FilteredEvents", this.state.league)}
              style= {styles.button}
           >
            <Text style = {styles.buttonText}>

@@ -33,9 +33,9 @@ class TopRequests extends Component{
   }
 
   topRequests(){
-    const {topCredentials} = this.props.navigation.state.params;
+    const {par} = this.props.navigation.state.params;
 
-    return topCredentials.map((r, index) => {
+    return par.map((r, index) => {
       return(
         <TouchableOpacity key = {index} onPress = {() => this.setState({requestSelected: r, requestModal: true})}>
             <Card style = {{padding: 10}}>
@@ -70,7 +70,7 @@ class TopRequests extends Component{
   }
 
   render(){
-    const {currentUser, topCredentials} = this.props.navigation.state.params;
+    const {currentUser, par} = this.props.navigation.state.params;
     return(
       <View style = {styles.container}>
         <ScrollView>

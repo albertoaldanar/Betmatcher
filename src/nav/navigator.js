@@ -12,6 +12,7 @@ import Profile from "../components/profile";
 import Login from "../components/login";
 import YouHaveMatch from "../components/youHaveMatch";
 import TopRequests from "../components/topRequests";
+import AllLeagues from "../components/allLeagues";
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 
@@ -68,13 +69,7 @@ export const MainScreen = createBottomTabNavigator({
 );
 
 const AppNavigator = StackNavigator({
-  Login: {
-      screen: Login,
-      navigationOptions: {
-        header: null
-      }
-  },
-  MainScreen: {
+    MainScreen: {
     screen: MainScreen,
       navigationOptions:{
         gesturesEnabled: false,
@@ -87,6 +82,12 @@ const AppNavigator = StackNavigator({
       // headerTintColor: "#7DDECC",
       header: null
     }
+  },
+  Login: {
+      screen: Login,
+      navigationOptions: {
+        header: null
+      }
   },
   Friends: {
     screen: Friends,
@@ -130,7 +131,7 @@ const AppNavigator = StackNavigator({
   TopRequests: {
     screen: TopRequests,
     navigationOptions: {
-      title: "Top Unmatched",
+      title: "Live Unmatched bets",
       headerTintColor: "#00B073",
       headerStyle: {
         backgroundColor: "black",
@@ -142,6 +143,17 @@ const AppNavigator = StackNavigator({
     screen: FilteredEvents,
     navigationOptions: {
       title: "Events",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  AllLeagues: {
+    screen: AllLeagues,
+    navigationOptions: {
+      title: "All Leagues",
       headerTintColor: "#00B073",
       headerStyle: {
         backgroundColor: "black",

@@ -120,6 +120,16 @@ class Home extends Component{
     this.props.navigation.dispatch(navigateAction);
   }
 
+  filteredEvents(league){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "filteredEvents",
+      params: {
+        league: league
+      }
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
+
   topRequests(){
     const requests = this.state.topRequests;
     const requestsToShow = requests.slice(0,5);
@@ -302,7 +312,7 @@ class Home extends Component{
             <View style = {{marginTop: 15, marginBottom: 15}}>
               <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
                 <Text style = {[styles.title, {margin:0}]}> Top leagues </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {this.callNavigation.bind(this, "AllLeagues", this.state.leagues)}>
                   <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View all <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
                 </TouchableOpacity>
               </View>

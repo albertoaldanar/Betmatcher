@@ -9,7 +9,9 @@ class FilteredEvents extends Component{
   constructor(props){
     super(props);
     this.state = {
-      events: []
+      events: [],
+      hello: "",
+      name: "alberto"
     }
   }
 

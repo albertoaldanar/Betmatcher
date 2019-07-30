@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View,Text, TouchableOpacity, Image, ScrollView, AsyncStorage, Dimensions, RefreshControl, Alert} from "react-native";
+import {View,Text, TouchableOpacity, Image, ScrollView, AsyncStorage, Dimensions, RefreshControl, Alert, ActivityIndicator} from "react-native";
 import Header from "../reusable/header";
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
@@ -25,7 +25,7 @@ class Match extends Component{
        matches: [], unmatched: [], finished: [],
        token: "", currentUser: "", userCard: false,
        friendAnalysis: [], userSelected: "", profile: [],
-       refreshing: false, positionSelected: ""
+       refreshing: false, positionSelected: "", isLoadingData: true
      }
 
      // this.resultAnalysis = this.resultAnalysis.bind(this);
@@ -67,7 +67,8 @@ class Match extends Component{
             unmatchedBets: jsonRes.unmatched_bets,
             matchedBets: jsonRes.matched_bets,
             finishedBets: jsonRes.finished_bets,
-            refreshing: false
+            refreshing: false,
+            isLoadingData: false
           })
       })
       .catch(error => console.log(error));
@@ -316,6 +317,27 @@ class Match extends Component{
     }
   }
 
+  loading(){
+    if(this.state.isLoadingData){
+      return <ActivityIndicator size="large" color="white" style= {{alignSelf:"center", marginTop: 150, justifyContent: "center"}}/>
+    } else {
+      return( 
+        <ScrollView
+          refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.getMatches.bind(this)}
+              />
+          }
+        >
+          <View>
+            {this.choseView()}
+          </View>
+        </ScrollView>
+      );
+    }
+  }
+
   render(){
     console.log(this.state.unmatchedBets);
     const {userSelected, profile, friendAnalysis} = this.state;
@@ -337,18 +359,8 @@ class Match extends Component{
             />
           </View>
         </View>
-        <ScrollView
-          refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.getMatches.bind(this)}
-              />
-          }
-        >
-          <View>
-            {this.choseView()}
-          </View>
-        </ScrollView>
+
+        {this.loading()}
 
         <Modal
               style={{ flex: 1, position: "relative" , margin: 50, marginLeft: 25, marginRight: 25}}

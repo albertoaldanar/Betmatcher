@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage, Modal} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import axios from "axios";
 import Url from "../constants/url";
 import {NavigationActions} from "react-navigation";
+import Wating from "../reusable/wating";
+
 
 class Login extends Component{
 
@@ -17,8 +18,13 @@ class Login extends Component{
       isSignup: false,
       loginUsername: "",
       loginPassword: "",
-      errorMessage: ""
+      errorMessage: "", 
+      watingVisible: true
     }
+  }
+
+  componentWillMount(){
+    setTimeout(() => {this.setState({watingVisible: false})}, 2500)
   }
 
   userAction(action){
@@ -75,7 +81,7 @@ class Login extends Component{
     //     break;
     // }
     //Case user login
-   if(response.password || response.username){
+    if(response.password || response.username){
       return this.setState({errorMessage: "Can´t have blank fields"})
     } else if(response.non_field_errors){
       return this.setState({errorMessage: "Invalid credentials", username: "", password: ""})
@@ -195,6 +201,11 @@ class Login extends Component{
         <Image source = {require('../images/smkt.png')} style = {{width: Dimensions.get("window").width * 0.6, height: 50, alignSelf: "center", marginTop: 55}}/>
 
         {this.registrationForm()}
+  
+
+      <Modal visible= {this.state.watingVisible}>
+        <Wating/>
+      </Modal>
 
       </LinearGradient>
     );

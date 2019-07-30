@@ -67,7 +67,9 @@ class MatchDirect extends Component{
     const {directBet} = this.props;
     const {quoteSelected, teamOpponentSelected} = this.state;
     var bet = quoteSelected > 0 ? Math.round(directBet.amount - ((quoteSelected / 100) * directBet.amount)) : directBet.amount;
-
+    
+    const finalQuote = quoteSelected * -1;
+    
     return(
       <LinearGradient  style = {{flex: 1, margin: 0}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
 
@@ -100,7 +102,7 @@ class MatchDirect extends Component{
 
         <View style = {directBet.event.sport.name =="Soccer" ? {marginTop: 10, marginBottom: 15}: {marginTop: 30, marginBottom: 10}}>
             <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}>{directBet.amount} £</Text>
-            <Text style = {{color: "#00B073", alignSelf: "center", fontSize: 13, marginTop: 10}}>+ {this.state.quoteSelected} %</Text>
+            <Text style = {{color: "#00B073", alignSelf: "center", fontSize: 13, marginTop: 10}}> {finalQuote} %</Text>
         </View>
 
         {this.switchView()}
@@ -109,13 +111,13 @@ class MatchDirect extends Component{
           <TouchableOpacity
                   style = {this.state.teamOpponentSelected != "" ? styles.buttonContainer : styles.buttonDisableContainer}
                   disabled = {this.state.teamOpponentSelected != "" ? false : true}
-                  onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
+                  onPress = {this.props.sendToConfirmation.bind(this, directBet, finalQuote , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
             >
               <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
           </TouchableOpacity> :
           <TouchableOpacity
               style = {styles.buttonContainer }
-              onPress = {this.props.sendToConfirmation.bind(this, directBet, quoteSelected , bet, directBet.event, teamOpponentSelected, directBet.back_team, quoteSelected)}
+              onPress = {this.props.sendToConfirmation.bind(this, directBet, finalQuote , bet, directBet.event, teamOpponentSelected, directBet.back_team, finalQuote)}
             >
               <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
           </TouchableOpacity>

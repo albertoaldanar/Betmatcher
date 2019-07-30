@@ -204,7 +204,8 @@ class Description extends Component{
     const options = [game.local, game.visit, gameType];
     const teamsNotSelected = options.filter(x => x.name!= teamSelected.name);
 
-    console.log(teamSelected, teamsNotSelected);
+    console.log(this.props.navigation.state.params.par);
+    console.log(this.state.teamSelected);
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 

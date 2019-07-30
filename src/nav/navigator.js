@@ -68,7 +68,7 @@ export const MainScreen = createBottomTabNavigator({
     }
 );
 
-const AppNavigator = StackNavigator({
+export const AppNavigatorMain = StackNavigator({
     MainScreen: {
     screen: MainScreen,
       navigationOptions:{
@@ -86,7 +86,8 @@ const AppNavigator = StackNavigator({
   Login: {
       screen: Login,
       navigationOptions: {
-        header: null
+        header: null,
+        gesturesEnabled: false
       }
   },
   Friends: {
@@ -164,12 +165,109 @@ const AppNavigator = StackNavigator({
 
 });
 
-class Nav extends Component{
-  render(){
-    return(
-      <AppNavigator/>
-    );
-  }
-}
 
-export default Nav;
+export const AppNavigatorLogin = StackNavigator({
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false
+      }
+    },
+    MainScreen: {
+    screen: MainScreen,
+      navigationOptions:{
+        gesturesEnabled: false,
+      // title: "",
+      // headerStyle: {
+      //   backgroundColor: "black",
+      //   borderBottomColor: "black",
+      //   elevation: 3
+      // },
+      // headerTintColor: "#7DDECC",
+      header: null
+    }
+  },
+  Friends: {
+    screen: Friends,
+    navigationOptions: {
+      title: "Betfriends",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  Description: {
+    screen: Description,
+    navigationOptions: {
+      title: "Info",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  ConfirmBet: {
+    screen: ConfirmBet,
+    navigationOptions: {
+      title: "Confirm Bet",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  YouHaveMatch: {
+    screen: YouHaveMatch,
+    navigationOptions: {
+      header: null
+    }
+  },
+  TopRequests: {
+    screen: TopRequests,
+    navigationOptions: {
+      title: "Live Unmatched bets",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  FilteredEvents: {
+    screen: FilteredEvents,
+    navigationOptions: {
+      title: "Events",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+  AllLeagues: {
+    screen: AllLeagues,
+    navigationOptions: {
+      title: "All Leagues",
+      headerTintColor: "#00B073",
+      headerStyle: {
+        backgroundColor: "black",
+        borderBottomColor: "black"
+      }
+    }
+  },
+
+});
+// class Nav extends Component{
+//   render(){
+//     return(
+//       <AppNavigator/>
+//     );
+//   }
+// }
+
+// export default Nav;

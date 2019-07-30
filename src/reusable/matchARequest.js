@@ -175,7 +175,7 @@ class MatchARequest extends Component{
 
       var bet = currentQuote > 0 ? Math.round(u.amount - ((currentQuote / 100) * u.amount)) : u.amount;
 
-      console.log(currentQuote);
+      const finalQuote = currentQuote * - 1;
 
       if(team == u.back_team){
         return(
@@ -190,11 +190,11 @@ class MatchARequest extends Component{
 
                   <TouchableOpacity onPress = {this.getUser.bind(this, u.back_user.username)}>
                     <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.back_user.username}</Text>
-                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{currentQuote}</Text>
+                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{finalQuote}</Text>
                     <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {u.amount}  <FontAwesome>{Icons.database}</FontAwesome></Text>
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, currentQuote, bet)}>
+                <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, finalQuote, bet)}>
                   <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
                 </TouchableOpacity>
               </View>

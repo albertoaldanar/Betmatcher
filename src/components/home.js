@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl, Modal} from "react-native";
+import {View, Text, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Url from "../constants/url";
 import Header from "../reusable/header";
@@ -16,6 +16,8 @@ import Menu from "../reusable/menu";
 import SideMenu from "react-native-side-menu";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { NavigationActions } from 'react-navigation';
+import Wating from "../reusable/wating";
+import Modal from "react-native-modal";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -35,7 +37,7 @@ class Home extends Component{
       data: "",
       showModal: true,
       sports: [], refreshing: false, currentUser: "",
-      requestModal: false, requestSelected: {}
+      requestModal: false, requestSelected: {}, isLoadingData: true
    }
    this.filteredEvents = this.filteredEvents.bind(this);
   }
@@ -48,7 +50,7 @@ class Home extends Component{
     this._isMounted = true;
 
     const usernameGet = await AsyncStorage.getItem('username');
-    this.setState({ currentUser: usernameGet});
+    this.setState({ currentUser: usernameGet, showSidebar: false});
 
     return fetch(`http://${Url}:8000/home_data?current_user=${this.state.currentUser}`)
         .then(res => res.json())
@@ -58,10 +60,12 @@ class Home extends Component{
                   leagues: response["leagues"],
                   topRequests: response["top_request"],
                   topTradedEvents: response["top_traded"],
-                  sports: response["sports"]
+                  sports: response["sports"],
+                  isLoadingData: false,
+
               })
             }
-          }).then(setTimeout(() => {this.setState({showModal: false})}, 3000))
+          }).then(setTimeout(() => {this.setState({showModal: false})}, 2500))
   }
 
   componentDidMount(){
@@ -87,12 +91,10 @@ class Home extends Component{
     console.log(error.message);
     }
 
-    setTimeout(()=> {
-      const navigateAction = NavigationActions.navigate({
-        routeName: "Login"
-      })
-      this.props.navigation.dispatch(navigateAction);
-    }, 3000)
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Login"
+    })
+    this.props.navigation.dispatch(navigateAction);
   }
 
   sendToConfirmation(user, quote, bet, game, teamSelected, teamsNotSelected){
@@ -136,7 +138,7 @@ class Home extends Component{
 
     return requestsToShow.map((r, index) => {
       return(
-        <TouchableOpacity key = {index} onPress = {() => this.setState({requestSelected: r, requestModal: true})}>
+        <TouchableOpacity key = {index} onPress = {() => this.setState({requestSelected: r, requestModal: true, showSidebar: false})}>
             <Card style = {{padding: 10}}>
               <View style = {{flexDirection:"row", paddingLeft: 5, marginBottom: 7, marginTop: 7}}>
                 <Text style = {[styles.desc, {color:"#DCDCDC", fontWeight: "300", fontStyle: "oblique"}]}>{r.event.local.name}</Text>
@@ -233,6 +235,89 @@ class Home extends Component{
         );
     }
 
+    loading(){
+      const images = [
+        "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",
+        'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F488987%2Ftwo-young-men-shaking-hands-and-smiling-deal-shake-friends.jpg&w=700&op=resize',
+        'https://images5.alphacoders.com/353/thumb-1920-353068.jpg'
+      ];
+
+      const header = ["Best leagues in the world", "Bet against other people", "Amazing feautures"];
+
+      const msg = [
+        "Bet in a way you never did before in the best leagues in the world",
+        "Bet against your friends and random people around the world in your favorite sport events",
+        "Betmatcher has amazing tools for bettors: Live results, chat with oppnent, stats and more"
+      ]
+      if(this.state.isLoadingData){
+        return(
+           <ActivityIndicator size="large" color="white" style= {{alignSelf:"center", position: "absolute", marginTop: 150, justifyContent: "center"}}/>
+        );
+      } else {
+        return(
+          <View>
+            <View style = {styles.images}>
+                  <ImageSlider
+                      images= {images}
+                      autoPlayWithInterval={2500}
+                      customSlide={({ index, item, style, width }) => (
+                        <View key={index}>
+                          <Image source = {{uri: item}} style = {style} opacity = {0.35}/>
+
+                          <View style = {styles.messageContainer}>
+                            <Text style = {styles.title}> {header[index]} </Text>
+                            <Text style = {styles.secondText}> {msg[index]} </Text>
+                            <TouchableOpacity style = {styles.button}>
+                              <Text style = {styles.buttonText}>BET NOW</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      )}
+                  />
+              </View>
+
+              <View>
+                <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+                  <Text style = {styles.title}> Top traded events </Text>
+                </View>
+                {this.topEventDetials()}
+              </View>
+
+              <View style = {{marginTop: 15, marginBottom: 15}}>
+                <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+                  <Text style = {[styles.title, {margin:0}]}> Top leagues </Text>
+                  <TouchableOpacity onPress = {this.callNavigation.bind(this, "AllLeagues", this.state.leagues)}>
+                    <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View all <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                  </TouchableOpacity>
+                </View>
+
+                <Carousel
+                        data={this.state.leagues}
+                        renderItem={this.renderItem}
+                        ref={'carousel'}
+                        hasParallaxImages={true}
+                        style={{opacity: 0.4}}
+                        sliderWidth={sliderWidth}
+                        itemWidth={sliderWidth* 0.36}
+                        itemHeight={itemHeight}
+                        firstItem= {1}
+                />
+              </View>
+
+              <View>
+                <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
+                  <Text style = {styles.title}> Unmatched bets </Text>
+                  <TouchableOpacity onPress = {this.callNavigation.bind(this, "TopRequests",  this.state.topRequests)}>
+                    <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
+                  </TouchableOpacity>
+                </View>
+                {this.topRequests()}
+              </View>
+            </View>
+        );
+      }
+    }
+
   render(){
     const {requestSelected, currentUser} = this.state;
     console.log(this.state.requestSelected);
@@ -244,33 +329,11 @@ class Home extends Component{
                     filteredEvents = {this.callNavigation.bind(this)}
                   />
 
-    const images = [
-      "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",
-      'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F488987%2Ftwo-young-men-shaking-hands-and-smiling-deal-shake-friends.jpg&w=700&op=resize',
-      'https://images5.alphacoders.com/353/thumb-1920-353068.jpg'
-    ];
-
-    const header = ["Best leagues in the world", "Bet against other people", "Amazing feautures"];
-
-    const msg = [
-      "Bet in a way you never did before in the best leagues in the world",
-      "Bet against your friends and random people around the world in your favorite sport events",
-      "Betmatcher has amazing tools for bettors: Live results, chat with oppnent, stats and more"
-    ]
-
     return(
       <SideMenu
         isOpen ={this.state.showSidebar}
         menu = {menu}
       >
-        <Modal
-          visible = {this.state.showModal}
-        >
-          <View style = {{flex: 1, backgroundColor: "#161616"}}>
-            <Text style = {{marginTop: 100, color: "white", textAlign: "center", fontSize: 20}}>Welcome to Betmatcher</Text>
-          </View>
-        </Modal>
-
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)}/>
           <ScrollView
@@ -282,68 +345,12 @@ class Home extends Component{
             }
           >
             <StatusBar hidden = {true}/>
-            <View style = {styles.images}>
-                <ImageSlider
-                    images= {images}
-                    autoPlayWithInterval={2500}
-                    customSlide={({ index, item, style, width }) => (
-                      <View key={index}>
-                        <Image source = {{uri: item}} style = {style} opacity = {0.35}/>
-
-                        <View style = {styles.messageContainer}>
-                          <Text style = {styles.title}> {header[index]} </Text>
-                          <Text style = {styles.secondText}> {msg[index]} </Text>
-                          <TouchableOpacity style = {styles.button}>
-                            <Text style = {styles.buttonText}>BET NOW</Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    )}
-                />
-            </View>
-
-            <View>
-              <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-                <Text style = {styles.title}> Top traded events </Text>
-              </View>
-              {this.topEventDetials()}
-            </View>
-
-            <View style = {{marginTop: 15, marginBottom: 15}}>
-              <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-                <Text style = {[styles.title, {margin:0}]}> Top leagues </Text>
-                <TouchableOpacity onPress = {this.callNavigation.bind(this, "AllLeagues", this.state.leagues)}>
-                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View all <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-                </TouchableOpacity>
-              </View>
-
-              <Carousel
-                      data={this.state.leagues}
-                      renderItem={this.renderItem}
-                      ref={'carousel'}
-                      hasParallaxImages={true}
-                      style={{opacity: 0.4}}
-                      sliderWidth={sliderWidth}
-                      itemWidth={sliderWidth* 0.36}
-                      itemHeight={itemHeight}
-                      firstItem= {1}
-              />
-            </View>
-
-            <View>
-              <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
-                <Text style = {styles.title}> Unmatched bets </Text>
-                <TouchableOpacity onPress = {this.callNavigation.bind(this, "TopRequests",  this.state.topRequests)}>
-                  <Text style = {{color: "#00B073", fontSize: 12, margin: 19}}> View more <FontAwesome>{Icons.chevronRight}</FontAwesome> </Text>
-                </TouchableOpacity>
-              </View>
-              {this.topRequests()}
-            </View>
+            
+            {this.loading()}
           </ScrollView>
 
           <Modal
-            visible = {this.state.requestModal}
-            animationType = "slide"
+            isVisible = {this.state.requestModal}
             >
               <MatchDirect
                   closeModal = {this.requestModal.bind(this)}

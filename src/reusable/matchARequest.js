@@ -179,28 +179,25 @@ class MatchARequest extends Component{
 
       if(team == u.back_team){
         return(
-          <View>
-            <View style = {styles.tableStyle}>
+          <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, finalQuote, bet)} style = {{marginBottom: 20}}>
               <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
                 <View style= {{flexDirection:"row"}}>
                   <Image
-                    source = {{uri: u.image}}
+                    source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
                     style = {styles.image}
                   />
 
-                  <TouchableOpacity onPress = {this.getUser.bind(this, u.back_user.username)}>
+                  <View>
                     <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.back_user.username}</Text>
-                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{finalQuote}</Text>
-                    <Text style = {{color: "#DAA520", fontSize: 16, marginTop: 10}}> {u.amount}  <FontAwesome>{Icons.database}</FontAwesome></Text>
-                  </TouchableOpacity>
+                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 13, fontWeight: "300", fontStyle: "oblique"}}>Your bet%</Text>
+                  </View>
                 </View>
-                <TouchableOpacity key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, finalQuote, bet)}>
-                  <FontAwesome style = {{color:"gray", marginTop: 30, marginRight: 5}}>{Icons.chevronRight}</FontAwesome>
-                </TouchableOpacity>
+                <View style = {{marginRight: 10}}>
+                    <Text style = {{color: "#DAA520", fontSize: 14, alignSelf:"center", fontWeight: "300"}}> {u.amount}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center"}}>{finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}</Text>
+                </View>
               </View>
-            </View>
-
-          </View>
+          </TouchableOpacity>
         );
       } else {
         return null

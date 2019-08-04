@@ -8,6 +8,9 @@ import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
 import Url from "../constants/url";
 import User from "../constants/user";
+import NumericInput from 'react-native-numeric-input'
+
+
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -31,6 +34,25 @@ class BetModal extends Component{
       sq: qts[1]
     }
   }
+
+
+  changeBetAmount(sign){
+    if(sign== "Plus"){
+      this.setState({bet: this.state.bet += 1 })
+    } else {
+      this.setState({bet: this.state.bet -= 1 })
+    }
+  }
+
+  customizeQuotes(quote, sign){
+    if(quote == "fq" && sign == "+"){
+      this.setState({fq: this.state.fq += 1})
+    } else if(quote == "fq" && sign == "-"){
+      this.setState({fq: this.state.fq -= 1})
+    } else if(quote == "sq" && sign == "+"){
+      this.setState({sq: this.state.sq += 1})
+    } else {this.setState({sq: this.state.sq -= 1})}
+  } 
 
   getFriends(){
       this._isMounted = true;
@@ -98,10 +120,6 @@ class BetModal extends Component{
       }
   }
 
-  setCoins(value){
-    this.setState({bet: value})
-  }
-
   friendsModal(){
     this.setState({showFriends: !this.state.showFriends})
   }
@@ -110,12 +128,6 @@ class BetModal extends Component{
     this.setState({ opponent: value, showFriends: false })
   }
 
-
-  multiSliderValuesChange = (values) => {
-      this.setState({
-          values
-      });
-  }
 
   alerts(){
       const title = this.state.publicBet ? "Your bet has been placed!" : `Your bet has been sent`
@@ -160,38 +172,109 @@ class BetModal extends Component{
   }
 
   gameType(game, position){
-    let {bet} = this.state;
+    let {bet, fq, sq} = this.state;
     const {teamsNotSelected} = this.props;
 
    if(game.data.sport.name == "Soccer"){
       return(
-          <View style = {{marginTop: 35}}>
-            <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth:0.5, borderTopColor: "gray", borderTopWidth:0.5}}>
-              <View>
-                <Text style = {{color: "gray", fontWeight: "400", marginLeft: 5, borderBottomWidth: 1, borderBottomColor: "gray", fontStyle: "oblique"}}> IF MATCH</Text>
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name} </Text>
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[1].name} </Text>
+          <ScrollView 
+            horizontal
+            style = {{marginTop: 35, marginRight: 10, marginLeft: 10}}
+          >
+            <View style = {styles.tradeCard}>
+              <View style = {{ flexDirection:"row"}}>
+                  <View>
+                      <View style = {{flexDirection:"row", marginTop: 5, marginLeft: 10, marginBottom: 15}}>
+                          <Text style = {{color: "white"}}>If match against</Text>
+                          <Text style = {{color: "#00B073"}}>  {teamsNotSelected[0].name.toUpperCase()}</Text>
+                      </View>
+
+                      <View style = {{marginTop: 10, marginLeft: 10,}}>
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
+
+                            <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
+     
+                                { fq > 0 ? 
+                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
+                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop: -3}}>{Icons.sortDown}</FontAwesome>
+                                }
+                                <Text style = {fq > 0 ? styles.positiveQuote : styles.negativeQuote}> {fq} % </Text>
+        
+
+                              <View style = {{flexDirection: "row"}}>
+                                <TouchableOpacity style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, marginRight: 3, borderRadius: 5}}
+                                  onPress = {this.customizeQuotes.bind(this, "fq", "-")}
+                                >
+                                    <Text style = {{color: "#00B073", fontSize: 20}}> - </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity 
+                                  style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, borderRadius: 5}}
+                                   onPress = {this.customizeQuotes.bind(this, "fq", "+")}
+                                >
+                                    <Text style = {{color: "#00B073", fontSize: 20}}> + </Text>
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {fq > 0 ? "more" : "less"} than you </Text>
+                      </View>
+
+                      <View style = {{marginTop: 25, marginLeft: 2, borderTopColor: "gray", borderTopWidth: 0.3}}>  
+                          <Text style = {{color:"#DAA520",  marginTop: 10}}>RETURN { Math.round((fq / 100) * bet + (bet * 2) )} <FontAwesome>{Icons.database}</FontAwesome></Text>
+                      </View>
+                  </View>
               </View>
-
-              <View>
-                <Text style = {{color: "gray", fontWeight: "400", fontStyle: "oblique"}}>QUOTES</Text>
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>
-                  {teamsNotSelected[0].quotes[position] } %  {teamsNotSelected[0].quotes[position] > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome>: <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}
-                </Text>
-
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8}}>
-                  {teamsNotSelected[1].quotes[position]} %  {teamsNotSelected[1].quotes[position] > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome>: <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}
-                </Text>
-              </View>
-
-              <View>
-                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5, fontStyle: "oblique"}}>YOU CAN WIN</Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes[position] / 100) * bet + (bet * 2) )}  <FontAwesome> {Icons.database} </FontAwesome> </Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[1].quotes[position] / 100) * bet + (bet * 2) )}  <FontAwesome> {Icons.database} </FontAwesome> </Text>
-              </View>
-
             </View>
-          </View>
+
+
+            <View style = {styles.tradeCard}>
+              <View style = {{ flexDirection:"row"}}>
+                  <View>
+                      <View style = {{flexDirection:"row", marginTop: 5, marginLeft: 10, marginBottom: 15}}>
+                          <Text style = {{color: "white"}}>If match against</Text>
+                          <Text style = {{color: "#00B073"}}>  {teamsNotSelected[1].name.toUpperCase()}</Text>
+                      </View>
+
+                      <View style = {{marginTop: 10, marginLeft: 10,}}>
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
+
+                            <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
+     
+                                { sq > 0 ? 
+                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
+                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop:-3}}>{Icons.sortDown}</FontAwesome>
+                                }
+                                <Text style = {sq > 0 ? styles.positiveQuote : styles.negativeQuote}> {sq} % </Text>
+        
+
+                              <View style = {{flexDirection: "row"}}>
+                                <TouchableOpacity 
+                                  style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, marginRight: 3, borderRadius: 5}}
+                                   onPress = {this.customizeQuotes.bind(this, "sq", "-")}
+                                >
+                                    <Text style = {{color: "#00B073", fontSize: 20}}> - </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity 
+                                  style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, borderRadius: 5}}
+                                   onPress = {this.customizeQuotes.bind(this, "sq", "+")}
+                                >
+                                    <Text style = {{color: "#00B073", fontSize: 20}}> + </Text>
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {sq > 0 ? "more" : "less"} than you </Text>
+                      </View>
+
+                      <View style = {{marginTop: 25, marginLeft: 2, borderTopColor: "gray", borderTopWidth: 0.3}}>  
+                          <Text style = {{color:"#DAA520",  marginTop: 10}}>RETURN { Math.round((sq / 100) * bet + (bet * 2) )} <FontAwesome>{Icons.database}</FontAwesome></Text>
+                      </View>
+                  </View>
+              </View>
+            </View>
+          </ScrollView>
       );
     } else {
       return(
@@ -228,47 +311,50 @@ class BetModal extends Component{
         return(
             <View>
               <View style = {{padding: 20, paddingTop: 10}}>
-                <View style = {{flexDirection:"row", alignSelf: "center", marginTop: 5, marginBottom:20}}>
-                  <Text style = {styles.layBet}>Set your bet for: </Text>
-                  <Text style = {[styles.layBet, {marginLeft: 5, color: "#00B073", fontSize: 17}]}>{this.props.team.name}</Text>
+                <View style = {{flexDirection:"row", marginTop: 5, marginBottom:20}}>
+                  <Text style = {[styles.layBet, {fontSize: 17, fontWeight: "300"}]}>Bet for </Text>
+                  <Text style = {[styles.layBet, {marginLeft: 5, color: "#00B073", fontSize: 17, fontWeight: "300"}]}>{this.props.team.name.toUpperCase()}</Text>
                 </View>
 
-                <Text style = {{alignSelf: "center", color: "#DAA520", fontSize: 25, marginTop: 5, fontWeight: "300"}}>{this.state.bet}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+                <View style = {{flexDirection:"row"}}>
+                  <Text style= {{fontWeight: "300", color: "#DAA520", marginTop: 18, fontSize: 20}}> £</Text>
+                  <TextInput
+                      style={{height: 40, borderBottomColor: "gray", borderWidth: 0.3, color: "#DAA520", width: Dimensions.get("window").width * 0.3, marginLeft: 10, fontWeight: "300", fontSize: 20}}
+                      keyboardType='numeric'
+                      textAlign={'center'}
+                      value = {this.state.bet}
+                      placeholder = {this.state.bet.toString()}
+                      placeholderTextColor= "#DAA520"
+                      onChangeText = {(number) => this.setState({bet: number})} 
+                  />
+                  <View style = {{justifyContent: "space-around", marginTop: 8, marginLeft: 15, flexDirection:"row"}}>
+                        <TouchableOpacity 
+                          style = {{padding: 2, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, marginRight: 3, borderRadius: 5}}
+                          onPress = {this.changeBetAmount.bind(this)}
+                        >
+                            <Text style = {{color: "#00B073", fontSize: 20}}> - </Text>
+                        </TouchableOpacity>
 
-                <Slider
-                  step= {10}
-                  style ={{marginLeft: 15, marginRight: 15, marginTop: 15}}
-                  maximumValue={Number(coins)}
-                  minimumValue = {50}
-                  thumbTintColor = "#00B073"
-                  minimumTrackTintColor = "#00B073"
-                  onValueChange={this.setCoins.bind(this)}
-                  value={this.state.bet}
-                  thumbStyle ={{color: "#00B073"}}
-                />
+                        <TouchableOpacity
+                          style = {{padding: 2, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, borderRadius: 5}}
+                          onPress = {this.changeBetAmount.bind(this, "Plus")}
+                         >
+                            <Text style = {{color: "#00B073", fontSize: 20}}> + </Text>
+                        </TouchableOpacity>
+                  </View>
+                </View>
               </View>
 
+               <Text style = {{color: "gray", fontStyle: "oblique", fontWeight:"400", marginBottom: -25, marginTop: 10, marginLeft: 17}}>QUOTES</Text>
               {this.gameType(game, position)}
 
-              <Text style = {{color: "gray", fontSize: 11, marginTop: 30, alignSelf: "center"}}> SEND THIS BET TO: </Text>
-
-              <View style = {{marginTop: 20, flexDirection:"row", justifyContent:"space-around"}}>
-                <TouchableOpacity style= {this.state.publicBet ? styles.choiceButtonSelected : styles.choiceButton} onPress = {() => this.setState({publicBet: true, opponent: ""})}>
-                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 13}}>Public bet  <FontAwesome>{Icons.users}</FontAwesome></Text>
-                </TouchableOpacity>
-
-                <Text style = {{color: "gray", fontSize: 15, marginTop: 7}}> or </Text>
-
-                <TouchableOpacity style= {this.state.opponent == "" ? styles.choiceButton : styles.choiceButtonSelected} onPress = {this.getFriends.bind(this)}>
-                  <Text style = {{color:"white", marginRight: 3, alignSelf:"center", fontSize: 13}}> {this.state.opponent || "Betfriend"}  <FontAwesome>{Icons.user}</FontAwesome></Text>
-                </TouchableOpacity>
-              </View>
             </View>
         );
   }
 
   render(){
       console.log(this.state.fq, this.state.sq)
+      console.log(this.state.bet);
       let button;
         button = this.props.coins > 50 ? <TouchableOpacity
                     style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}
@@ -290,9 +376,10 @@ class BetModal extends Component{
               <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.props.coins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
             </View>
           </View>
-
+    
           {this.betFilter()}
-
+          
+           <Text style = {{color: "gray", fontStyle: "oblique", fontWeight:"400", marginTop: 15, marginLeft: 17}}>SEND THIS BET TO:</Text>
           <Modal
             style={{ flex: 1}}
             isVisible={this.state.showFriends}
@@ -305,15 +392,15 @@ class BetModal extends Component{
             />
           </Modal>
 
+          <View style = {{flexDirection:"row", justifyContent: "space-around", marginTop: 25}}>
+            <TouchableOpacity style = {{borderColor: "gray", borderWidth: 0.3, padding: 12, borderRadius: 5}}>
+                <Text style = {{color: "white"}}>Public Bet <FontAwesome>{Icons.users}</FontAwesome></Text>
+            </TouchableOpacity>
 
-          <Modal
-            style={{ flex: 1, position: "relative" }}
-            isVisible={this.state.infoModal}
-            backdropOpacity = {0.9}
-          >
-          {this.dataAnalysis()}
-
-          </Modal>
+            <TouchableOpacity style = {{borderColor: "gray", borderWidth: 0.3, padding: 12, borderRadius: 5}}>
+                <Text style = {{color: "white"}}>Betfreind <FontAwesome>{Icons.user}</FontAwesome></Text>
+            </TouchableOpacity>
+          </View>
 
           {button}
           </LinearGradient>
@@ -438,6 +525,22 @@ const styles ={
   expText: {
     fontSize: 20, color: "#ffff",
     textAlign: "center",
+  },
+  tradeCard: {
+    margin: 10,  
+    shadowColor: "#161616",
+    shadowOffset: {width: 2, height: 3},
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+    elevation: 3,
+    backgroundColor: "black",
+    padding: 25, borderRadius: 5,
+  },
+  positiveQuote: {
+    color: "white", marginRight: 16, marginTop: 4, color: "#00B073" 
+  },
+  negativeQuote: {
+    color: "white", marginRight: 16, marginTop: 4, color: "#ff4d4d" 
   }
 };
 

@@ -57,7 +57,15 @@ class FriendsModal extends Component{
           <TouchableOpacity onPress= {this.props.hideShow}>
             <Text style= {{color: "#00B073", margin: 5, marginLeft: 10, fontWeight: "600", fontSize: 22}}>X</Text>
           </TouchableOpacity>
-          <Text style = {styles.title}>Pick a betfriend to send bet</Text>
+          {
+            this.props.betfriends < 1 ?
+            <View>
+              <Text style = {[styles.title, {fontSize: 15}]}> You don´t have betfreinds yet to bet against :( </Text>
+              <Text style = {{marginTop: 10, color: "white", alignSelf: "center"}}> Your bet must be public <FontAwesome>{Icons.users}</FontAwesome></Text>
+            </View> :
+
+            <Text style = {styles.title}> Pick a betfriend to bet against </Text>
+          }
           <ScrollView>
             {this.renderFriendList()}
           </ScrollView>

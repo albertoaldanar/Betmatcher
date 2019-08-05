@@ -71,7 +71,7 @@ class MatchDirect extends Component{
     const finalQuote = quoteSelected * -1;
     
     return(
-      <LinearGradient  style = {{flex: 1, margin: 0}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+      <LinearGradient style = {{flex: 1, margin: 0, borderRadius: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
 
         <TouchableOpacity
             style = {{position: "absolute", left: 6, top: 6, marginBottom: 40}}
@@ -102,7 +102,20 @@ class MatchDirect extends Component{
 
         <View style = {directBet.event.sport.name =="Soccer" ? {marginTop: 10, marginBottom: 15}: {marginTop: 30, marginBottom: 10}}>
             <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}>{directBet.amount} £</Text>
-            <Text style = {{color: "#00B073", alignSelf: "center", fontSize: 13, marginTop: 10}}> {finalQuote} %</Text>
+
+              {
+                finalQuote== 0 ? 
+                null : 
+                <Text style = {finalQuote > 0 ? styles.positiveQuote : styles.negativeQuote}> {finalQuote} %</Text>
+              }
+
+              {      
+                    this.state.quoteSelected == null ?
+                    null : 
+                    finalQuote > 0 ? 
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {directBet.back_user.username} has to bet {finalQuote} % more than you </Text> :
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {directBet.back_user.username} will bet {finalQuote * -1} % less than you </Text>
+              }
         </View>
 
         {this.switchView()}
@@ -198,6 +211,14 @@ const styles= {
     right: 0, bottom: 0,
     justifyContent: "center",
     backgroundColor: "red",
+  },  
+  negativeQuote: {
+    color: "#ff4d4d",
+    alignSelf: "center", fontSize: 13, marginTop: 10
+  },
+  positiveQuote: {
+    color: "#00B073",
+    alignSelf: "center", fontSize: 13, marginTop: 10
   }
 }
 

@@ -96,7 +96,7 @@ class MatchARequest extends Component{
                 <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
                     <View>
                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          QUOTE
+                          BASE QUOTE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes}% {teamsNotSelected[0].quotes || teamsNotSelected[0].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
@@ -123,7 +123,10 @@ class MatchARequest extends Component{
                       </View>
                     </TouchableOpacity>
                 </View>
-                {this.userList(teamsNotSelected[0].name, position )}
+
+                <ScrollView style = {{height: Dimensions.get("window").height }}>
+                  {this.userList(teamsNotSelected[0].name, position )}
+                </ScrollView>
               </View>
           );
       } else {
@@ -133,7 +136,7 @@ class MatchARequest extends Component{
                 <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
                     <View>
                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          QUOTE
+                          BASE QUOTE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           {teamsNotSelected[1].quotes[position]}% { teamsNotSelected[1].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
@@ -160,8 +163,10 @@ class MatchARequest extends Component{
                       </View>
                     </TouchableOpacity>
                 </View>
-
-                {this.userList(teamsNotSelected[1].name,  position)}
+                
+                <ScrollView style = {{height: Dimensions.get("window").height }}> 
+                  {this.userList(teamsNotSelected[1].name,  position)}
+                </ScrollView>
               </View>
           );
         }
@@ -179,24 +184,45 @@ class MatchARequest extends Component{
 
       if(team == u.back_team){
         return(
-          <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, finalQuote, bet)} style = {{marginBottom: 20}}>
-              <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+          <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, finalQuote, bet)} style = {{marginBottom: 20, backgroundColor:"#161616", marginLeft: 10, marginRight: 10, borderRadius: 6}}>
+              <View style = {{flexDirection: "row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth: 0.3}}>
                 <View style= {{flexDirection:"row"}}>
                   <Image
                     source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
                     style = {styles.image}
                   />
-
-                  <View>
-                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{u.back_user.username}</Text>
-                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 13, fontWeight: "300", fontStyle: "oblique"}}>Your bet%</Text>
+                  
+                  <View style = {{justifyContent: "center"}}>
+                    <Text style = {{ marginTop: 2, color: "#ffff", fontSize: 13, fontWeight: "300", marginRight: 15}}>{u.back_user.username}</Text>
+                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 10, fontWeight: "300", fontStyle: "oblique", marginTop: 4}}>{u.back_user.profile.country} <FontAwesome>{Icons.mapMarker}</FontAwesome></Text>
                   </View>
                 </View>
-                <View style = {{marginRight: 10}}>
-                    <Text style = {{color: "#DAA520", fontSize: 14, alignSelf:"center", fontWeight: "300"}}> {u.amount}  <FontAwesome>{Icons.database}</FontAwesome></Text>
-                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center"}}>{finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}</Text>
-                </View>
+
+                <FontAwesome style = {{color:"gray", fontWeight:"300", marginRight: 5, marginTop: 9}}>{Icons.chevronRight}</FontAwesome>
               </View>
+
+              <View style = {{flexDirection: "row", justifyContent:"space-around", paddingTop: 19, paddingBottom: 19, borderBottomColor: "gray", borderBottomWidth: 0.3}} >
+                  <View style = {{justifyContent:"center", borderRightColor: "gray", borderRightWidth: 0.3, paddingRight: 40}}>
+                    <Text style ={styles.description}>Bet</Text>
+                    <Text style = {{fontWeight:"400", fontSize: 13, color: "#DAA520", alignSelf:"center", marginTop: 10}}>{u.amount} <FontAwesome> {Icons.database} </FontAwesome> </Text>
+                  </View> 
+
+                  <View style = {{justifyContent:"center", borderRightColor: "gray", borderRightWidth: 0.3, paddingRight: 40}}>
+                    <Text style ={styles.description}>Quote</Text>
+                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", alignSelf:"center", marginTop: 10}}>{finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}</Text>
+                  </View>
+
+                  <View style = {{justifyContent:"center"}}>
+                    <Text style ={styles.description}>Quote</Text>
+                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", alignSelf:"center", marginTop: 10}}>{finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}</Text>
+                  </View>
+              </View>
+
+              {
+                    finalQuote > 0 ? 
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} has to bet {finalQuote} % than you </Text> :
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} will bet {finalQuote * -1} % less than you </Text>
+              }
           </TouchableOpacity>
         );
       } else {
@@ -211,7 +237,7 @@ class MatchARequest extends Component{
     console.log(this.props.requests);
 
     return(
-      <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+      <View style = {{flex:1, backgroundColor:"black"}}>
         <View style ={{marginTop: 7}}>
           <View style = {styles.info}>
             <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
@@ -237,16 +263,16 @@ class MatchARequest extends Component{
             />
         </Modal>
 
-      </LinearGradient>
+      </View>
     );
   }
 }
 
 const styles ={
   image: {
-    width: 45,
-    height: 45,
-    marginRight: 22,
+    width: 35,
+    height: 35,
+    marginRight: 8,
     marginLeft: 6,
     shadowColor: "#000",
     shadowOffset: {
@@ -270,6 +296,10 @@ const styles ={
     fontWeight: "bold",
     fontSize: 13
   },
+  description: {
+      color: "gray",
+      fontWeight: "300"
+  }
 }
 
 export default MatchARequest;

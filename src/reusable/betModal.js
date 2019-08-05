@@ -27,7 +27,7 @@ class BetModal extends Component{
       finalValue: [],
       showFriends: false,
       opponent: "",
-      publicBet: false,
+      publicBet: true,
       infoModal: false,
       betfriends: [],
       fq: qts[0],
@@ -121,7 +121,12 @@ class BetModal extends Component{
   }
 
   friendsModal(){
-    this.setState({showFriends: !this.state.showFriends})
+    if(this.state.betfriends.length < 1 || this.state.opponent == ""){
+      this.setState({showFriends: !this.state.showFriends, publicBet: true})
+    } else {
+      this.setState({showFriends: !this.state.showFriends})
+    }
+    
   }
 
   selectOpponent(value){
@@ -148,7 +153,7 @@ class BetModal extends Component{
     const {opponent, fq, sq, bet, publicBet} = this.state;
 
     if(this.state.bet > coins){
-      return Alert.alert("Can´t send bet", `You don´t have ${this.state.bet} coins, sorry :( `, [{text: 'Continue', onPress: this.props.sendToMatchFromLay}])
+      return Alert.alert("Can´t send bet", `You don´t have ${this.state.bet} coins, sorry :( `, [{text: 'Continue', onPress: () => console.log("Request not possible")}])
     } else {
         return fetch(`http://${Url}:8000/post_request/`, {
           method: "POST",
@@ -279,24 +284,50 @@ class BetModal extends Component{
     } else {
       return(
         <View style = {{marginTop: 35}}>
-            <View style = {{flexDirection:"row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth:0.5, borderTopColor: "gray", borderTopWidth:0.5}}>
-              <View>
-                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5, alignSelf:"center", fontStyle: "oblique"}}>OPPONENT</Text>
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, marginTop: 22, fontSize: 15, padding: 8 }}>{teamsNotSelected[0].name} </Text>
-              </View>
+            <View style = {[styles.tradeCard, {padding: 8}]}>
+              <View style = {{ flexDirection:"row"}}>
+                  <View>
+                      <View style = {{flexDirection:"row", marginTop: 5, marginLeft: 10, marginBottom: 15}}>
+                          <Text style = {{color: "white"}}>When match against</Text>
+                          <Text style = {{color: "#00B073"}}>  {teamsNotSelected[0].name.toUpperCase()}</Text>
+                      </View>
 
-              <View>
-                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5, fontStyle: "oblique"}}>QUOTE</Text>
-                <Text style = {{color: "#ffff", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>
-                  {teamsNotSelected[0].quotes } %  {teamsNotSelected[0].quotes > 0 ? <FontAwesome style = {{color: "#00B073"}}>{Icons.sortUp}</FontAwesome>: <FontAwesome style = {{color: "red"}}>{Icons.sortDown}</FontAwesome>}
-                </Text>
-              </View>
+                      <View style = {{marginTop: 10, marginLeft: 10,}}>
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
 
-              <View>
-                <Text style = {{color: "gray", fontWeight: "400", marginRight: 5, fontStyle: "oblique"}}>YOU CAN WIN</Text>
-                <Text style = {{color: "#DAA520", fontWeight: "400", marginLeft: 5, alignSelf:"center", marginTop: 22, fontSize: 15, padding: 8 }}>{ Math.round((teamsNotSelected[0].quotes / 100) * bet + (bet * 2) )}  <FontAwesome> {Icons.database} </FontAwesome> </Text>
-              </View>
+                            <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
+     
+                                { fq > 0 ? 
+                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
+                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop: -3}}>{Icons.sortDown}</FontAwesome>
+                                }
+                                <Text style = {fq > 0 ? styles.positiveQuote : styles.negativeQuote}> {fq} % </Text>
+        
 
+                              <View style = {{flexDirection: "row"}}>
+                                <TouchableOpacity style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, marginRight: 3, borderRadius: 5}}
+                                  onPress = {this.customizeQuotes.bind(this, "fq", "-")}
+                                >
+                                    <Text style = {{color: "#00B073", fontSize: 20}}> - </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity 
+                                  style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, borderRadius: 5}}
+                                   onPress = {this.customizeQuotes.bind(this, "fq", "+")}
+                                >
+                                    <Text style = {{color: "#00B073", fontSize: 20}}> + </Text>
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {fq > 0 ? "more" : "less"} than you </Text>
+                      </View>
+
+                      <View style = {{marginTop: 25, marginLeft: 2, borderTopColor: "gray", borderTopWidth: 0.3}}>  
+                          <Text style = {{color:"#DAA520",  marginTop: 10}}>RETURN { Math.round((fq / 100) * bet + (bet * 2) )} <FontAwesome>{Icons.database}</FontAwesome></Text>
+                      </View>
+                  </View>
+              </View>
             </View>
         </View>
       );
@@ -356,16 +387,15 @@ class BetModal extends Component{
       console.log(this.state.fq, this.state.sq)
       console.log(this.state.bet);
       let button;
-        button = this.props.coins > 50 ? <TouchableOpacity
-                    style = {this.state.opponent != "" || this.state.publicBet ? styles.buttonContainer : styles.buttonDisableContainer}
-                    disabled = {this.state.opponent != "" || this.state.publicBet ? false : true}
+        button = this.props.coins >= 50 ? <TouchableOpacity
+                    style = {styles.buttonContainer}
                     onPress = {this.postRequest.bind(this)}
                     >
                     <Text style = {[styles.layBet, {fontSize: 19}]}> Place bet</Text>
                   </TouchableOpacity> : <Text style = {[styles.buttonDisableContainer, {fontSize: 15, backgroundColor: "transparent", color: "white", bottom: 14, textAlign: "center"}]}> You need at least 50 coins to make a bet :(</Text>
 
     return(
-         <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+         <View style = {{flex: 1, backgroundColor: "#161616"}}>
           <View style ={{marginBottom: 7}}>
             <View style = {styles.info}>
               <TouchableOpacity style = {styles.closeModal} onPress  = {this.props.visible}>
@@ -393,17 +423,23 @@ class BetModal extends Component{
           </Modal>
 
           <View style = {{flexDirection:"row", justifyContent: "space-around", marginTop: 25}}>
-            <TouchableOpacity style = {{borderColor: "gray", borderWidth: 0.3, padding: 12, borderRadius: 5}}>
+            <TouchableOpacity 
+              style = {this.state.publicBet ? styles.choiceButtonSelected : styles.choiceButton}
+              onPress = {() => this.setState({publicBet: true, opponent: ""})}
+            >
                 <Text style = {{color: "white"}}>Public Bet <FontAwesome>{Icons.users}</FontAwesome></Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style = {{borderColor: "gray", borderWidth: 0.3, padding: 12, borderRadius: 5}}>
-                <Text style = {{color: "white"}}>Betfreind <FontAwesome>{Icons.user}</FontAwesome></Text>
+            <TouchableOpacity 
+                style = {this.state.publicBet ? styles.choiceButton : styles.choiceButtonSelected}
+                onPress = {this.getFriends.bind(this)}
+            >
+                <Text style = {{color: "white"}}>{this.state.opponent || "Betfriend"} <FontAwesome>{Icons.user}</FontAwesome></Text>
             </TouchableOpacity>
           </View>
 
           {button}
-          </LinearGradient>
+          </View>
     );
   }
 }
@@ -528,7 +564,7 @@ const styles ={
   },
   tradeCard: {
     margin: 10,  
-    shadowColor: "#161616",
+    shadowColor: "black",
     shadowOffset: {width: 2, height: 3},
     shadowOpacity: 0.4,
     shadowRadius: 2,

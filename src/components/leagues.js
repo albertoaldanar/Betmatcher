@@ -12,6 +12,7 @@ class Leagues extends Component{
     this.state = {league: ""}
   }
 
+
   render(){
     console.log(this.state.league);
     const pick = {
@@ -68,7 +69,7 @@ class Leagues extends Component{
         </View>
 
           <TouchableOpacity
-             onPress = {this.props.filter.bind(this, "FilteredEvents", this.state.league)}
+             onPress = {() => {this.props.filter("FilteredEvents", this.state.league); this.props.close(); } }
              style= {styles.button}
           >
            <Text style = {styles.buttonText}>

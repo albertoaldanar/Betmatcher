@@ -63,6 +63,7 @@ export const MainScreen = createBottomTabNavigator({
               paddingRight: 10,
               paddingLeft: 10,
               borderTopColor: "grayPlaceHolder",
+              borderTopRadius: 5
           },
       }
     }

@@ -37,7 +37,7 @@ class Home extends Component{
       data: "",
       showModal: true,
       sports: [], refreshing: false, currentUser: "",
-      requestModal: false, requestSelected: {}, isLoadingData: true
+      requestModal: false, requestSelected: {}, isLoadingData: true, banners: [ [], [], [], [] ]
    }
    this.filteredEvents = this.filteredEvents.bind(this);
   }
@@ -61,6 +61,7 @@ class Home extends Component{
                   topRequests: response["top_request"],
                   topTradedEvents: response["top_traded"],
                   sports: response["sports"],
+                  banners: response["banners"],
                   isLoadingData: false,
 
               })
@@ -236,19 +237,25 @@ class Home extends Component{
     }
 
     loading(){
+
+      const {banners} = this.state;
+
       const images = [
-        "https://i.pinimg.com/originals/00/a5/78/00a5788ecd98460b6e832ba1d6e70715.jpg",
-        'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F488987%2Ftwo-young-men-shaking-hands-and-smiling-deal-shake-friends.jpg&w=700&op=resize',
-        'https://images5.alphacoders.com/353/thumb-1920-353068.jpg'
+        banners[0].img,
+        banners[1].img,
+        banners[2].img,
+        banners[3].img
       ];
 
-      const header = ["Best leagues in the world", "Bet against other people", "Amazing feautures"];
+      const header = [banners[0].title, banners[1].title, banners[2].title, banners[3].title];
 
       const msg = [
-        "Bet in a way you never did before in the best leagues in the world",
-        "Bet against your friends and random people around the world in your favorite sport events",
-        "Betmatcher has amazing tools for bettors: Live results, chat with oppnent, stats and more"
+        banners[0].message,
+        banners[1].message,
+        banners[2].message,
+        banners[3].message
       ]
+
       if(this.state.isLoadingData){
         return(
            <ActivityIndicator size="large" color="white" style= {{alignSelf:"center", position: "absolute", marginTop: 150, justifyContent: "center"}}/>
@@ -321,12 +328,14 @@ class Home extends Component{
   render(){
     const {requestSelected, currentUser} = this.state;
     console.log(this.state.requestSelected);
+    console.log(this.state.banners[0].img);
 
     const menu =  <Menu
                     leagues= {Lgs}
                     sports = {this.state.sports}
                     handleLogout = {this.handleLogout.bind(this)}
                     filteredEvents = {this.callNavigation.bind(this)}
+                    closeModal = {() => this.setState({showSidebar: false})}
                   />
 
     return(

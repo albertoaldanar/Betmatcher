@@ -73,7 +73,7 @@ class Menu extends Component {
             leaguesModal: !this.state.leaguesModal
         });
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error)).then(this.props.closeModal)
   }
 
   closeModal(){

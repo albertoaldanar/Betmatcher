@@ -24,8 +24,8 @@ class Match extends Component{
       index: 0, chat: false, modal: false,
        matches: [], unmatched: [], finished: [],
        token: "", currentUser: "", userCard: false,
-       friendAnalysis: [], userSelected: "", profile: [],
-       refreshing: false, positionSelected: "", isLoadingData: true
+       friendAnalysis: null, userSelected: "", profile: [],
+       refreshing: false, positionSelected: "", isLoadingData: true, requestedAnalysis: null
      }
 
      // this.resultAnalysis = this.resultAnalysis.bind(this);
@@ -87,7 +87,7 @@ class Match extends Component{
   }
 
   userCard(){
-    this.setState({userCard: !this.state.userCard})
+    this.setState({userCard: false})
   }
 
   cancelAlerts(){
@@ -148,7 +148,7 @@ class Match extends Component{
       .then(res => res.json())
       .then(jsonRes => {
         console.log(jsonRes)
-          this.setState({userSelected: jsonRes.user, userCard: !this.state.userCard, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+          this.setState({userSelected: jsonRes.user, userCard: true, profile: jsonRes.user.profile, friendAnalysis: jsonRes.friendship, requestedAnalysis: jsonRes.requested})
       })
       .catch(error => console.log(error));
   }
@@ -340,7 +340,7 @@ class Match extends Component{
 
   render(){
     console.log(this.state.unmatchedBets);
-    const {userSelected, profile, friendAnalysis} = this.state;
+    const {userSelected, profile, friendAnalysis, requestedAnalysis} = this.state;
     console.log(this.state.positionSelected)
 
     return(
@@ -368,8 +368,9 @@ class Match extends Component{
               backdropOpacity = {0.45}
         >
             <UserCard
-              closeModal = {this.userCard.bind(this)} userSelected = {userSelected}
-              profile = {profile} isFriend ={friendAnalysis}
+              closeModal = {this.userCard.bind(this)} userSelected = {userSelected} isWating = {requestedAnalysis}
+              profile = {profile} isFriend ={friendAnalysis} currentUser = {this.state.currentUser}
+              getUser = {this.getUser.bind(this)} friendList = {false}
             />
         </Modal>
 

@@ -18,6 +18,7 @@ import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { NavigationActions } from 'react-navigation';
 import Wating from "../reusable/wating";
 import Modal from "react-native-modal";
+import AnimateNumber from 'react-native-countup'
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -33,13 +34,12 @@ class Home extends Component{
       leaguesModal: false,
       leagues: [],
       topRequests: [],
-      topTradedEvents: [],
+      topTradedEvents: [[[]]],
       data: "",
       showModal: true,
       sports: [], refreshing: false, currentUser: "",
       requestModal: false, requestSelected: {}, isLoadingData: true, banners: [ [], [], [], [] ]
    }
-   this.filteredEvents = this.filteredEvents.bind(this);
   }
 
   componentWillUnmount() {
@@ -85,9 +85,9 @@ class Home extends Component{
     this.setState({showModal: true})
 
     try {
-     AsyncStorage.removeItem("username");
-     AsyncStorage.removeItem('token');
-     AsyncStorage.removeItem('coins');
+      AsyncStorage.removeItem("username");
+      AsyncStorage.removeItem('token');
+      AsyncStorage.removeItem('coins');
     } catch (error) {
     console.log(error.message);
     }
@@ -122,17 +122,7 @@ class Home extends Component{
     });
     this.props.navigation.dispatch(navigateAction);
   }
-
-  filteredEvents(league){
-    const navigateAction = NavigationActions.navigate({
-      routeName: "filteredEvents",
-      params: {
-        league: league
-      }
-    });
-    this.props.navigation.dispatch(navigateAction);
-  }
-
+  
   topRequests(){
     const requests = this.state.topRequests;
     const requestsToShow = requests.slice(0,5);
@@ -171,10 +161,50 @@ class Home extends Component{
     })
   }
 
-  topEventDetials(){
+
+  topEvent(){
+    const {topTradedEvents} = this.state;
+      if (topTradedEvents.length > 0){
+        return(
+            <TouchableOpacity onPress = {this.callNavigation.bind(this, "Description", topTradedEvents[0])} style= {{ margin: 3, marginRight: 3, borderRadius: 3}}>
+                <Image
+                  style={styles.image}
+                  source ={{uri: "https://tennishead.net/wp-content/uploads/2019/08/Rafael-Nadal-backhand-e1565098160981.jpg"}}
+                />
+
+                <View style = {{position: "absolute", top: 15, left: 5}}>
+                      <View style = {{flexDirection:"row", marginBottom: 7}}>
+                        <Text style = {[styles.league, {marginRight: 5}]}>{topTradedEvents[0].data.sport.name}</Text>
+                        <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
+                        <Text style = {[styles.league, {marginLeft: 5}]}>{topTradedEvents[0].data.league.name}</Text>
+                      </View>
+                      
+                      <View style = {{flexDirection:"row"}}>
+                        <Text style = {styles.desc}>{topTradedEvents[0].local.name}</Text>
+                        <Text style = {[styles.desc, {fontStyle :"oblique", fontWeight: "300"}]}>VS.</Text>
+                        <Text style = {styles.desc}>{topTradedEvents[0].visit.name}</Text>
+                      </View>
+                </View>
+
+                <View style = {{position: "absolute", right: 5, bottom: 5,}}>
+                      <View style = {{flexDirection:"row", paddingTop: 10}}>
+                        <Text style = {{color: "#F5F5F5", fontWeight: "bold"}}>Traded</Text>
+                        <Text style = {[styles.game, { fontWeight: "300", fontSize: 15, color: "#DAA520", marginLeft: 6}]}>{topTradedEvents[0].data.traded} £</Text>
+                      </View>
+                </View>
+            </TouchableOpacity>
+        );
+      } else {return null}
+  }
+
+  topEventsDetials(){
       const {topTradedEvents} = this.state;
       const evnetsToShow = topTradedEvents.slice(0,5);
-      return topTradedEvents.map((event, index) => {
+
+      const topEventRemoved = topTradedEvents.slice(1);
+      console.log(topEventRemoved);
+
+      return topEventRemoved.map((event, index) => {
         if (topTradedEvents.length > 0){
           return(
             <TouchableOpacity key = {index} onPress = {this.callNavigation.bind(this, "Description", event)}>
@@ -206,35 +236,26 @@ class Home extends Component{
                 </Card>
             </TouchableOpacity>
           );
-        } else {
-          return(
-            <Card style = {{padding: 50}}>
-              <Text>gergergerg</Text>
-            </Card>
-          )
         }
       })
   }
 
-    renderItem ({item, index}, parallaxProps) {
-        return (
-              <TouchableOpacity>
-                <ParallaxImage
-                    source={{ uri: item.img }}
-                    containerStyle={styles.imgContainer}
-                    style={styles.image}
-                    index = {2}
-                    parallaxFactor={0.6}
-                    showSpinner = {true}
-                    spinnerColor = {"#00B073"}
-                    {...parallaxProps}
-                />
-                <Text style={styles.tit} numberOfLines={2}>
+
+  leaguesScroll(){
+    return this.state.leagues.map(item => {
+        return(
+          <TouchableOpacity onPress = {this.callNavigation.bind(this, "FilteredEvents", item.name)}>
+            <Image
+              style={[styles.image, {width: Dimensions.get("window").width * 0.3, borderRadius: 5, marginRight: 15, height: 200}]}
+              source ={{uri: item.img}}
+            />
+                <Text style={styles.tit}>
                     { item.name }
                 </Text>
-              </TouchableOpacity>
+          </TouchableOpacity>
         );
-    }
+    })
+  }
 
     loading(){
 
@@ -266,7 +287,7 @@ class Home extends Component{
             <View style = {styles.images}>
                   <ImageSlider
                       images= {images}
-                      autoPlayWithInterval={2500}
+                      autoPlayWithInterval={3000}
                       customSlide={({ index, item, style, width }) => (
                         <View key={index}>
                           <Image source = {{uri: item}} style = {style} opacity = {0.35}/>
@@ -287,7 +308,8 @@ class Home extends Component{
                 <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
                   <Text style = {styles.title}> Top traded events </Text>
                 </View>
-                {this.topEventDetials()}
+                {this.topEvent()}
+                {this.topEventsDetials()}
               </View>
 
               <View style = {{marginTop: 15, marginBottom: 15}}>
@@ -298,17 +320,15 @@ class Home extends Component{
                   </TouchableOpacity>
                 </View>
 
-                <Carousel
-                        data={this.state.leagues}
-                        renderItem={this.renderItem}
-                        ref={'carousel'}
-                        hasParallaxImages={true}
-                        style={{opacity: 0.4}}
-                        sliderWidth={sliderWidth}
-                        itemWidth={sliderWidth* 0.36}
-                        itemHeight={itemHeight}
-                        firstItem= {1}
-                />
+
+                <ScrollView
+                  horizontal
+                  keyboardShouldPersistTaps={true}
+                  style = {{height: 200, marginRight: 7, marginLeft: 7}}
+                >
+                  {this.leaguesScroll()}
+                </ScrollView>
+
               </View>
 
               <View>
@@ -328,7 +348,7 @@ class Home extends Component{
   render(){
     const {requestSelected, currentUser} = this.state;
     console.log(this.state.requestSelected);
-    console.log(this.state.banners[0].img);
+    console.log(this.state.topTradedEvents[0].league)
 
     const menu =  <Menu
                     leagues= {Lgs}
@@ -378,7 +398,7 @@ class Home extends Component{
 const styles = {
   images: {
     borderRadius: 5,
-    width: Dimensions.get("window").width * 0.92,
+    width: Dimensions.get("window").width * 0.98,
     height: Dimensions.get("window").height * 0.35,
     alignSelf: "center",
     margin: 10,
@@ -478,7 +498,22 @@ const styles = {
       marginLeft: 0,
       marginBottom: 20,
       marginTop: 10
-    }
+    },
+  topCard: {
+    backgroundColor: "red"
+  },
+  image: {
+    width: Dimensions.get("window").width* 0.98,
+    height: 330,
+    opacity: 0.4,
+    marginRight: 3,
+    borderRadius: 3
+  },
+  league: {
+    color: "#00B073",
+    fontWeight: "bold",
+    fontSize: 11
+  },
 }
 
 export default Home;

@@ -69,7 +69,7 @@ class Friends extends Component{
   }
 
   cardModal(){
-    this.setState({userCard: !this.state.userCard})
+    this.setState({userCard: false})
   }
   searchModal(){
     this.setState({searchModal: !this.state.searchModal})
@@ -94,7 +94,7 @@ class Friends extends Component{
       .then(jsonRes => {
         console.log(jsonRes)
         if(this._isMounted){
-          this.setState({userSelected: jsonRes.user, userCard: !this.state.userCard, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+          this.setState({userSelected: jsonRes.user, userCard: true, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
         }
       })
       .catch(error => console.log(error));
@@ -376,7 +376,7 @@ class Friends extends Component{
           >
             <UserCard
               closeModal = {this.cardModal.bind(this)} userSelected = {userSelected}
-              profile = {profile} isFriend ={friendAnalysis}
+              profile = {profile} isFriend ={friendAnalysis} friendList= {true}
             />
           </Modal>
 

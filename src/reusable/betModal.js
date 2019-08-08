@@ -8,9 +8,6 @@ import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
 import Url from "../constants/url";
 import User from "../constants/user";
-import NumericInput from 'react-native-numeric-input'
-
-
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -36,12 +33,12 @@ class BetModal extends Component{
   }
 
 
-  changeBetAmount(sign){
-    if(sign== "Plus"){
-      this.setState({bet: this.state.bet += 1 })
-    } else {
-      this.setState({bet: this.state.bet -= 1 })
-    }
+  sumBetAmount(){
+    this.setState({bet: this.state.bet += 1 })
+  }
+
+  restBetAmount(){
+    this.setState({bet: this.state.bet -= 1 })
   }
 
   customizeQuotes(quote, sign){
@@ -198,12 +195,14 @@ class BetModal extends Component{
                             <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
 
                             <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
-     
-                                { fq > 0 ? 
-                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
-                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop: -3}}>{Icons.sortDown}</FontAwesome>
+
+                                { fq > 0 ?
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
+                                  fq == 0 ? 
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#1E90FF", marginTop: -1}}>{Icons.sort}</FontAwesome> :
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop: -3}}>{Icons.sortDown}</FontAwesome>
                                 }
-                                <Text style = {fq > 0 ? styles.positiveQuote : styles.negativeQuote}> {fq} % </Text>
+                                <Text style = {fq > 0 ? styles.positiveQuote : fq == 0 ?  styles.neutralQuote: styles.negativeQuote}> {fq} % </Text>
         
 
                               <View style = {{flexDirection: "row"}}>
@@ -222,7 +221,7 @@ class BetModal extends Component{
                               </View>
                             </View>
 
-                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {fq > 0 ? "more" : "less"} than you </Text>
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {fq > 0 ? "more than" : fq == 0 ? "the same as" : "less than"} you </Text>
                       </View>
 
                       <View style = {{marginTop: 25, marginLeft: 2, borderTopColor: "gray", borderTopWidth: 0.3}}>  
@@ -245,12 +244,14 @@ class BetModal extends Component{
                             <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
 
                             <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
-     
-                                { sq > 0 ? 
-                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
-                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop:-3}}>{Icons.sortDown}</FontAwesome>
+
+                                { sq > 0 ?
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
+                                  sq == 0 ? 
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#1E90FF",marginTop: -1}}>{Icons.sort}</FontAwesome> :
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop: -3}}>{Icons.sortDown}</FontAwesome>
                                 }
-                                <Text style = {sq > 0 ? styles.positiveQuote : styles.negativeQuote}> {sq} % </Text>
+                                <Text style = {sq > 0 ? styles.positiveQuote : sq == 0 ?  styles.neutralQuote: styles.negativeQuote}> {sq} % </Text>
         
 
                               <View style = {{flexDirection: "row"}}>
@@ -270,7 +271,7 @@ class BetModal extends Component{
                               </View>
                             </View>
 
-                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {sq > 0 ? "more" : "less"} than you </Text>
+                           <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {sq > 0 ? "more than" : sq == 0 ? "the same as" : "less than"} you </Text>
                       </View>
 
                       <View style = {{marginTop: 25, marginLeft: 2, borderTopColor: "gray", borderTopWidth: 0.3}}>  
@@ -297,11 +298,13 @@ class BetModal extends Component{
 
                             <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
      
-                                { fq > 0 ? 
-                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
-                                  <FontAwesome style = {{color: "white", fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop: -3}}>{Icons.sortDown}</FontAwesome>
+                                { fq > 0 ?
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
+                                  fq == 0 ? 
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#1E90FF", marginTop: -1}}>{Icons.sort}</FontAwesome> :
+                                  <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#b30000", marginTop: -3}}>{Icons.sortDown}</FontAwesome>
                                 }
-                                <Text style = {fq > 0 ? styles.positiveQuote : styles.negativeQuote}> {fq} % </Text>
+                                <Text style = {fq > 0 ? styles.positiveQuote : fq == 0 ?  styles.neutralQuote: styles.negativeQuote}> {fq} % </Text>
         
 
                               <View style = {{flexDirection: "row"}}>
@@ -320,7 +323,7 @@ class BetModal extends Component{
                               </View>
                             </View>
 
-                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {fq > 0 ? "more" : "less"} than you </Text>
+                            <Text style = {{color: "gray", fontStyle: "oblique", marginTop: 10}}> {fq > 0 ? "more than" : fq == 0 ? "the same as" : "less than"} you </Text>
                       </View>
 
                       <View style = {{marginTop: 25, marginLeft: 2, borderTopColor: "gray", borderTopWidth: 0.3}}>  
@@ -353,22 +356,22 @@ class BetModal extends Component{
                       style={{height: 40, borderBottomColor: "gray", borderWidth: 0.3, color: "#DAA520", width: Dimensions.get("window").width * 0.3, marginLeft: 10, fontWeight: "300", fontSize: 20}}
                       keyboardType='numeric'
                       textAlign={'center'}
-                      value = {this.state.bet}
-                      placeholder = {this.state.bet.toString()}
+                      value = {this.state.bet.toString()}
+                      placeholder = {`${this.state.bet}`}
                       placeholderTextColor= "#DAA520"
-                      onChangeText = {(number) => this.setState({bet: number})} 
+                      onChangeText = {number => this.setState({bet: Number(number)})} 
                   />
                   <View style = {{justifyContent: "space-around", marginTop: 8, marginLeft: 15, flexDirection:"row"}}>
                         <TouchableOpacity 
                           style = {{padding: 2, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, marginRight: 3, borderRadius: 5}}
-                          onPress = {this.changeBetAmount.bind(this)}
+                          onPress = {this.restBetAmount.bind(this)}
                         >
                             <Text style = {{color: "#00B073", fontSize: 20}}> - </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                           style = {{padding: 2, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, borderRadius: 5}}
-                          onPress = {this.changeBetAmount.bind(this, "Plus")}
+                          onPress = {this.sumBetAmount.bind(this)}
                          >
                             <Text style = {{color: "#00B073", fontSize: 20}}> + </Text>
                         </TouchableOpacity>
@@ -577,6 +580,9 @@ const styles ={
   },
   negativeQuote: {
     color: "white", marginRight: 16, marginTop: 4, color: "#ff4d4d" 
+  },
+  neutralQuote: {
+    color: "white", marginRight: 16, marginTop: 4, color: "#1E90FF" 
   }
 };
 

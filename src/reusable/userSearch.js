@@ -33,8 +33,13 @@ class UserSearch extends Component{
       })
       .then(res => res.json())
       .then(jsonRes => {
-        console.log(jsonRes)
-        this.setState({users: jsonRes.users})
+        console.log(jsonRes);
+        if(user == ""){
+          this.setState({ users: [] })
+        } else {
+          this.setState({users: jsonRes.users})
+        }
+        
       })
       .catch(error => console.log(error));
   }
@@ -72,36 +77,19 @@ class UserSearch extends Component{
       const {myFriends} = this.props;
       var merged = [].concat.apply([], myFriends);
 
-      return users.map((item, index) => {
-          const res = merged.map((friend, i) => {
-              return item.username == friend ?  <Text style = {{color: "white"}}>F</Text> : <Text style = {{color: "white"}}>NN</Text>
-          })
-            return(
-                <View key = {index}>
-                  <View style = {styles.tableStyle}>
-                    <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
-                      <View style= {{flexDirection:"row"}}>
-                        <Image
-                          source = {{uri: User.image}}
-                          style = {styles.image}
-                        />
-                        <View>
-                          <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{item.username}</Text>
-                          <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> Spain </Text>
-                        </View>
-                      </View>
-                      {res}
-                    </View>
-                  </View>
-                </View>
-            );
-      })
+          return users.forEach((e1,i) => merged.map(e2 =>{
+              console.log(e1.username, e2)
+              const res = e1.username == e2 ? true : false
+
+              console.log(res)
+            })
+          )
   }
 
   render(){
     const {user} = this.state;
     var merged = [].concat.apply([], this.props.myFriends);
-    console.log(merged)
+
 
     return(
       <LinearGradient style = {{ borderRadius: 5, flex: 1, borderRadius: 8,}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>

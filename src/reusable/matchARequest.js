@@ -209,7 +209,9 @@ class MatchARequest extends Component{
 
                   <View style = {{justifyContent:"center", borderRightColor: "gray", borderRightWidth: 0.3, paddingRight: 40}}>
                     <Text style ={styles.description}>Quote</Text>
-                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", alignSelf:"center", marginTop: 10}}>{finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}</Text>
+                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", alignSelf:"center", marginTop: 10}}>
+                      {finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : finalQuote == 0 ? <FontAwesome style = {{color: "#1E90FF"}}>{Icons.sort}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
+                    </Text>
                   </View>
 
                   <View style = {{justifyContent:"center"}}>
@@ -221,7 +223,9 @@ class MatchARequest extends Component{
               {
                     finalQuote > 0 ? 
                     <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} has to bet {finalQuote} % than you </Text> :
-                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} will bet {finalQuote * -1} % less than you </Text>
+                    finalQuote == 0 ? 
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} and you, will bet the same amount </Text> :
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} will bet {finalQuote * -1} % less than you </Text> 
               }
           </TouchableOpacity>
         );

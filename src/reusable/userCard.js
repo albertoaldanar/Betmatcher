@@ -1,20 +1,61 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, Image, Dimensions} from "react-native";
+import {View, Text, TouchableOpacity, Image, Dimensions, Alert} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
 import User from "../constants/user";
 
 class UserCard extends Component{
 
+
+  sendFriendRequest(){
+    const {userSelected} = this.props;
+    return fetch(`http://${Url}:8000/create_request/`, {
+      method: "POST",
+      headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        sent_by: this.props.currentUser,
+        receiver: this.props.userSelected.username
+      })
+    })
+    .then(res => res.json())
+    .then(jsonRes => {
+       return this.props.getUser(this.props.userSelected.username)
+    })
+    .catch(error => console.log(error))
+  }
+
+  // successAlert(){
+  //     Alert.alert(
+  //         "Done!",
+  //         `Your betfriend request was sent to ${this.props.userSelected.username}`,
+  //       [
+  //         {text: 'OK', onPress: () => console.log("User added")},
+  //       ],
+  //       {cancelable: false},
+  //     );
+  // }
+
   render(){
 
-    const {isFriend, profile, userSelected} = this.props
-    var modalButton= this.props.isFriend ?
-          null : <TouchableOpacity style = {{margin: 15, backgroundColor: "#00B073", borderRadius: 5, marginTop: 10, alignSelf: "center", padding: 15, paddingTop: 8, paddingBottom: 8, marginBottom: 24}}>
-                    <Text style= {{fontSize: 17, color: "white", alignSelf: "center"}}> <FontAwesome> {Icons.userPlus} </FontAwesome> Add as friend</Text>
-                  </TouchableOpacity>
+    const {isFriend, profile, userSelected, currentUser, isWating} = this.props
+    console.log(isWating, isFriend);
 
-
+    var modalButton = isFriend ?
+                        <Text style= {{fontSize: 13, color: "#00B073", alignSelf: "center", marginTop: 10, paddingBottom: 23}}> <FontAwesome> {Icons.check} </FontAwesome> Friends</Text>
+                        :
+                        isWating ? 
+                          <Text style= {{fontSize: 13, color: "gray", alignSelf: "center", marginTop: 10, paddingBottom: 23}}> <FontAwesome> {Icons.hourglassStart} </FontAwesome> Wating for acceptance  </Text>
+                        :
+                          <TouchableOpacity 
+                            style = {{margin: 15, backgroundColor: "#00B073", borderRadius: 5, marginTop: 10, alignSelf: "center", padding: 15, paddingTop: 8, paddingBottom: 8, marginBottom: 24}}
+                            onPress= {this.sendFriendRequest.bind(this)}
+                          >
+                            <Text style= {{fontSize: 17, color: "white", alignSelf: "center"}}> <FontAwesome> {Icons.userPlus} </FontAwesome> Add as friend</Text>
+                          </TouchableOpacity>
+    
 
     return(
       <LinearGradient style = {{margin: 20, borderRadius: 5, marginLeft: 5, marginRight: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
@@ -50,7 +91,7 @@ class UserCard extends Component{
                   </View>
                 </View>
 
-                {modalButton}
+                {this.props.friendList ? modalButton: null}
           </LinearGradient>
     );
   }

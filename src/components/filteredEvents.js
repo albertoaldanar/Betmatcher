@@ -38,13 +38,16 @@ class FilteredEvents extends Component{
 
   render(){
     const {events} = this.state;
-    console.log(this.state.events)
-
+    const {par} = this.props.navigation.state.params; 
     return(
       <View style = {{flex: 1, backgroundColor: "black"}}>
-          <ScrollView>
-            <GameCard data= {events} route = "Description" nav = {this.props.navigation.dispatch}/>
-          </ScrollView>
+          {par.length > 0  ?
+            <ScrollView>
+              <GameCard data= {events} route = "Description" nav = {this.props.navigation.dispatch}/>
+            </ScrollView> : 
+
+            <Text style = {{color: "#ffff", fontWeight: "300", fontSize: 18, marginTop: 100}}> No current events for this league</Text>
+          }
       </View>
     );
   }

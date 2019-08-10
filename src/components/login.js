@@ -62,7 +62,7 @@ class Login extends Component{
     this.setState({username: "", password: "", password_confirmation: "", email: "", errorMessage: ""})
 
     const navigateAction = NavigationActions.navigate({
-      routeName: "MainScreen"
+      routeName: "Home"
     });
 
     this.props.navigation.dispatch(navigateAction);

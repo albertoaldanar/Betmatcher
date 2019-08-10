@@ -82,7 +82,7 @@ class Home extends Component{
   }
 
   handleLogout(){
-    this.setState({showModal: true})
+    this.setState({showModal: false})
 
     try {
       AsyncStorage.removeItem("username");

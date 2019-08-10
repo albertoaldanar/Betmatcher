@@ -30,6 +30,21 @@ class Profile extends Component{
     this._isMounted = false;
   }
 
+  handleLogout(){
+    try {
+      AsyncStorage.removeItem("username");
+      AsyncStorage.removeItem('token');
+      AsyncStorage.removeItem('coins');
+    } catch (error) {
+    console.log(error.message);
+    }
+
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Login"
+    })
+    this.props.navigation.dispatch(navigateAction);
+  }
+
 
   async componentDidMount(){
       this._isMounted = true;
@@ -103,8 +118,8 @@ class Profile extends Component{
           <View style = {{backgroundColor: "#00B073"}}>
             <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
               <View style = {styles.bar}>
-                  <TouchableOpacity>
-                    <FontAwesome style = {{color: "#ffff", fontSize: 22, marginLeft: 20}}>{Icons.fff}</FontAwesome>
+                  <TouchableOpacity onPress = {this.handleLogout.bind(this)}>
+                    <FontAwesome style = {{color: "#ffff", fontSize: 22, marginLeft: 20}}>{Icons.signOut}</FontAwesome>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress = {this.renderFriends.bind(this)}>

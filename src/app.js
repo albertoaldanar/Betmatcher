@@ -1,13 +1,14 @@
 import React from "react";
 import {AsyncStorage} from "react-native";
 import Wating from "./reusable/wating";
-import {AppNavigatorMain, AppNavigatorLogin} from "./nav/navigator";
+import {createRootNavigator} from "./nav/navigator";
+
 class App extends React.Component {
 
 	constructor(props){
 		super(props);
 		this.state = {
-			currentUser: "NOT"
+			currentUser: ""
 		}
 	}
 
@@ -21,7 +22,8 @@ class App extends React.Component {
 	}
 
  	render() {
- 		const MyNav = this.state.currentUser == "NOT" ? Wating : this.state.currentUser == false ? AppNavigatorLogin : AppNavigatorMain
+ 		const initialScreen = this.state.currentUser ? "MainScreen" : "Login"
+ 		const MyNav = createRootNavigator(initialScreen);
  		
  		return <MyNav/> 
   	}

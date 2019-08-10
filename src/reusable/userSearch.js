@@ -11,7 +11,7 @@ class UserSearch extends Component{
     super(props);
     this.state= {
       user: "",
-      users: [],
+      userResponse: "",
       list: []
     }
   }
@@ -20,7 +20,6 @@ class UserSearch extends Component{
     this.setState({
       [state]:event
     });
-    this.liveSearch(event)
   }
 
   liveSearch(user){
@@ -35,9 +34,9 @@ class UserSearch extends Component{
       .then(jsonRes => {
         console.log(jsonRes);
         if(user == ""){
-          this.setState({ users: [] })
+          this.setState({ userResponse: "" })
         } else {
-          this.setState({users: jsonRes.users})
+          this.setState({userResponse: jsonRes.user})
         }
         
       })
@@ -72,24 +71,31 @@ class UserSearch extends Component{
       .catch(error => alert(error));
   }
 
-  userList(){
-      const {users} = this.state;
+  userCard(){
+      const {userResponse} = this.state;
       const {myFriends} = this.props;
       var merged = [].concat.apply([], myFriends);
 
-          return users.forEach((e1,i) => merged.map(e2 =>{
-              console.log(e1.username, e2)
-              const res = e1.username == e2 ? true : false
-
-              console.log(res)
-            })
-          )
+      //     return users.forEach((e1,i) => merged.map(e2 =>{
+      //         console.log(e1.username, e2)
+      //         if(e1.username== e2){
+      //             console.log(true)
+      //         } else {
+      //             console.log(false)
+      //         }
+      //       })
+      //     )
+      return(
+        <View>
+          <Text style = {{color: "#ffff"}}> {userResponse.username}</Text>
+        </View>
+      );
   }
 
   render(){
     const {user} = this.state;
-    var merged = [].concat.apply([], this.props.myFriends);
-
+    // var merged = [].concat.apply([], this.props.myFriends);
+    console.log(this.state.userResponse);
 
     return(
       <LinearGradient style = {{ borderRadius: 5, flex: 1, borderRadius: 8,}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
@@ -99,17 +105,25 @@ class UserSearch extends Component{
 
         <TextInput
             style={{height: 26, borderBottomColor: 'white', borderBottomWidth: 0.3, margin: 25, color: "white", marginTop: 40, borderRadius: 5}}
-            placeholder = "Search user"
+            placeholder = "Type username"
             placeholderTextColor = "gray"
             onChangeText = {this.onChangeInput("user")}
             value = {this.state.user}
             autoCapitalize = 'none'
+            returnKeyType='done'
             autoCorrect= {false}
         />
 
         <ScrollView>
-          {this.userList()}
+          {this.userCard()}
         </ScrollView>
+
+        <TouchableOpacity
+           onPress = {this.liveSearch.bind(this, this.state.user)} style = {this.state.user ? styles.buttonActive : styles.buttonDisabled}
+           disabled = {this.state.user == "" ? true : false}
+          >
+          <Text style = {{alignSelf: "center", color: "white"}}>Buscar usuario</Text>
+        </TouchableOpacity>
 
       </LinearGradient>
     );
@@ -127,6 +141,12 @@ const styles = {
     alignSelf: "center",
     marginRight: 15,
     marginBottom: 10
+  },
+  buttonDisabled: {
+    position:"absolute", bottom: 0, left: 0, right: 0, backgroundColor: "gray", padding: 10
+  },
+  buttonActive: {
+    position:"absolute", bottom: 0, left: 0, right: 0, backgroundColor: "#00B073", padding: 10
   }
 }
 

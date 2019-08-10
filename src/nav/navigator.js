@@ -69,200 +69,106 @@ export const MainScreen = createBottomTabNavigator({
     }
 );
 
-export const AppNavigatorMain = StackNavigator({
-    MainScreen: {
-    screen: MainScreen,
-      navigationOptions:{
-        gesturesEnabled: false,
-      // title: "",
-      // headerStyle: {
-      //   backgroundColor: "black",
-      //   borderBottomColor: "black",
-      //   elevation: 3
-      // },
-      // headerTintColor: "#7DDECC",
-      header: null
-    }
-  },
-  Login: {
-      screen: Login,
-      navigationOptions: {
-        header: null,
-        gesturesEnabled: false
-      }
-  },
-  Friends: {
-    screen: Friends,
-    navigationOptions: {
-      title: "Betfriends",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
-    }
-  },
-  Description: {
-    screen: Description,
-    navigationOptions: {
-      title: "Info",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
-    }
-  },
-  ConfirmBet: {
-    screen: ConfirmBet,
-    navigationOptions: {
-      title: "Confirm Bet",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
-    }
-  },
-  YouHaveMatch: {
-    screen: YouHaveMatch,
-    navigationOptions: {
-      header: null
-    }
-  },
-  TopRequests: {
-    screen: TopRequests,
-    navigationOptions: {
-      title: "Live Unmatched bets",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
-    }
-  },
-  FilteredEvents: {
-    screen: FilteredEvents,
-    navigationOptions: {
-      title: "Events",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
-    }
-  },
-  AllLeagues: {
-    screen: AllLeagues,
-    navigationOptions: {
-      title: "All Leagues",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
-      }
-    }
-  },
 
-});
-
-
-export const AppNavigatorLogin = StackNavigator({
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        header: null,
-        gesturesEnabled: false
+export const createRootNavigator = (load= "<Your Initial Screen>") => {
+  return StackNavigator({
+      Login: {
+        screen: Login,
+        navigationOptions: {
+          header: null,
+          gesturesEnabled: false
+        }
+      },
+      MainScreen: {
+      screen: MainScreen,
+        navigationOptions:{
+          gesturesEnabled: false,
+        // title: "",
+        // headerStyle: {
+        //   backgroundColor: "black",
+        //   borderBottomColor: "black",
+        //   elevation: 3
+        // },
+        // headerTintColor: "#7DDECC",
+        header: null
       }
     },
-    MainScreen: {
-    screen: MainScreen,
-      navigationOptions:{
-        gesturesEnabled: false,
-      // title: "",
-      // headerStyle: {
-      //   backgroundColor: "black",
-      //   borderBottomColor: "black",
-      //   elevation: 3
-      // },
-      // headerTintColor: "#7DDECC",
-      header: null
-    }
-  },
-  Friends: {
-    screen: Friends,
-    navigationOptions: {
-      title: "Betfriends",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
+    Friends: {
+      screen: Friends,
+      navigationOptions: {
+        title: "Betfriends",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
       }
-    }
-  },
-  Description: {
-    screen: Description,
-    navigationOptions: {
-      title: "Info",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
+    },
+    Description: {
+      screen: Description,
+      navigationOptions: {
+        title: "Info",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
       }
-    }
-  },
-  ConfirmBet: {
-    screen: ConfirmBet,
-    navigationOptions: {
-      title: "Confirm Bet",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
+    },
+    ConfirmBet: {
+      screen: ConfirmBet,
+      navigationOptions: {
+        title: "Confirm Bet",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
       }
-    }
-  },
-  YouHaveMatch: {
-    screen: YouHaveMatch,
-    navigationOptions: {
-      header: null
-    }
-  },
-  TopRequests: {
-    screen: TopRequests,
-    navigationOptions: {
-      title: "Live Unmatched bets",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
+    },
+    YouHaveMatch: {
+      screen: YouHaveMatch,
+      navigationOptions: {
+        header: null
       }
-    }
-  },
-  FilteredEvents: {
-    screen: FilteredEvents,
-    navigationOptions: {
-      title: "Events",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
+    },
+    TopRequests: {
+      screen: TopRequests,
+      navigationOptions: {
+        title: "Live Unmatched bets",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
       }
-    }
-  },
-  AllLeagues: {
-    screen: AllLeagues,
-    navigationOptions: {
-      title: "All Leagues",
-      headerTintColor: "#00B073",
-      headerStyle: {
-        backgroundColor: "black",
-        borderBottomColor: "black"
+    },
+    FilteredEvents: {
+      screen: FilteredEvents,
+      navigationOptions: {
+        title: "Events",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
       }
-    }
-  },
+    },
+    AllLeagues: {
+      screen: AllLeagues,
+      navigationOptions: {
+        title: "All Leagues",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
+      }
+    },
 
-});
+  }, {initialRouteName: load});
+}
+
 // class Nav extends Component{
 //   render(){
 //     return(

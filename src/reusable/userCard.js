@@ -31,7 +31,7 @@ class UserCard extends Component{
   render(){
 
     const {isFriend, profile, userSelected, currentUser, isWating} = this.props
-    console.log(isWating, isFriend);
+    console.log(userSelected, isFriend, isWating);
 
     var modalButton = isFriend ?
                         <Text style= {{fontSize: 13, color: "#00B073", alignSelf: "center", marginTop: 10, paddingBottom: 23}}> <FontAwesome> {Icons.check} </FontAwesome> Friends</Text>
@@ -81,7 +81,7 @@ class UserCard extends Component{
                   </View>
                 </View>
 
-                {this.props.friendList ? modalButton: null}
+                {modalButton}
           </LinearGradient>
     );
   }

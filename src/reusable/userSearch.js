@@ -18,7 +18,7 @@ class UserSearch extends Component{
     }
   }
 
-  onChangeInput = (state) => (event,value) => {
+  onChangeInput = (state) => (event, value) => {
     this.setState({
       [state]:event
     });
@@ -52,25 +52,30 @@ class UserSearch extends Component{
 
   responseType(){
     const {userSelected, profile} = this.props;
-    
+
     if(this.props.userSelected =="Not Found"){
       return(
-        <Text style= {{color: "white", alignSelf: "center", marginTop: 35}}>User not found :(</Text>
+        <Text style= {{color: "white", alignSelf: "center", marginTop: 35, fontSize: 20}}>User not found :(</Text>
       );
     } else {
         if(this.props.fromSearch){
           return(
-              <View style = {{flexDirection:"row", margin: 20, marginBottom: 15, marginTop: 50}}>
+            <View>
+              <View style = {{ margin: 20, marginBottom: 15, marginTop: 50, alignItems: "center"}}>
                     <Image style={styles.imageStyle} source={{uri: User.image}}/>
 
                     <View>
-                      <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {userSelected.username} </Text>
-                      <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 7, color: "gray", alignSelf:"flex-start", marginLeft:5}]}>
+                      <Text style = {[styles.username, {fontWeight:"300"}]}> {userSelected.username} </Text>
+                      <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", marginBottom: 10, marginTop: 7, color: "gray", }]}>
                           <FontAwesome>{Icons.mapMarker}</FontAwesome> {profile.country}
                       </Text>
                     </View>
-                    {this.userCard()}
-              </View> 
+              </View>
+              
+              <View style = {{borderTopColor: "gray", borderTopWidth: 0.3, paddingTop: 15, marginLeft: 35, marginRight: 35}}>
+                {this.userCard()}
+              </View>
+            </View>
           );
         } else {return null}
       }
@@ -83,14 +88,15 @@ class UserSearch extends Component{
 
     if(isFriend){
       return(
-          <View>
+          <View style = {{alignSelf:"center"}}>
             <Text style= {{fontSize: 13, color: "#00B073", alignSelf: "center", marginTop: 10, paddingBottom: 23}}> <FontAwesome> {Icons.check} </FontAwesome> Friends</Text>
           </View>
       );
     } else if(isFriend == false && isRequested){
         return(
-          <View>
-            <Text style= {{fontSize: 13, color: "#00B073", alignSelf: "center", marginTop: 10, paddingBottom: 23}}> <FontAwesome> {Icons.hourglassStart} </FontAwesome> Wating</Text>
+          <View style = {{alignSelf:"center"}}>
+            <Text style= {{fontSize: 13, color: "#00B073", alignSelf: "center", marginTop: 10, paddingBottom: 23}}> <FontAwesome> {Icons.hourglassStart} </FontAwesome> Wating for acceptance</Text>
+            <Text style= {{fontSize: 12, color: "gray", alignSelf: "center", marginTop: 5, fontWeight: "400", textAlign: "center"}}> You can see this betfriend request in your request tab</Text>
           </View>
         );
     } else if(isFriend == false && isRequested == false && userSelected.username == currentUser){
@@ -115,7 +121,6 @@ class UserSearch extends Component{
   }
 
 
-
   render(){
     const {user} = this.state;
     const {isFriend, isRequested, userSelected, profile, fromSearch} = this.props;
@@ -123,7 +128,7 @@ class UserSearch extends Component{
     console.log(isRequested, isFriend, userSelected, fromSearch);
 
     return(
-      <LinearGradient style = {{ borderRadius: 5, flex: 1, borderRadius: 8,}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
+      <View style = {{flex: 1, borderRadius: 8, backgroundColor: "#161616"}}>
         <TouchableOpacity style = {{position: "absolute", left: 10, top: 10, marginBottom: 10}} onPress= {this.props.closeModal}>
           <Text style = {{color:"#ffff", fontSize: 17}}> X </Text>
         </TouchableOpacity>
@@ -149,7 +154,7 @@ class UserSearch extends Component{
         </TouchableOpacity>
 
 
-      </LinearGradient>
+      </View>
     );
   }
 }
@@ -180,9 +185,9 @@ const styles = {
     marginTop: 50
   },
   imageStyle:{
-    width: Dimensions.get('window').width * 0.2,
-    height: Dimensions.get('window').width * 0.2,
-    marginRight: 10
+    width: Dimensions.get('window').width * 0.4,
+    height: Dimensions.get('window').width * 0.4,
+    marginBottom: 10
   },
   username: {
     color: "white",

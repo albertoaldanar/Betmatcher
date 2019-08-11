@@ -27,16 +27,6 @@ class UserCard extends Component{
     .catch(error => console.log(error))
   }
 
-  // successAlert(){
-  //     Alert.alert(
-  //         "Done!",
-  //         `Your betfriend request was sent to ${this.props.userSelected.username}`,
-  //       [
-  //         {text: 'OK', onPress: () => console.log("User added")},
-  //       ],
-  //       {cancelable: false},
-  //     );
-  // }
 
   render(){
 

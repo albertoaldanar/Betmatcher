@@ -35,12 +35,23 @@ class Friends extends Component{
       requestsIndex: true,
       directBets: [],
       directBetModal: false,
-      selectedBet: {}
+      selectedBet: {},
+      requestAnalysis: null, fromSearch: false
     }
   }
 
   componentDidMount(){
     return this.getData()
+  }
+
+  navigateToProfile(){
+    this.setState({searchModal: false})
+
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Profile",
+    });
+    this.props.navigation.dispatch(navigateAction);
+    
   }
 
   sendToConfirmation(user, quote, bet, game, teamSelected, teamsNotSelected){
@@ -64,6 +75,7 @@ class Friends extends Component{
     this.setState({directBetModal: false})
   }
 
+
   directBetModal(){
     this.setState({directBetModal: !this.state.directBetModal})
   }
@@ -71,15 +83,20 @@ class Friends extends Component{
   cardModal(){
     this.setState({userCard: false})
   }
+
   searchModal(){
-    this.setState({searchModal: !this.state.searchModal})
+    this.setState({
+        searchModal: !this.state.searchModal, profile: [], 
+        requestAnalysis: null, fromSearch: false, userSelected: {},
+        friendAnalysis: null
+    })
   }
 
   selectBet(value){
     this.setState({selectedBet: value, directBetModal: !this.state.searchModal})
   }
 
-  getUser(user){
+  getUser(user, card, fromSearch){
       let currentUser = this.props.navigation.state.params.currentUser;
       this._isMounted = true;
 
@@ -94,7 +111,7 @@ class Friends extends Component{
       .then(jsonRes => {
         console.log(jsonRes)
         if(this._isMounted){
-          this.setState({userSelected: jsonRes.user, userCard: true, profile: jsonRes.user.profile, friendAnalysis: jsonRes.result})
+          this.setState({userSelected: jsonRes.user, userCard: card, profile: jsonRes.user.profile, friendAnalysis: jsonRes.friendship, requestAnalysis: jsonRes.requested, fromSearch: fromSearch})
         }
       })
       .catch(error => console.log(error));
@@ -220,7 +237,7 @@ class Friends extends Component{
                     <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.user_b.profile.country} </Text>
                   </View>
                 </View>
-                <TouchableOpacity onPress ={this.getUser.bind(this, friend)}>
+                <TouchableOpacity onPress ={this.getUser.bind(this, friend, true, false)}>
                   <FontAwesome style = {{color: "gray", alignItems: "center", padding: 10, fontSize: 20}}>{Icons.eye}</FontAwesome>
                 </TouchableOpacity>
               </View>
@@ -316,7 +333,7 @@ class Friends extends Component{
   }
 
   render(){
-    const {userSelected, profile, friendAnalysis, index} = this.state;
+    const {userSelected, profile, friendAnalysis, index, requestAnalysis, fromSearch} = this.state;
     let currentUser = this.props.navigation.state.params.currentUser;
     console.log(this.state.directBets)
 
@@ -376,7 +393,7 @@ class Friends extends Component{
           >
             <UserCard
               closeModal = {this.cardModal.bind(this)} userSelected = {userSelected}
-              profile = {profile} isFriend ={friendAnalysis} friendList= {true}
+              profile = {profile} isFriend ={friendAnalysis} friendList= {true} 
             />
           </Modal>
 
@@ -386,9 +403,11 @@ class Friends extends Component{
               backdropOpacity = {0.45}
           >
             <UserSearch
-              closeModal = {this.searchModal.bind(this)}
-              getUser = {this.getUser.bind(this)} currentUser = {currentUser}
-              myFriends = {myFirends} bfrequests = {this.state.friendRequests}
+              closeModal = {this.searchModal.bind(this)} isFriend = {friendAnalysis} isRequested = {requestAnalysis}
+              userSelected = {userSelected} profile = {profile}
+              getUser = {this.getUser.bind(this)} currentUser = {currentUser} 
+              fromSearch = {fromSearch}
+              backToProfile = {this.navigateToProfile.bind(this)}
             />
           </Modal>
 

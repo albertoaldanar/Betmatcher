@@ -106,6 +106,7 @@ class Profile extends Component{
       { name: 'Draw', number: 1, color: '#DCDCDC', legendFontColor: '#7F7F7F', legendFontSize: 15 },
       { name: 'Lost', number: 1, color: '#DC143C', legendFontColor: '#7F7F7F', legendFontSize: 15 }
     ];
+
     const data2 = [0.4, 0.6, 0.8]
     const chart_wh = 250
     const series = [9,2,1]
@@ -118,8 +119,8 @@ class Profile extends Component{
           <View style = {{backgroundColor: "#00B073"}}>
             <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
               <View style = {styles.bar}>
-                  <TouchableOpacity onPress = {this.handleLogout.bind(this)}>
-                    <FontAwesome style = {{color: "#ffff", fontSize: 22, marginLeft: 20}}>{Icons.signOut}</FontAwesome>
+                  <TouchableOpacity>
+                    <FontAwesome style = {{color: "#ffff", fontSize: 22, marginLeft: 20}}>{Icons.fff}</FontAwesome>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress = {this.renderFriends.bind(this)}>

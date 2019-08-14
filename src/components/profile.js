@@ -11,7 +11,8 @@ import {
   BarChart,
   ProgressChart,
   PieChart,
-  ContributionGraph
+  ContributionGraph,
+  StackedBarChart
 } from 'react-native-chart-kit'
 import {Pages} from "react-native-pages";
 import Url from "../constants/url";
@@ -112,6 +113,16 @@ class Profile extends Component{
     const series = [9,2,1]
     const sliceColor = ['#00B073','#1FBED5','black']
 
+    const data3 ={
+      labels: ['Test1', 'Test2'],
+      legend: ['L1', 'L2', 'L3'],
+      data: [
+        [60, 60, 60],
+        [30,30,60],
+      ],
+      barColors: ['#dfe4ea', '#ced6e0', '#a4b0be'],
+    }
+
     return(
       <View style = {{flex: 1, backgroundColor: "black"}}>
 
@@ -194,7 +205,7 @@ class Profile extends Component{
           <Pages>
               <LineChart
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                labels: [],
                 datasets: [{
                   data: [
                     Math.random() * 100,
@@ -219,7 +230,7 @@ class Profile extends Component{
                   ]
                 }]
               }}
-              width={Dimensions.get('window').width} // from react-native
+              width={Dimensions.get('window').width}
               height={250}
               chartConfig={{
                 backgroundColor: '#161616',
@@ -230,43 +241,6 @@ class Profile extends Component{
                 }
               }}
               bezier
-              style={{
-                marginVertical: 8,
-                borderRadius: 16
-              }}
-            />
-
-            <BarChart
-              data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                datasets: [{
-                  data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                  ]
-                }]
-              }}
-              width={Dimensions.get('window').width} // from react-native
-              height={250}
-              chartConfig={{
-                backgroundColor: 'transparent',
-                decimalPlaces: 0, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
-                  borderRadius: 16
-                }
-              }}
               style={{
                 marginVertical: 8,
                 borderRadius: 16

@@ -12,15 +12,15 @@ class DescChart extends Component {
       return(
         <View style= {{height: 200, width: 200, flexDirection:"row"}}>
           <YAxis
-            data={ data  }
-            contentInset={ content }
+            data= { data }
+            contentInset= { content }
             svg={{
-              fill: 'grey',
-              fontSize: 10,
-              marginLeft: 5
+                fill: 'grey',
+                fontSize: 10,
+                marginLeft: 5
             }}
             numberOfTicks={ 10 }
-            formatLabel={ value => `${value}$` }
+            formatLabel={ value => `${value} $` }
           />
           <Text style = {styles.title}>{this.props.game.draw.name}</Text>
           <LineChart
@@ -37,10 +37,27 @@ class DescChart extends Component {
   }
 
   render(){
-    console.log(this.props.game)
-    const data = [ 50, 10, 40, 95, 85, 91, 35, 53, 24, 50, ];
-    const data2 = [ 40, 80, 91, 86, 99, 35, 53, 804, 610, 230];
-    const data3 = [ 10, 90, 112, 91, 55, 99, 35, 53, 11, 153, ];
+    const {layVisit, layLocal, layDraw, backDraw, backLocal, backVisit} = this.props;
+
+
+    const lLocal = layLocal.map(x => {return x.amount})
+    const lDraw = layDraw.map(x => {return x.amount})
+    const lVisit = layVisit.map(x => {return x.amount})
+
+    const bLocal = backLocal.map(x => {
+      return(
+          x.amount / 2
+        ) 
+    })
+    const bDraw = backDraw.map(x => {return (x.amount / 2)})
+    const bVisit = backVisit.map(x => {return( x.amount / 2 )})
+
+    console.log( lLocal, lDraw, lVisit, bDraw, bLocal, bVisit);
+    console.log(lVisit.concat(bVisit));
+
+    const data = [ 50, 10, 40, 95 ];
+    const data2 = [ 40, 80, 91, 86, 99, 35, 53, 804, 610, 230 ];
+    const data3 = [ 10, 90, 112, 91, 55, 99, 35, 53, 11, 153 ];
     const contentInset = { top: 20, bottom: 20, left: 10 }
 
 
@@ -48,7 +65,7 @@ class DescChart extends Component {
       <ScrollView horizontal>
         <View style={styles.container}>
                 <YAxis
-                    data={ data }
+                    data={lLocal.concat(bLocal)}
                     contentInset={ contentInset }
                     svg={{
                         fill: 'grey',
@@ -61,36 +78,37 @@ class DescChart extends Component {
                   <Text style = {styles.title}>{this.props.game.local.name}</Text>
                     <LineChart
                         style={{ flex: 1, marginLeft: 16, marginRight: 20}}
-                        data={ data }
+                        data={ lLocal.concat(bLocal) }
                         svg={{ stroke: '#00B073' }}
                         contentInset={ contentInset }
                     >
                         <Grid/>
                     </LineChart>
 
-                  {this.drawChart(data3, contentInset)}
-
-                  <YAxis
-                    data={ data2  }
-                    contentInset={ contentInset }
-                    svg={{
-                        fill: 'grey',
-                        fontSize: 10,
-                        marginLeft: 5
-                    }}
-                    numberOfTicks={ 10 }
-                    formatLabel={ value => `${value}$` }
-                  />
-
-                  <Text style = {styles.title}>{this.props.game.visit.name}</Text>
-                  <LineChart
-                      style={{ flex: 1, marginLeft: 16 }}
-                      data={ data2 }
-                      svg={{ stroke: '#4169E1' }}
+                  {this.drawChart(lDraw.concat(bDraw), contentInset)}
+        
+                    <YAxis
+                      data={ lVisit.concat(bVisit) }
                       contentInset={ contentInset }
-                  >
-                      <Grid/>
-                  </LineChart>
+                      svg={{
+                          fill: 'grey',
+                          fontSize: 10,
+                          marginLeft: 5
+                      }}
+                      numberOfTicks={ 10 }
+                      formatLabel={ value => `${value} $` }
+                    />
+
+                    <Text style = {styles.title}>{this.props.game.visit.name}</Text>
+                    <LineChart
+                        style={{ flex: 1, marginLeft: 16 }}
+                        data={ lVisit.concat(bVisit) }
+                        svg={{ stroke: '#4169E1' }}
+                        contentInset={ contentInset }
+                    >
+                        <Grid/>
+                    </LineChart>
+        
             </View>
         </ScrollView>
     );

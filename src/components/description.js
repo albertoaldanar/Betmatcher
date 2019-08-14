@@ -35,8 +35,27 @@ class Description extends Component{
       requests: [],
       showMakeMatch: false,
       showMakeBet: false,
-      currenCoins: 0
+      currenCoins: 0,
+      chartRequests: [], chartLocalBack: [], chartVisitBack: [], chartDrawBack: []
     }
+  }
+
+  componentWillMount(){
+    let event = this.props.navigation.state.params.par;
+
+    return fetch(`http://${Url}:8000/user_activity?event=${event.data.name}`, {
+      method: "GET",
+      headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(jsonRes => {
+      console.log(jsonRes)
+      this.setState({chartRequests: jsonRes.requests, chartDrawBack: jsonRes.matches_draw, chartLocalBack: jsonRes.matches_local, chartVisitBack: jsonRes.matches_visit})
+    })
+    .catch(error => console.log(error));
   }
 
     //This method sets the currentUser to the state
@@ -195,17 +214,18 @@ class Description extends Component{
   }
 
   render(){
-    const {betChoice, teamSelected, showLightBox, teamSelectedObj} = this.state;
+    const {betChoice, teamSelected, showLightBox, teamSelectedObj, chartRequests, chartVisitBack, chartLocalBack, chartDrawBack} = this.state;
     let game = this.props.navigation.state.params.par;
     let reqs = this.state.requests.length > 0 ? [true, "Users that bet against your team"] : [false, "No users to match, but can make bet"];
 
     const gameType = game.data.sport.name == "Soccer" ? game.draw : "Draw"
-
     const options = [game.local, game.visit, gameType];
     const teamsNotSelected = options.filter(x => x.name!= teamSelected.name);
 
-    console.log(this.props.navigation.state.params.par);
-    console.log(this.state.teamSelected);
+    var layLocal = chartRequests.filter(request => request.back_team == game.local.name);
+    var layDraw = chartRequests.filter(request => request.back_team == "Draw");
+    var layVisit = chartRequests.filter(request => request.back_team == game.visit.name);
+
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
@@ -239,7 +259,12 @@ class Description extends Component{
 
         <Text style = {[styles.title, {marginBottom:15}]}>User recent activity</Text>
 
-        <DescChart game = {game}/>
+        <DescChart 
+          game = {game} 
+          layLocal = {layLocal} layVisit = {layVisit} layDraw = {layDraw}
+          backLocal = {chartLocalBack} backVisit = {chartVisitBack} backDraw = {chartDrawBack}
+
+        />
         <Modal
             transparent = {false}
             visible = {this.state.showMakeBet}

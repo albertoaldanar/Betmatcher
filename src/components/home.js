@@ -169,7 +169,7 @@ class Home extends Component{
             <TouchableOpacity onPress = {this.callNavigation.bind(this, "Description", topTradedEvents[0])} style= {{ margin: 3, marginRight: 3, borderRadius: 3}}>
                 <Image
                   style={styles.image}
-                  source ={{uri: "https://tennishead.net/wp-content/uploads/2019/08/Rafael-Nadal-backhand-e1565098160981.jpg"}}
+                  source ={{uri: "https://shanklyhotel.com/wp-content/uploads/2017/09/120414-227-Everton_Liverpool_FA_Cup-e1506088542614.jpg"}}
                 />
 
                 <View style = {{position: "absolute", top: 15, left: 5}}>

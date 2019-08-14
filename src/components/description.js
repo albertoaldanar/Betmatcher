@@ -237,7 +237,7 @@ class Description extends Component{
           {this.renderButton()}
         </View>
 
-        <Text style = {[styles.title, {marginBottom:15}]}>User Activity</Text>
+        <Text style = {[styles.title, {marginBottom:15}]}>User recent activity</Text>
 
         <DescChart game = {game}/>
         <Modal

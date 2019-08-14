@@ -8,7 +8,7 @@ import { LineChart, YAxis, Grid } from 'react-native-svg-charts'
 class DescChart extends Component {
 
   drawChart(data, content){
-    if(this.props.game.sport =="Soccer"){
+    if(this.props.game.data.sport.name =="Soccer"){
       return(
         <View style= {{height: 200, width: 200, flexDirection:"row"}}>
           <YAxis
@@ -37,8 +37,9 @@ class DescChart extends Component {
   }
 
   render(){
+    console.log(this.props.game)
     const data = [ 50, 10, 40, 95, 85, 91, 35, 53, 24, 50, ];
-    const data2 = [ 40, 80, 91, 86, 99, 35, 53, 54, 110, ];
+    const data2 = [ 40, 80, 91, 86, 99, 35, 53, 804, 610, 230];
     const data3 = [ 10, 90, 112, 91, 55, 99, 35, 53, 11, 153, ];
     const contentInset = { top: 20, bottom: 20, left: 10 }
 
@@ -79,7 +80,8 @@ class DescChart extends Component {
                     }}
                     numberOfTicks={ 10 }
                     formatLabel={ value => `${value}$` }
-                />
+                  />
+
                   <Text style = {styles.title}>{this.props.game.visit.name}</Text>
                   <LineChart
                       style={{ flex: 1, marginLeft: 16 }}
@@ -99,6 +101,7 @@ const styles ={
     height: 200,
     width: Dimensions.get("window").width +230,
     flexDirection: "row",
+    marginLeft: 20
   },
   title: {
     color:"#ffff",

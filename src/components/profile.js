@@ -102,7 +102,7 @@ class Profile extends Component{
     console.log(this.state.currentUser);
 
     const data = [
-      { name: 'Won', number: 3, color: '#00B073', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+      { name: 'Won', number: 3, color: "rgba(0,176,115,0.2)", legendFontColor: '#7F7F7F', legendFontSize: 15 },
       { name: 'Draw', number: 1, color: '#DCDCDC', legendFontColor: '#7F7F7F', legendFontSize: 15 },
       { name: 'Lost', number: 1, color: '#DC143C', legendFontColor: '#7F7F7F', legendFontSize: 15 }
     ];
@@ -110,7 +110,7 @@ class Profile extends Component{
     const data2 = [0.4, 0.6, 0.8]
     const chart_wh = 250
     const series = [9,2,1]
-    const sliceColor = ['#00B073','#1FBED5','#DC143C']
+    const sliceColor = ['#00B073','#1FBED5','black']
 
     return(
       <View style = {{flex: 1, backgroundColor: "black"}}>
@@ -202,7 +202,20 @@ class Profile extends Component{
                     Math.random() * 100,
                     Math.random() * 100,
                     Math.random() * 100,
-                    Math.random() * 100
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
                   ]
                 }]
               }}
@@ -233,7 +246,14 @@ class Profile extends Component{
                     Math.random() * 100,
                     Math.random() * 100,
                     Math.random() * 100,
-                    Math.random() * 100
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
                   ]
                 }]
               }}
@@ -260,7 +280,7 @@ class Profile extends Component{
               chartConfig={{
                 backgroundColor: 'transparent',
                 decimalPlaces: 0, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                color: (opacity = 0.3) => `rgba(255, 255, 255, ${opacity})`,
                 style: {
                   borderRadius: 16
                 }

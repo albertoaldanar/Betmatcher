@@ -172,7 +172,7 @@ class MatchARequest extends Component{
         }
     }
 
-  // Show users that you can match
+
   userList(team,  position){
     return this.props.requests.map((u, index) => {
 
@@ -181,6 +181,9 @@ class MatchARequest extends Component{
       var bet = currentQuote > 0 ? Math.round(u.amount - ((currentQuote / 100) * u.amount)) : u.amount;
 
       const finalQuote = currentQuote * - 1;
+
+
+      console.log(currentQuote, bet, u.amount);
 
       if(team == u.back_team){
         return(

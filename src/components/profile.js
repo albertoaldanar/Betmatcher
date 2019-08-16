@@ -8,6 +8,7 @@ import LinearGradient from "react-native-linear-gradient";
 import ProfileCharts from "../reusable/profileCharts";
 import {
   BarChart,
+  LineChart,
   ProgressChart,
   ContributionGraph,
   StackedBarChart
@@ -15,8 +16,6 @@ import {
 import {Pages} from "react-native-pages";
 import Url from "../constants/url";
 import MaterialTabs from "react-native-material-tabs";
-import PieChart from 'react-native-pie-chart';
-import { LineChart, YAxis, Grid } from 'react-native-svg-charts';
 
 
 class Profile extends Component{
@@ -174,43 +173,78 @@ class Profile extends Component{
     const chart_wh = 200
     const series = [123, 321, 123,]
     const sliceColor = ['#00B073','#2196F3','red']
+    const fill = 'rgb(134, 65, 244)'
+    const data = [ 50, 10, 40, 95, 35, 53, ];
+
+
     switch(index){
       case 0:
-        return(
-            <View style = {{justifyContent:"space-around", marginBottom: 15, marginTop: 45,height: 200, width: 200,}}>
+        return(     
+          <View pointerEvents="none" style= {{marginTop: 15}}>   
 
-                <View style = {{justifyContent: "space-around", flexDirection:"row"}}>
-                    <View>
-                      <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", color: "gray", marginBottom: 5}]}>
-                        Coins
-                      </Text>
-                      <Text style = {[styles.username, {fontSize: 16, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                        {this.state.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.database}</FontAwesome>
-                      </Text>
-                    </View>
+              <View style = {{justifyContent:"space-between", flexDirection:"row", marginBottom: 25}}>
+                  <View style = {{marginLeft: 16}}>
+                    <Text style = {[styles.username, {fontSize: 11, fontWeight:"300", color: "gray", marginBottom: 5}]}>
+                      Coins
+                    </Text>
+                    <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
+                      {this.state.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.database}</FontAwesome>
+                    </Text>
+                  </View>
 
-                    <View>
-                      <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", color: "gray", marginBottom: 5}]}>
-                        Efficiency
-                      </Text>
-                      <Text style = {[styles.username, {fontSize: 16, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                        67.7 %
-                      </Text>
-                    </View>
+                  <View style = {{marginRight: 16}}>
+                    <Text style = {[styles.username, {fontSize: 11, fontWeight:"300", color: "gray", marginBottom: 5}]}>
+                      World ranking
+                    </Text>
+                    <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
+                      12892 º
+                    </Text>
+                  </View>
 
-                    <View>
-                      <Text style = {[styles.username, {fontSize: 14, fontWeight:"300", color: "gray", marginBottom: 5}]}>
-                        Efficiency
-                      </Text>
-                      <Text style = {[styles.username, {fontSize: 16, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                        67.7 %
-                      </Text>
-                    </View>
-                </View>
-            </View>
-            
-          );  
 
+                  <View style = {{marginRight: 16}}>
+                    <Text style = {[styles.username, {fontSize: 11, fontWeight:"300", color: "gray", marginBottom: 5}]}>
+                      Efficiency
+                    </Text>
+                    <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
+                      67.7 %
+                    </Text>
+                  </View>
+              </View>     
+
+             <LineChart
+              data={{
+                labels: [
+
+                ],
+                datasets: [
+                  {
+                    data: [50,55,56, 700, 45, 67, -70, 1200],
+                    strokeWidth: 4,
+                  },
+                ],
+              }}
+              width={Dimensions.get('window').width - 16}
+              height={200}
+              bezier
+              withDots = {false}
+              withOuterLines = {false}
+              withDots ={true}
+              chartConfig={{
+                backgroundColor: 'transparent',
+                decimalPlaces: 0,
+                color: (opacity = 1) => `gray`,
+                style: {
+                  borderRadius: 16,
+                },
+              }}
+              style={{
+                borderRadius: 16,
+              }}
+          />
+
+        </View>     
+      );  
         break;
 
       case 1:
@@ -240,13 +274,8 @@ class Profile extends Component{
   render(){
     const {won, lost, draw, country, username, coins} = this.state;
     console.log(this.state.currentUser);
-    console.log(lost, draw, won)
-
-    const data = [
-      { name: 'Won', number: Number(won), color: "rgba(0,176,115,0.2)", legendFontColor: '#7F7F7F', legendFontSize: 15 },
-      { name: 'Draw', number: Number(draw), color: '#DCDCDC', legendFontColor: '#7F7F7F', legendFontSize: 15 },
-      { name: 'Lost', number: Number(lost), color: '#DC143C', legendFontColor: '#7F7F7F', legendFontSize: 15 }
-    ];
+    console.log(lost, draw, won);
+ 
 
     const data2 = [0.4, 0.6, 0.8]
     const chart_wh = 250
@@ -264,7 +293,7 @@ class Profile extends Component{
     }
 
     return(
-      <View style = {{flex: 1, backgroundColor: "#161616"}}>
+      <View style = {{flex: 1, backgroundColor: "black"}}>
 
         <StatusBar hidden = {true}/>
           <View style = {{backgroundColor: "#00B073"}}>
@@ -402,6 +431,13 @@ const styles = {
   },
   sortDown: {
     color:"red" , alignSelf: "center", marginBottom: 3
+  },
+  efficiency: {
+    justifyContent: 'center',
+    marginLeft: 27,
+    position: 'absolute',
+    top: 0,left: 0,
+    right: 0, bottom: 0,
   }
 }
 

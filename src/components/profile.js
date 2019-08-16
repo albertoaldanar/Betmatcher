@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TextInput, TouchableOpacity, Dimensions, StatusBar, ScrollView, AsyncStorage} from "react-native";
+import {View, Text, Image, TextInput, TouchableOpacity, Dimensions, StatusBar, ScrollView, AsyncStorage, ActivityIndicator} from "react-native";
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
 import Header from "../reusable/header";
 import User from "../constants/user";
@@ -26,7 +26,11 @@ class Profile extends Component{
 
   constructor(props){
     super(props);
-    this.state = {username:"", won: "", lost:"", draw:"", country: "", currentUser: "", currentToken: "", coins: 0, index: 0}
+    this.state = {
+      username:"", won: "", lost:"", draw:"", country: "", 
+      currentUser: "", currentToken: "", coins: 0, index: 0, tradesList:[],
+      loading: true
+    }
   }
 
   componentWillUnmount() {
@@ -91,7 +95,7 @@ class Profile extends Component{
   }
 
   changeIndex(index){
-    this.setState({ index });
+    this.setState({ index, loading: true });
     this.getUserProfits(this);
   }
 
@@ -106,6 +110,7 @@ class Profile extends Component{
       .then(res => res.json())
       .then(jsonRes => {
         console.log(jsonRes)
+        this.setState({tradesList: jsonRes.finished_trades, loading: false})
       })
       .catch(error => console.log(error));
   }
@@ -118,6 +123,49 @@ class Profile extends Component{
       }
     })
     this.props.navigation.dispatch(navigateAction);
+  }
+
+  tradeCard(event, result, amount){
+    return(
+        <View style = {{flexDirection: "row", justifyContent: "space-between", marginTop: 20, borderBottomWidth: 0.3, borderBottomColor: "gray", paddingBottom: 15, marginLeft: 20, marginRight: 20}}>
+                    <View style = {{marginLeft: 25}}>
+                      <Text style = {{color:"white", fontSize: 13}}>{event.local.name}</Text>
+                      <Text style = {{color:"white", fontSize: 13}}>vs</Text>
+                      <Text style = {{color:"white", fontSize: 13}}>{event.visit.name}</Text>
+                    </View>
+
+                    <View style = {{ marginRight: 25, marginTop: 9,}}>
+                      <Text style = {result =="LOSS" ? styles.sortDown : styles.sortUp}> {result} {result == "LOSS" ? <FontAwesome>{Icons.sortDown}</FontAwesome>: <FontAwesome>{Icons.sortUp}</FontAwesome> }</Text>
+                      <Text style = {{color:"gray", alignSelf:"center"}}> {amount} <FontAwesome>{Icons.database}</FontAwesome></Text>
+                    </View>
+        </View>
+    );
+  }
+
+  profitsList(){
+    const {tradesList, currentUser} = this.state;
+    if(tradesList!= "No trades yet"){
+      return tradesList.map( trade => {
+
+            if(trade.back_user.username == currentUser && trade.looser == currentUser){
+              const amount = trade.request.amount  * -1
+              return this.tradeCard(trade.event, "LOSS", amount)
+
+            } else if(trade.back_user.username == currentUser && trade.winner == currentUser){
+                const amount = trade.amount - trade.request.amount 
+                return this.tradeCard(trade.event, "PROFIT", amount)
+
+            } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
+                const amount = trade.amount - trade.request.amount * -1
+                return this.tradeCard(trade.event, "LOSS", amount)
+            
+            } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
+                const amount = trade.request.amount 
+                return this.tradeCard(trade.event, "PROFIT", amount)
+            } 
+
+      })
+    } else {return null}
   }
 
   choseView(){
@@ -166,49 +214,25 @@ class Profile extends Component{
         break;
 
       case 1:
-        return(
-            <ScrollView style = {{marginTop: 10}}>
-                <View style = {{flexDirection: "row", justifyContent: "space-between", marginTop: 20, borderBottomWidth: 0.3, borderBottomColor: "gray", paddingBottom: 15, marginLeft: 20, marginRight: 20}}>
-                  <View style = {{marginLeft: 25}}>
-                    <Text style = {{color:"white", fontSize: 13}}>Arsenal</Text>
-                    <Text style = {{color:"white", fontSize: 13}}>vs</Text>
-                    <Text style = {{color:"white", fontSize: 13}}>Southhampton</Text>
-                  </View>
+          const {tradesList, loading} = this.state;
 
-                  <View style = {{ marginRight: 25, marginTop: 9,}}>
-                    <Text style = {{color:"#00B073" , alignSelf: "center", marginBottom: 3}}>WON <FontAwesome>{Icons.sortUp}</FontAwesome></Text>
-                    <Text style = {{color:"gray", alignSelf:"center"}}> + 560 <FontAwesome>{Icons.database}</FontAwesome></Text>
-                  </View>
-                </View>
-
-                <View style = {{flexDirection: "row", justifyContent: "space-between", marginTop: 20, borderBottomWidth: 0.3, borderBottomColor: "gray", paddingBottom: 15, marginLeft: 20, marginRight: 20}}>
-                  <View style = {{marginLeft: 25}}>
-                    <Text style = {{color:"white", fontSize: 13}}>Monterrey</Text>
-                    <Text style = {{color:"white", fontSize: 13}}>vs</Text>
-                    <Text style = {{color:"white", fontSize: 13}}>Tigres</Text>
-                  </View>
- 
-
-                  <View style = {{ marginRight: 25, marginTop: 9,}}>
-                    <Text style = {{color:"red" , alignSelf: "center", marginBottom: 3}}>LOSS <FontAwesome>{Icons.sortDown}</FontAwesome></Text>
-                    <Text style = {{color:"gray", alignSelf:"center"}}> - 560 <FontAwesome>{Icons.database}</FontAwesome></Text>
-                  </View>
-                </View>
-
-                <View style = {{flexDirection: "row", justifyContent: "space-between", marginTop: 20, borderBottomWidth: 0.3, borderBottomColor: "gray", paddingBottom: 15, marginLeft: 20, marginRight: 20}}>
-                  <View style = {{marginLeft: 25}}>
-                    <Text style = {{color:"white", fontSize: 13}}>Monterrey</Text>
-                    <Text style = {{color:"white", fontSize: 13}}>vs</Text>
-                    <Text style = {{color:"white", fontSize: 13}}>Tigres</Text>
-                  </View>
-
-                  <View style = {{ marginRight: 25, marginTop: 9,}}>
-                    <Text style = {{color:"#00B073" , alignSelf: "center", marginBottom: 3}}>WON <FontAwesome>{Icons.sortUp}</FontAwesome></Text>
-                    <Text style = {{color:"gray", alignSelf:"center"}}> + 560 <FontAwesome>{Icons.database}</FontAwesome></Text>
-                  </View>
-                </View>
-            </ScrollView>
-        );
+        if(tradesList != "No trades yet" && loading == false){
+          return( 
+              <ScrollView style = {{marginTop: 10}}>
+                  {this.profitsList()}
+              </ScrollView>
+          );
+        } else if(loading== false && tradesList == "No trades yet"){
+            return(
+              <Text style = {{color: "white", marginTop: 60, alignSelf:"center", fontWeight: "300", fontSize: 17}}> No finished trades yet </Text> 
+            ) 
+          } else{
+            return(
+              <View style = {{marginTop: 60}}>
+                  <ActivityIndicator color = "white" size ="large"/>
+              </View>
+            );
+        }
         break;
     }
   }
@@ -372,6 +396,12 @@ const styles = {
     color: "white",
     alignSelf: "center",
     paddingBottom: 12
+  },
+  sortUp: {
+    color:"#00B073" , alignSelf: "center", marginBottom: 3
+  },
+  sortDown: {
+    color:"red" , alignSelf: "center", marginBottom: 3
   }
 }
 

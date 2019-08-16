@@ -150,7 +150,7 @@ class UserSearch extends Component{
            onPress = {this.props.getUser.bind(this, user, false, true)} style = {this.state.user ? styles.buttonActive : styles.buttonDisabled}
            disabled = {this.state.user == "" ? true : false}
           >
-          <Text style = {{alignSelf: "center", color: "white"}}>Buscar usuario</Text>
+          <Text style = {{alignSelf: "center", color: "white"}}>Search user</Text>
         </TouchableOpacity>
 
 

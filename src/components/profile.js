@@ -21,6 +21,7 @@ import MaterialTabs from "react-native-material-tabs";
 class Profile extends Component{
 
   _isMounted = false;
+  _data =  [0];
 
 
   constructor(props){
@@ -28,7 +29,7 @@ class Profile extends Component{
     this.state = {
       username:"", won: "", lost:"", draw:"", country: "", 
       currentUser: "", currentToken: "", coins: 0, index: 0, tradesList:[],
-      loading: true
+      loading: true, chartData: []
     }
   }
 
@@ -53,7 +54,11 @@ class Profile extends Component{
 
 
   async componentDidMount(){
-      this._isMounted = true;
+      return this.getData()
+  }
+
+  async getData(){
+    this._isMounted = true;
 
       const usernameGet = await AsyncStorage.getItem('username');
         if (usernameGet) {
@@ -69,12 +74,12 @@ class Profile extends Component{
           this.setState({ currentToken: false });
       }
 
-      return fetch(`http://${Url}:8000/users/${this.state.currentUser}/`, {
+      return fetch(`http://${Url}:8000/user_records?current_user=${this.state.currentUser}`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
           "Content-type": "application/json",
-          "Authorization": `Token ${this.state.currentToken}`
+          // "Authorization": `Token ${this.state.currentToken}`
         }
       })
       .then(res => res.json())
@@ -86,33 +91,35 @@ class Profile extends Component{
                 lost: jsonRes.user.profile.lost,
                 draw: jsonRes.user.profile.draw,
                 country: jsonRes.user.profile.country,
-                coins: jsonRes.user.profile.coins
+                coins: jsonRes.user.profile.coins,
+                tradesList: jsonRes.finished_trades
+
           })
         }
-      })
+      }).then(() => this.analysis())
       .catch(error => console.log(error));
   }
 
   changeIndex(index){
-    this.setState({ index, loading: true });
-    this.getUserProfits(this);
+    this.setState({ index });
+    // this.getData();
   }
 
-  getUserProfits(){
-    return fetch(`http://${Url}:8000/user_records?current_user=${this.state.currentUser}`, {
-        method: "GET",
-        headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json",
-        }
-      })
-      .then(res => res.json())
-      .then(jsonRes => {
-        console.log(jsonRes)
-        this.setState({tradesList: jsonRes.finished_trades, loading: false})
-      })
-      .catch(error => console.log(error));
-  }
+  // getUserProfits(){
+  //   return fetch(`http://${Url}:8000/user_records?current_user=${this.state.currentUser}`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Accept": "application/json",
+  //         "Content-type": "application/json",
+  //       }
+  //     })
+  //     .then(res => res.json())
+  //     .then(jsonRes => {
+  //       console.log(jsonRes)
+  //       this.setState({tradesList: jsonRes.finished_trades, loading: false})
+  //     })
+  //     .catch(error => console.log(error));
+  // }
 
   renderFriends(){
     const navigateAction = NavigationActions.navigate({
@@ -124,7 +131,14 @@ class Profile extends Component{
     this.props.navigation.dispatch(navigateAction);
   }
 
+  profitAnalysis(amount){
+      this._data = this._data.concat(amount);
+      this.setState({chartData: this.state.chartData.concat(amount)});
+  }
+
+
   tradeCard(event, result, amount){
+     
     return(
         <View style = {{flexDirection: "row", justifyContent: "space-between", marginTop: 20, borderBottomWidth: 0.3, borderBottomColor: "gray", paddingBottom: 15, marginLeft: 20, marginRight: 20}}>
                     <View style = {{marginLeft: 25}}>
@@ -147,25 +161,62 @@ class Profile extends Component{
       return tradesList.map( trade => {
 
             if(trade.back_user.username == currentUser && trade.looser == currentUser){
-              const amount = trade.request.amount  * -1
+              const amount = trade.request.amount  * -1;
+
               return this.tradeCard(trade.event, "LOSS", amount)
 
             } else if(trade.back_user.username == currentUser && trade.winner == currentUser){
-                const amount = trade.amount - trade.request.amount 
+                const amount = trade.amount - trade.request.amount;
+
                 return this.tradeCard(trade.event, "PROFIT", amount)
 
             } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
                 const amount = trade.amount - trade.request.amount * -1
+
                 return this.tradeCard(trade.event, "LOSS", amount)
             
             } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
                 const amount = trade.request.amount 
-                return this.tradeCard(trade.event, "PROFIT", amount)
-            } 
 
+                return this.tradeCard(trade.event, "PROFIT", amount);
+              }
       })
     } else {return null}
   }
+
+ analysis(){
+    const {tradesList, currentUser} = this.state;
+    if(tradesList!= "No trades yet"){
+      return tradesList.map( trade => {
+
+            if(trade.back_user.username == currentUser && trade.looser == currentUser){
+              const amount = trade.request.amount  * -1;
+              this.profitAnalysis(amount);
+
+              return this.tradeCard(trade.event, "LOSS", amount)
+
+            } else if(trade.back_user.username == currentUser && trade.winner == currentUser){
+                const amount = trade.amount - trade.request.amount;
+                this.profitAnalysis(amount);
+
+                return this.tradeCard(trade.event, "PROFIT", amount)
+
+            } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
+                const amount = trade.amount - trade.request.amount * -1
+                this.profitAnalysis(amount);
+
+                return this.tradeCard(trade.event, "LOSS", amount)
+            
+            } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
+                const amount = trade.request.amount 
+                this.profitAnalysis(amount);
+
+                return this.tradeCard(trade.event, "PROFIT", amount);
+              }
+      })
+    } else {return null}
+  }
+
 
   choseView(){
     const {index} = this.state;
@@ -179,6 +230,7 @@ class Profile extends Component{
 
     switch(index){
       case 0:
+
         return(     
           <View pointerEvents="none" style= {{marginTop: 15}}>   
 
@@ -219,12 +271,12 @@ class Profile extends Component{
                 ],
                 datasets: [
                   {
-                    data: [50,55,56, 700, 45, 67, -70, 1200],
+                    data: this.state.chartData,
                     strokeWidth: 4,
                   },
                 ],
               }}
-              width={Dimensions.get('window').width - 16}
+              width={Dimensions.get('window').width -16}
               height={200}
               bezier
               withDots = {false}
@@ -250,13 +302,13 @@ class Profile extends Component{
       case 1:
           const {tradesList, loading} = this.state;
 
-        if(tradesList != "No trades yet" && loading == false){
+        if(tradesList != "No trades yet"){
           return( 
               <ScrollView style = {{marginTop: 10}}>
                   {this.profitsList()}
               </ScrollView>
           );
-        } else if(loading== false && tradesList == "No trades yet"){
+        } else if(tradesList == "No trades yet"){
             return(
               <Text style = {{color: "white", marginTop: 60, alignSelf:"center", fontWeight: "300", fontSize: 17}}> No finished trades yet </Text> 
             ) 
@@ -275,6 +327,10 @@ class Profile extends Component{
     const {won, lost, draw, country, username, coins} = this.state;
     console.log(this.state.currentUser);
     console.log(lost, draw, won);
+
+    console.log(this._data);
+
+    console.log(this.state.chartData.reverse());
  
 
     const data2 = [0.4, 0.6, 0.8]

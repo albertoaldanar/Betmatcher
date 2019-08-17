@@ -358,7 +358,7 @@ class Friends extends Component{
 
 
     return(
-      <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
+      <View style= {{flex: 1, backgroundColor: "#161616"}} >
           <MaterialTabs
                 items={['Betfriends', "Requests", "Direct bets"]}
                 indicatorColor ="#00B073"
@@ -427,7 +427,7 @@ class Friends extends Component{
           </Modal>
 
           {addButton}
-      </LinearGradient>
+      </View>
     );
   }
 }

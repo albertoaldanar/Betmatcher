@@ -5,7 +5,6 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Matches from "../constants/matches";
 import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-import Chat from "../reusable/chat";
 import LinearGradient from "react-native-linear-gradient";
 import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
@@ -13,6 +12,8 @@ import Url from "../constants/url";
 import UserCard from "../reusable/userCard";
 import Moment from "moment";
 import Swipeout from 'react-native-swipeout';
+import Chat from "./chat"; 
+import { GiftedChat } from "react-native-gifted-chat";
 
 class Match extends Component{
 
@@ -25,10 +26,28 @@ class Match extends Component{
        matches: [], unmatched: [], finished: [],
        token: "", currentUser: "", userCard: false,
        friendAnalysis: null, userSelected: "", profile: [],
-       refreshing: false, positionSelected: "", isLoadingData: true, requestedAnalysis: null
+       refreshing: false, positionSelected: "", isLoadingData: true, requestedAnalysis: null, 
+       showChat: false
      }
 
      // this.resultAnalysis = this.resultAnalysis.bind(this);
+  }
+
+  componentWillMount(){
+    this.setState({
+      messages: [
+        {
+          _id: 1,
+          text: 'Hello developer',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ],
+    })
   }
 
   componentWillUnmount() {
@@ -88,6 +107,17 @@ class Match extends Component{
 
   userCard(){
     this.setState({userCard: false})
+  }
+
+  showChat(){
+    this.setState({showChat: !this.state.showChat});
+  }
+
+
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
   }
 
   cancelAlerts(){
@@ -176,7 +206,7 @@ class Match extends Component{
                     </View>
                 </View>
 
-                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}}>
+                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}} onPress = {this.showChat.bind(this)}>
                   <FontAwesome style = {{fontSize: 30, color: "#00B073"}}>{Icons.comments}</FontAwesome>
                 </TouchableOpacity>
               </View>
@@ -384,6 +414,20 @@ class Match extends Component{
               <TouchableOpacity style = {{backgroundColor:"#00B073", padding: 10, borderRadius: 5, margin: 50}} onPress={this.toggleModal.bind(this)}>
                 <Text style = {{color: "white", fontSize: 17, alignSelf:"center",}}>Got it  <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>
               </TouchableOpacity>
+        </Modal>
+
+
+        <Modal
+          isVisible={this.state.showChat}
+          backdropOpacity = {0.85}
+        >
+          <GiftedChat
+              messages={this.state.messages}
+              onSend={messages => this.onSend(messages)}
+              user={{
+                _id: 1,
+              }}
+          />
         </Modal>
 
       </View>

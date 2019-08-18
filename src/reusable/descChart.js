@@ -64,16 +64,16 @@ class DescChart extends Component {
     return(
       <ScrollView horizontal>
         <View style={styles.container}>
-                <YAxis
-                    data={lLocal.concat(bLocal)}
-                    contentInset={ contentInset }
-                    svg={{
-                        fill: 'grey',
-                        fontSize: 10,
-                    }}
-                    numberOfTicks={ 10 }
-                    formatLabel={ value => `${value}$` }
-                />
+                  <YAxis
+                      data={lLocal.concat(bLocal)}
+                      contentInset={ contentInset }
+                      svg={{
+                          fill: 'grey',
+                          fontSize: 10,
+                      }}
+                      numberOfTicks={ 10 }
+                      formatLabel={ value => `${value}$` }
+                  />
 
                   <Text style = {styles.title}>{this.props.game.local.name}</Text>
                     <LineChart

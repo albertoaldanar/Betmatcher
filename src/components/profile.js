@@ -54,7 +54,7 @@ class Profile extends Component{
 
 
   async componentDidMount(){
-      return this.getData()
+    return this.getData();
   }
 
   async getData(){
@@ -105,21 +105,6 @@ class Profile extends Component{
     // this.getData();
   }
 
-  // getUserProfits(){
-  //   return fetch(`http://${Url}:8000/user_records?current_user=${this.state.currentUser}`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Accept": "application/json",
-  //         "Content-type": "application/json",
-  //       }
-  //     })
-  //     .then(res => res.json())
-  //     .then(jsonRes => {
-  //       console.log(jsonRes)
-  //       this.setState({tradesList: jsonRes.finished_trades, loading: false})
-  //     })
-  //     .catch(error => console.log(error));
-  // }
 
   renderFriends(){
     const navigateAction = NavigationActions.navigate({
@@ -162,22 +147,18 @@ class Profile extends Component{
 
             if(trade.back_user.username == currentUser && trade.looser == currentUser){
               const amount = trade.request.amount  * -1;
-
               return this.tradeCard(trade.event, "LOSS", amount)
 
             } else if(trade.back_user.username == currentUser && trade.winner == currentUser){
                 const amount = trade.amount - trade.request.amount;
-
                 return this.tradeCard(trade.event, "PROFIT", amount)
 
             } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
                 const amount = trade.amount - trade.request.amount * -1
-
                 return this.tradeCard(trade.event, "LOSS", amount)
             
             } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
                 const amount = trade.request.amount 
-
                 return this.tradeCard(trade.event, "PROFIT", amount);
               }
       })
@@ -191,27 +172,27 @@ class Profile extends Component{
 
             if(trade.back_user.username == currentUser && trade.looser == currentUser){
               const amount = trade.request.amount  * -1;
-              this.profitAnalysis(amount);
+              return this.profitAnalysis(amount);
 
-              return this.tradeCard(trade.event, "LOSS", amount)
+              // return this.tradeCard(trade.event, "LOSS", amount)
 
             } else if(trade.back_user.username == currentUser && trade.winner == currentUser){
                 const amount = trade.amount - trade.request.amount;
-                this.profitAnalysis(amount);
+                return this.profitAnalysis(amount);
 
-                return this.tradeCard(trade.event, "PROFIT", amount)
+                // return this.tradeCard(trade.event, "PROFIT", amount)
 
             } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
                 const amount = trade.amount - trade.request.amount * -1
-                this.profitAnalysis(amount);
+                return this.profitAnalysis(amount);
 
-                return this.tradeCard(trade.event, "LOSS", amount)
+                // return this.tradeCard(trade.event, "LOSS", amount)
             
             } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
                 const amount = trade.request.amount 
-                this.profitAnalysis(amount);
+                return this.profitAnalysis(amount);
 
-                return this.tradeCard(trade.event, "PROFIT", amount);
+                // return this.tradeCard(trade.event, "PROFIT", amount);
               }
       })
     } else {return null}
@@ -230,7 +211,6 @@ class Profile extends Component{
 
     switch(index){
       case 0:
-
         return(     
           <View pointerEvents="none" style= {{marginTop: 15}}>   
 
@@ -263,37 +243,40 @@ class Profile extends Component{
                     </Text>
                   </View>
               </View>     
+          { this.state.chartData.length > 0 ? 
+            <LineChart
+                data={{
+                  labels: [
 
-             <LineChart
-              data={{
-                labels: [
-
-                ],
-                datasets: [
-                  {
-                    data: this.state.chartData,
-                    strokeWidth: 4,
+                  ],
+                  datasets: [
+                    {
+                      data: this.state.chartData,
+                      strokeWidth: 4,
+                    },
+                  ],
+                }}
+                width={Dimensions.get('window').width -16}
+                height={200}
+                bezier
+                withDots = {false}
+                withOuterLines = {false}
+                withDots ={true}
+                chartConfig={{
+                  backgroundColor: 'transparent',
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => `gray`,
+                  style: {
+                    borderRadius: 16,
                   },
-                ],
-              }}
-              width={Dimensions.get('window').width -16}
-              height={200}
-              bezier
-              withDots = {false}
-              withOuterLines = {false}
-              withDots ={true}
-              chartConfig={{
-                backgroundColor: 'transparent',
-                decimalPlaces: 0,
-                color: (opacity = 1) => `gray`,
-                style: {
+                }}
+                style={{
                   borderRadius: 16,
-                },
-              }}
-              style={{
-                borderRadius: 16,
-              }}
-          />
+                }}
+            /> : 
+
+            <Text style = {{color:"white", alignSelf: "center", marginTop: 10, fontWeight: "300"}}> No trades yet </Text>
+        }
 
         </View>     
       );  

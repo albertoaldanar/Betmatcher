@@ -28,27 +28,16 @@ class Match extends Component{
        token: "", currentUser: "", userCard: false,
        friendAnalysis: null, userSelected: "", profile: [],
        refreshing: false, positionSelected: "", isLoadingData: true, requestedAnalysis: null, 
-       showChat: false, messages: []
+       showChat: false, messages: [], chatSelected: null
      }
 
   }
 
-  // componentWillMount(){
-  //   this.setState({
-  //     messages: [
-  //       {
-  //         _id: 1,
-  //         text: 'Hello developer',
-  //         createdAt: new Date(),
-  //         user: {
-  //           _id: 2,
-  //           name: 'React Native',
-  //           avatar: 'https://placeimg.com/140/140/any',
-  //         },
-  //       },
-  //     ],
-  //   })
-  // }
+
+  componentWillMount(){
+    const myMessages = ChatSystem.loadMessages();
+    this.setState({messages: myMessages});
+  }
 
   componentWillUnmount() {
     this._isMounted = false;
@@ -90,21 +79,14 @@ class Match extends Component{
             refreshing: false,
             isLoadingData: false
           })
-      }).then(
-        ChatSystem.loadMessages((message) => {
-          this.setState((previousState) => {
-            return {
-              messages: GiftedChat.append(previousState.messages, message),
-            }
-          })
-        })
-      )
+      })
       .catch(error => console.log(error));
   }
 
   componentDidMount(){
       return this.getMatches();
   }
+
 
   handleIndexChange(index){
     this.setState({index})
@@ -118,10 +100,14 @@ class Match extends Component{
     this.setState({userCard: false})
   }
 
-  showChat(){
-    this.setState({showChat: !this.state.showChat});
+  showChat(id){
+    const messagesResponse = ChatSystem.myMessages();
+    console.log(messagesResponse);
+    this.setState({showChat: !this.state.showChat, chatSelected: id})
+    // return ChatSystem.loadMessages( messages => {
+    //       this.setState({ messages });
+    // })
   }
-
 
   onSend(messages = []) {
     this.setState(previousState => ({
@@ -215,7 +201,7 @@ class Match extends Component{
                     </View>
                 </View>
 
-                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}} onPress = {this.showChat.bind(this)}>
+                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}} onPress = {this.showChat.bind(this, item.id)}>
                   <FontAwesome style = {{fontSize: 30, color: "#00B073"}}>{Icons.comments}</FontAwesome>
                 </TouchableOpacity>
               </View>
@@ -380,7 +366,9 @@ class Match extends Component{
   render(){
     console.log(this.state.unmatchedBets);
     const {userSelected, profile, friendAnalysis, requestedAnalysis} = this.state;
-    console.log(this.state.messages);
+    console.log(this.state.messages, this.state.chatSelected);
+
+    const chat = this.state.messages[0]
 
     return(
       <View style = {styles.container}>
@@ -434,7 +422,7 @@ class Match extends Component{
           <View style = {{flex: 1, backgroundColor: "#161616"}}>  
 
             <GiftedChat
-              messages={this.state.messages}
+              messages={chat}
               onSend={(message) => {
                   ChatSystem.sendMessage(message);
               }}

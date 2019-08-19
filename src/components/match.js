@@ -14,6 +14,7 @@ import Moment from "moment";
 import Swipeout from 'react-native-swipeout';
 import Chat from "./chat"; 
 import { GiftedChat } from "react-native-gifted-chat";
+import ChatSystem from "./chatSystem";
 
 class Match extends Component{
 
@@ -27,31 +28,31 @@ class Match extends Component{
        token: "", currentUser: "", userCard: false,
        friendAnalysis: null, userSelected: "", profile: [],
        refreshing: false, positionSelected: "", isLoadingData: true, requestedAnalysis: null, 
-       showChat: false
+       showChat: false, messages: []
      }
 
-     // this.resultAnalysis = this.resultAnalysis.bind(this);
   }
 
-  componentWillMount(){
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-      ],
-    })
-  }
+  // componentWillMount(){
+  //   this.setState({
+  //     messages: [
+  //       {
+  //         _id: 1,
+  //         text: 'Hello developer',
+  //         createdAt: new Date(),
+  //         user: {
+  //           _id: 2,
+  //           name: 'React Native',
+  //           avatar: 'https://placeimg.com/140/140/any',
+  //         },
+  //       },
+  //     ],
+  //   })
+  // }
 
   componentWillUnmount() {
     this._isMounted = false;
+    ChatSystem.closeChat();
   }
 
   async getMatches(){
@@ -89,12 +90,20 @@ class Match extends Component{
             refreshing: false,
             isLoadingData: false
           })
-      })
+      }).then(
+        ChatSystem.loadMessages((message) => {
+          this.setState((previousState) => {
+            return {
+              messages: GiftedChat.append(previousState.messages, message),
+            }
+          })
+        })
+      )
       .catch(error => console.log(error));
   }
 
   componentDidMount(){
-      return this.getMatches()
+      return this.getMatches();
   }
 
   handleIndexChange(index){
@@ -371,7 +380,7 @@ class Match extends Component{
   render(){
     console.log(this.state.unmatchedBets);
     const {userSelected, profile, friendAnalysis, requestedAnalysis} = this.state;
-    console.log(this.state.positionSelected)
+    console.log(this.state.messages);
 
     return(
       <View style = {styles.container}>
@@ -420,14 +429,21 @@ class Match extends Component{
         <Modal
           isVisible={this.state.showChat}
           backdropOpacity = {0.85}
-        >
-          <GiftedChat
+        > 
+
+          <View style = {{flex: 1, backgroundColor: "#161616"}}>  
+
+            <GiftedChat
               messages={this.state.messages}
-              onSend={messages => this.onSend(messages)}
+              onSend={(message) => {
+                  ChatSystem.sendMessage(message);
+              }}
               user={{
                 _id: 1,
+                name: this.state.currentUser
               }}
           />
+          </View>
         </Modal>
 
       </View>

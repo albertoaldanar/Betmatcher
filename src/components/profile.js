@@ -243,7 +243,7 @@ class Profile extends Component{
                     </Text>
                   </View>
               </View>     
-          { this.state.chartData.length > 0 ? 
+  
             <LineChart
                 data={{
                   labels: [
@@ -273,10 +273,8 @@ class Profile extends Component{
                 style={{
                   borderRadius: 16,
                 }}
-            /> : 
+            />  
 
-            <Text style = {{color:"white", alignSelf: "center", marginTop: 10, fontWeight: "300"}}> No trades yet </Text>
-        }
 
         </View>     
       );  

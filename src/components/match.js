@@ -14,13 +14,14 @@ import Moment from "moment";
 import Swipeout from 'react-native-swipeout';
 import Chat from "./chat"; 
 import { GiftedChat } from "react-native-gifted-chat";
-import ChatSystem from "./chatSystem";
+import {NavigationActions} from "react-navigation";
 
 class Match extends Component{
 
   _isMounted = false;
 
   constructor(props){
+
     super(props);
     this.state = {
       index: 0, chat: false, modal: false,
@@ -28,20 +29,26 @@ class Match extends Component{
        token: "", currentUser: "", userCard: false,
        friendAnalysis: null, userSelected: "", profile: [],
        refreshing: false, positionSelected: "", isLoadingData: true, requestedAnalysis: null, 
-       showChat: false, messages: [], chatSelected: null
+       showChat: false, messages: [], chatSelected: null, userID: null
      }
 
   }
 
+  sendToChat(id){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Chat",
+      params: {
+        currentUser: this.state.currentUser,
+        chatID: id,
+        userID: this.state.userID
+      }
+    });
 
-  componentWillMount(){
-    const myMessages = ChatSystem.loadMessages();
-    this.setState({messages: myMessages});
+    this.props.navigation.dispatch(navigateAction);
   }
 
   componentWillUnmount() {
     this._isMounted = false;
-    ChatSystem.closeChat();
   }
 
   async getMatches(){
@@ -53,6 +60,10 @@ class Match extends Component{
         } else {
           this.setState({ currentUser: false });
     }
+
+    const userIDGet = await AsyncStorage.getItem('userID');
+    this.setState({ userID: userIDGet});
+
 
     const tokenGet = await AsyncStorage.getItem('token');
         if (tokenGet) {
@@ -98,21 +109,6 @@ class Match extends Component{
 
   userCard(){
     this.setState({userCard: false})
-  }
-
-  showChat(id){
-    const messagesResponse = ChatSystem.myMessages();
-    console.log(messagesResponse);
-    this.setState({showChat: !this.state.showChat, chatSelected: id})
-    // return ChatSystem.loadMessages( messages => {
-    //       this.setState({ messages });
-    // })
-  }
-
-  onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
   }
 
   cancelAlerts(){
@@ -201,7 +197,7 @@ class Match extends Component{
                     </View>
                 </View>
 
-                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}} onPress = {this.showChat.bind(this, item.id)}>
+                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}} onPress = {this.sendToChat.bind(this, item.id)}>
                   <FontAwesome style = {{fontSize: 30, color: "#00B073"}}>{Icons.comments}</FontAwesome>
                 </TouchableOpacity>
               </View>
@@ -365,10 +361,8 @@ class Match extends Component{
 
   render(){
     console.log(this.state.unmatchedBets);
-    const {userSelected, profile, friendAnalysis, requestedAnalysis} = this.state;
-    console.log(this.state.messages, this.state.chatSelected);
-
-    const chat = this.state.messages[0]
+    const {userSelected, profile, friendAnalysis, requestedAnalysis, messages} = this.state;
+    console.log(this.state.userID);
 
     return(
       <View style = {styles.container}>
@@ -411,27 +405,6 @@ class Match extends Component{
               <TouchableOpacity style = {{backgroundColor:"#00B073", padding: 10, borderRadius: 5, margin: 50}} onPress={this.toggleModal.bind(this)}>
                 <Text style = {{color: "white", fontSize: 17, alignSelf:"center",}}>Got it  <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>
               </TouchableOpacity>
-        </Modal>
-
-
-        <Modal
-          isVisible={this.state.showChat}
-          backdropOpacity = {0.85}
-        > 
-
-          <View style = {{flex: 1, backgroundColor: "#161616"}}>  
-
-            <GiftedChat
-              messages={chat}
-              onSend={(message) => {
-                  ChatSystem.sendMessage(message);
-              }}
-              user={{
-                _id: 1,
-                name: this.state.currentUser
-              }}
-          />
-          </View>
         </Modal>
 
       </View>

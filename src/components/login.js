@@ -46,6 +46,7 @@ class Login extends Component{
             try {
               AsyncStorage.setItem('token', jsonRes.jwt);
               AsyncStorage.setItem('username', jsonRes.user.username);
+              AsyncStorage.setItem('userID', jsonRes.user.id.toString());
               AsyncStorage.setItem('coins', coins.toString());
             } catch (error) {
               console.log(error.message);

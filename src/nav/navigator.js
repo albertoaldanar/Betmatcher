@@ -14,6 +14,7 @@ import YouHaveMatch from "../components/youHaveMatch";
 import TopRequests from "../components/topRequests";
 import AllLeagues from "../components/allLeagues";
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import Chat from "../components/chat";
 
 
 export const MainScreen = createBottomTabNavigator({
@@ -147,6 +148,17 @@ export const createRootNavigator = (load= "<Your Initial Screen>") => {
       screen: FilteredEvents,
       navigationOptions: {
         title: "Events",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
+      }
+    },
+    Chat: {
+      screen: Chat,
+      navigationOptions: {
+        title: "Chat",
         headerTintColor: "#00B073",
         headerStyle: {
           backgroundColor: "black",

@@ -26,28 +26,39 @@ class Chat extends Component{
 	}
 
 	componentWillMount(){
-		const db = firebase.firestore().collection('messages');
-		let queryRef = db.where('chat_id', '==', this.props.navigation.state.params.chatID);
+		const db = firebase.firestore().collection('messages').where('chat_id', '==', this.props.navigation.state.params.chatID);
 
-		this.unsubscribe = queryRef.onSnapshot(this.onCollectionUpdate) 
+		this.unsubscribe = db.onSnapshot(this.onCollectionUpdate) 
 	}
 
 
-	addMessage() {
+	addMessage(message) {
 		const { currentUser, chatID, userID } = this.props.navigation.state.params;
 		const randomID= Math.floor((Math.random() * 100000) + 1);
 
 		const db = firebase.firestore().collection('messages');
-	  	db.add({
-	    	_id: randomID, 
-	    	chat_id: chatID,
-	    	text: this.state.text,
-	    	createdAt: Date.now(),
-	    	user: {
-	    		_id: 10, 
-	    		name: currentUser
-	    	}
-  		});	
+
+		for(let i = 0; i < message.length; i ++){
+			db.add({
+				_id: 7,
+				chat_id: chatID,
+				text: message[i].text,
+				user: message[i].user, 
+				createdAt: Date.now()
+	    	});
+		}
+
+	  	// db.add({
+	   //  	_id: randomID, 
+	   //  	chat_id: chatID,
+	   //  	text: this.state.text,
+	   //  	createdAt: Date.now(),
+	   //  	user: {
+	   //  		_id: 10, 
+	   //  		name: currentUser
+	   // 	firebase.firestore.FieldValue.serverTimestamp()
+	   //  	}
+  		// });	
 	}
 
 
@@ -104,18 +115,18 @@ class Chat extends Component{
  //  	}
 
 
-	// sendMessage(message){
-	// 	const {chatID} = this.props.navigation.state.params;
+	sendMessage(message){
+		const {chatID} = this.props.navigation.state.params;
 
-	//     for(let i = 0; i < message.length; i ++){
-	//       this.messagesRef.push({
-	//         _id: chatID,
-	//         text: message[i].text,
-	//         user: message[i].user, 
-	//         createdAt: firebase.database.ServerValue.TIMESTAMP
-	//     });
- //    }
- //  }
+	    for(let i = 0; i < message.length; i ++){
+	      this.messagesRef.push({
+	        _id: chatID,
+	        text: message[i].text,
+	        user: message[i].user, 
+	        createdAt: firebase.database.ServerValue.TIMESTAMP
+	    });
+    }
+  }
 
 	render(){	
 		console.log(this.state.messages);
@@ -127,10 +138,10 @@ class Chat extends Component{
 					<GiftedChat
 			              messages={this.state.messages}
 			              onSend={(message) => {
-			                  this.addMessage();
+			                  this.addMessage(message);
 			              }}
 			              user ={{
-			                _id: 10,
+			                _id: 1,
 			                name: currentUser
 			              }}
 			              isAnimated = {true}

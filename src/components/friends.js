@@ -197,21 +197,26 @@ class Friends extends Component{
   choseView(){
     const {index, betfriends, receivedRequests, requestsIndex, sentRequests, directBets} = this.state;
 
+    const betfriendsOrMessage = betfriends.length > 0 ? this.betfriendList(betfriends || []) : <Text style = {{color: "gray", marginTop: 35, alignSelf: "center", fontSize: 18}}> You have no betfriends</Text>
+    const directBetsOrMessage = directBets.length > 0 ? this.directBetCard(directBets || []) : <Text style = {{color: "gray", marginTop: 35, alignSelf: "center", fontSize: 18}}> You don´t have direct bets requests</Text>
+    const receivedOrMessage = receivedRequests.length > 0 ? this.requestsList(receivedRequests || []) : <Text style = {{color: "gray", marginTop: 35, alignSelf: "center", fontSize: 18}}> You haven´t received any betfriend request</Text>
+    const sentOrMessage = sentRequests.length > 0 ? this.requestsList(sentRequests || []) : <Text style = {{color: "gray", marginTop: 35, alignSelf: "center", fontSize: 18}}> You haven´t sent any friend request</Text>
+
     switch(index){
       case 0:
-        return this.betfriendList(betfriends || [])
+        return betfriendsOrMessage
         break;
 
       case 1:
         if(requestsIndex){
-          return this.requestsList(receivedRequests || [])
+          return receivedOrMessage
         } else {
-          return this.requestsList(sentRequests || [])
+          return sentOrMessage
         }
         break;
 
       case 2:
-        return this.directBetCard(directBets || [])
+        return directBetsOrMessage
         break;
     }
   }

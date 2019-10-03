@@ -411,13 +411,6 @@ class Friends extends Component{
             />
           </Modal>
 
-
-messages={this.state.messages}
-        onSend={messages => this.onSend(messages)}
-        user={{
-          _id: 1,
-        }}
-
           <Modal
               style={{ flex: 1, margin: 0}}
               isVisible={this.state.directBetModal}

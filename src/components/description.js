@@ -263,8 +263,8 @@ class Description extends Component{
           game = {game} 
           layLocal = {layLocal} layVisit = {layVisit} layDraw = {layDraw}
           backLocal = {chartLocalBack} backVisit = {chartVisitBack} backDraw = {chartDrawBack}
-
         />
+        
         <Modal
             transparent = {false}
             visible = {this.state.showMakeBet}

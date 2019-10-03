@@ -322,18 +322,23 @@ class Match extends Component{
 
   choseView(){
     const {index, unmatchedBets, matchedBets, finishedBets} = this.state;
+    console.log(matchedBets.length);
+
+    const matchesOrMessage = matchedBets.length > 0 ? this.renderMatches(matchedBets || []) : <Text style = {{color: "white", marginTop: 25, alignSelf: "center", fontSize: 18}}>No future or in-play trades</Text>
+    const unmatchedOrMessage = unmatchedBets.length > 0 ? this.unmatchedBets(unmatchedBets || []) : <Text style = {{color: "white", marginTop: 25, alignSelf: "center", fontSize: 18}}>No unmatched bets</Text>
+    const finishedOrMessage = unmatchedBets.length > 0 ? this.renderMatches(finishedBets || []) : <Text style = {{color: "white", marginTop: 25, alignSelf: "center", fontSize: 18}}>No finished bets</Text>
 
     switch(index){
       case 0:
-        return this.renderMatches(matchedBets || [])
+        return matchesOrMessage
         break;
 
       case 1:
-        return this.unmatchedBets(unmatchedBets || [])
+        return unmatchedOrMessage
         break;
 
       case 2:
-        return this.renderMatches(finishedBets || [])
+        return finishedOrMessage
         break;
     }
   }

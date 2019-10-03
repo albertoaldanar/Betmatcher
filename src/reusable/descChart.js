@@ -23,14 +23,21 @@ class DescChart extends Component {
             formatLabel={ value => `${value} $` }
           />
           <Text style = {styles.title}>{this.props.game.draw.name}</Text>
-          <LineChart
-            style={{ flex: 1, marginLeft: 16, marginRight: 16 }}
-            data={ data }
-            svg={{ stroke: 'gray' }}
-            contentInset={ content }
-          >
-            <Grid/>
-          </LineChart>
+
+          { data.length > 0 ? 
+            <LineChart
+              style={{ flex: 1, marginLeft: 16, marginRight: 16 }}
+              data={ data }
+              svg={{ stroke: 'gray' }}
+              contentInset={ content }
+            >
+              <Grid/>
+            </LineChart> : 
+            <View style={{ flex: 1, marginTop: 40 }}>
+              <Text style = {{color:"gray", fontSize: 12, marginLeft: -15}}> No trades </Text>
+            </View>
+          }
+
         </View>
       );
     } else return null;
@@ -55,17 +62,21 @@ class DescChart extends Component {
     console.log( lLocal, lDraw, lVisit, bDraw, bLocal, bVisit);
     console.log(lVisit.concat(bVisit));
 
-    const data = [ 50, 10, 40, 95 ];
-    const data2 = [ 40, 80, 91, 86, 99, 35, 53, 804, 610, 230 ];
-    const data3 = [ 10, 90, 112, 91, 55, 99, 35, 53, 11, 153 ];
-    const contentInset = { top: 20, bottom: 20, left: 10 }
+    // const data = [ 50, 10, 40, 95 ];
+    // const data2 = [ 40, 80, 91, 86, 99, 35, 53, 804, 610, 230 ];
+    // const data3 = [ 10, 90, 112, 91, 55, 99, 35, 53, 11, 153 ];
 
+    var localTrades = lLocal.concat(bLocal);
+    var drawTrades = lDraw.concat(bDraw);
+    var visitTrades = lVisit.concat(bVisit);
+
+    const contentInset = { top: 20, bottom: 20, left: 10 }
 
     return(
       <ScrollView horizontal>
         <View style={styles.container}>
                   <YAxis
-                      data={lLocal.concat(bLocal)}
+                      data={localTrades}
                       contentInset={ contentInset }
                       svg={{
                           fill: 'grey',
@@ -76,19 +87,26 @@ class DescChart extends Component {
                   />
 
                   <Text style = {styles.title}>{this.props.game.local.name}</Text>
+
+                  { visitTrades.length > 0 ? 
                     <LineChart
                         style={{ flex: 1, marginLeft: 16, marginRight: 20}}
-                        data={ lLocal.concat(bLocal) }
+                        data={ localTrades }
                         svg={{ stroke: '#00B073' }}
                         contentInset={ contentInset }
                     >
                         <Grid/>
-                    </LineChart>
+                    </LineChart> : 
 
-                  {this.drawChart(lDraw.concat(bDraw), contentInset)}
+                    <View style={{ flex: 1, marginTop: 40 }}>
+                      <Text style = {{color:"gray", fontSize: 12, marginLeft: -15}}> No trades </Text>
+                    </View>
+                  }
+
+                  {this.drawChart(drawTrades, contentInset)}
         
                     <YAxis
-                      data={ lVisit.concat(bVisit) }
+                      data={ visitTrades }
                       contentInset={ contentInset }
                       svg={{
                           fill: 'grey',
@@ -100,14 +118,21 @@ class DescChart extends Component {
                     />
 
                     <Text style = {styles.title}>{this.props.game.visit.name}</Text>
-                    <LineChart
-                        style={{ flex: 1, marginLeft: 16 }}
-                        data={ lVisit.concat(bVisit) }
-                        svg={{ stroke: '#4169E1' }}
-                        contentInset={ contentInset }
-                    >
-                        <Grid/>
-                    </LineChart>
+
+                    { visitTrades.length > 0 ? 
+                      <LineChart
+                          style={{ flex: 1, marginLeft: 16 }}
+                          data={ visitTrades }
+                          svg={{ stroke: '#4169E1' }}
+                          contentInset={ contentInset }
+                      >
+                        <Grid/> 
+
+                      </LineChart> : 
+                      <View style={{ flex: 1, marginTop: 40 }}>
+                        <Text style = {{color:"gray", fontSize: 12, marginLeft: -15}}> No trades </Text>
+                      </View>
+                    }
         
             </View>
         </ScrollView>
@@ -123,7 +148,7 @@ const styles ={
   },
   title: {
     color:"#ffff",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "400",
     marginBottom: 10,
     marginRight: -35

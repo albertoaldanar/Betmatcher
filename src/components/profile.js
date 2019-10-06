@@ -291,7 +291,7 @@ class Profile extends Component{
           );
         } else if(tradesList == "No trades yet"){
             return(
-              <Text style = {{color: "white", marginTop: 60, alignSelf:"center", fontWeight: "300", fontSize: 17}}> No finished trades yet </Text> 
+              <Text style = {{color: "gray", marginTop: 60, alignSelf:"center", fontWeight: "300", fontSize: 19}}> No finished trades yet </Text> 
             ) 
           } else{
             return(

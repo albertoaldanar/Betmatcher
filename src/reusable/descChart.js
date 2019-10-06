@@ -43,6 +43,21 @@ class DescChart extends Component {
     } else return null;
   }
 
+
+  shuffle(arr) {
+    var i,
+        j,
+        temp;
+    for (i = arr.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr;    
+  };
+
+
   render(){
     const {layVisit, layLocal, layDraw, backDraw, backLocal, backVisit} = this.props;
 
@@ -58,27 +73,30 @@ class DescChart extends Component {
     const bDraw = backDraw.map(x => {return (x.amount / 2)})
     const bVisit = backVisit.map(x => {return( x.amount / 2 )})
 
-    console.log( lLocal, lDraw, lVisit, bDraw, bLocal, bVisit);
-    console.log(lVisit.concat(bVisit));
+    // console.log( lLocal, lDraw, lVisit, bDraw, bLocal, bVisit);
+    // console.log(lVisit.concat(bVisit));
 
     // const data = [ 50, 10, 40, 95 ];
     // const data2 = [ 40, 80, 91, 86, 99, 35, 53, 804, 610, 230 ];
     // const data3 = [ 10, 90, 112, 91, 55, 99, 35, 53, 11, 153 ];
     var localTrades = lLocal.concat(bLocal);
     var drawTrades = lDraw.concat(bDraw);
-    var visitTrades = lVisit.concat(bVisit);
+    var visitTrades = bVisit.concat(lVisit);
 
     var base = [0];
 
-    console.log(base.concat(localTrades));
 
     const contentInset = { top: 20, bottom: 20, left: 10 }
+
+    console.log(this.shuffle(visitTrades))
+
+    // localTrades.length > 0 ? base.concat(this.shuffle(localTrades)) : localTrades
 
     return(
       <ScrollView horizontal>
         <View style={styles.container}>
                   <YAxis
-                      data={ localTrades.length > 0 ? base.concat(localTrades) : localTrades}
+                      data={ [10, 400, 200, 50, 10, 50, 150, 134, 50, 150, 134, 800, 2500, 80, 30, 290] }
                       contentInset={ contentInset }
                       svg={{
                           fill: 'grey',
@@ -93,7 +111,7 @@ class DescChart extends Component {
                   { localTrades.length > 0 ? 
                     <LineChart
                         style={{ flex: 1, marginLeft: 16, marginRight: 20}}
-                        data={ localTrades.length > 0 ? base.concat(localTrades) : localTrades }
+                        data={[10, 400, 200, 50, 10, 50, 150, 134, 50, 150, 134, 800, 2500, 80, 30, 290] }
                         svg={{ stroke: '#00B073' }}
                         contentInset={ contentInset }
                     >
@@ -105,10 +123,10 @@ class DescChart extends Component {
                     </View>
                   }
 
-                  {this.drawChart(drawTrades, contentInset, base.concat(drawTrades))}
+                  {this.drawChart(drawTrades, contentInset, base.concat(this.shuffle(drawTrades)))}
         
                     <YAxis
-                      data={ visitTrades.length > 0 ? base.concat(visitTrades) : visitTrades }
+                      data={ visitTrades.length > 0 ? base.concat(this.shuffle(visitTrades)) : visitTrades }
                       contentInset={ contentInset }
                       svg={{
                           fill: 'grey',
@@ -124,7 +142,7 @@ class DescChart extends Component {
                     { visitTrades.length > 0 ? 
                       <LineChart
                           style={{ flex: 1, marginLeft: 16 }}
-                          data={ visitTrades.length > 0 ? base.concat(visitTrades) : visitTrades }
+                          data={ visitTrades.length > 0 ? base.concat(this.shuffle(visitTrades)) : visitTrades }
                           svg={{ stroke: '#4169E1' }}
                           contentInset={ contentInset }
                       >

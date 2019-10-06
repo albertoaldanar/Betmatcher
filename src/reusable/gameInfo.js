@@ -20,9 +20,10 @@ class GameInfo extends Component{
      this.activeInterval = setInterval(this.scrolling, 200);
   }
 
-  renderDrawStat(){
+  renderDrawStat(pct){
     const {data} = this.props;
-    if(data.sport == "Soccer"){
+
+    if(data.data.sport.name == "Soccer"){
       return(
         <View style = {styles.card}>
             <Text style ={styles.desc}>
@@ -30,7 +31,7 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={[styles.number, {color: "gray"}]}>
-                29%
+                {pct || 0}%
             </Text>
         </View>
       );
@@ -52,8 +53,22 @@ class GameInfo extends Component{
         }
   }
 
+
+
   renderInfo(){
-    const {data} = this.props;
+    const {data, local, visit, draw, highestBet} = this.props;
+
+    console.log(local, visit, draw);
+
+    var totalTrades = local + visit + draw;
+
+    var localPCT = (local / totalTrades) * 100;
+    var drawPCT = (draw / totalTrades) * 100;
+    var visitPCT = (visit / totalTrades) * 100;
+
+    var loc = localPCT.toFixed(1) || 0;
+    
+
     return(
       <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0}}>
         <View style = {styles.card}>
@@ -94,12 +109,11 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={[styles.number, {color: "#00B073"}]}>
-                71% <FontAwesome>{Icons.sortUp}</FontAwesome>
+                {loc}% <FontAwesome>{Icons.sortUp}</FontAwesome>
             </Text>
         </View>
 
-        {this.renderDrawStat()}
-
+        {this.renderDrawStat(Number.parseFloat(drawPCT).toFixed(1))}
 
         <View style = {styles.card}>
             <Text style ={styles.desc}>
@@ -107,17 +121,17 @@ class GameInfo extends Component{
             </Text>
 
             <Text style ={[styles.number, {color: "#B22222"}]}>
-                29% <FontAwesome>{Icons.sortDown}</FontAwesome>
+                {Number.parseFloat(visitPCT).toFixed(1) || 0}% <FontAwesome>{Icons.sortDown}</FontAwesome>
             </Text>
         </View>
 
         <View style = {styles.card}>
             <Text style ={styles.desc}>
-                Heighest bet
+                Highest bet
             </Text>
 
             <Text style ={styles.number}>
-                {data.topBet} <FontAwesome>  {Icons.database} </FontAwesome>
+                {isFinite(highestBet) ? highestBet: 0} <FontAwesome>  {Icons.database} </FontAwesome>
             </Text>
         </View>
       </View>

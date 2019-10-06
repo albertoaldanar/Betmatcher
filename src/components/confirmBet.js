@@ -135,6 +135,8 @@ class ConfirmBet extends Component{
 
     let event = sentFrom == "Direct" ? game : game.data;
 
+    console.log(bet)
+
     return(
       <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
         <View style = {styles.space}>

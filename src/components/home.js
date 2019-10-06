@@ -169,7 +169,7 @@ class Home extends Component{
             <TouchableOpacity onPress = {this.callNavigation.bind(this, "Description", topTradedEvents[0])} style= {{ margin: 3, marginRight: 3, borderRadius: 3}}>
                 <Image
                   style={styles.image}
-                  source ={{uri: "https://shanklyhotel.com/wp-content/uploads/2017/09/120414-227-Everton_Liverpool_FA_Cup-e1506088542614.jpg"}}
+                  source ={{uri: "https://imagenes.milenio.com/Q5ETrc1_SNy7NmqmOz_qDHO41rA=/958x596/smart/https://www.milenio.com/uploads/media/2019/09/27/monterrey-vs-tigres-fecha-horario-1_0_38_958_596.jpg"}}
                 />
 
                 <View style = {{position: "absolute", top: 15, left: 5}}>

@@ -187,7 +187,7 @@ class MatchARequest extends Component{
 
       if(team == u.back_team){
         return(
-          <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, finalQuote, bet)} style = {{marginBottom: 20, backgroundColor:"#161616", marginLeft: 10, marginRight: 10, borderRadius: 6}}>
+          <TouchableOpacity  key = {index} onPress = {this.props.confirm.bind(this, "ConfirmBet", u, finalQuote, u.amount)} style = {{marginBottom: 20, backgroundColor:"#161616", marginLeft: 10, marginRight: 10, borderRadius: 6}}>
               <View style = {{flexDirection: "row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth: 0.3}}>
                 <View style= {{flexDirection:"row"}}>
                   <Image

@@ -73,7 +73,7 @@ class Description extends Component{
       this.setState({ currenCoins: getCoins});
   }
 
-  sendToConfirmation(route, user, quote, bet){
+  sendToConfirmation( route, user, quote, bet ){
     let game = this.props.navigation.state.params.par;
     const gameType = game.sport == "Soccer" ? game.draw : "Draw"
     const options = [game.local, game.visit, gameType];
@@ -226,12 +226,17 @@ class Description extends Component{
     var layDraw = chartRequests.filter(request => request.back_team == "Draw");
     var layVisit = chartRequests.filter(request => request.back_team == game.visit.name);
 
+  
+
+    console.log(teamSelected);
+
+    var highestBet = this.state.chartRequests.map(x => x.amount); 
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
     return(
       <LinearGradient  style = {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
-        <GameInfo data= {game}/>
+        <GameInfo data= {game} local = {layLocal.length + chartLocalBack.length} draw = {layDraw.length + chartDrawBack.length} visit = {layVisit.length + chartVisitBack.length} highestBet = {Math.max(...highestBet)}/>
 
         <ScrollView>
         <View style = {styles.space}>
@@ -264,7 +269,7 @@ class Description extends Component{
           layLocal = {layLocal} layVisit = {layVisit} layDraw = {layDraw}
           backLocal = {chartLocalBack} backVisit = {chartVisitBack} backDraw = {chartDrawBack}
         />
-        
+
         <Modal
             transparent = {false}
             visible = {this.state.showMakeBet}

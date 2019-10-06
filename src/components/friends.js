@@ -325,7 +325,7 @@ class Friends extends Component{
 
             <View style = {{justifyContent:"space-around", flexDirection:"row"}}>
               <TouchableOpacity onPress = {this.selectBet.bind(this, db)} style = {{backgroundColor: "#00B073", borderRadius: 5, padding: 10}}>
-                <Text style = {{color: "white", alignSelf: "center"}}>Accept bet</Text>
+                <Text style = {{color: "white", alignSelf: "center"}}>See bet</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style = {{backgroundColor: "#D24D57", borderRadius: 5, padding: 10}}>

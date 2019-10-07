@@ -205,27 +205,23 @@ class MatchARequest extends Component{
               </View>
 
               <View style = {{flexDirection: "row", justifyContent:"space-around", paddingTop: 19, paddingBottom: 19, borderBottomColor: "gray", borderBottomWidth: 0.3}} >
-                  <View style = {{justifyContent:"center", borderRightColor: "gray", borderRightWidth: 0.3, paddingRight: 40}}>
+                  <View style = {{justifyContent:"center", borderRightColor: "gray", borderRightWidth: 0.3, paddingRight: Dimensions.get("window").width * 0.22}}>
                     <Text style ={styles.description}>Bet</Text>
-                    <Text style = {{fontWeight:"400", fontSize: 13, color: "#DAA520", alignSelf:"center", marginTop: 10}}>{u.amount} <FontAwesome> {Icons.database} </FontAwesome> </Text>
+                    <Text style = {{fontWeight:"400", fontSize: 13, color: "#DAA520", alignSelf:"center", marginTop: 10, textAlign:"center"}}>{u.amount} <FontAwesome> {Icons.database} </FontAwesome> </Text>
                   </View> 
 
-                  <View style = {{justifyContent:"center", borderRightColor: "gray", borderRightWidth: 0.3, paddingRight: 40}}>
+                  <View style = {{justifyContent:"center"}}>
                     <Text style ={styles.description}>Quote</Text>
-                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", alignSelf:"center", marginTop: 10}}>
+                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", textAlign: "center", marginTop: 10}}>
                       {finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : finalQuote == 0 ? <FontAwesome style = {{color: "#1E90FF"}}>{Icons.sort}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
                     </Text>
                   </View>
 
-                  <View style = {{justifyContent:"center"}}>
-                    <Text style ={styles.description}>Quote</Text>
-                    <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", alignSelf:"center", marginTop: 10}}>{finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}</Text>
-                  </View>
               </View>
 
               {
                     finalQuote > 0 ? 
-                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} has to bet {finalQuote} % than you </Text> :
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} has to bet {finalQuote} % more than you </Text> :
                     finalQuote == 0 ? 
                     <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} and you, will bet the same amount </Text> :
                     <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} will bet {finalQuote * -1} % less than you </Text> 

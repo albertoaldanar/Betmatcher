@@ -71,7 +71,7 @@ export const MainScreen = createBottomTabNavigator({
 );
 
 
-export const createRootNavigator = (load= "<Your Initial Screen>") => {
+export const createRootNavigator = (load = "<Your Initial Screen>") => {
   return StackNavigator({
       Login: {
         screen: Login,

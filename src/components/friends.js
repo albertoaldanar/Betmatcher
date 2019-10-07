@@ -75,6 +75,43 @@ class Friends extends Component{
     this.setState({directBetModal: false})
   }
 
+  declineBet(bet){
+      return fetch(`http://${Url}:8000/decline_bet/`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          declined_id: bet.id
+        })
+      })
+      .then(res => res.json())
+      .then(jsonRes => {
+        if(jsonRes == "Updated"){
+          return this.getData();
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+
+
+  declineBetAlert(bet){
+      console.log(bet);
+
+      Alert.alert(
+          "Decline bet?",
+          "Are you sure you want to decline this bet ?",
+        [
+          {text: 'Yes', onPress: this.declineBet.bind(this, bet)},
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}
+        ],
+        {cancelable: true},
+      );
+  }
+
+
 
   directBetModal(){
     this.setState({directBetModal: !this.state.directBetModal})
@@ -298,7 +335,7 @@ class Friends extends Component{
 
     return directBets.map(db => {
       return(
-        <Card>
+        <View style = {{margin: 10, marginBottom: 35}}>
             <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
 
               <View>
@@ -318,21 +355,22 @@ class Friends extends Component{
              <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{db.amount} £</Text>
             </View>
 
-            <View style = {{alignSelf: "center", marginTop: 10, marginBottom: 10}}>
-              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center", marginBottom: 5}]}>{db.back_user.username}</Text>
-              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center"}]}>{db.back_team}</Text>
+            <View style = {{flexDirection:"row", marginTop: 15, marginBottom: 15, justifyContent:"center", alignSelf: "center"}}>
+              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center"}]}>{db.back_user.username}</Text>
+              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center"}]}> for </Text>
+              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center", color: "#00B073"}]}>{db.back_team}</Text>
             </View>
 
-            <View style = {{justifyContent:"space-around", flexDirection:"row"}}>
-              <TouchableOpacity onPress = {this.selectBet.bind(this, db)} style = {{backgroundColor: "#00B073", borderRadius: 5, padding: 10}}>
-                <Text style = {{color: "white", alignSelf: "center"}}>See bet</Text>
+            <View style = {{justifyContent:"space-around", flexDirection:"row", marginTop: 10}}>
+              <TouchableOpacity onPress = {this.selectBet.bind(this, db)} style = {{ borderRadius: 5, padding: 10, borderRadius: 5, borderColor:"#00B073", borderWidth:0.3}}>
+                <Text style = {{color: "#00B073", alignSelf: "center"}}>See bet  <FontAwesome style = {{fontSize: 19}}>{Icons.eye}</FontAwesome></Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style = {{backgroundColor: "#D24D57", borderRadius: 5, padding: 10}}>
-                <Text>Decline</Text>
+              <TouchableOpacity onPress = {this.declineBetAlert.bind(this, db)} style = {{borderRadius: 5, padding: 10, borderRadius: 5, borderWidth:0.3, borderColor: "#D24D57"}}>
+                <Text style = {{color: "#D24D57", alignSelf: "center"}}> Decline  <FontAwesome style = {{fontSize: 19}}>{Icons.times}</FontAwesome></Text>
               </TouchableOpacity>
             </View>
-        </Card>
+        </View>
       );
     })
   }

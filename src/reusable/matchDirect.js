@@ -104,7 +104,7 @@ class MatchDirect extends Component{
             <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}>{directBet.amount} £</Text>
 
               {
-                finalQuote== 0 ? 
+                finalQuote == 0 ? 
                 null : 
                 <Text style = {finalQuote > 0 ? styles.positiveQuote : styles.negativeQuote}> {finalQuote} %</Text>
               }
@@ -124,13 +124,13 @@ class MatchDirect extends Component{
           <TouchableOpacity
                   style = {this.state.teamOpponentSelected != "" ? styles.buttonContainer : styles.buttonDisableContainer}
                   disabled = {this.state.teamOpponentSelected != "" ? false : true}
-                  onPress = {this.props.sendToConfirmation.bind(this, directBet, finalQuote , bet, directBet.event, teamOpponentSelected, directBet.back_team )}
+                  onPress = {this.props.sendToConfirmation.bind(this, directBet, finalQuote, directBet.amount, directBet.event, teamOpponentSelected, directBet.back_team )}
             >
               <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
           </TouchableOpacity> :
           <TouchableOpacity
               style = {styles.buttonContainer }
-              onPress = {this.props.sendToConfirmation.bind(this, directBet, finalQuote , bet, directBet.event, teamOpponentSelected, directBet.back_team, finalQuote)}
+              onPress = {this.props.sendToConfirmation.bind(this, directBet, finalQuote, directBet.amount, directBet.event, teamOpponentSelected, directBet.back_team, finalQuote)}
             >
               <Text style= {{color: "white", alignSelf: "center", fontSize: 16}}>CONTINUE</Text>
           </TouchableOpacity>

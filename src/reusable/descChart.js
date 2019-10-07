@@ -88,8 +88,6 @@ class DescChart extends Component {
 
     const contentInset = { top: 20, bottom: 20, left: 10 }
 
-    console.log(this.shuffle(visitTrades))
-
     // localTrades.length > 0 ? base.concat(this.shuffle(localTrades)) : localTrades
 
     return(

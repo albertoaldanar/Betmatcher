@@ -251,13 +251,21 @@ class Match extends Component{
       const userOrder = item.event.local.name == item.back_team ? [item.back_user.username, "Wating"] : ["Wating", item.back_user.username];
 
       let requesType = item.is_public  ?
-         <FontAwesome style= {{alignSelf: "center", color: "white", fontSize: 20}}> {Icons.hourglassStart}</FontAwesome>
-        :   <View>
+         <FontAwesome style= {{alignSelf: "center", color: "white", fontSize: 20}}> {Icons.hourglassStart}</FontAwesome> :   
+          item.declined ? 
+              <View>
                 <TouchableOpacity style = {{borderBottomWidth: 0.5, borderBottomColor: "white"}} onPress= {this.getUser.bind(this, item.opponent)}>
                     <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>{item.opponent}</Text>
                 </TouchableOpacity>
-              <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
-            </View>
+                <FontAwesome style= {{alignSelf: "center", color: "#D24D57", fontSize: 16, marginTop: 9}}> {Icons.times}</FontAwesome>
+              </View> : 
+
+              <View>
+                <TouchableOpacity style = {{borderBottomWidth: 0.5, borderBottomColor: "white"}} onPress= {this.getUser.bind(this, item.opponent)}>
+                    <Text style = {[styles.word, {fontSize: 15, alignSelf: "center"}]}>{item.opponent}</Text>
+                </TouchableOpacity>
+                <FontAwesome style= {{alignSelf: "center", color: "gray", fontSize: 12, marginTop: 9}}> {Icons.hourglassStart}</FontAwesome>
+              </View>
 
       var swipeoutBtns = [
           {
@@ -276,10 +284,14 @@ class Match extends Component{
           >
             <Card style = {[styles.card, {backgroundColor: "transparent", borderColor: "gray", borderWidth: 0.3} ]}>
 
-                <View style = {{flexDirection: "row"}}>
-                  <Text style = {[styles.league, {marginRight: 5}]}>{item.event.sport.name}</Text>
-                  <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
-                  <Text style = {[styles.league, {marginLeft: 5}]}>{item.event.league.name}</Text>
+                <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
+                  <View style = {{flexDirection: "row"}}>
+                    <Text style = {[styles.league, {marginRight: 5}]}>{item.event.sport.name}</Text>
+                    <FontAwesome style = {{color: "#ffff", fontSize: 8, fontWeight: "400", marginTop: 3}}>{Icons.chevronRight}</FontAwesome>
+                    <Text style = {[styles.league, {marginLeft: 5}]}>{item.event.league.name}</Text>
+                  </View>
+
+                  {item.declined ? <Text style = {{color: "#D24D57"}}>DECLINED</Text> : null}
                 </View>
 
                 <View style = {[styles.game, {marginTop: 4}]}>

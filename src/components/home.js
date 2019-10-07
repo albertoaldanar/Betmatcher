@@ -164,12 +164,13 @@ class Home extends Component{
 
   topEvent(){
     const {topTradedEvents} = this.state;
+      console.log(topTradedEvents[0])
       if (topTradedEvents.length > 0){
         return(
             <TouchableOpacity onPress = {this.callNavigation.bind(this, "Description", topTradedEvents[0])} style= {{ margin: 3, marginRight: 3, borderRadius: 3}}>
                 <Image
                   style={styles.image}
-                  source ={{uri: "https://imagenes.milenio.com/Q5ETrc1_SNy7NmqmOz_qDHO41rA=/958x596/smart/https://www.milenio.com/uploads/media/2019/09/27/monterrey-vs-tigres-fecha-horario-1_0_38_958_596.jpg"}}
+                  source ={{uri: topTradedEvents[0].data.img}}
                 />
 
                 <View style = {{position: "absolute", top: 15, left: 5}}>

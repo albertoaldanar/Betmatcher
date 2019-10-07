@@ -200,14 +200,18 @@ class Profile extends Component{
 
 
   choseView(){
-    const {index} = this.state;
+    const {index, won, lost, draw} = this.state;
 
-    const chart_wh = 200
-    const series = [123, 321, 123,]
-    const sliceColor = ['#00B073','#2196F3','red']
+    // const chart_wh = 200
+    // const series = [123, 321, 123,]
+    // const sliceColor = ['#00B073','#2196F3','red']
     const fill = 'rgb(134, 65, 244)'
-    const data = [ 50, 10, 40, 95, 35, 53, ];
+    
+    const totalTrades = (won + lost + draw) * 3;
 
+    const total = won + lost + draw;
+    
+    const efficiency = (((won * 3) + draw) / totalTrades) * 100;
 
     switch(index){
       case 0:
@@ -226,10 +230,10 @@ class Profile extends Component{
 
                   <View style = {{marginRight: 16}}>
                     <Text style = {[styles.username, {fontSize: 11, fontWeight:"300", color: "gray", marginBottom: 5}]}>
-                      World ranking
+                      Total trades
                     </Text>
                     <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                      12892 º
+                      {total}
                     </Text>
                   </View>
 
@@ -239,7 +243,7 @@ class Profile extends Component{
                       Efficiency
                     </Text>
                     <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                      67.7 %
+                      {total > 0  ? efficiency.toFixed(2): "--"} %
                     </Text>
                   </View>
               </View>     

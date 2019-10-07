@@ -335,7 +335,7 @@ class Friends extends Component{
 
     return directBets.map(db => {
       return(
-        <View style = {{margin: 10, marginBottom: 35}}>
+        <View style = {{margin: 10, marginBottom: 20, paddingBottom: 20, borderBottomWidth:0.3, borderBottomColor: "gray", paddingLeft: 15, paddingRight: 15}}>
             <View style = {{flexDirection: "row", justifyContent: "space-between"}}>
 
               <View>
@@ -352,21 +352,30 @@ class Friends extends Component{
                 </View>
               </View>
 
-             <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{db.amount} £</Text>
+             <Text style = {{color: "#DAA520", fontSize: 16, fontWeight: "600"}}>{db.amount} £</Text>
             </View>
 
-            <View style = {{flexDirection:"row", marginTop: 15, marginBottom: 15, justifyContent:"center", alignSelf: "center"}}>
-              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center"}]}>{db.back_user.username}</Text>
-              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center"}]}> for </Text>
-              <Text style = {[styles.word, {fontSize: 16, alignSelf:"center", color: "#00B073"}]}>{db.back_team}</Text>
+
+            <View style = {{flexDirection: "row", justifyContent:"space-between", padding: 10, paddingLeft: 0}}>
+                <View style= {{flexDirection:"row"}}>
+                  <Image
+                    source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
+                    style = {styles.image}
+                  />
+                  
+                  <View style = {{flexDirection:"row", paddingTop: 15}}>
+                    <Text style = {{ marginTop: 2, color: "#ffff", fontSize: 15, fontWeight: "300"}}>{db.back_user.username} for </Text>
+                    <Text style = {{ marginTop: 5, color: "#00B073", fontSize: 13, fontWeight: "300", fontStyle: "oblique", marginTop: 4}}>{db.back_team.toUpperCase()}</Text>
+                  </View>
+                </View>
             </View>
 
-            <View style = {{justifyContent:"space-around", flexDirection:"row", marginTop: 10}}>
-              <TouchableOpacity onPress = {this.selectBet.bind(this, db)} style = {{ borderRadius: 5, padding: 10, borderRadius: 5, borderColor:"#00B073", borderWidth:0.3}}>
+            <View style = {{justifyContent:"center", flexDirection:"row", marginTop: 10}}>
+              <TouchableOpacity onPress = {this.selectBet.bind(this, db)} style = {{ borderRadius: 5, padding: 5, borderRadius: 5, borderColor:"#00B073", borderWidth:0.3, paddingLeft: 25, paddingRight: 30}}>
                 <Text style = {{color: "#00B073", alignSelf: "center"}}>See bet  <FontAwesome style = {{fontSize: 19}}>{Icons.eye}</FontAwesome></Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress = {this.declineBetAlert.bind(this, db)} style = {{borderRadius: 5, padding: 10, borderRadius: 5, borderWidth:0.3, borderColor: "#D24D57"}}>
+              <TouchableOpacity onPress = {this.declineBetAlert.bind(this, db)} style = {{borderRadius: 5, padding: 5, borderRadius: 5, borderWidth:0.3, borderColor: "#D24D57", marginLeft: 10, paddingLeft: 25, paddingRight: 30}}>
                 <Text style = {{color: "#D24D57", alignSelf: "center"}}> Decline  <FontAwesome style = {{fontSize: 19}}>{Icons.times}</FontAwesome></Text>
               </TouchableOpacity>
             </View>
@@ -548,6 +557,11 @@ const styles = {
     marginRight: 6,
     fontSize: 13,
     fontWeight: "400"
+  },
+  image: {
+    width: 55,
+    height: 55,
+    marginRight: 8,
   },
 }
 

@@ -176,9 +176,19 @@ export const createRootNavigator = (load = "<Your Initial Screen>") => {
           borderBottomColor: "black"
         }
       }
-    },
-
-  }, {initialRouteName: load});
+    }
+  }, 
+    { 
+      navigationOptions: ({ navigation }) => ({
+      mode: "card",
+      headerStyle: {
+        backgroundColor: "black",
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0
+      },
+      headerTintColor: "black"
+    }), initialRouteName: load});
 }
 
 // class Nav extends Component{

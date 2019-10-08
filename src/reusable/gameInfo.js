@@ -30,12 +30,10 @@ class GameInfo extends Component{
                 Draw
             </Text>
 
-            <Text style ={[styles.number, {color: "gray"}]}>
-                {pct || 0}%
-            </Text>
+            {pct}
         </View>
       );
-    }else return null;
+    } else return null;
   }
 
   scrolling() {
@@ -54,11 +52,37 @@ class GameInfo extends Component{
   }
 
 
+  compareTradesPCT(current, second, third){
+
+      if(current > second && current > third){
+        return (
+          <Text style ={[styles.number, {color: "#00B073"}]}> {current}% <FontAwesome>{Icons.sortUp}</FontAwesome> </Text>
+        );
+
+      } else if(current > second && current < third || current < second && current > third){
+        return(
+          <Text style ={[styles.number, {color: "gray"}]}> {current}% <FontAwesome>{Icons.sort}</FontAwesome> </Text>
+        ) 
+      
+      } else if(current < second && current < third){
+        return (
+          <Text style ={[styles.number, {color: "#B22222"}]}> {current}% <FontAwesome>{Icons.sortDown}</FontAwesome> </Text>
+        )
+    
+      } else if(current == second && current == third){
+          return(
+            <Text style ={[styles.number, {color: "gray"}]}>{current}% </Text>
+          ) 
+      } else {
+          return(
+            <Text style ={[styles.number, {color: "gray"}]}>{current}% </Text>
+          ) 
+      }
+  }
+
 
   renderInfo(){
     const {data, local, visit, draw, highestBet} = this.props;
-
-    console.log(local, visit, draw);
 
     var totalTrades = local + visit + draw;
 
@@ -66,8 +90,10 @@ class GameInfo extends Component{
     var drawPCT = (draw / totalTrades) * 100;
     var visitPCT = (visit / totalTrades) * 100;
 
-    var loc = localPCT.toFixed(1) || 0;
-    
+    const tradeValues = [localPCT.toFixed(1), drawPCT.toFixed(1), visitPCT.toFixed(1)];
+
+    const sorted = tradeValues.sort((a, b) => b - a);
+    const finalResult = [{position: 0, value: sorted[0]}, {position: 1, value: sorted[1]}, {position: 2, value: sorted[2]}];
 
     return(
       <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0}}>
@@ -108,21 +134,17 @@ class GameInfo extends Component{
                 {data.local.name}
             </Text>
 
-            <Text style ={[styles.number, {color: "#00B073"}]}>
-                {loc}% <FontAwesome>{Icons.sortUp}</FontAwesome>
-            </Text>
+            {localPCT.toFixed(1) >= 0 ? this.compareTradesPCT(localPCT.toFixed(1), drawPCT.toFixed(1), visitPCT.toFixed(1)) : <Text style ={[styles.number, {color: "gray"}]}> 0%</Text>}
         </View>
 
-        {this.renderDrawStat(Number.parseFloat(drawPCT).toFixed(1))}
+        {this.renderDrawStat(drawPCT.toFixed(1) >= 0 ? this.compareTradesPCT(drawPCT.toFixed(1), localPCT.toFixed(1), visitPCT.toFixed(1)) : <Text style ={[styles.number, {color: "gray"}]}> 0%</Text>)}
 
         <View style = {styles.card}>
             <Text style ={styles.desc}>
                 {data.visit.name}
             </Text>
 
-            <Text style ={[styles.number, {color: "#B22222"}]}>
-                {Number.parseFloat(visitPCT).toFixed(1) || 0}% <FontAwesome>{Icons.sortDown}</FontAwesome>
-            </Text>
+            {visitPCT.toFixed(1) >= 0 ? this.compareTradesPCT(visitPCT.toFixed(1), drawPCT.toFixed(1), localPCT.toFixed(1)) : <Text style ={[styles.number, {color: "gray"}]}> 0%</Text>}
         </View>
 
         <View style = {styles.card}>

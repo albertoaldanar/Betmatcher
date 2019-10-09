@@ -15,7 +15,7 @@ import GameCard from "../reusable/gameCard";
 import Menu from "../reusable/menu";
 import SideMenu from "react-native-side-menu";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, NavigationEvents } from 'react-navigation';
 import Wating from "../reusable/wating";
 import Modal from "react-native-modal";
 import AnimateNumber from 'react-native-countup'
@@ -370,6 +370,12 @@ class Home extends Component{
         isOpen ={this.state.showSidebar}
         menu = {menu}
       >
+
+        <NavigationEvents
+          onDidFocus={payload => this.interval = setInterval(() => this.callHome(), 3000)}
+          onDidBlur={payload => clearInterval(this.interval)}
+        />
+
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)}/>
           <ScrollView

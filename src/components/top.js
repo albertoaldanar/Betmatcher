@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, FlatList, TouchableOpacity, RefreshControl, ScrollView} from "react-native";
+import {View, Text, Image, FlatList, TouchableOpacity, RefreshControl, ScrollView, ActivityIndicator} from "react-native";
 import Games from "../constants/games";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions, withNavigationFocus, NavigationEvents} from "react-navigation";
@@ -9,6 +9,9 @@ import SideMenu from "react-native-side-menu";
 import GameCard from "../reusable/gameCard";
 import Lgs from "../constants/leagues";
 import Url from "../constants/url";
+import Card from "../reusable/card";
+import Moment from 'moment';
+
 class Top extends Component{
 
   constructor(props){
@@ -36,6 +39,52 @@ class Top extends Component{
   //   return this.callEvents()
   // }
 
+  sendToDescription(event){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Description",
+      params: {
+        par: event
+      }
+    })
+    this.props.navigation.dispatch(navigateAction);
+  }
+
+  renderGameInfo(){
+    // var topEvents = this.props.data
+    if (this.state.events.length > 0){
+      return this.state.events.map((d, index) => {
+        return(
+          <TouchableOpacity key = {index} onPress = {this.sendToDescription.bind(this, d)}>
+            <Card>
+                <View style = {styles.desc}>
+                  <Text style = {styles.league}>{d.data.league.name}</Text>
+                  <Text style = {styles.hour}>{Moment(d.data.date).format("MMM Do YY")}</Text>
+                </View>
+
+                <View style = {styles.match}>
+                  <Image source = {{uri: d.data.sport.img}} style = {{width: 45, height: 45, marginRight: 15}}/>
+
+                  <View style = {{paddingRight: 90}}>
+                    <Text style = {styles.text}>{d.local.name}</Text>
+                    <Text style = {[styles.text, {fontSize: 9, fontStyle: "oblique", fontWeight: "400"}]}>VS.</Text>
+                    <Text style = {styles.text}>{d.visit.name}</Text>
+                  </View>
+
+                  <FontAwesome style= {styles.chevron}>{Icons.chevronRight}</FontAwesome>
+                </View>
+            </Card>
+          </TouchableOpacity>
+        );
+      })
+    }else {
+      return(
+        <View style = {{marginTop: 300, alignSelf: "center"}}>
+          <ActivityIndicator size="large" color="white"/>
+        </View>
+      );
+    }
+  }
+
   callEvents(){
     return fetch(`http://${Url}:8000/top_events`)
         .then(res => res.json())
@@ -54,16 +103,15 @@ class Top extends Component{
   render(){
     console.log(this.state.events)
     const {isOpen, events, sports} = this.state;
-    const menu = <Menu leagues ={Lgs} sports= {sports}/>
 
     return(
-      <SideMenu
-        isOpen ={isOpen}
-        menu = {menu}
-      >
-
         <View style = {{flex: 1, backgroundColor: "black"}}>
-          <Header title = "Weekley Top" showSidebar = {this.onPressButton.bind(this)}/>
+
+          <NavigationEvents
+            onDidFocus={payload => this.callEvents()}
+          />
+
+          <Header title = "Weekley Top" hasSidebar = {false}/>
           <ScrollView
             refreshControl={
               <RefreshControl
@@ -72,10 +120,9 @@ class Top extends Component{
               />
             }
           >
-            <GameCard data= {events} route = "Description" nav = {this.props.navigation.dispatch}/>
+            {this.renderGameInfo()}
           </ScrollView>
         </View>
-      </SideMenu>
     );
   }
 }

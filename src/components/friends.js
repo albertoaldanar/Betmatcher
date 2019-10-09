@@ -112,13 +112,16 @@ class Friends extends Component{
   }
 
 
-
   directBetModal(){
     this.setState({directBetModal: !this.state.directBetModal})
   }
 
   cardModal(){
     this.setState({userCard: false})
+  }
+
+  receivedOrSent(){
+    this.setState({requestsIndex: !this.state.requestsIndex})
   }
 
   searchModal(){
@@ -385,7 +388,7 @@ class Friends extends Component{
   }
 
   render(){
-    const {userSelected, profile, friendAnalysis, index, requestAnalysis, fromSearch} = this.state;
+    const {userSelected, profile, friendAnalysis, index, requestAnalysis, fromSearch, requestsIndex} = this.state;
     let currentUser = this.props.navigation.state.params.currentUser;
     console.log(this.state.directBets)
 
@@ -423,14 +426,13 @@ class Friends extends Component{
           />
           { index == 1 ?
             <View style = {{flexDirection: "row", justifyContent: "space-around", marginTop: 30}}>
-              <Text style = {{color: "white"}}> Sent </Text>
-              <Switch
-                style={{alignSelf: "center"}}
-                onValueChange = {()=> this.setState({requestsIndex: !this.state.requestsIndex})}
-                value = {this.state.requestsIndex}
-                trackColor = {{false: "transparent", true: "transparent"}}
-              />
-              <Text style = {{color: "white"}}> Received </Text>
+              <TouchableOpacity onPress= {this.receivedOrSent.bind(this)} style = {requestsIndex ? styles.activeButton : styles.offButton}>
+                <Text style = {requestsIndex ? styles.activeText : styles.offText}>Received <FontAwesome style = {{fontSize: 19}}>{Icons.bell}</FontAwesome></Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress= {this.receivedOrSent.bind(this)} style = {requestsIndex ? styles.offButton : styles.activeButton}>
+                <Text style = {requestsIndex ? styles.offText : styles.activeText}> Sent  <FontAwesome style = {{fontSize: 19}}>{Icons.paperPlane}</FontAwesome></Text>
+              </TouchableOpacity>
             </View> :
             null
           }
@@ -563,6 +565,24 @@ const styles = {
     height: 55,
     marginRight: 8,
   },
+  activeButton: {
+    borderRadius: 5, padding: 5, borderRadius: 5, 
+    borderColor:"#00B073", borderWidth:0.3, backgroundColor: "#00B073",
+    paddingLeft: 25, paddingRight: 30
+  },
+  offButton: {
+    borderRadius: 5, padding: 5, borderRadius: 5, 
+    borderColor:"white", borderWidth:0.3,
+    paddingLeft: 25, paddingRight: 30
+  },
+
+  activeText: {
+    color: "white", alignSelf: "center"
+  },
+
+  offText: {
+    color: "gray", alignSelf: "center"
+  }
 }
 
 

@@ -50,7 +50,7 @@ class Home extends Component{
     this._isMounted = true;
 
     const usernameGet = await AsyncStorage.getItem('username');
-    this.setState({ currentUser: usernameGet, showSidebar: false});
+    this.setState({ currentUser: usernameGet, showSidebar: this.state.showSidebar});
 
     return fetch(`http://${Url}:8000/home_data?current_user=${this.state.currentUser}`)
         .then(res => res.json())
@@ -377,14 +377,8 @@ class Home extends Component{
         />
 
         <View style = {{flex: 1, backgroundColor: "black"}}>
-          <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)}/>
+          <Header title = "Betmatcher" showSidebar = {this.showSidebar.bind(this)} hasSidebar = {true}/>
           <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.callHome.bind(this)}
-              />
-            }
           >
             <StatusBar hidden = {true}/>
             

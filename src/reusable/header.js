@@ -5,13 +5,18 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 const Header = (props) => {
     return(
       <View style = {styles.container}>
-        <TouchableOpacity onPress={props.showSidebar}>
-          <FontAwesome style ={styles.listIcon}>{Icons.list}</FontAwesome>
-        </TouchableOpacity>
-        <Text style = {styles.title}>{props.title}</Text>
-        <TouchableOpacity>
-          <FontAwesome style ={styles.listIcon}>{Icons.cogs}</FontAwesome>
-        </TouchableOpacity>
+          { props.hasSidebar ? 
+            <TouchableOpacity onPress={props.showSidebar}>
+              <FontAwesome style ={styles.listIcon}>{Icons.list}</FontAwesome>
+            </TouchableOpacity> : 
+            <Text style = {[styles.title, {color: "black"}]}>HH</Text>
+          }
+
+          <Text style = {styles.title}>{props.title}</Text>
+
+          <TouchableOpacity>
+            <FontAwesome style ={styles.listIcon}>{Icons.cogs}</FontAwesome>
+          </TouchableOpacity>
       </View>
     );
 }

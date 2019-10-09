@@ -37,7 +37,7 @@ class Home extends Component{
       topTradedEvents: [[[]]],
       data: "",
       showModal: true,
-      sports: [], refreshing: false, currentUser: "",
+      sports: [], refreshing: false, currentUser: "", coins: 0,
       requestModal: false, requestSelected: {}, isLoadingData: true, banners: [ [], [], [], [] ]
    }
   }
@@ -63,7 +63,7 @@ class Home extends Component{
                   sports: response["sports"],
                   banners: response["banners"],
                   isLoadingData: false,
-
+                  coins: response.user.profile.coins
               })
             }
           }).then(setTimeout(() => {this.setState({showModal: false})}, 2500))
@@ -354,10 +354,11 @@ class Home extends Component{
   render(){
     const {requestSelected, currentUser} = this.state;
     console.log(this.state.requestSelected);
-    console.log(this.state.topTradedEvents[0].league)
+    console.log(this.state.coins);
 
     const menu =  <Menu
                     leagues= {Lgs}
+                    coins = {this.state.coins}
                     sports = {this.state.sports}
                     handleLogout = {this.handleLogout.bind(this)}
                     filteredEvents = {this.callNavigation.bind(this)}

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View, Text, Image, TextInput, TouchableOpacity, Dimensions, StatusBar, ScrollView, AsyncStorage, ActivityIndicator} from "react-native";
-import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
+import { addNavigationHelpers, StackNavigator, NavigationActions, withNavigationFocus, NavigationEvents } from 'react-navigation';
 import Header from "../reusable/header";
 import User from "../constants/user";
 import FontAwesome, {Icons} from "react-native-fontawesome";
@@ -333,6 +333,10 @@ class Profile extends Component{
 
     return(
       <View style = {{flex: 1, backgroundColor: "black"}}>
+
+        <NavigationEvents
+          onDidFocus={payload => this.getData()}
+        />
 
         <StatusBar hidden = {true}/>
           <View style = {{backgroundColor: "#00B073"}}>

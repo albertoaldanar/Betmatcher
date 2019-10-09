@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {View, Text, Image, FlatList, TouchableOpacity, RefreshControl, ScrollView} from "react-native";
 import Games from "../constants/games";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-import {NavigationActions} from "react-navigation";
+import {NavigationActions, withNavigationFocus, NavigationEvents} from "react-navigation";
 import Header from "../reusable/header";
 import Menu from "../reusable/menu";
 import SideMenu from "react-native-side-menu";
@@ -19,6 +19,22 @@ class Top extends Component{
   componentWillMount(){
     return this.callEvents()
   }
+
+  // componentWillFocus(){
+  //   return this.callEvents()
+  // }
+
+  // componentWillBlur(){
+  //   return this.callEvents()
+  // }
+
+  // componentDidFocus(){
+  //   return this.callEvents()
+  // }
+
+  // componentDidBlur(){
+  //   return this.callEvents()
+  // }
 
   callEvents(){
     return fetch(`http://${Url}:8000/top_events`)
@@ -45,6 +61,11 @@ class Top extends Component{
         isOpen ={isOpen}
         menu = {menu}
       >
+
+        <NavigationEvents
+          onDidFocus={console.log("Re mount")}
+        />
+
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Weekley Top" showSidebar = {this.onPressButton.bind(this)}/>
           <ScrollView

@@ -14,7 +14,7 @@ import Moment from "moment";
 import Swipeout from 'react-native-swipeout';
 import Chat from "./chat"; 
 import { GiftedChat } from "react-native-gifted-chat";
-import {NavigationActions} from "react-navigation";
+import {NavigationActions, NavigationEvents} from "react-navigation";
 
 class Match extends Component{
 
@@ -356,6 +356,8 @@ class Match extends Component{
   }
 
   loading(){
+    const {refreshing} = this.props;
+
     if(this.state.isLoadingData){
       return <ActivityIndicator size="large" color="white" style= {{alignSelf:"center", marginTop: 150, justifyContent: "center"}}/>
     } else {
@@ -383,6 +385,10 @@ class Match extends Component{
 
     return(
       <View style = {styles.container}>
+        <NavigationEvents
+          onDidFocus={payload => this.getMatches()}
+        />
+
         <View style = {{marginTop: 25}}>
           <View style = {{marginBottom: 12}}>
             <MaterialTabs

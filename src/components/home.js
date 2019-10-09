@@ -70,8 +70,13 @@ class Home extends Component{
   }
 
   componentDidMount(){
+    // this.interval = setInterval(() => this.callHome(), 3000);
     return this.callHome()
   }
+
+  // componentWillUnmount() {
+  //   clearInterval(this.interval);
+  // }
 
   showSidebar(){
     this.setState({showSidebar: true})

@@ -35,7 +35,7 @@ class Description extends Component{
       requests: [],
       showMakeMatch: false,
       showMakeBet: false,
-      currenCoins: 0,
+      currenCoins: 0, currentCoins: 0,
       chartRequests: [], chartLocalBack: [], chartVisitBack: [], chartDrawBack: []
     }
   }
@@ -105,7 +105,7 @@ class Description extends Component{
     const back_user = encodeURIComponent(this.state.currentUser);
     const event = encodeURIComponent(game.data.name);
 
-    return fetch(`http://${Url}:8000/requests?back_user=${back_user}&back_team=${back_team}&event=${event}`, {
+    return fetch(`http://${Url}:8000/users_to_match?back_user=${back_user}&back_team=${back_team}&event=${event}`, {
       method: "GET",
       headers: {
           "Accept": "application/json",
@@ -116,9 +116,10 @@ class Description extends Component{
     .then(jsonRes => {
       console.log(jsonRes)
       this.setState({
-                message: `${jsonRes.count} users to match`,
+                message: `${jsonRes.reqs.length} users to match`,
                 loading: false,
-                requests: jsonRes.results
+                requests: jsonRes.reqs, 
+                currentCoins: jsonRes.user.profile.coins
       });
 
     })
@@ -228,7 +229,7 @@ class Description extends Component{
 
   
 
-    console.log(teamSelected);
+    console.log(this.state.currentCoins);
 
     var highestBet = this.state.chartRequests.map(x => x.amount); 
 
@@ -282,7 +283,7 @@ class Description extends Component{
             currentUser = {this.state.currentUser}
             visible = {this.makeBet.bind(this)}
             sendToMatchFromLay = {this.sendToMatchFromLay.bind(this)}
-            coins = {this.state.currenCoins}
+            coins = {this.state.currentCoins}
           />
         </Modal>
 

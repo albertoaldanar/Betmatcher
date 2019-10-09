@@ -62,10 +62,6 @@ class Top extends Component{
         menu = {menu}
       >
 
-        <NavigationEvents
-          onDidFocus={console.log("Re mount")}
-        />
-
         <View style = {{flex: 1, backgroundColor: "black"}}>
           <Header title = "Weekley Top" showSidebar = {this.onPressButton.bind(this)}/>
           <ScrollView

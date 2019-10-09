@@ -350,7 +350,7 @@ class BetModal extends Component{
                   <Text style = {[styles.layBet, {marginLeft: 5, color: "#00B073", fontSize: 17, fontWeight: "300"}]}>{this.props.team.name.toUpperCase()}</Text>
                 </View>
 
-                <View style = {{flexDirection:"row"}}>
+                <View style = {{flexDirection: "row"}}>
                   <Text style= {{fontWeight: "300", color: "#DAA520", marginTop: 18, fontSize: 20}}> £</Text>
                   <TextInput
                       style={{height: 40, borderBottomColor: "gray", borderWidth: 0.3, color: "#DAA520", width: Dimensions.get("window").width * 0.3, marginLeft: 10, fontWeight: "300", fontSize: 20}}

@@ -6,9 +6,21 @@ const WIDTH = Dimensions.get("window").width;
 
 class CountryPicker extends Component{
 
+	constructor(props){
+		super(props);
+		this.state= {
+			country: ""
+		}
+	}
+
 	render(){
-		const countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola" ,"Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan"];
-		
+		const countries = [
+			"Afghanistan", "Albania", "Algeria", "Andorra", "Angola" ,"Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+			"The Bahamas", "Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi", 
+
+
+		];
+
 		const pick = {
 		      inputIOS: {
 		        color: 'white',
@@ -44,7 +56,8 @@ class CountryPicker extends Component{
 
 		return(
 		      <LinearGradient  style = {{flex: 1, position: "relative"}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
-		          <TouchableOpacity
+		          <TouchableOpacity 
+		          	   onPress = {this.props.closeModal}	
 		               style= {{margin: 10}}
 		            >
 		             <Text style = {{color: "#00B073", fontSize: 21}}>
@@ -53,13 +66,17 @@ class CountryPicker extends Component{
 		          </TouchableOpacity>
 		         <View style = {styles.pickerContainer}>
 		          <Picker
+		          	itemStyle ={styles.pickerStyle}
+              		selectedValue={this.state.country}
+             		onValueChange={(itemValue, itemIndex) => this.setState({country: itemValue})}
 		            >
 		              {renderConuntries}
 		          </Picker>
 		        </View>
 
 		          <TouchableOpacity
-		             style= {styles.button}
+					onPress = {this.props.onChangeCountry.bind(this, this.state.country)}
+		            style= {styles.button}
 		          >
 		           <Text style = {styles.buttonText}>
 		              Search

@@ -4,7 +4,8 @@ import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
 import {NavigationActions} from "react-navigation";
 import Wating from "../reusable/wating";
-
+import CountryPicker from "./countryPicker";
+import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class Login extends Component{
 
@@ -19,7 +20,9 @@ class Login extends Component{
       loginUsername: "",
       loginPassword: "",
       errorMessage: "", 
-      watingVisible: true
+      watingVisible: true,
+      showCountries: false, 
+      country: ""
     }
   }
 
@@ -27,9 +30,17 @@ class Login extends Component{
     setTimeout(() => {this.setState({watingVisible: false})}, 2500)
   }
 
+  closeCountries(){
+    this.setState({showCountries: false});
+  }
+
+  selectCountry(country){
+    this.setState({ country })
+  }
+
   userAction(action){
     const {username, password, password_confirmation, email} = this.state;
-    var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation}
+    var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation, "country": country}
 
       return fetch(`http://${Url}:8000/users/${action}/`, {
         method: "POST",
@@ -136,6 +147,10 @@ class Login extends Component{
             value = {password_confirmation}
           />
 
+          <TouchableOpacity style = {{ marginTop: 23}} onPress = {()=> this.setState({showCountries: true})}>  
+            <Text style = {{color:"gray"}}>Select country  <FontAwesome>{Icons.sortDown}</FontAwesome></Text>
+          </TouchableOpacity>
+
           <View style = {{marginLeft: 15, marginRight: 15, marginTop: 55}}>
             <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}} onPress= {this.userAction.bind(this, "signup")}>
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Sign up</Text>
@@ -195,7 +210,7 @@ class Login extends Component{
   }
 
   render(){
-    console.log(this.state.errorMessage);
+    console.log(this.state.errorMessage, this.state.country);
     return(
       <LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {["#161616", "gray"]}>
 
@@ -206,6 +221,10 @@ class Login extends Component{
 
       <Modal visible= {this.state.watingVisible}>
         <Wating/>
+      </Modal>
+
+      <Modal visible= {this.state.showCountries}>
+        <CountryPicker closeModal = {this.closeCountries.bind(this)} onChangeCountry = {this.selectCountry.bind(this)}/>
       </Modal>
 
       </LinearGradient>

@@ -22,7 +22,7 @@ class App extends React.Component {
 	}
 
  	render() {
- 		const initialScreen = this.state.currentUser ? "MainScreen" : "CountryPicker"
+ 		const initialScreen = this.state.currentUser ? "MainScreen" : "Login"
  		const MyNav = createRootNavigator(initialScreen);
  		
  		return <MyNav/> 

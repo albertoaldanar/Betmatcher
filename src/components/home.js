@@ -18,7 +18,7 @@ import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { NavigationActions, NavigationEvents } from 'react-navigation';
 import Wating from "../reusable/wating";
 import Modal from "react-native-modal";
-import AnimateNumber from 'react-native-countup'
+import AnimateNumber from 'react-native-countup';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;

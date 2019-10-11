@@ -28,6 +28,9 @@ class Home extends Component{
    _isMounted = false;
 
   constructor(props){
+
+    const tutorial = props.navigation.state.params ? props.navigation.state.params.action == "signup" ? true : false : false;
+
     super(props);
     this.state = {
       showSidebar: false,
@@ -37,7 +40,7 @@ class Home extends Component{
       topTradedEvents: [[[]]],
       data: "",
       showModal: true,
-      sports: [], refreshing: false, currentUser: "", coins: 0,
+      sports: [], refreshing: false, currentUser: "", coins: 0, showIntro: tutorial,
       requestModal: false, requestSelected: {}, isLoadingData: true, banners: [ [], [], [], [] ]
    }
   }
@@ -355,6 +358,8 @@ class Home extends Component{
     const {requestSelected, currentUser} = this.state;
     console.log(this.state.requestSelected);
     console.log(this.state.coins);
+
+    console.log(this.state.showIntro);
 
     const menu =  <Menu
                     leagues= {Lgs}

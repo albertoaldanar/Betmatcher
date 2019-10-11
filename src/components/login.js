@@ -62,7 +62,7 @@ class Login extends Component{
             } catch (error) {
               console.log(error.message);
             }
-            this.sendToHome()
+            this.sendToHome(action);
           } else {
             console.log(jsonRes)
             this.handleResponse(jsonRes)
@@ -70,12 +70,13 @@ class Login extends Component{
       }).catch(error => console.log(error))
   }
 
-  sendToHome(){
+  sendToHome(action){
     const {username, password, password_confirmation, email} = this.state;
     this.setState({username: "", password: "", password_confirmation: "", email: "", errorMessage: ""})
 
     const navigateAction = NavigationActions.navigate({
-      routeName: "Home"
+      routeName: "Home", 
+      params: { action: action }
     });
 
     this.props.navigation.dispatch(navigateAction);

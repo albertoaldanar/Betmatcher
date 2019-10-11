@@ -50,7 +50,7 @@ class Home extends Component{
     this._isMounted = true;
 
     const usernameGet = await AsyncStorage.getItem('username');
-    this.setState({ currentUser: usernameGet, showSidebar: this.state.showSidebar});
+    this.setState({ currentUser: usernameGet, showSidebar: false});
 
     return fetch(`http://${Url}:8000/home_data?current_user=${this.state.currentUser}`)
         .then(res => res.json())

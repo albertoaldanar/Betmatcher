@@ -64,7 +64,8 @@ class Login extends Component{
             }
             this.sendToHome()
           } else {
-             this.handleResponse(jsonRes)
+            console.log(jsonRes)
+            this.handleResponse(jsonRes)
           }
       }).catch(error => console.log(error))
   }
@@ -93,11 +94,36 @@ class Login extends Component{
     //     break;
     // }
     //Case user login
-    if(response.password || response.username){
-      return this.setState({errorMessage: "Can´t have blank fields"})
-    } else if(response.non_field_errors){
-      return this.setState({errorMessage: "Invalid credentials", username: "", password: ""})
+
+    if(response.username){
+        if(response.username[0] == "This field may not be blank."){
+          return this.setState({errorMessage: "Please fill all requirements"})
+        }  else if(response.username[0] == "This field must be unique."){
+          return this.setState({errorMessage: "This username is already taken"})
+        }
+    }  else if(response.non_field_errors){
+        if(response.non_field_errors[0] == "Password doesnt match"){
+            return this.setState({errorMessage: "Password doesnt match"})
+        } else if(response.non_field_errors[0] == "Invalid credential"){
+            return this.setState({errorMessage: "Invalid credentials", username: "", password: ""})
+        }
+    } else if(response.password || response.password_confirmation){
+        return this.setState({errorMessage: "Please fill all requirements"})
+
+    } else if(response.email){
+        return this.setState({errorMessage: "Please fill all requirements"})
+    } else if(response.country){
+        return this.setState({errorMessage: "Please fill all requirements"})
     }
+
+
+    // if(response.username[0] == "This field may not be blank." || response.password[0] == "This field may not be blank." || response.country[0] == "This field may not be blank."){
+    //   "This field may not be blank."
+    // } else if(response.non_field_errors){
+    //   return this.setState({errorMessage: "Invalid credentials", username: "", password: ""})
+    // } else if(response.username[0] == "This field must be unique."){
+    //   return this.setState({errorMessage: "This username already exist."})
+    // }
   }
 
   onChangeInput = (state) => (event,value) => {
@@ -151,6 +177,8 @@ class Login extends Component{
             <Text style = {{color:"gray", fontSize: 16}}>{this.state.country || "Select Country" }  <FontAwesome>{Icons.sortDown}</FontAwesome></Text>
           </TouchableOpacity>
 
+          <Text style = {{color: "#D24D57", alignSelf:"center", marginTop: 15}}>{this.state.errorMessage}</Text>
+
           <View style = {{marginLeft: 15, marginRight: 15, marginTop: 55}}>
             <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 10, paddingBottom: 10}} onPress= {this.userAction.bind(this, "signup")}>
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Sign up</Text>
@@ -191,7 +219,7 @@ class Login extends Component{
               <Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}>Login</Text>
             </TouchableOpacity>
 
-            <Text style = {{color: "white", alignSelf:"center", margin: 5}}>{this.state.errorMessage}</Text>
+            <Text style = {{color: "#D24D57", alignSelf:"center", margin: 5}}>{this.state.errorMessage}</Text>
 
             <TouchableOpacity style = {{marginTop: 12}}>
               <Text style = {{alignSelf:"center", color:"gray"}}>Forgot your password ?</Text>

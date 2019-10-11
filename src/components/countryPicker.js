@@ -79,7 +79,7 @@ class CountryPicker extends Component{
 		            style= {styles.button}
 		          >
 		           <Text style = {styles.buttonText}>
-		              Search
+		              Select
 		           </Text>
 		          </TouchableOpacity>
 		      </LinearGradient>

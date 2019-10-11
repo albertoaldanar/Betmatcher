@@ -35,11 +35,11 @@ class Login extends Component{
   }
 
   selectCountry(country){
-    this.setState({ country })
+    this.setState({ country, showCountries: false })
   }
 
   userAction(action){
-    const {username, password, password_confirmation, email} = this.state;
+    const {username, password, password_confirmation, email, country} = this.state;
     var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation, "country": country}
 
       return fetch(`http://${Url}:8000/users/${action}/`, {
@@ -148,7 +148,7 @@ class Login extends Component{
           />
 
           <TouchableOpacity style = {{ marginTop: 23}} onPress = {()=> this.setState({showCountries: true})}>  
-            <Text style = {{color:"gray"}}>Select country  <FontAwesome>{Icons.sortDown}</FontAwesome></Text>
+            <Text style = {{color:"gray", fontSize: 16}}>{this.state.country || "Select Country" }  <FontAwesome>{Icons.sortDown}</FontAwesome></Text>
           </TouchableOpacity>
 
           <View style = {{marginLeft: 15, marginRight: 15, marginTop: 55}}>

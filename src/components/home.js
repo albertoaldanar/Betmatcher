@@ -372,8 +372,7 @@ class Home extends Component{
       >
 
         <NavigationEvents
-          onDidFocus={payload => this.interval = setInterval(() => this.callHome(), 3000)}
-          onDidBlur={payload => clearInterval(this.interval)}
+          onDidFocus={payload => this.callHome()}
         />
 
         <View style = {{flex: 1, backgroundColor: "black"}}>

@@ -21,8 +21,8 @@ class Intro extends Component{
 					</View>
 				</Pages>
 
-	            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 17, paddingBottom: 17, borderRadius: 5, position: "absolute", bottom: 45, left: 15, right: 15}}>
-	              <Text style= {{fontWeight: "600", color: "white", alignSelf:"center", fontSize: 17}}> Sign up or Login </Text>
+	            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 17, paddingBottom: 17, borderRadius: 5, position: "absolute", bottom: 45, left: 15, right: 15}} onPress= {this.props.closeModal}>
+	              <Text style= {{fontWeight: "600", color: "white", alignSelf:"center", fontSize: 17}}> Skip intro </Text>
 	            </TouchableOpacity>
 			</View>
 		);

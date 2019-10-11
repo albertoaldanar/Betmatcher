@@ -19,6 +19,7 @@ import { NavigationActions, NavigationEvents } from 'react-navigation';
 import Wating from "../reusable/wating";
 import Modal from "react-native-modal";
 import AnimateNumber from 'react-native-countup';
+import Intro from "./intro";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -83,6 +84,10 @@ class Home extends Component{
 
   showSidebar(){
     this.setState({showSidebar: true})
+  }
+
+  showIntro(){
+    this.setState({showIntro: false})
   }
 
   requestModal(){
@@ -398,6 +403,12 @@ class Home extends Component{
                   currentUser = {currentUser}
                   sendToConfirmation = {this.sendToConfirmation.bind(this)}
               />
+          </Modal>
+
+          <Modal
+            isVisible = {this.state.showIntro}
+          >
+            <Intro closeModal = {this.showIntro.bind(this)}/>
           </Modal>
 
         </View>

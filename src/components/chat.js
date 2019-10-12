@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity} from "react-native";
+import {View, Text, TouchableOpacity, TextInput, ScrollView} from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import LinearGradient from "react-native-linear-gradient";
+import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class Chat extends Component{
 	constructor(props){
@@ -32,15 +33,21 @@ class Chat extends Component{
 	}
 
 
+	onChangeInput = (state) => (event,value) => {
+	    this.setState({
+	      [state]:event
+	    });
+  	}	
+
+
 	addMessage(message) {
 		const { currentUser, chatID, userID } = this.props.navigation.state.params;
-		const randomID= Math.floor((Math.random() * 100000) + 1);
 
 		const db = firebase.firestore().collection('messages');
 
 		for(let i = 0; i < message.length; i ++){
 			db.add({
-				_id: 7,
+				_id: userID,
 				chat_id: chatID,
 				text: message[i].text,
 				user: message[i].user, 
@@ -62,15 +69,44 @@ class Chat extends Component{
 	}
 
 
+	postMessage(message) {
+		const count = 0;
+		const { currentUser, chatID, userID } = this.props.navigation.state.params;
+
+		const db = firebase.firestore().collection('messages');
+
+
+		db.add({
+				_id: userID,
+				chat_id: chatID,
+				text: message, 
+				user: currentUser,
+				createdAt: new Date()
+	    });
+
+	  	// db.add({
+	   //  	_id: randomID, 
+	   //  	chat_id: chatID,
+	   //  	text: this.state.text,
+	   //  	createdAt: Date.now(),
+	   //  	user: {
+	   //  		_id: 10, 
+	   //  		name: currentUser
+	   // 	firebase.firestore.FieldValue.serverTimestamp()
+	   //  	}
+  		// });	
+	}
+
+
 	onCollectionUpdate = (querySnapshot) => {
   			const messages = [];
 		  	querySnapshot.forEach((doc) => {
 
-			    const { _id, text, user, createdAt } = doc.data();
+			    const { _id, text, user, createdAt, id } = doc.data();
 			    
 			    messages.push({
+			      id: id,
 			      key: doc.id,
-			      doc,
 			      _id: _id,
 			      createdAt: createdAt,
 			      user: user,
@@ -78,7 +114,9 @@ class Chat extends Component{
 	    		});
   			});
 
-	  		this.setState({ messages });
+  			const sortedMessages = messages.sort((a, b) => (a.createdAt > b.createdAt) ? 1 : -1)
+
+	  		this.setState({ messages: sortedMessages });
 	}
 
 	// loadMessages(){ 
@@ -115,40 +153,52 @@ class Chat extends Component{
  //  	}
 
 
-	sendMessage(message){
-		const {chatID} = this.props.navigation.state.params;
 
-	    for(let i = 0; i < message.length; i ++){
-	      this.messagesRef.push({
-	        _id: chatID,
-	        text: message[i].text,
-	        user: message[i].user, 
-	        createdAt: firebase.database.ServerValue.TIMESTAMP
-	    });
+
+    renderMessages(){
+    	const {chatID, currentUser, userID} = this.props.navigation.state.params;
+
+    	return this.state.messages.map(x => {
+    		return(
+    			<Text style = {x._id == userID? styles.myMessage : styles.otherMessage}>{x.text}</Text>
+    		);
+    	});
     }
-  }
 
 	render(){	
 		console.log(this.state.messages);
-		const { currentUser, chatID } = this.props.navigation.state.params;
+		const { currentUser, chatID, userID } = this.props.navigation.state.params;
 		console.log(this.state.text);
 
 		return(
-				<LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {["#161616", "gray"]}>
+				<View style = {{flex: 1, backgroundColor:"#161616"}}>
 					<GiftedChat
-			              messages={this.state.messages}
-			              onSend={(message) => {
+			               messages={this.state.messages}
+			               onSend={(message) => {
 			                  this.addMessage(message);
-			              }}
-			              user ={{
-			                _id: 1,
+			               }}
+			               user ={{
+			                 _id: userID,
 			                name: currentUser
 			              }}
-			              isAnimated = {true}
-			              onInputTextChanged = {text => this.setState({text: text})}
+			              inverted = {false}
+			               isAnimated = {true}
+			               onInputTextChanged = {text => this.setState({text: text})}
 			        />
-			     </LinearGradient>
+			     </View>
 		);
+	}
+
+}
+
+const styles = {
+	myMessage: {
+		color: "green", 
+		alignSelf:"flex-end"
+	}, 
+	otherMessage: {
+		color: "red", 
+		alignSelf:"flex-start"
 	}
 }
 

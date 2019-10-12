@@ -15,7 +15,7 @@ class Intro extends Component{
 						/>
 						<Text style = {styles.title}> Welcome to Betmatcher</Text>
 
-						<Text style = {styles.second}> Bet against other people around the world and change your coins for prices</Text>
+						<Text style = {styles.secondSteps}> BET  .  MATCH  .  WIN  . </Text>
 					</View>
 
 					<View style = {{flex: 1}}>
@@ -34,7 +34,7 @@ class Intro extends Component{
 							source={{uri: "https://img.icons8.com/color/452/handshake.png"}} 
 							style={styles.imageSteps} 
 						/>
-						<Text style = {styles.titleSteps}>Back or Lay</Text>
+						<Text style = {styles.titleSteps}>Match</Text>
 
 						<Text style = {styles.secondSteps}> Make a bet and wait fore someone to match it or pick existen bet and match aginst it.</Text>
 					</View>
@@ -57,6 +57,16 @@ class Intro extends Component{
 						<Text style = {styles.titleSteps}>Highlights and live score</Text>
 
 						<Text style = {styles.secondSteps}> You can see the highlights and live score of the events you have match.</Text>
+					</View>
+
+					<View style = {{flex: 1}}>
+						<Image 
+							source={{uri: "https://img.pngio.com/video-games-png-99-images-in-collection-page-1-video-game-consoles-png-762_371.png"}} 
+							style={styles.imageSteps} 
+						/>
+						<Text style = {styles.titleSteps}>Change your coins</Text>
+
+						<Text style = {styles.secondSteps}> Change your coins for amazing prices!</Text>
 					</View>
 
 				</Pages>

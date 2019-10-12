@@ -54,18 +54,6 @@ class Chat extends Component{
 				createdAt: Date.now()
 	    	});
 		}
-
-	  	// db.add({
-	   //  	_id: randomID, 
-	   //  	chat_id: chatID,
-	   //  	text: this.state.text,
-	   //  	createdAt: Date.now(),
-	   //  	user: {
-	   //  		_id: 10, 
-	   //  		name: currentUser
-	   // 	firebase.firestore.FieldValue.serverTimestamp()
-	   //  	}
-  		// });	
 	}
 
 
@@ -82,19 +70,7 @@ class Chat extends Component{
 				text: message, 
 				user: currentUser,
 				createdAt: new Date()
-	    });
-
-	  	// db.add({
-	   //  	_id: randomID, 
-	   //  	chat_id: chatID,
-	   //  	text: this.state.text,
-	   //  	createdAt: Date.now(),
-	   //  	user: {
-	   //  		_id: 10, 
-	   //  		name: currentUser
-	   // 	firebase.firestore.FieldValue.serverTimestamp()
-	   //  	}
-  		// });	
+	    });	
 	}
 
 
@@ -118,41 +94,6 @@ class Chat extends Component{
 
 	  		this.setState({ messages: sortedMessages });
 	}
-
-	// loadMessages(){ 
-
-	//     const callBackObject = [];
-
-	//     const res = firebase.database().ref("messages").on('value', function (message) {
-	//             const messages = message.val();
-
-	//             const msg = Object.values(messages);
-	//             const keys = Object.keys(messages);
-
-	//             const callBack = msg.map(x => {
-	//                 return {
-	//                     _id: x._id,
-	//                     text: x.text,
-	//                     createdAt: new Date(x.createdAt),
-	//                     user: {
-	//                       _id: x.user._id,
-	//                       name: x.user.name
-	//                     } 
-	//                 }
-	//             });
-
-	//             callBack.map(x => {
-	//               callBackObject.push(x);   
- //        		})
- //    	});
-
- //    	this.setState({ messages: callBackObject })
-
- //    	this.messagesRef = firebase.database().ref("messages");
-	//     this.messagesRef.off();
- //  	}
-
-
 
 
     renderMessages(){
@@ -185,7 +126,7 @@ class Chat extends Component{
 			               isAnimated = {true}
 			               onInputTextChanged = {text => this.setState({text: text})}
 			        />
-			     </View>
+			    </View>
 		);
 	}
 

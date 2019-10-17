@@ -139,14 +139,18 @@ class Menu extends Component {
 
             <Text style  ={[styles.categorie, {marginTop: 12}]}> Options </Text>
               <View style ={{marginLeft: 8}}>
-                <Text style = {styles.sport}> How to bet?</Text>
-                <Text style = {styles.sport}> Change your coins</Text>
-                <Text style = {styles.sport}><FontAwesome>{Icons.comments}</FontAwesome> Live chat</Text>
+                <Text style = {styles.sport}><FontAwesome style = {{fontSize: 17}}>{Icons.info}</FontAwesome> How to bet?</Text>
+
+                <TouchableOpacity onPress = {this.props.sendToPrizes}>
+                  <Text style = {styles.sport}> <FontAwesome style = {{fontSize: 17, marginRight: 4}}>{Icons.tags}</FontAwesome> Change your coins </Text>
+                </TouchableOpacity>
+
+                <Text style = {styles.sport}><FontAwesome style = {{fontSize: 17}}>{Icons.comments}</FontAwesome> Live chat</Text>
               </View>
 
             <Text style  ={[styles.categorie, {marginTop: 12}]}> Account </Text>
               <TouchableOpacity style ={{marginLeft: 8}} onPress = {this.props.handleLogout}>
-                <Text style = {styles.sport}><FontAwesome>{Icons.signOut}</FontAwesome> Logout</Text>
+                <Text style = {styles.sport}><FontAwesome style = {{fontSize: 17}}>{Icons.signOut}</FontAwesome> Logout</Text>
               </TouchableOpacity>
           </View>
           </ScrollView>

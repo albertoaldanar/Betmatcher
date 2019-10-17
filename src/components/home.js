@@ -111,6 +111,13 @@ class Home extends Component{
     this.props.navigation.dispatch(navigateAction);
   }
 
+  sendToPrizes(){
+    const navigateAction = NavigationActions.navigate({
+      routeName: "Prizes"
+    })
+    this.props.navigation.dispatch(navigateAction);
+  }
+
   sendToConfirmation(user, quote, bet, game, teamSelected, teamsNotSelected){
     const navigateAction = NavigationActions.navigate({
       routeName: "ConfirmBet",
@@ -373,6 +380,7 @@ class Home extends Component{
                     handleLogout = {this.handleLogout.bind(this)}
                     filteredEvents = {this.callNavigation.bind(this)}
                     closeModal = {() => this.setState({showSidebar: false})}
+                    sendToPrizes = {this.sendToPrizes.bind(this)}
                   />
 
     return(

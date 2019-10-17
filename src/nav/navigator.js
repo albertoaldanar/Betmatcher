@@ -17,6 +17,7 @@ import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Chat from "../components/chat";
 import Intro from "../components/intro";
 import CountryPicker from "../components/countryPicker";
+import Prizes from "../components/prizes";
 
 export const MainScreen = createBottomTabNavigator({
 
@@ -177,6 +178,18 @@ export const createRootNavigator = (load = "<Your Initial Screen>") => {
       screen: Intro,
       navigationOptions: {
         header: null
+      }
+    },
+
+    Prizes: {
+      screen: Prizes,
+      navigationOptions: {
+        title: "Prizes",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
       }
     },
     AllLeagues: {

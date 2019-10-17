@@ -1,11 +1,78 @@
 import React, {Component} from "react";
-import {View, Text, Image, ScrollView, Dimensions, TouchableOpacity} from "react-native";
+import {View, Text, Image, ScrollView, Dimensions, TouchableOpacity, AsyncStorage} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 
 class PrizeDescription extends Component{
 
+
+	constructor(props){
+		super(props);
+		this.state = {
+			coins: 0, currentUser: ""
+		}
+	}
+
+	// buyPrize(){
+	//     let {currentUser, game, team, coins, teamsNotSelected} = this.props;
+	//     const {opponent, fq, sq, bet, publicBet} = this.state;
+
+	//     if(this.state.bet > coins){
+	//       return Alert.alert("You cant ", `You don´t have ${this.state.bet} coins, sorry :( `, [{text: 'Continue', onPress: () => console.log("Request not possible")}])
+	//     } else {
+	//         return fetch(`http://${Url}:8000/post_request/`, {
+	//           method: "POST",
+	//           headers: {
+	//               "Accept": "application/json",
+	//               "Content-type": "application/json"
+	//           },
+	//           body: JSON.stringify({
+	//             back_user: currentUser, event: game.data.name,
+	//             back_team: team.name, amount: bet,
+	//             is_public: publicBet, opponent: opponent, fq: fq, sq: sq,
+	//             fq_position: teamsNotSelected[0].position, sq_position: teamsNotSelected[1].position || null
+	//           })
+	//         })
+	//         .then(res => res.json())
+	//         .then(jsonRes => {
+	//            return this.alerts()
+	//         })
+	//         .catch(error => console.log(error));
+	//     }
+	// }
+
+	async componentWillMount(){
+	    this._isMounted = true;
+
+	      const usernameGet = await AsyncStorage.getItem('username');
+	        if (usernameGet) {
+	          this.setState({ currentUser: usernameGet});
+	        } else {
+	          this.setState({ currentUser: false });
+	      }
+
+	      return fetch(`http://${Url}:8000/user_records?current_user=${this.state.currentUser}`, {
+	        method: "GET",
+	        headers: {
+	          "Accept": "application/json",
+	          "Content-type": "application/json",
+	          // "Authorization": `Token ${this.state.currentToken}`
+	        }
+	      })
+	      .then(res => res.json())
+	      .then(jsonRes => {
+	        if(this._isMounted){
+	          this.setState({
+	                coins: jsonRes.user.profile.coins,
+	          })
+	        }
+	      }).catch(error => alert(error));
+  	}
+
 	render(){	
 		const {par} = this.props.navigation.state.params;
+
+		console.log(this.state.coins);
+
 		return(
 			<View style = {{flex: 1, backgroundColor: "#161616"}}>
 				<Image source = {{uri: par.img}} style = {styles.image}/>

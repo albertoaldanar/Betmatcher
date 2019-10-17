@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {View, Text, Image, TouchableOpacity, Dimensions, ScrollView} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import {NavigationActions} from "react-navigation";
 
 class Prizes extends Component{
 
@@ -20,13 +21,24 @@ class Prizes extends Component{
 	          })
 	}
 
+
+	sendToPrizeDescription(prize){
+		const navigateAction = NavigationActions.navigate({
+	      routeName: "PrizeDescription",
+	      params: {
+	        par: prize
+	      }
+	    });
+	    this.props.navigation.dispatch(navigateAction);
+	}
+
 	renderPrizes(){
 
 		const {prizes} = this.state;
 
 	    return prizes.map((item) => {
 	       return(
-	            <TouchableOpacity>
+	            <TouchableOpacity onPress = {this.sendToPrizeDescription.bind(this, item)}>
 	              <Image
 	                style={styles.image}
 	                source ={{uri: item.img}}

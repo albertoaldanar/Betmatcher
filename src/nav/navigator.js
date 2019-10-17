@@ -18,6 +18,7 @@ import Chat from "../components/chat";
 import Intro from "../components/intro";
 import CountryPicker from "../components/countryPicker";
 import Prizes from "../components/prizes";
+import PrizeDescription from "../components/prizeDescription";
 
 export const MainScreen = createBottomTabNavigator({
 
@@ -196,6 +197,17 @@ export const createRootNavigator = (load = "<Your Initial Screen>") => {
       screen: AllLeagues,
       navigationOptions: {
         title: "All Leagues",
+        headerTintColor: "#00B073",
+        headerStyle: {
+          backgroundColor: "black",
+          borderBottomColor: "black"
+        }
+      }
+    },
+    PrizeDescription: {
+      screen: PrizeDescription,
+      navigationOptions: {
+        title: "Prize",
         headerTintColor: "#00B073",
         headerStyle: {
           backgroundColor: "black",

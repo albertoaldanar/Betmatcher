@@ -46,6 +46,7 @@ class PrizeDescription extends Component{
 	        })
 	        .then(res => res.json())
 	        .then(jsonRes => {
+	        	this.setState({exchange: jsonRes.Exchange.id})
 	          	return this.showShipmentModal();
 	        })
 	        .catch(error => alert(error));
@@ -87,38 +88,59 @@ class PrizeDescription extends Component{
   		setTimeout(() => {this.setState({showModal: true, showLoading: false})}, 2500);
   	}
 
-  	backHome(prize){
+
+  	shipmentExchange(){
+  		const {par} = this.props.navigation.state.params;
+  		const {phone, email, adress, cp, country, city, state, fullName, exchange} = this.state;
+
+  		if(phone && email && adress && cp && country && city && state && fullName){
+	        return fetch(`http://${Url}:8000/shipment_exchange/`, {
+	          method: "POST",
+	          headers: {
+	              "Accept": "application/json",
+	              "Content-type": "application/json"
+	          },
+	          body: JSON.stringify({
+	           	exchange, phone: phone.toString(), email, adress, cp: cp.toString(), country, city, state, full_name: fullName
+	          })
+	        })
+	        .then(res => res.json())
+	        .then(jsonRes => {
+	          	return this.done();
+	        })
+	        .catch(error => alert(error));
+
+	    } else {
+	    	  return Alert.alert(
+		          "Incomplete info!",
+		          `We need ALL your information for shipment to succeed`,
+		        [
+		          {text: 'OK', onPress: console.log("Not complete info")},
+		        ],
+		        {cancelable: false},
+		      );
+	    }
+  	}
+
+  	backHome(){
 		const navigateAction = NavigationActions.navigate({
 	      routeName: "Home"
 	    });
 	    this.props.navigation.dispatch(navigateAction);
 	}
 
-
   	done(){
   		const {phone, email, adress, cp, country, city, state, fullName} = this.state;
   		const {par} = this.props.navigation.state.params;
 
-  		if(phone && email && adress && cp && country && city && state && fullName){
-
-		      Alert.alert(
+		    Alert.alert(
 		          `${par.name} on its way!`,
 		          `We will send you an email with all shipment details :)`,
 		        [
 		          {text: 'OK', onPress: this.backHome.bind(this)},
 		        ],
 		        {cancelable: false},
-		      );
-
-  		} else {
-  			  Alert.alert(
-		          "Incomplete info!",
-		          `We need ALL your information for shipment to succeed`,
-		        [
-		          {text: 'OK', onPress: this.backHome.bind(this)},
-		        ],
-		        {cancelable: false},
-		      );
+		    );
 
   		}
   	}
@@ -217,7 +239,7 @@ class PrizeDescription extends Component{
 				       	  />
 				        </View>
 
-				        <TouchableOpacity style = {{backgroundColor: "#00B073", position: "absolute", bottom: 0, left: 0, right: 0, padding: 12}} onPress = {this.done.bind(this)}>
+				        <TouchableOpacity style = {{backgroundColor: "#00B073", position: "absolute", bottom: 0, left: 0, right: 0, padding: 12}} onPress = {this.shipmentExchange.bind(this)}>
               				<Text style = {{textAlign: "center", color: "white", fontWeight: "300", fontSize: 16}}> Continue</Text>
             			</TouchableOpacity>
 

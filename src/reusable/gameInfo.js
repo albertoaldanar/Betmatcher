@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {View, Text, TouchableOpacity, ScrollView, Dimensions} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import NumberFormat from 'react-number-format';
 
 class GameInfo extends Component{
 
@@ -102,9 +103,12 @@ class GameInfo extends Component{
                 Traded
             </Text>
 
-            <Text style ={styles.number}>
-                {data.data.traded} <FontAwesome> {Icons.database} </FontAwesome>
-            </Text>
+            <NumberFormat
+                value={data.data.traded}
+                displayType={'text'}
+                thousandSeparator={true}
+                renderText= {value => <Text style ={styles.number}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+            /> 
         </View>
 
 
@@ -151,10 +155,13 @@ class GameInfo extends Component{
             <Text style ={styles.desc}>
                 Highest bet
             </Text>
-
-            <Text style ={styles.number}>
-                {isFinite(highestBet) ? highestBet: 0} <FontAwesome>  {Icons.database} </FontAwesome>
-            </Text>
+            
+            <NumberFormat
+                value={isFinite(highestBet) ? highestBet: 0}
+                displayType={'text'}
+                thousandSeparator={true}
+                renderText= {value => <Text style ={styles.number}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+            /> 
         </View>
       </View>
     );

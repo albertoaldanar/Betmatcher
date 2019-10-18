@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, TouchableOpacity, Dimensions} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import NumberFormat from 'react-number-format';
 
 class MatchDirect extends Component{
 
@@ -101,7 +102,12 @@ class MatchDirect extends Component{
         </View>
 
         <View style = {directBet.event.sport.name =="Soccer" ? {marginTop: 10, marginBottom: 15}: {marginTop: 30, marginBottom: 10}}>
-            <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}>{directBet.amount} £</Text>
+            <NumberFormat
+                value={directBet.amount}
+                displayType={'text'}
+                thousandSeparator={true}
+                renderText= {value => <Text style = {{color: "#DAA520", alignSelf: "center", fontSize: 18}}> {value} <FontAwesome>{Icons.database}</FontAwesome></Text>}
+            />
 
               {
                 finalQuote == 0 ? 

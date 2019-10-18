@@ -303,7 +303,7 @@ class Description extends Component{
             confirm = {this.sendToConfirmation.bind(this)}
             requests = {this.state.requests}
             renderUsersToMatch = {this.renderUsersToMatch.bind(this)}
-            coins = {this.state.currenCoins}
+            coins = {this.state.currentCoins}
           />
         </Modal>
 

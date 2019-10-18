@@ -16,6 +16,7 @@ import {
 import {Pages} from "react-native-pages";
 import Url from "../constants/url";
 import MaterialTabs from "react-native-material-tabs";
+import NumberFormat from 'react-number-format';
 
 
 class Profile extends Component{
@@ -134,7 +135,12 @@ class Profile extends Component{
 
                     <View style = {{ marginRight: 25, marginTop: 9,}}>
                       <Text style = {result =="LOSS" ? styles.sortDown : styles.sortUp}> {result} {result == "LOSS" ? <FontAwesome>{Icons.sortDown}</FontAwesome>: <FontAwesome>{Icons.sortUp}</FontAwesome> }</Text>
-                      <Text style = {{color:"gray", alignSelf:"center"}}> {amount} <FontAwesome>{Icons.database}</FontAwesome></Text>
+                      <NumberFormat
+                        value={amount}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        renderText= {value => <Text style = {{color:"gray", alignSelf:"center"}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                      /> 
                     </View>
         </View>
     );
@@ -223,9 +229,13 @@ class Profile extends Component{
                     <Text style = {[styles.username, {fontSize: 11, fontWeight:"300", color: "gray", marginBottom: 5}]}>
                       Coins
                     </Text>
-                    <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}>
-                      {this.state.coins}  <FontAwesome style = {{color: "#DAA520"}}>{Icons.database}</FontAwesome>
-                    </Text>
+
+                    <NumberFormat
+                      value={this.state.coins}
+                      displayType={'text'}
+                      thousandSeparator={true}
+                      renderText= {value => <Text style = {[styles.username, {fontSize: 13, fontWeight:"300", color: "#DAA520", marginBottom: 7, marginTop: 3}]}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                    /> 
                   </View>
 
                   <View style = {{marginRight: 16}}>

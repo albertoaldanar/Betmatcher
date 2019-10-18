@@ -5,6 +5,8 @@ import LinearGradient from "react-native-linear-gradient";
 import Leagues from "../components/leagues";
 import { NavigationActions } from 'react-navigation';
 import Url from "../constants/url";
+import NumberFormat from 'react-number-format';
+
 class Menu extends Component {
 
   constructor(props){
@@ -126,7 +128,12 @@ class Menu extends Component {
               <View>
                 <Text style= {{color:"#00B073", marginBottom: 10, fontSize: 20, fontWeight: "400"}}>{username}</Text>
                 <Text style= {{color:"#DCDCDC", marginBottom: 10, fontSize: 12, fontWeight: "400", fontStyle: "oblique"}}>{country} <FontAwesome>{Icons.flag}</FontAwesome></Text>
-                <Text style= {{color:"#DAA520"}}>{this.props.coins}  £</Text>
+                <NumberFormat
+                    value={this.props.coins}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    renderText={value => <Text style= {{color:"#DAA520"}}>{value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                /> 
               </View>
             </View>
           </LinearGradient>

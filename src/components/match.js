@@ -15,6 +15,8 @@ import Swipeout from 'react-native-swipeout';
 import Chat from "./chat"; 
 import { GiftedChat } from "react-native-gifted-chat";
 import {NavigationActions, NavigationEvents} from "react-navigation";
+import NumberFormat from 'react-number-format';
+
 
 class Match extends Component{
 
@@ -236,7 +238,14 @@ class Match extends Component{
                   }
                   <View style = {{flexDirection: "row"}}>
                     <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> AMOUNT: </Text>
-                    <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{item.amount} £</Text>
+
+                    <NumberFormat
+                      value={item.amount}
+                      displayType={'text'}
+                      thousandSeparator={true}
+                      renderText= {value => <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                    /> 
+
                   </View>
                 </View>
               </View>
@@ -321,7 +330,12 @@ class Match extends Component{
                     {item.is_public  ? <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "400", fontStyle: "oblique"}}> Public bet </Text> : <Text style = {{color: "#00B073", fontSize: 13, fontWeight: "600"}}> Private bet </Text>}
                     <View style = {{flexDirection: "row"}}>
                       <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> BET: </Text>
-                      <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}>{item.amount} £</Text>
+                      <NumberFormat
+                        value={item.amount}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        renderText= {value => <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                      /> 
                     </View>
                   </View>
                 </View>

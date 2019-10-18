@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, TouchableOpacity, Image, LayoutAnimation} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
+import NumberFormat from 'react-number-format';
 
 class YouHaveMatch extends Component{
 
@@ -38,7 +39,12 @@ class YouHaveMatch extends Component{
               </View>
             </View>
 
-            <Text style = {[styles.text, {color: "#DAA520"}]}>{this.props.total} <FontAwesome>{Icons.database}</FontAwesome> </Text>
+            <NumberFormat
+                value={this.props.total}
+                displayType={'text'}
+                thousandSeparator={true}
+                renderText= {value => <Text style = {[styles.text, {color: "#DAA520"}]}> {value} <FontAwesome>{Icons.database}</FontAwesome></Text>}
+            /> 
 
             <TouchableOpacity style = {styles.buttonCointainer} onPress = {this.props.sendToMatches}>
               <Text style = {styles.buttonText}>CONTINUE</Text>

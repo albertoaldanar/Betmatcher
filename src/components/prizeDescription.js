@@ -4,6 +4,7 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import LinearGradient from "react-native-linear-gradient";
 import Modal from "react-native-modal";
 import {NavigationActions} from "react-navigation";
+import NumberFormat from 'react-number-format';
 
 class PrizeDescription extends Component{
 
@@ -155,7 +156,13 @@ class PrizeDescription extends Component{
 			<View style = {{flex: 1, backgroundColor: "#161616"}}>
 				<Image source = {{uri: par.img}} style = {styles.image}/>
 				<Text style = {{color: "white", marginLeft: 10, fontSize: 20, fontWeight: "400"}}>{par.name}</Text>
-				<Text style = {{color: "#DAA520", marginLeft: 10, fontSize: 14, fontWeight: "400", marginTop: 5}}>{par.price} <FontAwesome>{Icons.database}</FontAwesome> </Text>
+
+				<NumberFormat
+                    value={par.price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    renderText= {value => <Text style = {{color: "#DAA520", marginLeft: 10, fontSize: 14, fontWeight: "400", marginTop: 5}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                />
 				<Text style = {{color: "gray", marginLeft: 10, marginTop: 35, fontSize: 14, fontWeight: "400", textAlign: "center"}}>{par.description}</Text>
 
 	            <TouchableOpacity style = {{backgroundColor: "#00B073", paddingTop: 17, paddingBottom: 17, borderRadius: 5, position: "absolute", bottom: 30, left: 15, right: 15}} onPress ={this.buyPrize.bind(this)}>

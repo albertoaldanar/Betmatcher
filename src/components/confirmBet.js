@@ -6,6 +6,7 @@ import YouHaveMatch from "./youHaveMatch";
 import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
 import Moment from "moment";
+import NumberFormat from 'react-number-format';
 
 class ConfirmBet extends Component{
 

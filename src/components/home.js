@@ -20,6 +20,7 @@ import Wating from "../reusable/wating";
 import Modal from "react-native-modal";
 import AnimateNumber from 'react-native-countup';
 import Intro from "./intro";
+import NumberFormat from 'react-number-format';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -165,7 +166,12 @@ class Home extends Component{
 
                 <View>
                   <Text style = {styles.exp}>Bet</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}>{r.amount} £</Text>
+                  <NumberFormat
+                    value={r.amount}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    renderText= {value => <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                  /> 
                 </View>
 
                 <View>
@@ -210,7 +216,12 @@ class Home extends Component{
                 <View style = {{position: "absolute", right: 5, bottom: 5,}}>
                       <View style = {{flexDirection:"row", paddingTop: 10}}>
                         <Text style = {{color: "#F5F5F5", fontWeight: "bold"}}>Traded</Text>
-                        <Text style = {[styles.game, { fontWeight: "300", fontSize: 15, color: "#DAA520", marginLeft: 6}]}>{topTradedEvents[0].data.traded} £</Text>
+                        <NumberFormat
+                          value={topTradedEvents[0].data.traded}
+                          displayType={'text'}
+                          thousandSeparator={true}
+                          renderText= {value => <Text style = {[styles.game, { fontWeight: "300", fontSize: 15, color: "#DAA520", marginLeft: 6}]}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                        /> 
                       </View>
                 </View>
             </TouchableOpacity>
@@ -239,7 +250,12 @@ class Home extends Component{
                   <View style = {{flexDirection: "row", padding: 10, paddingBottom: 0, justifyContent: "space-between"}}>
                     <View>
                       <Text style = {styles.exp}>Traded</Text>
-                      <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}>{event.data.traded} £</Text>
+                      <NumberFormat
+                          value={event.data.traded}
+                          displayType={'text'}
+                          thousandSeparator={true}
+                          renderText= {value => <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                      />
                     </View>
 
                     <View>

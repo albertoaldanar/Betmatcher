@@ -7,6 +7,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
 import UserCard from "../reusable/userCard";
 import Modal from "react-native-modal";
+import NumberFormat from 'react-number-format';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -207,7 +208,13 @@ class MatchARequest extends Component{
               <View style = {{flexDirection: "row", justifyContent:"space-around", paddingTop: 19, paddingBottom: 19, borderBottomColor: "gray", borderBottomWidth: 0.3}} >
                   <View style = {{justifyContent:"center", borderRightColor: "gray", borderRightWidth: 0.3, paddingRight: Dimensions.get("window").width * 0.22}}>
                     <Text style ={styles.description}>Bet</Text>
-                    <Text style = {{fontWeight:"400", fontSize: 13, color: "#DAA520", alignSelf:"center", marginTop: 10, textAlign:"center"}}>{u.amount} <FontAwesome> {Icons.database} </FontAwesome> </Text>
+
+                    <NumberFormat
+                      value={u.amount}
+                      displayType={'text'}
+                      thousandSeparator={true}
+                      renderText= {value => <Text style = {{fontWeight:"400", fontSize: 13, color: "#DAA520", alignSelf:"center", marginTop: 10, textAlign:"center"}}> {value} <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                    />
                   </View> 
 
                   <View style = {{justifyContent:"center"}}>
@@ -248,7 +255,12 @@ class MatchARequest extends Component{
                     X
                   </Text>
             </TouchableOpacity>
-            <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {coins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+            <NumberFormat
+                value={coins}
+                displayType={'text'}
+                thousandSeparator={true}
+                renderText= {value => <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {value} <FontAwesome>{Icons.database}</FontAwesome></Text>}
+            /> 
           </View>
         </View>
         {this.renderSegmentedController()}

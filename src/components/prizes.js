@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {View, Text, Image, TouchableOpacity, Dimensions, ScrollView} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
+import NumberFormat from 'react-number-format';
 
 class Prizes extends Component{
 
@@ -44,7 +45,12 @@ class Prizes extends Component{
 	                source ={{uri: item.img}}
 	              />
 	              <Text style= {styles.title}>{item.name} </Text>
-	              <Text style= {styles.price}>{item.price} <FontAwesome>{Icons.database}</FontAwesome></Text>
+	              <NumberFormat
+                      value={item.price}
+                      displayType={'text'}
+                      thousandSeparator={true}
+                      renderText= {value => <Text style= {styles.price}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                  /> 
 	            </TouchableOpacity>
 	        );
 	    })

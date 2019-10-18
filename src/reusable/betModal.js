@@ -8,6 +8,7 @@ import Modal from "react-native-modal";
 import MaterialTabs from "react-native-material-tabs";
 import Url from "../constants/url";
 import User from "../constants/user";
+import NumberFormat from 'react-number-format';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -34,11 +35,11 @@ class BetModal extends Component{
 
 
   sumBetAmount(){
-    this.setState({bet: this.state.bet += 1 })
+    this.setState({bet: this.state.bet += 1 });
   }
 
   restBetAmount(){
-    this.setState({bet: this.state.bet -= 1 })
+    this.setState({bet: this.state.bet -= 1 });
   }
 
   customizeQuotes(quote, sign){
@@ -406,7 +407,13 @@ class BetModal extends Component{
                   X
                 </Text>
               </TouchableOpacity>
-              <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {this.props.coins}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+
+              <NumberFormat
+                  value={this.props.coins}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  renderText= {value => <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {value} <FontAwesome>{Icons.database}</FontAwesome></Text>}
+              /> 
             </View>
           </View>
     

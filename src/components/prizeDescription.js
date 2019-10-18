@@ -11,8 +11,8 @@ class PrizeDescription extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			coins: 0, currentUser: "", showModal: true, showLoading: false, phone: "", 
-			email: "", adress: "", cp: "", country:"", city: "", state: "", fullName: ""
+			coins: 0, currentUser: "", showModal: false, showLoading: false, phone: "", 
+			email: "", adress: "", cp: "", country:"", city: "", state: "", fullName: "", exchange: {}
 		}
 	}
 
@@ -46,8 +46,7 @@ class PrizeDescription extends Component{
 	        })
 	        .then(res => res.json())
 	        .then(jsonRes => {
-	        	this.setState({exchange: jsonRes.Exchange.id})
-	          	return this.showShipmentModal();
+	          	return this.showShipmentModal.bind(this, jsonRes.Exchange);
 	        })
 	        .catch(error => alert(error));
 	    }
@@ -82,8 +81,8 @@ class PrizeDescription extends Component{
   	}
 
 
-  	showShipmentModal(){
-  		this.setState({showLoading: true})
+  	showShipmentModal(exchange){
+  		this.setState({showLoading: true, exchange: exchange.id})
 
   		setTimeout(() => {this.setState({showModal: true, showLoading: false})}, 2500);
   	}
@@ -150,7 +149,7 @@ class PrizeDescription extends Component{
 		const {par} = this.props.navigation.state.params;
 		const {phone, email, adress, cp, country, city, state, fullName} = this.state;
 
-		console.log(this.state.coins);
+		console.log(this.state.exchange);
 
 		return(
 			<View style = {{flex: 1, backgroundColor: "#161616"}}>
@@ -167,7 +166,7 @@ class PrizeDescription extends Component{
 					<ActivityIndicator size="large" color="white" animating={this.state.showLoading}/>
 				</View>
 
-	            <Modal isVisible={this.state.showModal} style = {{flex: 1}}>
+	            <Modal isVisible={this.state.showModal} style = {{flex: 1, margin: 0}}>
 	              <LinearGradient style = {{ borderRadius: 5, flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
 
 	                    <Text style = {{color:"white", alignSelf:"center", fontSize: 19, marginBottom: 10, marginTop: 10}}> Congratulations ! </Text>

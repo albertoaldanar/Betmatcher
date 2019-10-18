@@ -46,7 +46,7 @@ class PrizeDescription extends Component{
 	        })
 	        .then(res => res.json())
 	        .then(jsonRes => {
-	          	return this.showShipmentModal.bind(this, jsonRes.Exchange);
+	          	return this.showShipmentModal(jsonRes.Exchange);
 	        })
 	        .catch(error => alert(error));
 	    }
@@ -92,7 +92,7 @@ class PrizeDescription extends Component{
   		const {par} = this.props.navigation.state.params;
   		const {phone, email, adress, cp, country, city, state, fullName, exchange} = this.state;
 
-  		if(phone && email && adress && cp && country && city && state && fullName){
+  		if(phone && email && adress && cp && country && city && state){
 	        return fetch(`http://${Url}:8000/shipment_exchange/`, {
 	          method: "POST",
 	          headers: {
@@ -141,13 +141,13 @@ class PrizeDescription extends Component{
 		        {cancelable: false},
 		    );
 
-  		}
   	}
+ 
 
 
 	render(){	
 		const {par} = this.props.navigation.state.params;
-		const {phone, email, adress, cp, country, city, state, fullName} = this.state;
+		const {phone, email, adress, cp, country, city, state} = this.state;
 
 		console.log(this.state.exchange);
 

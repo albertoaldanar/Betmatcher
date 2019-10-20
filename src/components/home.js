@@ -32,7 +32,7 @@ class Home extends Component{
   constructor(props){
 
     const tutorial = props.navigation.state.params ? props.navigation.state.params.action == "signup" ? true : false : false;
-
+    
     super(props);
     this.state = {
       showSidebar: false,

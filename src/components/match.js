@@ -176,6 +176,54 @@ class Match extends Component{
       .catch(error => console.log(error));
   }
 
+
+  renderScores(item){ 
+    if(item.event.sport.name == "Tennis"){
+      return(
+        <Text>Tennis</Text>
+      );
+
+    } else {
+        return(
+          <Text style = {{color: "#00B073", fontSize: 16, fontWeight: "bold", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>
+        );
+    }
+  }
+
+  renderMintue(item){
+        if(item.event.sport.name == "Soccer"){
+          return(
+              <View style = {{flexDirection: "row"}}>
+                <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
+                <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
+              </View>
+          );
+        } else if(item.event.sport.name == "Baskeball" || item.event.sport.name == "Football"){
+            return(
+              <View style = {{flexDirection: "row"}}>
+                <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
+                <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.time} - {item.event.minute}" </Text>
+              </View>
+            );
+
+        } else if(item.event.sport.name == "Fight" || item.event.sport.name == "Baseball"){
+            return(
+              <View style = {{flexDirection: "row"}}>
+                <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
+                <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.time}  </Text>
+              </View>
+            );
+
+        } else {
+            return(
+              <View style = {{flexDirection: "row"}}>
+                <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
+                <Text style = {{color: "#DAA520", fontSize: 12, fontWeight: "400", marginTop: 2, marginLeft: 3}}> In play </Text>
+              </View>
+            );
+        }
+  }
+
   renderMatches(data){
     return data.map(item => {
       const order = this.state.currentUser == item.back_user.username ? [["You", item.back_team], [item.lay_user.username, item.lay_team]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
@@ -225,17 +273,15 @@ class Match extends Component{
                 <View style =  {{flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 5}}>
 
                   {item.event.in_play ?
-                    <View style = {{flexDirection: "row"}}>
-                      <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
-                      <Text style = {{color: "#D24D57", fontSize: 12, fontWeight: "400", marginTop: 2, marginLeft: 3}}> LIVE NOW </Text>
-                    </View> : item.event.is_finished ? this.resultDisplay(item) :
+                      this.renderMintue(item) : item.event.is_finished ? this.resultDisplay(item) :
                       <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
                   }
 
-                  {item.event.is_finished || item.event.in_play ?
-                      <Text style = {{color: "#00B073", fontSize: 16, fontWeight: "bold", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>
-                      : null
+                  { item.event.in_play || item.event.is_finished ?
+                      this.renderScores(item) : 
+                      null
                   }
+                  
                   <View style = {{flexDirection: "row"}}>
                     <Text style = {{color: "gray", fontSize: 13, fontWeight: "600"}}> AMOUNT: </Text>
 

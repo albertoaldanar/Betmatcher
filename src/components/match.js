@@ -179,9 +179,28 @@ class Match extends Component{
 
   renderScores(item){ 
     if(item.event.sport.name == "Tennis"){
+
+      var local = item.event.score_local.toString().split("");
+      var visit = item.event.score_visit.toString().split("");
+
+      const firstS = local[0] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[0]} - {visit[0]}</Text> : null
+      const secondS = local[1] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[1]} - {visit[1]}</Text> : null
+      const thirdS = local[2] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[2]} - {visit[2]}</Text> : null
+      const fourthS = local[3] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[3]} - {visit[3]}</Text> : null
+      const finalS = local[4] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[4]} - {visit[4]}</Text> : null
+
+
       return(
-        <Text>Tennis</Text>
+          <View style = {{alignSelf: "center", marginBottom: 5}}>
+              {firstS}
+              {secondS}
+              {thirdS}
+              {fourthS}
+              {finalS}
+          </View>
       );
+
+
 
     } else {
         return(

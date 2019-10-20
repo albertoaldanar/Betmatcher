@@ -201,7 +201,9 @@ class Match extends Component{
       );
 
 
-
+    } else if(item.event.sport.name == "Fight"){
+      return null;
+      
     } else {
         return(
           <Text style = {{color: "#00B073", fontSize: 16, fontWeight: "bold", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>
@@ -226,10 +228,15 @@ class Match extends Component{
             );
 
         } else if(item.event.sport.name == "Fight" || item.event.sport.name == "Baseball"){
+
+            const upDown = item.event.time.split("")
+
+            const icon = upDown[1] == "+" <FontAwesome style = {{backgroundColor: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{backgroundColor: "#CE0707"}}>{Icons.sortDown}</FontAwesome>
+
             return(
               <View style = {{flexDirection: "row"}}>
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
-                <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.time}  </Text>
+                <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {upDown[0]} {icon} </Text>
               </View>
             );
 
@@ -237,7 +244,7 @@ class Match extends Component{
             return(
               <View style = {{flexDirection: "row"}}>
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
-                <Text style = {{color: "#DAA520", fontSize: 12, fontWeight: "400", marginTop: 2, marginLeft: 3}}> In play </Text>
+                <Text style = {{color: "#CE0707", fontSize: 12, fontWeight: "400", marginTop: 2, marginLeft: 3}}> In play </Text>
               </View>
             );
         }

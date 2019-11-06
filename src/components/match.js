@@ -228,7 +228,7 @@ class Match extends Component{
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
                 {
                   item.event.half_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Half time </Text>
-                  : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
+                  : ((item.event.minute == 45 && item.event.time == "Half time") || item.event.minute == 90)  ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" + </Text> : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
                 }
               </View>
             );

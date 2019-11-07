@@ -180,8 +180,8 @@ class Match extends Component{
   renderScores(item){ 
     if(item.event.sport.name == "Tennis"){
 
-      var local = item.event.score_local.toString().split("");
-      var visit = item.event.score_visit.toString().split("");
+      var local = item.event.local_tennis.split("");
+      var visit = item.event.visit_tennis.split("");
 
       const firstS = local[0] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[0]} - {visit[0]}</Text> : null
       const secondS = local[1] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[1]} - {visit[1]}</Text> : null
@@ -218,8 +218,9 @@ class Match extends Component{
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
                 {
                   item.event.half_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Half time </Text>
-                  : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
+                  : ((item.event.minute == 45 && item.event.time == "Half time") || item.event.minute == 90)  ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" + </Text> : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
                 }
+
               </View>
           );
         } else if(item.event.sport.name == "Baskeball" || item.event.sport.name == "Football"){
@@ -228,7 +229,7 @@ class Match extends Component{
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
                 {
                   item.event.half_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Half time </Text>
-                  : ((item.event.minute == 45 && item.event.time == "Half time") || item.event.minute == 90)  ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" + </Text> : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
+                  : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
                 }
               </View>
             );

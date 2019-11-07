@@ -267,6 +267,8 @@ class Friends extends Component{
       return data.map((item, index) => {
         const users = [item.user_a.username, item.user_b.username];
         const friend = users.filter(user => user!= currentUser);
+        
+        const country = item.user_a.username == currentUser ? item.user_b.profile.country : item.user_a.profile.country;
 
         return(
           <View key = {index}>
@@ -279,7 +281,7 @@ class Friends extends Component{
                   />
                   <View>
                     <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 15, fontWeight: "300", color: "white"}}>{friend}</Text>
-                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {item.user_b.profile.country} </Text>
+                    <Text style = {{ marginTop: 5, color: "gray", fontSize: 12, fontWeight: "300", color: "gray"}}> <FontAwesome>{Icons.mapMarker}</FontAwesome> {country} </Text>
                   </View>
                 </View>
                 <TouchableOpacity onPress ={this.getUser.bind(this, friend, true, false)}>
@@ -294,13 +296,14 @@ class Friends extends Component{
 
   requestsList(data){
         return data.map((item, index) => {
+   
           return(
             <View key = {index}>
               <View style = {styles.tableStyle}>
                 <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
                   <View style= {{flexDirection:"row"}}>
                     <Image
-                      source = {{uri: item.image}}
+                      source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                       style = {styles.image}
                     />
                     <View>
@@ -310,6 +313,7 @@ class Friends extends Component{
                   </View>
                   {this.state.requestsIndex ?
                     <View style = {{position: "absolute", right: 5, flexDirection: "row", top: 10}}>
+        
                       <TouchableOpacity style = {{padding: 5, borderRadius: 5, backgroundColor: "#00B073", alignSelf: "center"}} onPress = {this.createFriends.bind(this, item)}>
                         <Text style= {{alignSelf: "center", color: "white"}}>Accept</Text>
                       </TouchableOpacity>

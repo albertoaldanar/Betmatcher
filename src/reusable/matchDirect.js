@@ -72,7 +72,7 @@ class MatchDirect extends Component{
     const finalQuote = quoteSelected * -1;
     
     return(
-      <LinearGradient style = {{flex: 1, margin: 0, borderRadius: 5}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+      <LinearGradient style = {{flex: 1, margin: 0, borderRadius: 0}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
 
         <TouchableOpacity
             style = {{position: "absolute", left: 6, top: 6, marginBottom: 40}}

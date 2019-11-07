@@ -279,7 +279,11 @@ class Home extends Component{
 
 
   leaguesScroll(){
-    return this.state.leagues.map(item => {
+    const {leagues}= this.state;
+
+    const topLeagues = leagues.filter(x => x.top); 
+
+    return topLeagues.map(item => {
         return(
           <TouchableOpacity onPress = {this.callNavigation.bind(this, "FilteredEvents", item.name)}>
             <Image

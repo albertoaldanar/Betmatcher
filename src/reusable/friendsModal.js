@@ -24,7 +24,7 @@ class FriendsModal extends Component{
                 <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
                   <View style= {{flexDirection:"row"}}>
                     <Image
-                      source = {{uri: User.image}}
+                      source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                       style = {styles.image}
                     />
                     <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{friend[0]}</Text>

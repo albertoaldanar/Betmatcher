@@ -363,7 +363,7 @@ class Profile extends Component{
 
               <View style = {{paddingBottom: 10}}>
                   <View style = {{flexDirection:"row", margin: 20, marginBottom: 15, marginTop: 12}}>
-                    <Image style={styles.imageStyle} source={{uri: User.image}}/>
+                    <Image style={styles.imageStyle} source={{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}/>
 
                     <View>
                       <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {this.state.username} </Text>
@@ -415,8 +415,8 @@ class Profile extends Component{
 
 const styles = {
   imageStyle:{
-    width: Dimensions.get('window').width * 0.2,
-    height: Dimensions.get('window').width * 0.2,
+    width: Dimensions.get('window').width * 0.22,
+    height: Dimensions.get('window').width * 0.22,
     marginRight: 10
   },
   stats: {

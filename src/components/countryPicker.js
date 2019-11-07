@@ -16,9 +16,9 @@ class CountryPicker extends Component{
 	render(){
 		const countries = [
 			"Afghanistan", "Albania", "Algeria", "Andorra", "Angola" ,"Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
-			"The Bahamas", "Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi", 
-
-
+			"The Bahamas", "Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi", "Cabo Verde", "Cambodia", 
+			"Cameroon", "Canada", "Central African Republic (CAR)", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Cote d'Ivoire", "Croatia","Cuba","Cyprus", "Czechia", "Denmark", "Djibouti", "Dominica", "Dominican Republic", 
+			"Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia",
 		];
 
 		const pick = {

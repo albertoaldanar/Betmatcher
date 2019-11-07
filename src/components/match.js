@@ -257,9 +257,12 @@ class Match extends Component{
         }
   }
 
+
   renderMatches(data){
     return data.map(item => {
       const order = this.state.currentUser == item.back_user.username ? [["You", item.back_team], [item.lay_user.username, item.lay_team]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
+
+      // const order = this.state.currentUser == item.back_user.username && item.back_user.username  == item.local.name ? [["You", item.local.name], [item.lay_user.username, item.visit.name]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
       console.log(item);
 
         return (
@@ -357,7 +360,7 @@ class Match extends Component{
 
       var swipeoutBtns = [
           {
-            text: 'Cancel request',
+            text: 'Cancel',
             backgroundColor: "#D24D57",
             onPress: this.cancelRequest.bind(this, item.id)
           }

@@ -54,7 +54,7 @@ class UserCard extends Component{
                 </TouchableOpacity>
 
                   <View style = {{flexDirection:"row", margin: 20, marginBottom: 15, marginTop: 12}}>
-                    <Image style={styles.imageStyle} source={{uri: User.image}}/>
+                    <Image style={styles.imageStyle} source={{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}/>
 
                     <View>
                       <Text style = {[styles.username, {alignSelf:"flex-start", fontWeight:"300"}]}> {userSelected.username} </Text>

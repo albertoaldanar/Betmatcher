@@ -20,7 +20,7 @@ class YouHaveMatch extends Component{
             <View style = {styles.users}>
               <View>
                 <Image
-                  source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
+                  source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                   style= {styles.image}
                 />
                 <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>You</Text>
@@ -31,7 +31,7 @@ class YouHaveMatch extends Component{
 
               <View>
                 <Image
-                  source = {{uri: "https://pizzasundayclub.com/wp/wp-content/uploads/2016/08/george-profile-350-circle.png.png"}}
+                  source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                   style= {styles.image}
                 />
                 <Text style = {[styles.text, {fontStyle: "oblique", fontSize: 15, fontWeight: "400", color: "#00B073"}]}>{this.props.user.back_user.username}</Text>

@@ -170,7 +170,7 @@ class Friends extends Component{
       })
       .then(res => res.json())
       .then(jsonRes => {
-        this.getData(1)
+        this.getData()
       })
       .catch(error => console.log(error));
   }
@@ -274,7 +274,7 @@ class Friends extends Component{
               <View style = {{flexDirection: "row", justifyContent:"space-between"}}>
                 <View style= {{flexDirection:"row"}}>
                   <Image
-                    source = {{uri: User.image}}
+                    source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                     style = {styles.image}
                   />
                   <View>
@@ -359,10 +359,10 @@ class Friends extends Component{
             </View>
 
 
-            <View style = {{flexDirection: "row", justifyContent:"space-between", padding: 10, paddingLeft: 0}}>
+            <View style = {{flexDirection: "row", justifyContent:"space-between", padding: 10, paddingLeft: 0, marginTop: 10, marginBottom: 10}}>
                 <View style= {{flexDirection:"row"}}>
                   <Image
-                    source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
+                    source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                     style = {styles.image}
                   />
                   

@@ -121,8 +121,8 @@ class Menu extends Component {
           <LinearGradient start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "black", "gray"]}>
             <View style = {styles.userContainer}>
               <Image
-                source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
-                style = {{width: 80, height: 80, marginBottom: 20, marginLeft: 5}}
+                source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
+                style = {{width: 100, height: 100, marginBottom: 20, marginLeft: 5}}
               />
 
               <View>

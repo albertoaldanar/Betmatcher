@@ -62,7 +62,7 @@ class UserSearch extends Component{
           return(
             <View>
               <View style = {{ margin: 20, marginBottom: 15, marginTop: 50, alignItems: "center"}}>
-                    <Image style={styles.imageStyle} source={{uri: User.image}}/>
+                    <Image style={styles.imageStyle} source={{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}/>
 
                     <View>
                       <Text style = {[styles.username, {fontWeight:"300"}]}> {userSelected.username} </Text>

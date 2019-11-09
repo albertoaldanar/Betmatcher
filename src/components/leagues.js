@@ -51,7 +51,10 @@ class Leagues extends Component{
       },
     };
 
-    let renderLeagues = this.props.leagues.map((l, i) => {
+
+    const leaguesWithInstruction = [{name: "Select a league"}].concat(this.props.leagues);
+
+    let renderLeagues = leaguesWithInstruction.map((l, i) => {
       return <Picker.Item key = {i} label = {l.name} value ={l.name}/>
 
     })
@@ -68,7 +71,8 @@ class Leagues extends Component{
           </TouchableOpacity>
          <View style = {styles.pickerContainer}>
           <Picker
-              itemStyle ={pick}
+              style = {{color: "white"}}
+              itemStyle ={styles.pickerStyle}
               selectedValue={this.state.league}
               onValueChange={(itemValue, itemIndex) => this.setState({league: itemValue})}
             >

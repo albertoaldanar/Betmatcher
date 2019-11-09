@@ -264,6 +264,7 @@ class MatchARequest extends Component{
           </View>
         </View>
         {this.renderSegmentedController()}
+
         {this.betChoice()}
 
         <Modal

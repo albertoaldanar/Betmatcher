@@ -325,7 +325,7 @@ class Match extends Component{
                       value={item.amount}
                       displayType={'text'}
                       thousandSeparator={true}
-                      renderText= {value => <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                      renderText= {value => <Text style = {{color: "#DAA520", fontSize: 13}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
                     /> 
 
                   </View>
@@ -416,7 +416,7 @@ class Match extends Component{
                         value={item.amount}
                         displayType={'text'}
                         thousandSeparator={true}
-                        renderText= {value => <Text style = {{color: "#DAA520", fontSize: 13, fontWeight: "600"}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                        renderText= {value => <Text style = {{color: "#DAA520", fontSize: 13}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
                       /> 
                     </View>
                   </View>

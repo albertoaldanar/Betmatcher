@@ -22,7 +22,8 @@ class MatchARequest extends Component{
       userSelected: "",
       userCard: false,
       profile: [],
-      friendAnalysis: null
+      friendAnalysis: null,
+      showInstructions: false
     }
   }
 
@@ -114,7 +115,7 @@ class MatchARequest extends Component{
                     </View>
 
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress = {() => this.setState({showInstructions: true})}>
                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           HOW IT WORKS?
                        </Text>
@@ -125,7 +126,7 @@ class MatchARequest extends Component{
                     </TouchableOpacity>
                 </View>
 
-                <ScrollView style = {{height: Dimensions.get("window").height }}>
+                <ScrollView style = {{height: Dimensions.get("window").height * 0.7}}>
                   {this.userList(teamsNotSelected[0].name, position )}
                 </ScrollView>
               </View>
@@ -154,7 +155,7 @@ class MatchARequest extends Component{
                     </View>
 
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress = {() => this.setState({showInstructions: true})}>
                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           HOW IT WORKS?
                        </Text>
@@ -165,7 +166,7 @@ class MatchARequest extends Component{
                     </TouchableOpacity>
                 </View>
                 
-                <ScrollView style = {{height: Dimensions.get("window").height }}> 
+                <ScrollView style = {{height: Dimensions.get("window").height * 0.7 }}> 
                   {this.userList(teamsNotSelected[1].name,  position)}
                 </ScrollView>
               </View>
@@ -192,7 +193,7 @@ class MatchARequest extends Component{
               <View style = {{flexDirection: "row", justifyContent:"space-between", padding: 10, borderBottomColor: "gray", borderBottomWidth: 0.3}}>
                 <View style= {{flexDirection:"row"}}>
                   <Image
-                    source = {{uri: "https://yena.co.uk/wp-content/uploads/2018/01/profile-circle.png"}}
+                    source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                     style = {styles.image}
                   />
                   
@@ -277,6 +278,27 @@ class MatchARequest extends Component{
               isFriend ={friendAnalysis} profile = {profile} userSelected = {userSelected}
               addButton = {false}
             />
+        </Modal>
+
+        <Modal
+            style={{ flex: 1}}
+            isVisible={this.state.showInstructions}
+            backdropOpacity = {0.8}
+        >
+          <View style = {{flex: 1}}>
+              
+            <TouchableOpacity style = {{margin: 10}} onPress = {() => this.setState({showInstructions: false})}>
+              <Text style = {{color: "#ffff", fontSize: 21}}>X</Text>
+            </TouchableOpacity>
+
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 18}}>Betmatcher´s base quote for this match is 20%.</Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 18}}>Analyse which bet fits better for your.</Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, fontSize: 20, color: "white", fontSize: 18}}>Pick smart :)</Text>
+
+            <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, margin: 10, marginTop: 50, borderRadius: 5}} onPress = {() => this.setState({showInstructions: false})}>
+              <Text style = {{color: "white", alignSelf: "center", textAlign: "center"}}>Got it <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>
+            </TouchableOpacity>
+          </View>
         </Modal>
 
       </View>

@@ -25,6 +25,14 @@ class Leagues extends Component{
       inputAndroid: {
         color: 'white',
       },
+      androidPicker: {
+            color: 'red',
+            backgroundColor: 'red',
+            marginBottom: 20,
+            height: 40,
+            alignSelf: 'center', 
+            justifyContent:'center',
+      },
       placeholderColor: 'white',
       underline: { borderTopWidth: 0 },
       icon: {
@@ -60,7 +68,7 @@ class Leagues extends Component{
           </TouchableOpacity>
          <View style = {styles.pickerContainer}>
           <Picker
-              itemStyle ={styles.pickerStyle}
+              itemStyle ={pick}
               selectedValue={this.state.league}
               onValueChange={(itemValue, itemIndex) => this.setState({league: itemValue})}
             >
@@ -102,7 +110,7 @@ const styles = {
     fontSize: 20,
     borderBottomColor: "white",
     borderBottomWidth:1,
-    underline: { borderWidth: 0, borderColor: "white" },
+    underline: { borderWidth: 0, borderColor: "white" }
   },
   pickerContainer: {
     justifyContent: 'center',

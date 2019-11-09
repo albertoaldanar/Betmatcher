@@ -103,11 +103,11 @@ class GameInfo extends Component{
                 Traded
             </Text>
 
-            <NumberFormat
-                value={data.data.traded}
-                displayType={'text'}
-                thousandSeparator={true}
-                renderText= {value => <Text style ={styles.number}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+           <NumberFormat
+                    value={data.data.traded}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    renderText={value => <Text style= {{color:"#DAA520"}}>{value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
             /> 
         </View>
 
@@ -157,10 +157,10 @@ class GameInfo extends Component{
             </Text>
             
             <NumberFormat
-                value={isFinite(highestBet) ? highestBet: 0}
-                displayType={'text'}
-                thousandSeparator={true}
-                renderText= {value => <Text style ={styles.number}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                    value={isFinite(highestBet) ? highestBet: 0}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    renderText={value => <Text style= {{color:"#DAA520"}}>{value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
             /> 
         </View>
       </View>
@@ -212,7 +212,6 @@ const styles = {
   number: {
     color:"#DAA520",
     fontSize: 13,
-    fontWeight: "700",
     alignSelf:"center",
   }
 }

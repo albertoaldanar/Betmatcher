@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl} from "react-native";
+import {View, Text, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView , ActivityIndicator, AsyncStorage, RefreshControl, Platform, BackHandler, ToastAndroid} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import Url from "../constants/url";
 import Header from "../reusable/header";
@@ -47,7 +47,8 @@ class Home extends Component{
    }
   }
 
-  componentWillUnmount() {
+  componentWillMount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     this._isMounted = false;
   }
 
@@ -76,12 +77,14 @@ class Home extends Component{
 
   componentDidMount(){
     // this.interval = setInterval(() => this.callHome(), 3000);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     return this.callHome()
   }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.interval);
-  // }
+  handleBackButton() {
+        ToastAndroid.show('Back only with header', ToastAndroid.SHORT);
+        return true;
+  }
 
   showSidebar(){
     this.setState({showSidebar: true})
@@ -254,7 +257,7 @@ class Home extends Component{
                           value={event.data.traded}
                           displayType={'text'}
                           thousandSeparator={true}
-                          renderText= {value => <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontWeight: "bold", fontSize: 14, color: "#DAA520"}]}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                          renderText= {value => <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10, fontSize: 14, color: "#DAA520"}]}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
                       />
                     </View>
 
@@ -496,7 +499,6 @@ const styles = {
   game: {
     color:"#ffff",
     fontSize: 12,
-    fontWeight: "600",
     paddingRight: 5,
   },
   user: {

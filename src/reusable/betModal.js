@@ -195,7 +195,7 @@ class BetModal extends Component{
                       <View style = {{marginTop: 10, marginLeft: 10,}}>
                             <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
 
-                            <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
+                            <View style = {{width: Dimensions.get("window").width * 0.35, borderRadius: 5, flexDirection:"row",}}>
 
                                 { fq > 0 ?
                                   <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
@@ -244,7 +244,7 @@ class BetModal extends Component{
                       <View style = {{marginTop: 10, marginLeft: 10,}}>
                             <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
 
-                            <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
+                            <View style = {{width: Dimensions.get("window").width * 0.35, borderRadius: 5, flexDirection:"row",}}>
 
                                 { sq > 0 ?
                                   <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
@@ -297,7 +297,7 @@ class BetModal extends Component{
                       <View style = {{marginTop: 10, marginLeft: 10,}}>
                             <Text style = {{color: "gray", fontStyle: "oblique", marginBottom: 10}}>Opponent will bet: </Text>
 
-                            <View style = {{width: Dimensions.get("window").width * 0.2, borderRadius: 5, flexDirection:"row",}}>
+                            <View style = {{width: Dimensions.get("window").width * 0.4, borderRadius: 5, flexDirection:"row",}}>
      
                                 { fq > 0 ?
                                   <FontAwesome style = {{ fontSize: 20, marginTop: 6, marginRight: 4, color: "#00B073"}}>{Icons.sortUp}</FontAwesome> :
@@ -309,14 +309,14 @@ class BetModal extends Component{
         
 
                               <View style = {{flexDirection: "row"}}>
-                                <TouchableOpacity style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, marginRight: 3, borderRadius: 5}}
+                                <TouchableOpacity style = {{padding: 0, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, marginRight: 3, borderRadius: 5}}
                                   onPress = {this.customizeQuotes.bind(this, "fq", "-")}
                                 >
                                     <Text style = {{color: "#00B073", fontSize: 20}}> - </Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity 
-                                  style = {{padding: 4, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, borderRadius: 5}}
+                                  style = {{padding: 0, borderColor:"gray", borderWidth: 0.3, paddingTop: 1, paddingBottom: 1, borderRadius: 5}}
                                    onPress = {this.customizeQuotes.bind(this, "fq", "+")}
                                 >
                                     <Text style = {{color: "#00B073", fontSize: 20}}> + </Text>
@@ -352,9 +352,10 @@ class BetModal extends Component{
                 </View>
 
                 <View style = {{flexDirection: "row"}}>
-                  <Text style= {{fontWeight: "300", color: "#DAA520", marginTop: 18, fontSize: 20}}> £</Text>
+                  
+                  <FontAwesome style= {{fontWeight: "300", color: "#DAA520", marginTop: 18, fontSize: 20}}>{Icons.database}</FontAwesome>
                   <TextInput
-                      style={{height: 40, borderBottomColor: "gray", borderWidth: 0.3, color: "#DAA520", width: Dimensions.get("window").width * 0.3, marginLeft: 10, fontWeight: "300", fontSize: 20}}
+                      style={{height: 45, borderBottomColor: "gray", borderWidth: 0.3, color: "#DAA520", width: Dimensions.get("window").width * 0.3, marginLeft: 10, fontWeight: "300", fontSize: 20}}
                       keyboardType='numeric'
                       textAlign={'center'}
                       value = {this.state.bet.toString()}

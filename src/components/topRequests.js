@@ -5,6 +5,7 @@ import Card from "../reusable/card";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import MatchDirect from "../reusable/matchDirect";
 import { NavigationActions } from "react-navigation";
+import NumberFormat from 'react-number-format';
 
 class TopRequests extends Component{
 
@@ -53,7 +54,12 @@ class TopRequests extends Component{
 
                 <View>
                   <Text style = {styles.exp}>Bet</Text>
-                  <Text style = {[styles.game, {alignSelf: "center", paddingBottom: 10 , color: "#DAA520"}]}>{r.amount} £</Text>
+                  <NumberFormat
+                      value={r.amount}
+                      displayType={'text'}
+                      thousandSeparator={true}
+                      renderText= {value => <Text style = {[styles.game, { fontWeight: "300", fontSize: 15, color: "#DAA520", marginLeft: 6}]}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                  /> 
                 </View>
 
                 <View>
@@ -100,7 +106,6 @@ const styles = {
   game: {
     color:"#ffff",
     fontSize: 12,
-    fontWeight: "600",
     paddingRight: 5
   },
   user: {

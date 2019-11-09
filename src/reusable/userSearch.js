@@ -134,7 +134,7 @@ class UserSearch extends Component{
         </TouchableOpacity>
 
         <TextInput
-            style={{height: 26, borderBottomColor: 'white', borderBottomWidth: 0.3, margin: 25, color: "white", marginTop: 40, borderRadius: 5}}
+            style={{height: 45, borderBottomColor: 'white', borderBottomWidth: 0.3, margin: 25, color: "white", marginTop: 40, borderRadius: 5}}
             placeholder = "Type username"
             placeholderTextColor = "gray"
             onChangeText = {this.onChangeInput("user")}

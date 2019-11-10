@@ -248,7 +248,7 @@ class MatchARequest extends Component{
 
     var position = this.props.team.position;
 
-    const instructionQuote = index == 0 ? teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes : teamsNotSelected[1].quotes[position]
+    const instructionQuote = index == 0 ? teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes : teamsNotSelected[1].quotes[position];
 
     const positiveInstructionQuote = instructionQuote < 0 ? instructionQuote * -1 : instructionQuote;
     

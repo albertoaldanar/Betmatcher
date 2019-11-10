@@ -183,6 +183,7 @@ class Match extends Component{
       var local = item.event.local_tennis.split("");
       var visit = item.event.visit_tennis.split("");
 
+      const players = <Text style = {{color: "gray", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{item.event.local.short_name} - {item.event.visit.short_name}</Text> 
       const firstS = local[0] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[0]} - {visit[0]}</Text> : null
       const secondS = local[1] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[1]} - {visit[1]}</Text> : null
       const thirdS = local[2] ? <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{local[2]} - {visit[2]}</Text> : null
@@ -192,6 +193,7 @@ class Match extends Component{
 
       return(
           <View style = {{alignSelf: "center", marginBottom: 5}}>
+              {players}
               {firstS}
               {secondS}
               {thirdS}
@@ -206,7 +208,12 @@ class Match extends Component{
       
     } else {
         return(
-          <Text style = {{color: "#00B073", fontSize: 16, fontWeight: "bold", alignSelf: "center"}}>{item.event.score_local} - {item.event.score_visit}</Text>
+          <View style = {{alignSelf: "center", flexDirection:"row"}}>
+              <Text style = {{color: "gray", fontSize: 14, fontWeight: "bold", alignSelf: "center", marginRight: 5}}>{item.event.local.short_name} </Text>
+              <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{item.event.score_local} - </Text>
+              <Text style = {{color: "#00B073", fontSize: 14, fontWeight: "bold", alignSelf: "center"}}>{item.event.score_visit} </Text>
+              <Text style = {{color: "gray", fontSize: 14, fontWeight: "bold", alignSelf: "center", marginRight: 5}}> {item.event.visit.short_name}</Text>
+          </View> 
         );
     }
   }

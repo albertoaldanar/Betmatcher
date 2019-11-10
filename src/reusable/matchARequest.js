@@ -101,7 +101,7 @@ class MatchARequest extends Component{
                           BASE QUOTE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes}% {teamsNotSelected[0].quotes || teamsNotSelected[0].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
+                          {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes} % 
                        </Text>
                     </View>
 
@@ -141,7 +141,7 @@ class MatchARequest extends Component{
                           BASE QUOTE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          {teamsNotSelected[1].quotes[position]}% { teamsNotSelected[1].quotes[position] > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
+                          {teamsNotSelected[1].quotes[position]} % 
                        </Text>
                     </View>
 
@@ -243,9 +243,16 @@ class MatchARequest extends Component{
   }
 
   render(){
-    const {coins} = this.props;
+    const {coins, game, teamsNotSelected, team, index} = this.props;
     const {friendAnalysis, profile, userSelected} = this.state;
-    console.log(this.props.requests);
+
+    var position = this.props.team.position;
+
+    const instructionQuote = index == 0 ? teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes : teamsNotSelected[1].quotes[position]
+
+    const positiveInstructionQuote = instructionQuote < 0 ? instructionQuote * -1 : instructionQuote;
+    
+    const message = instructionQuote > 0 ? `It means your opponent should bet around ${positiveInstructionQuote}% more than you for a fair bet` : positiveInstructionQuote == 0 ? `It means both users should bet the same amount because bet is SUPER equal` : `It means you should bet around ${positiveInstructionQuote}% more than your opponent for a fair bet.`
 
     return(
       <View style = {{flex:1, backgroundColor:"black"}}>
@@ -283,17 +290,19 @@ class MatchARequest extends Component{
         <Modal
             style={{ flex: 1}}
             isVisible={this.state.showInstructions}
-            backdropOpacity = {0.8}
+            backdropOpacity = {0.87}
         >
           <View style = {{flex: 1}}>
               
-            <TouchableOpacity style = {{margin: 10}} onPress = {() => this.setState({showInstructions: false})}>
+            <TouchableOpacity style = {{margin: 7}} onPress = {() => this.setState({showInstructions: false})}>
               <Text style = {{color: "#ffff", fontSize: 21}}>X</Text>
             </TouchableOpacity>
 
-            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 18}}>Betmatcher´s base quote for this match is 20%.</Text>
-            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 18}}>Analyse which bet fits better for your.</Text>
-            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, fontSize: 20, color: "white", fontSize: 18}}>Pick smart :)</Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 20, marginBottom: 3, fontWeight: "600"}}>1) Betmatcher´s base quote for this match is {instructionQuote}%. </Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "gray", fontSize: 17, fontStyle: "oblique", marginTop: 10}}>- {message}</Text>
+
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 20, fontWeight: "600"}}>2) Every user sets ITS OWN QUOTE, analyse which bet fits better for your.</Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, fontSize: 20, color: "white", fontSize: 20, fontWeight: "600"}}>3) Pick smart :)</Text>
 
             <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, margin: 10, marginTop: 50, borderRadius: 5}} onPress = {() => this.setState({showInstructions: false})}>
               <Text style = {{color: "white", alignSelf: "center", textAlign: "center"}}>Got it <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>

@@ -49,6 +49,7 @@
 		741BE701B92746B5A0EFD19E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAEF416BB4AC421BA62C1096 /* Zocial.ttf */; };
 		77B80AE1B3D443B08B04293D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FACE338498284E88AF4F9994 /* Entypo.ttf */; };
 		7C5DFFF4230A2B47005C16A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C5DFFC7230A2B47005C16A8 /* GoogleService-Info.plist */; };
+		7C82E3C72378F0A000FE9795 /* libRNCPushNotificationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C82E39E2378F00700FE9795 /* libRNCPushNotificationIOS.a */; };
 		7CF05DEA21B1B80A00CB1610 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB46B2621B052CC0000E413 /* libART.a */; };
 		806818F047F04710988FAD5E /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10D3D0871B93447A8A5D7793 /* FontAwesome5_Brands.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -324,6 +325,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
+		7C82E39D2378F00700FE9795 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C82E3952378F00700FE9795 /* PushNotificationIOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9B97F66B220DEC6000B61540;
+			remoteInfo = RNCPushNotificationIOS;
+		};
 		7CB46B2521B052CC0000E413 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7CB46B2021B052CB0000E413 /* ART.xcodeproj */;
@@ -444,6 +452,7 @@
 		76FF327C981A4B50881709C7 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7C5DFFC7230A2B47005C16A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7C82E3952378F00700FE9795 /* PushNotificationIOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PushNotificationIOS.xcodeproj; path = "../node_modules/@react-native-community/push-notification-ios/ios/PushNotificationIOS.xcodeproj"; sourceTree = "<group>"; };
 		7CB46B2021B052CB0000E413 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8730147930A54E4692576865 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
@@ -479,6 +488,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C82E3C72378F0A000FE9795 /* libRNCPushNotificationIOS.a in Frameworks */,
 				7CF05DEA21B1B80A00CB1610 /* libART.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -712,6 +722,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7C82E3962378F00700FE9795 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7C82E39E2378F00700FE9795 /* libRNCPushNotificationIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7CB46B2121B052CB0000E413 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +779,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				7C82E3952378F00700FE9795 /* PushNotificationIOS.xcodeproj */,
 				7CB46B2021B052CB0000E413 /* ART.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -964,6 +983,10 @@
 				{
 					ProductGroup = 7CF05E2421B1FD7F00CB1610 /* Products */;
 					ProjectRef = 8730147930A54E4692576865 /* BVLinearGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = 7C82E3962378F00700FE9795 /* Products */;
+					ProjectRef = 7C82E3952378F00700FE9795 /* PushNotificationIOS.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1276,6 +1299,13 @@
 			fileType = archive.ar;
 			path = libRCTLinking.a;
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7C82E39E2378F00700FE9795 /* libRNCPushNotificationIOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCPushNotificationIOS.a;
+			remoteRef = 7C82E39D2378F00700FE9795 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7CB46B2621B052CC0000E413 /* libART.a */ = {
@@ -1655,6 +1685,7 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native/React",
+					"$(SRCROOT)/../node_modules/@react-native-community/push-notification-ios/ios/**",
 				);
 				INFOPLIST_FILE = Betmatcher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1683,6 +1714,7 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native/React",
+					"$(SRCROOT)/../node_modules/@react-native-community/push-notification-ios/ios/**",
 				);
 				INFOPLIST_FILE = Betmatcher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

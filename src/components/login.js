@@ -1,11 +1,13 @@
 import React, {Component} from "react";
-import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage, Modal} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage, Modal, AppState, StatusBar} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
 import {NavigationActions} from "react-navigation";
 import Wating from "../reusable/wating";
 import CountryPicker from "./countryPicker";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import PushNotification from "react-native-push-notification";
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 class Login extends Component{
 
@@ -22,13 +24,38 @@ class Login extends Component{
       errorMessage: "", 
       watingVisible: true,
       showCountries: false, 
-      country: ""
+      country: "", 
+      seconds: 5
     }
   }
 
   componentWillMount(){
     setTimeout(() => {this.setState({watingVisible: false})}, 2500)
   }
+
+  componentDidMount(){
+    AppState.addEventListener("change", this.handleAppStateChange.bind(this));
+
+    PushNotification.configure({
+      onNotification: function(notification) {
+        console.log("NOTIFICATION:", notification);
+      },
+    });
+  }
+
+  componentWillUnmount(){
+    AppState.addEventListener("change", this.handleAppStateChange.bind(this));
+  }
+
+  handleAppStateChange(appState){
+    PushNotification.localNotificationSchedule({
+      //... You can use all the options from localNotifications
+      message: "You have a match!", // (required)
+      date: new Date(Date.now() + ( 5 * 1000)) // in 60 secs
+    });
+    console.log("hello")
+  }
+
 
   closeCountries(){
     this.setState({showCountries: false});
@@ -241,9 +268,10 @@ class Login extends Component{
   render(){
     console.log(this.state.errorMessage, this.state.country);
     return(
-      <LinearGradient style = {{flex: 1}} start={{x: 1, y: 1}} end={{x: 4 , y: 0}} colors = {["#161616", "gray"]}>
+      <View style = {{flex: 1, backgroundColor: "#161616"}}>
+        <StatusBar hidden = {true}/>
 
-        <Image source = {require('../images/smkt.png')} style = {{width: Dimensions.get("window").width * 0.6, height: 50, alignSelf: "center", marginTop: 55}}/>
+        <Image source = {require('../images/betmatcher-bmw.png')} style = {{width: Dimensions.get("window").width * 0.8, height: 50, alignSelf: "center", marginTop: 55}}/>
 
         {this.registrationForm()}
   
@@ -256,7 +284,7 @@ class Login extends Component{
         <CountryPicker closeModal = {this.closeCountries.bind(this)} onChangeCountry = {this.selectCountry.bind(this)}/>
       </Modal>
 
-      </LinearGradient>
+      </View>
     );
   }
 }

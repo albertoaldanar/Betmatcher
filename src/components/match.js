@@ -317,7 +317,7 @@ class Match extends Component{
 
                   {item.event.in_play ?
                       this.renderMintue(item) : item.event.is_finished ? this.resultDisplay(item) :
-                      <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("day").fromNow()}</Text>
+                      <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("hour").fromNow()}</Text>
                   }
 
                   { item.event.in_play || item.event.is_finished ?
@@ -485,6 +485,9 @@ class Match extends Component{
     console.log(this.state.unmatchedBets);
     const {userSelected, profile, friendAnalysis, requestedAnalysis, messages} = this.state;
     console.log(this.state.userID);
+
+    var offset = new Date().getTimezoneOffset();
+    console.log(offset);
 
     return(
       <View style = {styles.container}>

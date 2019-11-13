@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "777657685004",
+    "firebase_url": "https://betmatcherchat.firebaseio.com",
+    "project_id": "betmatcherchat",
+    "storage_bucket": "betmatcherchat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777657685004:android:878fd3f0963aab81ccca29",
+        "android_client_info": {
+          "package_name": "com.betmatcher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777657685004-hajk6i0tr6d72ep638lcfj523nqaofog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5WJzTy3I79xJv9Y1c1ls2VHXONrK71kI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777657685004-hajk6i0tr6d72ep638lcfj523nqaofog.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "777657685004-2kka5dhq54go92ges844qffi3bm87716.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Betmatcher"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

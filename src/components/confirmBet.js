@@ -21,7 +21,7 @@ class ConfirmBet extends Component{
       userCard: false,
       userSelected: {},
       profile: [],
-      friendAnalysis: null
+      friendAnalysis: null, userID: null
     }
   }
 
@@ -34,6 +34,11 @@ class ConfirmBet extends Component{
         } else {
           this.setState({ currentUser: false });
       }
+
+      const userIDGET = await AsyncStorage.getItem('userID');
+      this.setState({ userID: userIDGET });
+
+
       const getCoins = await AsyncStorage.getItem('coins');
       this.setState({ currentCoins: Number(getCoins)});
 
@@ -140,7 +145,7 @@ class ConfirmBet extends Component{
 
   render(){
     const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
-    console.log(teamsNotSelected);
+    console.log("ID:", this.state.userID);
 
     var finalQuote = quote < 0 ? quote * -1 : quote;
     var ADQuote = Math.round((finalQuote / 100) * user.amount);

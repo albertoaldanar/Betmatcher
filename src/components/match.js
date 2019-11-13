@@ -215,17 +215,21 @@ class Match extends Component{
               <Text style = {{color: "gray", fontSize: 14, fontWeight: "bold", alignSelf: "center", marginRight: 5}}> {item.event.visit.short_name}</Text>
           </View> 
         );
-    }
+      }
   }
 
   renderMintue(item){
+
         if(item.event.sport.name == "Soccer"){
+
+          var milliseconds = (new Date()).getTime() - Date.parse(item.event.date);
+          const min = ((milliseconds / 1000) / 60);
+  
           return(
               <View style = {{flexDirection: "row"}}>
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
                 {
-                  item.event.half_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Half time </Text>
-                  : ((item.event.minute == 45 && item.event.time == "Half time") || item.event.minute == 90)  ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" + </Text> : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {item.event.minute}" </Text>
+                  item.event.half_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Half time </Text> : item.event.second_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {Math.trunc(min) - 15}" </Text> : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {Math.trunc(min)}" </Text>
                 }
 
               </View>
@@ -266,11 +270,15 @@ class Match extends Component{
 
 
   renderMatches(data){
+
     return data.map(item => {
       const order = this.state.currentUser == item.back_user.username ? [["You", item.back_team], [item.lay_user.username, item.lay_team]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
 
       // const order = this.state.currentUser == item.back_user.username && item.back_user.username  == item.local.name ? [["You", item.local.name], [item.lay_user.username, item.visit.name]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
-      console.log(item);
+      // console.log(item);
+      //     var now = new Date();
+      //     var elapsedT = now - item.event.date; 
+      //     console.log(now)
 
         return (
           <View style = {{marginTop: 7}}>
@@ -485,9 +493,6 @@ class Match extends Component{
     console.log(this.state.unmatchedBets);
     const {userSelected, profile, friendAnalysis, requestedAnalysis, messages} = this.state;
     console.log(this.state.userID);
-
-    var offset = new Date().getTimezoneOffset();
-    console.log(offset);
 
     return(
       <View style = {styles.container}>

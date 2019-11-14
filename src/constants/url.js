@@ -1,7 +1,7 @@
 //Depa
-// Url = "192.168.0.3"
+Url = "192.168.0.3"
 // Oficina
-Url = "192.168.8.5";
+// Url = "192.168.8.5";
 // //Starbucks gran plaza
 // Url = "10.188.241.209"
 //Ricos zona dorada

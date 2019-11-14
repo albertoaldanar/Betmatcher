@@ -222,14 +222,19 @@ class Match extends Component{
 
         if(item.event.sport.name == "Soccer"){
 
-          var milliseconds = (new Date()).getTime() - Date.parse(item.event.date);
+          var time = Date.parse(item.event.date)
+          var date = new Date(time);
+
+          var milliseconds = (new Date()).getTime() - date.getTime();
           const min = ((milliseconds / 1000) / 60);
-  
+          
+          const positiveMin = min < 0 ? min * -1 : min;
+
           return(
               <View style = {{flexDirection: "row"}}>
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
                 {
-                  item.event.half_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Half time </Text> : item.event.second_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {Math.trunc(min) - 15}" </Text> : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {Math.trunc(min)}" </Text>
+                  item.event.half_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Half time </Text> : item.event.second_time ? <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {Math.trunc(min) - (15 - item.event.added_time)}" </Text> : <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {Math.trunc(positiveMin)}" </Text>
                 }
 
               </View>
@@ -273,12 +278,8 @@ class Match extends Component{
 
     return data.map(item => {
       const order = this.state.currentUser == item.back_user.username ? [["You", item.back_team], [item.lay_user.username, item.lay_team]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
-
-      // const order = this.state.currentUser == item.back_user.username && item.back_user.username  == item.local.name ? [["You", item.local.name], [item.lay_user.username, item.visit.name]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
-      // console.log(item);
-      //     var now = new Date();
-      //     var elapsedT = now - item.event.date; 
-      //     console.log(now)
+        var time = Date.parse(item.event.date)
+        var date = new Date(time);
 
         return (
           <View style = {{marginTop: 7}}>
@@ -325,7 +326,7 @@ class Match extends Component{
 
                   {item.event.in_play ?
                       this.renderMintue(item) : item.event.is_finished ? this.resultDisplay(item) :
-                      <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome>  {Moment(item.event.date).endOf("hour").fromNow()}</Text>
+                      <Text style = {{color: "gray", fontStyle: "oblique", fontWeight: "400", fontSize: 12}}> <FontAwesome>{Icons.calendar}</FontAwesome> {Moment(date).calendar()}</Text>
                   }
 
                   { item.event.in_play || item.event.is_finished ?

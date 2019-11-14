@@ -498,7 +498,8 @@ class Match extends Component{
     return(
       <View style = {styles.container}>
         <NavigationEvents
-          onDidFocus={payload => this.getMatches()}
+          onDidFocus={payload => this.interval = setInterval(() => this.getMatches(), 6000) }
+          onDidBlur = {payload => clearInterval(this.interval)}
         />
 
         <View style = {{marginTop: 25}}>

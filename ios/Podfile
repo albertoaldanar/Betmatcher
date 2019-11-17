@@ -1,23 +1,28 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '12.1'
 
+
 target 'Betmatcher' do
   # Comment the next line if you don't want to use dynamic frameworks
   # use_frameworks!
 
   # Pods for Betmatcher
   pod 'Firebase/Analytics'
-
   # target 'Betmatcher-tvOSTests' do
   #   inherit! :search_paths
   #   # Pods for testing
   # end
+  # pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
   target 'BetmatcherTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
+end
+
+target 'OneSignalNotificationServiceExtension' do
+    pod 'OneSignal', '>= 2.9.3', '< 3.0'
 end
 
 target 'Betmatcher-tvOS' do

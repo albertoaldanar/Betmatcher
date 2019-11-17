@@ -6,13 +6,15 @@ import {NavigationActions} from "react-navigation";
 import Wating from "../reusable/wating";
 import CountryPicker from "./countryPicker";
 import FontAwesome, {Icons} from "react-native-fontawesome";
-import PushNotification from "react-native-push-notification";
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import OneSignal from 'react-native-onesignal';
 
 class Login extends Component{
 
   constructor(props){
     super(props);
+
+    OneSignal.addEventListener('ids', this.onIds);
+
     this.state= {
       username: "",
       email: "",
@@ -25,7 +27,7 @@ class Login extends Component{
       watingVisible: true,
       showCountries: false, 
       country: "", 
-      seconds: 5
+      seconds: 5, notification_token: ""
     }
   }
 
@@ -33,29 +35,35 @@ class Login extends Component{
     setTimeout(() => {this.setState({watingVisible: false})}, 2500)
   }
 
-  componentDidMount(){
-    AppState.addEventListener("change", this.handleAppStateChange.bind(this));
+  // componentDidMount(){
+  //   AppState.addEventListener("change", this.handleAppStateChange.bind(this));
 
-    PushNotification.configure({
-      onNotification: function(notification) {
-        console.log("NOTIFICATION:", notification);
-      },
-    });
+  //   PushNotification.configure({
+  //     onNotification: function(notification) {
+  //       console.log("NOTIFICATION:", notification);
+  //     },
+  //   });
+  // }
+
+  // componentWillUnmount(){
+  //   AppState.addEventListener("change", this.handleAppStateChange.bind(this));
+  // }
+
+  // handleAppStateChange(appState){
+  //   PushNotification.localNotificationSchedule({
+  //     //... You can use all the options from localNotifications
+  //     message: "You have a match!", // (required)
+  //     date: new Date(Date.now() + ( 5 * 1000)) // in 60 secs
+  //   });
+  //   console.log("hello")
+  // }
+
+  onIds(device) {
+      console.log("NOTIFICATION TOKEN  => ", device.userId);
+      try {
+            AsyncStorage.setItem('notification_token', device.userId);
+          } catch (error) {console.log(error)}
   }
-
-  componentWillUnmount(){
-    AppState.addEventListener("change", this.handleAppStateChange.bind(this));
-  }
-
-  handleAppStateChange(appState){
-    PushNotification.localNotificationSchedule({
-      //... You can use all the options from localNotifications
-      message: "You have a match!", // (required)
-      date: new Date(Date.now() + ( 5 * 1000)) // in 60 secs
-    });
-    console.log("hello")
-  }
-
 
   closeCountries(){
     this.setState({showCountries: false});
@@ -65,11 +73,15 @@ class Login extends Component{
     this.setState({ country, showCountries: false })
   }
 
-  userAction(action){
-    const {username, password, password_confirmation, email, country} = this.state;
+  async userAction(action){
+    const notificationTokenGet = await AsyncStorage.getItem('notification_token');
+    this.setState({ notification_token: notificationTokenGet});
+
+
+    const {username, password, password_confirmation, email, country, notification_token} = this.state;
     var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation, "country": country}
 
-      return fetch(`http://${Url}:8000/users/${action}/`, {
+      return fetch(`http://${Url}:8000/users/${action}/?notification_token=${notification_token}`, {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -266,7 +278,7 @@ class Login extends Component{
   }
 
   render(){
-    console.log(this.state.errorMessage, this.state.country);
+
     return(
       <View style = {{flex: 1, backgroundColor: "#161616"}}>
         <StatusBar hidden = {true}/>

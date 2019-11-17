@@ -7,8 +7,6 @@ import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
 import Moment from "moment";
 import NumberFormat from 'react-number-format';
-import PushNotification from "react-native-push-notification";
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 class ConfirmBet extends Component{
 
@@ -41,12 +39,6 @@ class ConfirmBet extends Component{
 
       const getCoins = await AsyncStorage.getItem('coins');
       this.setState({ currentCoins: Number(getCoins)});
-
-      PushNotification.configure({
-        onNotification: function(notification) {
-          console.log("NOTIFICATION:", notification);
-        },
-      });
   }
 
   getUser(user){
@@ -106,11 +98,6 @@ class ConfirmBet extends Component{
       console.log(jsonRes)
       if(jsonRes.match){
          this.setState({visible: !this.state.visible})
-          PushNotification.localNotificationSchedule({
-      //... You can use all the options from localNotifications
-            message: "You have a match!", // (required)
-            date: new Date(Date.now()) // in 60 secs
-          });
       }
     })
     .catch(error => console.log(error));

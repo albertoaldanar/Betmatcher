@@ -2,15 +2,19 @@ import React from "react";
 import {AsyncStorage} from "react-native";
 import Wating from "./reusable/wating";
 import {createRootNavigator} from "./nav/navigator";
+import OneSignal from 'react-native-onesignal';
 
 class App extends React.Component {
 
 	constructor(props){
 		super(props);
 		this.state = {
-			currentUser: ""
+			currentUser: "",
 		}
+		OneSignal.init("59f7fce2-a8c6-49ef-846e-bd95e45bf8b7")
+		// OneSignal.addEventListener('ids', this.onIds)
 	}
+
 
 	async componentWillMount(){
 		const userGet = await AsyncStorage.getItem('username');

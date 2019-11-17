@@ -14,7 +14,6 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* BetmatcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BetmatcherTests.m */; };
 		0F0E78D7996C43B8863CB316 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 457A21ADC4BB4AF3942CBBBE /* Ionicons.ttf */; };
-		1182E667BDDA4529BA6F71F4 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C5B38BB2F4E4DB722F5EB /* libRNFirebase.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -43,6 +42,7 @@
 		41EC7A08825733ACB138A9A0 /* libPods-Betmatcher-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C794AC4E70F89CF54CB00F07 /* libPods-Betmatcher-tvOS.a */; };
 		550670227A424F5096DE4167 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA2964ABBF224C3EB9DBF3C0 /* Feather.ttf */; };
 		59561A2D0B002DFEE2E86E54 /* libPods-Betmatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 371F57C42E8C964C57499EB2 /* libPods-Betmatcher.a */; };
+		5BE777C191E6BB87CC70C34B /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 184BF08CF6898A5670712616 /* libPods-OneSignalNotificationServiceExtension.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		680610D1D4084986B50E7E13 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B15F262FF94157A9F9EBFB /* libBVLinearGradient.a */; };
 		691075727E014367BFD843E0 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3235AFAE559D4DE9A6056D08 /* MaterialIcons.ttf */; };
@@ -51,6 +51,8 @@
 		77B80AE1B3D443B08B04293D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FACE338498284E88AF4F9994 /* Entypo.ttf */; };
 		7C44B58A237A6E3500CE0500 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C44B589237A6E3500CE0500 /* GoogleService-Info.plist */; };
 		7C82E3C72378F0A000FE9795 /* libRNCPushNotificationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C82E39E2378F00700FE9795 /* libRNCPushNotificationIOS.a */; };
+		7C9A3741237F86A00079B5AB /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C9A3740237F86A00079B5AB /* NotificationService.m */; };
+		7C9A3745237F86A00079B5AB /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7C9A373D237F86A00079B5AB /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7CF05DEA21B1B80A00CB1610 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB46B2621B052CC0000E413 /* libART.a */; };
 		806818F047F04710988FAD5E /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10D3D0871B93447A8A5D7793 /* FontAwesome5_Brands.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -326,19 +328,19 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
-		7C26E286237C832B00205F48 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8755D202BBA44180A9F251ED /* RNFirebase.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNFirebase;
-		};
 		7C82E39D2378F00700FE9795 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7C82E3952378F00700FE9795 /* PushNotificationIOS.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9B97F66B220DEC6000B61540;
 			remoteInfo = RNCPushNotificationIOS;
+		};
+		7C9A3743237F86A00079B5AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C9A373C237F86A00079B5AB;
+			remoteInfo = OneSignalNotificationServiceExtension;
 		};
 		7CB46B2521B052CC0000E413 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -406,6 +408,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7C9A3776237F86A00079B5AB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7C9A3745237F86A00079B5AB /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7CB46B8621B057040000E413 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,6 +452,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Betmatcher/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Betmatcher/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		184BF08CF6898A5670712616 /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E9EF06B73814D75A13E7BE1 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
 		286A22A42D4B46518BABA2E6 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		29B15F262FF94157A9F9EBFB /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -451,6 +465,7 @@
 		3414A3A595D5F719344C2A9D /* libPods-Betmatcher-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Betmatcher-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		371F57C42E8C964C57499EB2 /* libPods-Betmatcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Betmatcher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		39342CA486E041ABBA79A882 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
+		44FDF6F60FEC8018BEA9D0B6 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		457A21ADC4BB4AF3942CBBBE /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		49486C4D5743CDF277A0EDBA /* libPods-BetmatcherTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BetmatcherTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D564D9B1E6920A84651D14 /* Pods-Betmatcher-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Betmatcher-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Betmatcher-tvOS/Pods-Betmatcher-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -463,10 +478,13 @@
 		7C3119DF237A718A0047CBD4 /* Betmatcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Betmatcher.entitlements; path = Betmatcher/Betmatcher.entitlements; sourceTree = "<group>"; };
 		7C44B589237A6E3500CE0500 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C82E3952378F00700FE9795 /* PushNotificationIOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PushNotificationIOS.xcodeproj; path = "../node_modules/@react-native-community/push-notification-ios/ios/PushNotificationIOS.xcodeproj"; sourceTree = "<group>"; };
+		7C9A373D237F86A00079B5AB /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C9A373F237F86A00079B5AB /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		7C9A3740237F86A00079B5AB /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		7C9A3742237F86A00079B5AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CB46B2021B052CB0000E413 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8730147930A54E4692576865 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
-		8755D202BBA44180A9F251ED /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		92BAA0FA69B34884B4324507 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		AC2E4AC3FA92D3052BC03D46 /* Pods-Betmatcher-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Betmatcher-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Betmatcher-tvOS/Pods-Betmatcher-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		AC559AB7478DD3E7B47572D5 /* Pods-Betmatcher-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Betmatcher-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Betmatcher-tvOSTests/Pods-Betmatcher-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -481,6 +499,7 @@
 		C794AC4E70F89CF54CB00F07 /* libPods-Betmatcher-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Betmatcher-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7F1D178347410A93941B9E /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		DDBEA74CD355A43D9BF7B1CA /* Pods-Betmatcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Betmatcher.debug.xcconfig"; path = "Target Support Files/Pods-Betmatcher/Pods-Betmatcher.debug.xcconfig"; sourceTree = "<group>"; };
+		E690179D43A2DD86BABE864F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		FACE338498284E88AF4F9994 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		FB90340D873241EC9A8D2FDA /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -518,7 +537,6 @@
 				160DF8F452F04A8E892F52A5 /* libRNSVG.a in Frameworks */,
 				680610D1D4084986B50E7E13 /* libBVLinearGradient.a in Frameworks */,
 				59561A2D0B002DFEE2E86E54 /* libPods-Betmatcher.a in Frameworks */,
-				1182E667BDDA4529BA6F71F4 /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +563,14 @@
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
 				993A85B2A6BA026D4AB597EC /* libPods-Betmatcher-tvOSTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7C9A373A237F86A00079B5AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BE777C191E6BB87CC70C34B /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +703,7 @@
 				C794AC4E70F89CF54CB00F07 /* libPods-Betmatcher-tvOS.a */,
 				3414A3A595D5F719344C2A9D /* libPods-Betmatcher-tvOSTests.a */,
 				49486C4D5743CDF277A0EDBA /* libPods-BetmatcherTests.a */,
+				184BF08CF6898A5670712616 /* libPods-OneSignalNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -692,6 +719,8 @@
 				AC559AB7478DD3E7B47572D5 /* Pods-Betmatcher-tvOSTests.release.xcconfig */,
 				B05E419B476E445276C8FC63 /* Pods-BetmatcherTests.debug.xcconfig */,
 				AE76A74803A7FA28BDFF6FCB /* Pods-BetmatcherTests.release.xcconfig */,
+				E690179D43A2DD86BABE864F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				44FDF6F60FEC8018BEA9D0B6 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -735,20 +764,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7C26E283237C832B00205F48 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7C26E287237C832B00205F48 /* libRNFirebase.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7C82E3962378F00700FE9795 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				7C82E39E2378F00700FE9795 /* libRNCPushNotificationIOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7C9A373E237F86A00079B5AB /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				7C9A373F237F86A00079B5AB /* NotificationService.h */,
+				7C9A3740237F86A00079B5AB /* NotificationService.m */,
+				7C9A3742237F86A00079B5AB /* Info.plist */,
+			);
+			path = OneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
 		7CB46B2121B052CB0000E413 /* Products */ = {
@@ -818,7 +849,6 @@
 				31B33DF86214443498DC42CC /* RNVectorIcons.xcodeproj */,
 				FB90340D873241EC9A8D2FDA /* RNSVG.xcodeproj */,
 				8730147930A54E4692576865 /* BVLinearGradient.xcodeproj */,
-				8755D202BBA44180A9F251ED /* RNFirebase.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -838,6 +868,7 @@
 				13B07FAE1A68108700A75B9A /* Betmatcher */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BetmatcherTests */,
+				7C9A373E237F86A00079B5AB /* OneSignalNotificationServiceExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				4DC58D961CE946AC90BE2211 /* Resources */,
@@ -856,6 +887,7 @@
 				00E356EE1AD99517003FC87E /* BetmatcherTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* Betmatcher-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* Betmatcher-tvOSTests.xctest */,
+				7C9A373D237F86A00079B5AB /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -912,10 +944,12 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				7CB46B8621B057040000E413 /* CopyFiles */,
+				7C9A3776237F86A00079B5AB /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7C9A3744237F86A00079B5AB /* PBXTargetDependency */,
 			);
 			name = Betmatcher;
 			productName = "Hello World";
@@ -960,6 +994,24 @@
 			productReference = 2D02E4901E0B4A5D006451C7 /* Betmatcher-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		7C9A373C237F86A00079B5AB /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7C9A3775237F86A00079B5AB /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
+			buildPhases = (
+				1092E2225437AA18DB0AF42C /* [CP] Check Pods Manifest.lock */,
+				7C9A3739237F86A00079B5AB /* Sources */,
+				7C9A373A237F86A00079B5AB /* Frameworks */,
+				7C9A373B237F86A00079B5AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalNotificationServiceExtension;
+			productName = OneSignalNotificationServiceExtension;
+			productReference = 7C9A373D237F86A00079B5AB /* OneSignalNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -976,6 +1028,9 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = J7V6YA4GZ8;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -995,6 +1050,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
+					};
+					7C9A373C237F86A00079B5AB = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = J7V6YA4GZ8;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1071,10 +1131,6 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = 7C26E283237C832B00205F48 /* Products */;
-					ProjectRef = 8755D202BBA44180A9F251ED /* RNFirebase.xcodeproj */;
-				},
-				{
 					ProductGroup = 7CF05DE221B1A9A900CB1610 /* Products */;
 					ProjectRef = FB90340D873241EC9A8D2FDA /* RNSVG.xcodeproj */;
 				},
@@ -1089,6 +1145,7 @@
 				00E356ED1AD99517003FC87E /* BetmatcherTests */,
 				2D02E47A1E0B4A5D006451C7 /* Betmatcher-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* Betmatcher-tvOSTests */,
+				7C9A373C237F86A00079B5AB /* OneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1339,13 +1396,6 @@
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7C26E287237C832B00205F48 /* libRNFirebase.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFirebase.a;
-			remoteRef = 7C26E286237C832B00205F48 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7C82E39E2378F00700FE9795 /* libRNCPushNotificationIOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1465,6 +1515,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7C9A373B237F86A00079B5AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1480,7 +1537,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		1092E2225437AA18DB0AF42C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1621,6 +1700,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7C9A3739237F86A00079B5AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C9A3741237F86A00079B5AB /* NotificationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1633,6 +1720,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* Betmatcher-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		7C9A3744237F86A00079B5AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7C9A373C237F86A00079B5AB /* OneSignalNotificationServiceExtension */;
+			targetProxy = 7C9A3743237F86A00079B5AB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1718,6 +1810,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Betmatcher/Betmatcher.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = J7V6YA4GZ8;
@@ -1728,7 +1821,6 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native/React",
 					"$(SRCROOT)/../node_modules/@react-native-community/push-notification-ios/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = Betmatcher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1750,6 +1842,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Betmatcher/Betmatcher.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J7V6YA4GZ8;
 				HEADER_SEARCH_PATHS = (
@@ -1759,7 +1852,6 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native/React",
 					"$(SRCROOT)/../node_modules/@react-native-community/push-notification-ios/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = Betmatcher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1925,6 +2017,83 @@
 			};
 			name = Release;
 		};
+		7C9A3746237F86A00079B5AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E690179D43A2DD86BABE864F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = J7V6YA4GZ8;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Betmatcher.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7C9A3747237F86A00079B5AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44FDF6F60FEC8018BEA9D0B6 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = J7V6YA4GZ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Betmatcher.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2036,6 +2205,15 @@
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7C9A3775237F86A00079B5AB /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C9A3746237F86A00079B5AB /* Debug */,
+				7C9A3747237F86A00079B5AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -125,18 +125,40 @@ class ConfirmBet extends Component{
       }
     })
     .catch(error => console.log(error));
+
      this.setState({visible: !this.state.visible})
   }
 
   sendToMatches(){
 
-    this.sendNotificationToOpponent.bind(this);
+         const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
 
-    const navigateAction = NavigationActions.navigate({
-      routeName: "Match",
-      params: {refreshing: true}
-    });
-    this.props.navigation.dispatch(navigateAction);
+         let event = sentFrom == "Direct" ? game : game.data;
+
+         const deviceForNotification = user.back_user.profile.notification_token;
+         const notificationMessage = `You have a match for ${event.local.name} vs ${event.visit.name}`;
+
+        return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "headings": {"en": "You have a Match!"},
+              // "data": {"foo": "bar"},
+              "contents": {"en": notificationMessage}
+
+            })
+        });
+
+        const navigateAction = NavigationActions.navigate({
+                routeName: "Match",
+                params: {refreshing: true}
+        });
+        this.props.navigation.dispatch(navigateAction);
   }
 
   isMatchable(){

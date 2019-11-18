@@ -31,13 +31,12 @@ class Chat extends Component{
 
 		const { currentUser, chatID, userID, back_user, lay_user, match} = this.props.navigation.state.params;
 
-		const users = [back_user, lay_user];
+		// const users = [back_user, lay_user];
 
-		const opponent = users.filter( x => x.username!= currentUser);
+		// const opponent = users.filter( x => x.username!= currentUser);
 
-		const opponentDevice = opponent.profile.notification_token;
 
-        const notificationTitle = opponent[0].username + " => " + match.local.name + " vs " + match.visit.name;
+        const notificationTitle = currentUser + " for: " + match.local.name + " vs " + match.visit.name;
 
 		return fetch(`https://onesignal.com/api/v1/notifications/`, {
             method: "POST",
@@ -49,7 +48,7 @@ class Chat extends Component{
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
               "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
               "headings": {"en": notificationTitle},
-              "contents": {"en": message}
+              "contents": {"en": this.state.text}
 
             })
         });
@@ -84,7 +83,7 @@ class Chat extends Component{
 	    	});
 		}
 
-		// this.sendMessageNotification.bind(this, message);
+		this.sendMessageNotification(this.state.text);
 	}
 
 

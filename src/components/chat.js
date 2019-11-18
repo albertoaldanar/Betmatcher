@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import LinearGradient from "react-native-linear-gradient";
 import FontAwesome, {Icons} from "react-native-fontawesome";
+import OneSignal from 'react-native-onesignal';
 
 class Chat extends Component{
 	constructor(props){
@@ -24,6 +25,34 @@ class Chat extends Component{
 			messages: [],
 			text: ""
 		}
+	}
+
+	sendMessageNotification(message){
+
+		const { currentUser, chatID, userID, back_user, lay_user, match} = this.props.navigation.state.params;
+
+		const users = [back_user, lay_user];
+
+		const opponent = users.filter( x => x.username!= currentUser);
+
+		const opponentDevice = opponent.profile.notification_token;
+
+        const notificationTitle = opponent[0].username + " => " + match.local.name + " vs " + match.visit.name;
+
+		return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "headings": {"en": notificationTitle},
+              "contents": {"en": message}
+
+            })
+        });
 	}
 
 	componentWillMount(){
@@ -54,6 +83,8 @@ class Chat extends Component{
 				createdAt: Date.now()
 	    	});
 		}
+
+		// this.sendMessageNotification.bind(this, message);
 	}
 
 
@@ -62,7 +93,6 @@ class Chat extends Component{
 		const { currentUser, chatID, userID } = this.props.navigation.state.params;
 
 		const db = firebase.firestore().collection('messages');
-
 
 		db.add({
 				_id: userID,
@@ -107,9 +137,8 @@ class Chat extends Component{
     }
 
 	render(){	
-		console.log(this.state.messages);
-		const { currentUser, chatID, userID } = this.props.navigation.state.params;
-		console.log(this.state.text);
+	
+		const { currentUser, chatID, userID, back_user, lay_user } = this.props.navigation.state.params;
 
 		return(
 				<View style = {{flex: 1, backgroundColor:"#161616"}}>
@@ -123,8 +152,8 @@ class Chat extends Component{
 			                name: currentUser
 			              }}
 			              inverted = {false}
-			               isAnimated = {true}
-			               onInputTextChanged = {text => this.setState({text: text})}
+			              isAnimated = {true}
+			              onInputTextChanged = {text => this.setState({text: text})}
 			        />
 			    </View>
 		);

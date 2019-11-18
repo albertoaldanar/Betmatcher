@@ -36,13 +36,16 @@ class Match extends Component{
 
   }
 
-  sendToChat(id){
+  sendToChat(item){
     const navigateAction = NavigationActions.navigate({
       routeName: "Chat",
       params: {
-        currentUser: this.state.currentUser,
-        chatID: id,
-        userID: this.state.userID
+            currentUser: this.state.currentUser,
+            chatID: item.id,
+            userID: this.state.userID, 
+            back_user: item.back_user, 
+            lay_user: item.lay_user, 
+            match: item
       }
     });
 
@@ -299,7 +302,7 @@ class Match extends Component{
                     </View>
                 </View>
 
-                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}} onPress = {this.sendToChat.bind(this, item.id)}>
+                <TouchableOpacity style = {{marginRight: 6, marginBottom: 10}} onPress = {this.sendToChat.bind(this, item)}>
                   <FontAwesome style = {{fontSize: 30, color: "#00B073"}}>{Icons.comments}</FontAwesome>
                 </TouchableOpacity>
               </View>

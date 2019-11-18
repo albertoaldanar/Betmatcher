@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, Modal, Image, LayoutAnimation, AsyncStorage} from "react-native";
+import {View, Text, TouchableOpacity, Modal, Image, LayoutAnimation, AsyncStorage, Alert} from "react-native";
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import YouHaveMatch from "./youHaveMatch";
@@ -7,6 +7,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
 import Moment from "moment";
 import NumberFormat from 'react-number-format';
+import OneSignal from 'react-native-onesignal';
 
 class ConfirmBet extends Component{
 
@@ -65,7 +66,7 @@ class ConfirmBet extends Component{
     // Refactorizar esto
     const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
 
-    const result = myQuote == "total" ? ((bet * 2) + (AD[0] + AD[1])): bet + AD[0]
+    const result = myQuote == "total" ? ((bet * 2) + (AD[0] + AD[1])) : bet + AD[0]
     return result;
   }
 
@@ -97,7 +98,27 @@ class ConfirmBet extends Component{
     .then(jsonRes => {
       console.log(jsonRes)
       if(jsonRes.match){
-         this.setState({visible: !this.state.visible})
+         this.setState({visible: !this.state.visible});
+
+         const deviceForNotification = user.back_user.profile.notification_token;
+         const notificationMessage = "You have a match for {event.local.name} vs {event.visit.name}";
+
+         return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "headings": {"en": "You have a Match!"},
+              // "data": {"foo": "bar"},
+              "contents": {"en": notificationMessage}
+
+            })
+        });
+
       }
     })
     .catch(error => console.log(error));

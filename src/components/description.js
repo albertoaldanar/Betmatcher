@@ -91,6 +91,7 @@ class Description extends Component{
                 quote: quote,
                 bet: bet,
                 sentFrom: "Public",
+                coins: this.state.currentCoins
               }
     });
     this.props.navigation.dispatch(navigateAction);

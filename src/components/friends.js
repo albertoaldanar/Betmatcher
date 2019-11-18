@@ -14,6 +14,7 @@ import Modal from "react-native-modal";
 import User from "../constants/user";
 import Url from "../constants/url";
 import { NavigationActions } from "react-navigation";
+import OneSignal from 'react-native-onesignal';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -391,6 +392,31 @@ class Friends extends Component{
     })
   }
 
+
+
+  sendNotificationToOpponent(){
+         // const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
+
+         // const deviceForNotification = user.back_user.profile.notification_token;
+         // const notificationMessage = "You have a match for {event.local.name} vs {event.visit.name}";
+
+         return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "headings": {"en": "You have a Match!"},
+              // "data": {"foo": "bar"},
+              "contents": {"en": "You have a match"}
+            })
+        });
+  }
+
+
   render(){
     const {userSelected, profile, friendAnalysis, index, requestAnalysis, fromSearch, requestsIndex} = this.state;
     let currentUser = this.props.navigation.state.params.currentUser;
@@ -428,6 +454,11 @@ class Friends extends Component{
                 selectedIndex={this.state.index}
                 onChange={index => this.setState({ index })}
           />
+
+          <TouchableOpacity onPress = {this.sendNotificationToOpponent.bind(this)}>
+            <Text style = {{color: "white"}}>SEND NOTIF</Text>
+          </TouchableOpacity>
+
           { index == 1 ?
             <View style = {{flexDirection: "row", justifyContent: "space-around", marginTop: 30}}>
               <TouchableOpacity onPress= {this.receivedOrSent.bind(this)} style = {requestsIndex ? styles.activeButton : styles.offButton}>

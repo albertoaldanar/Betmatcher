@@ -45,7 +45,7 @@ class Match extends Component{
             userID: this.state.userID, 
             back_user: item.back_user, 
             lay_user: item.lay_user, 
-            match: item
+            match: item.event
       }
     });
 
@@ -280,8 +280,8 @@ class Match extends Component{
   renderMatches(data){
 
     return data.map(item => {
-      const order = this.state.currentUser == item.back_user.username ? [["You", item.back_team], [item.lay_user.username, item.lay_team]] : [["You", item.lay_team], [item.back_user.username, item.back_team]]
-        var time = Date.parse(item.event.date)
+        const order = this.state.currentUser == item.back_user.username ? [["You", item.back_team], [item.lay_user.username, item.lay_team]] : [["You", item.lay_team], [item.back_user.username, item.back_team]];
+        var time = Date.parse(item.event.date);
         var date = new Date(time);
 
         return (

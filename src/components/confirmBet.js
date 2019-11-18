@@ -70,6 +70,29 @@ class ConfirmBet extends Component{
     return result;
   }
 
+  sendNotificationToOpponent(){
+         const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
+
+         const deviceForNotification = user.back_user.profile.notification_token;
+         const notificationMessage = `You have a match for ${event.local.name} vs ${event.visit.name}`;
+
+         return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "headings": {"en": "You have a Match!"},
+              // "data": {"foo": "bar"},
+              "contents": {"en": notificationMessage}
+
+            })
+        });
+  }
+
   postMatch(){
     // let {currentUser, game, team} = this.props;
     const {user, game, teamSelected, teamsNotSelected, quote, bet, sentFrom} = this.props.navigation.state.params;
@@ -99,26 +122,6 @@ class ConfirmBet extends Component{
       console.log(jsonRes)
       if(jsonRes.match){
          this.setState({visible: !this.state.visible});
-
-         const deviceForNotification = user.back_user.profile.notification_token;
-         const notificationMessage = "You have a match for {event.local.name} vs {event.visit.name}";
-
-         return fetch(`https://onesignal.com/api/v1/notifications/`, {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
-              "headings": {"en": "You have a Match!"},
-              // "data": {"foo": "bar"},
-              "contents": {"en": notificationMessage}
-
-            })
-        });
-
       }
     })
     .catch(error => console.log(error));
@@ -126,6 +129,9 @@ class ConfirmBet extends Component{
   }
 
   sendToMatches(){
+
+    this.sendNotificationToOpponent.bind(this);
+
     const navigateAction = NavigationActions.navigate({
       routeName: "Match",
       params: {refreshing: true}
@@ -135,8 +141,9 @@ class ConfirmBet extends Component{
 
   isMatchable(){
     const myTotal = this.analyseQuotes("myTotal");
+    const {coins} = this.props.navigation.state.params;
 
-    if(this.state.currentCoins < myTotal){
+    if(coins < myTotal){
       return(
         <View style = {[styles.buttonMatch, {backgroundColor: "transparent", bottom: 15}]}>
           <Text style = {{color: "#ffff", alignSelf:"center"}}> You need more coins to match this bet, sorry :(</Text>

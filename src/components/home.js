@@ -50,12 +50,6 @@ class Home extends Component{
   componentWillMount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     this._isMounted = false;
-
-    return fetch(`https://onesignal.com/api/v1/players/958aea8a-8029-4953-8f5d-6acfed19373e?app_id=59f7fce2-a8c6-49ef-846e-bd95e45bf8b7`)
-        .then(res => res.json())
-          .then(response => {
-              console.log(response);
-          })
   }
 
   async callHome(){

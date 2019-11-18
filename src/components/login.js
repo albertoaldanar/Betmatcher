@@ -79,7 +79,7 @@ class Login extends Component{
 
 
     const {username, password, password_confirmation, email, country, notification_token} = this.state;
-    var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation, "country": country}
+    var postArgs = action == "login" ? {"username": username, "password": password} : {"username": username, "email": email, "password": password, "password_confirmation": password_confirmation, "country": country, "notification_token": notification_token}
 
       return fetch(`http://${Url}:8000/users/${action}/?notification_token=${notification_token}`, {
         method: "POST",

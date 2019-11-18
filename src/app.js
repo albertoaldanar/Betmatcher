@@ -11,8 +11,8 @@ class App extends React.Component {
 		this.state = {
 			currentUser: "",
 		}
-		OneSignal.init("59f7fce2-a8c6-49ef-846e-bd95e45bf8b7")
-		// OneSignal.addEventListener('ids', this.onIds)
+		OneSignal.init("59f7fce2-a8c6-49ef-846e-bd95e45bf8b7", {kOSSettingsKeyAutoPrompt : true})
+		OneSignal.inFocusDisplaying(2)
 	}
 
 

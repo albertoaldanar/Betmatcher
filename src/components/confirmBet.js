@@ -138,6 +138,14 @@ class ConfirmBet extends Component{
          const deviceForNotification = user.back_user.profile.notification_token;
          const notificationMessage = `You have a match for ${event.local.name} vs ${event.visit.name}`;
 
+
+        const navigateAction = NavigationActions.navigate({
+                routeName: "Match",
+                params: {refreshing: true}
+        });
+        
+        this.props.navigation.dispatch(navigateAction);
+
         return fetch(`https://onesignal.com/api/v1/notifications/`, {
             method: "POST",
             headers: {
@@ -153,12 +161,6 @@ class ConfirmBet extends Component{
 
             })
         });
-
-        const navigateAction = NavigationActions.navigate({
-                routeName: "Match",
-                params: {refreshing: true}
-        });
-        this.props.navigation.dispatch(navigateAction);
   }
 
   isMatchable(){

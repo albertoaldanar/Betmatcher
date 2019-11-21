@@ -41,7 +41,7 @@ class Home extends Component{
       topRequests: [],
       topTradedEvents: [[[]]],
       data: "",
-      showModal: true,
+      showModal: false,
       sports: [], refreshing: false, currentUser: "", coins: 0, showIntro: tutorial,
       requestModal: false, requestSelected: {}, isLoadingData: true, banners: [ [], [], [], [] ]
    }
@@ -99,7 +99,7 @@ class Home extends Component{
   }
 
   handleLogout(){
-    this.setState({showModal: false})
+ 
 
     try {
       AsyncStorage.removeItem("username");
@@ -110,7 +110,7 @@ class Home extends Component{
     }
 
     const navigateAction = NavigationActions.navigate({
-      routeName: "Login"
+      routeName: "AfterLogout"
     })
     this.props.navigation.dispatch(navigateAction);
   }

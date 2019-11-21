@@ -25,7 +25,7 @@ class Intro extends Component{
 						/>
 						<Text style = {styles.titleSteps}>Select a team</Text>
 
-						<Text style = {styles.secondSteps}> Select a team in one of the best events of the best leagues.</Text>
+						<Text style = {styles.secondSteps}> Select a team in one of the best events of the best leagues. </Text>
 					</View>
 
 

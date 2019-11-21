@@ -1,3 +1,4 @@
+
 import React, {Component} from "react";
 import {TouchableOpacity, Image, AsyncStorage} from "react-native";
 import { addNavigationHelpers, StackNavigator, createBottomTabNavigator, NavigationActions, TabBarBottom  } from 'react-navigation';
@@ -19,6 +20,8 @@ import Intro from "../components/intro";
 import CountryPicker from "../components/countryPicker";
 import Prizes from "../components/prizes";
 import PrizeDescription from "../components/prizeDescription";
+import Main from "../components/main";
+import AfterLogout from "../components/afterLogout";
 
 export const MainScreen = createBottomTabNavigator({
 
@@ -76,6 +79,21 @@ export const MainScreen = createBottomTabNavigator({
 
 export const createRootNavigator = (load = "<Your Initial Screen>") => {
   return StackNavigator({
+
+      Main: {
+        screen: Main,
+        navigationOptions: {
+          header: null,
+          gesturesEnabled: false
+        }
+      },
+      AfterLogout: {
+        screen: AfterLogout,
+        navigationOptions: {
+          header: null,
+          gesturesEnabled: false
+        }
+      },
       Login: {
         screen: Login,
         navigationOptions: {

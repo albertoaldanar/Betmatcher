@@ -143,7 +143,7 @@ class ConfirmBet extends Component{
                 routeName: "Match",
                 params: {refreshing: true}
         });
-        
+
         this.props.navigation.dispatch(navigateAction);
 
         return fetch(`https://onesignal.com/api/v1/notifications/`, {
@@ -156,7 +156,6 @@ class ConfirmBet extends Component{
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
               "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
               "headings": {"en": "You have a Match!"},
-              // "data": {"foo": "bar"},
               "contents": {"en": notificationMessage}
 
             })

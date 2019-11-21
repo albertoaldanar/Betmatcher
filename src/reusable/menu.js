@@ -146,13 +146,10 @@ class Menu extends Component {
 
             <Text style  ={[styles.categorie, {marginTop: 12}]}> Options </Text>
               <View style ={{marginLeft: 8}}>
-                <Text style = {styles.sport}><FontAwesome style = {{fontSize: 17}}>{Icons.info}</FontAwesome> How to bet?</Text>
 
                 <TouchableOpacity onPress = {this.props.sendToPrizes}>
                   <Text style = {styles.sport}> <FontAwesome style = {{fontSize: 17, marginRight: 4}}>{Icons.tags}</FontAwesome> Change your coins </Text>
                 </TouchableOpacity>
-
-                <Text style = {styles.sport}><FontAwesome style = {{fontSize: 17}}>{Icons.comments}</FontAwesome> Live chat</Text>
               </View>
 
             <Text style  ={[styles.categorie, {marginTop: 12}]}> Account </Text>

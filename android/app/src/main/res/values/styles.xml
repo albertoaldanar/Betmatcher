@@ -7,10 +7,11 @@
     </style>
     <style name="SpinnerItem">
         <item name="android:textColor">#ffffff</item>
-        <item name="android:background">#993399</item>
+        <item name="android:background">#161616</item>
     </style>
     <style name="SpinnerDropDownItem">
         <item name="android:textColor">#ffffff</item>
-        <item name="android:background">#993399</item>
+        <item name="android:background">#161616</item>
     </style>
+
 </resources>

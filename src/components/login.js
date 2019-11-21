@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage, Modal, AppState, StatusBar} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, Image, Dimensions, AsyncStorage, Modal, AppState, StatusBar, ActivityIndicator} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Url from "../constants/url";
 import {NavigationActions} from "react-navigation";
@@ -24,7 +24,7 @@ class Login extends Component{
       loginUsername: "",
       loginPassword: "",
       errorMessage: "", 
-      watingVisible: true,
+      watingVisible: false,
       showCountries: false, 
       country: "", 
       seconds: 5, notification_token: ""
@@ -32,7 +32,8 @@ class Login extends Component{
   }
 
   componentWillMount(){
-    setTimeout(() => {this.setState({watingVisible: false})}, 2500)
+    setTimeout(() => {this.setState({watingVisible: false})}, 2500);
+    this.forceUpdate();
   }
 
   // componentDidMount(){
@@ -289,7 +290,11 @@ class Login extends Component{
   
 
       <Modal visible= {this.state.watingVisible}>
-        <Wating/>
+          <View style = {{backgroundColor:"#161616", flex: 1}}>
+            <View style= {{alignSelf:"center", position: "absolute", top: 0, left: 0, bottom: 0, right: 0, justifyContent: "center"}}>
+              <ActivityIndicator size="large" color="white" />
+            </View>
+          </View>
       </Modal>
 
       <Modal visible= {this.state.showCountries}>

@@ -37,7 +37,7 @@ class CountryPicker extends Component{
 		        position: 'absolute',
 		        backgroundColor: 'transparent',
 		        borderTopWidth: 5,
-		        borderTopColor: '#00000099',
+		        borderTopColor: 'white',
 		        borderRightWidth: 5,
 		        borderRightColor: 'transparent',
 		        borderLeftWidth: 5,
@@ -55,7 +55,7 @@ class CountryPicker extends Component{
    	 	});
 
 		return(
-		      <LinearGradient  style = {{flex: 1, position: "relative"}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+		      <View style = {{flex: 1, position: "relative", backgroundColor: "#161616"}}>
 		          <TouchableOpacity 
 		          	   onPress = {this.props.closeModal}	
 		               style= {{margin: 10}}
@@ -82,7 +82,7 @@ class CountryPicker extends Component{
 		              Select
 		           </Text>
 		          </TouchableOpacity>
-		      </LinearGradient>
+		      </View>
 		);
 	}
 }

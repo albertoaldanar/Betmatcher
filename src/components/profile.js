@@ -38,20 +38,20 @@ class Profile extends Component{
     this._isMounted = false;
   }
 
-  handleLogout(){
-    try {
-      AsyncStorage.removeItem("username");
-      AsyncStorage.removeItem('token');
-      AsyncStorage.removeItem('coins');
-    } catch (error) {
-    console.log(error.message);
-    }
+  // handleLogout(){
+  //   try {
+  //     AsyncStorage.removeItem("username");
+  //     AsyncStorage.removeItem('token');
+  //     AsyncStorage.removeItem('coins');
+  //   } catch (error) {
+  //   console.log(error.message);
+  //   }
 
-    const navigateAction = NavigationActions.navigate({
-      routeName: "Login"
-    })
-    this.props.navigation.dispatch(navigateAction);
-  }
+  //   const navigateAction = NavigationActions.navigate({
+  //     routeName: "Login"
+  //   })
+  //   this.props.navigation.dispatch(navigateAction);
+  // }
 
 
   async componentDidMount(){
@@ -68,12 +68,19 @@ class Profile extends Component{
           this.setState({ currentUser: false });
       }
 
-      const tokenGet = await AsyncStorage.getItem('token');
-        if (tokenGet) {
-          this.setState({ currentToken: tokenGet });
-        } else {
-          this.setState({ currentToken: false });
-      }
+      // const usernameGet = await AsyncStorage.getItem('try');
+      //   if (tryGet) {
+      //     this.setState({ try: usernameGet});
+      //   } else {
+      //     this.setState({ currentUser: false });
+      // }
+
+      // const tokenGet = await AsyncStorage.getItem('token');
+      //   if (tokenGet) {
+      //     this.setState({ currentToken: tokenGet });
+      //   } else {
+      //     this.setState({ currentToken: false });
+      // }
 
       return fetch(`http://${Url}:8000/user_records?current_user=${this.state.currentUser}`, {
         method: "GET",

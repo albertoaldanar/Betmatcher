@@ -9,6 +9,7 @@ import OneSignal from 'react-native-onesignal';
 
 class Chat extends Component{
 	constructor(props){
+
 		
 		if(!firebase.apps.length){
 			firebase.initializeApp({
@@ -20,6 +21,8 @@ class Chat extends Component{
    			});
 		}
 
+		// OneSignal.addEventListener('ids', this.onIds);
+		
 		super(props);
 		this.state = {
 			messages: [],
@@ -46,7 +49,7 @@ class Chat extends Component{
             },
             body: JSON.stringify({
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "include_player_ids": ["bbd54913-1bbd-4d65-a917-ed1bab83b82f"],
               "headings": {"en": notificationTitle},
               "contents": {"en": this.state.text}
 

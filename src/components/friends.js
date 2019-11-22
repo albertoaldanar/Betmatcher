@@ -408,9 +408,8 @@ class Friends extends Component{
             },
             body: JSON.stringify({
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "include_player_ids": ["bbd54913-1bbd-4d65-a917-ed1bab83b82f"],
               "headings": {"en": "You have a Match!"},
-              // "data": {"foo": "bar"},
               "contents": {"en": "You have a match"}
             })
         });

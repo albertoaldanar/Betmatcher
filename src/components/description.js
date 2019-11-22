@@ -228,7 +228,6 @@ class Description extends Component{
     var layDraw = chartRequests.filter(request => request.back_team == "Draw");
     var layVisit = chartRequests.filter(request => request.back_team == game.visit.name);
 
-  
 
     console.log(this.state.currentCoins);
 

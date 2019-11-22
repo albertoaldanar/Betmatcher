@@ -60,7 +60,7 @@ class Leagues extends Component{
     })
 
     return(
-      <LinearGradient  style = {{flex: 1, position: "relative"}} start={{x: 0, y: 0}} end={{x: 4 , y: 1}} colors = {[ "black", "gray"]}>
+      <View  style = {{flex: 1, position: "relative", backgroundColor: "#161616"}}>
           <TouchableOpacity
                onPress = {this.props.close}
                style= {{margin: 10}}
@@ -88,7 +88,7 @@ class Leagues extends Component{
               Search
            </Text>
           </TouchableOpacity>
-      </LinearGradient>
+      </View>
     );
   }
 }

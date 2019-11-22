@@ -64,9 +64,13 @@ class ConfirmBet extends Component{
     var finalQuote = quote < 0 ? quote * -1 : quote;
     var ADQuote = Math.round((finalQuote / 100) * user.amount);
     // Refactorizar esto
-    const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0]
+    const AD = quote > 0 ? [0, ADQuote] : [ADQuote, 0];
 
-    const result = myQuote == "total" ? ((bet * 2) + (AD[0] + AD[1])) : bet + AD[0]
+    let betDeal = AD[0] == 0 ? bet - AD[1] : bet;
+
+    const result = myQuote == "total" ? ((betDeal * 2) + (AD[0] + AD[1])) : betDeal + AD[0];
+
+
     return result;
   }
 
@@ -114,7 +118,6 @@ class ConfirmBet extends Component{
         lay_user: this.state.currentUser, lay_team: teamSelected,
         amount: total, event: event.name, request: user.id, quote: totalAmount,
         traded: layAmount
-
       })
     })
     .then(res => res.json())
@@ -192,7 +195,15 @@ class ConfirmBet extends Component{
 
     let event = sentFrom == "Direct" ? game : game.data;
 
-    console.log(bet)
+    betDeal = AD[0] == 0 ? bet - AD[1] : bet;
+
+
+    const total = this.analyseQuotes("total");
+    const layAmount = this.analyseQuotes("myTotal");
+
+    var totalAmount = user.amount * (quote / 100);
+
+    console.log(total, layAmount, totalAmount);
 
     return(
       <LinearGradient style= {{flex: 1}} start={{x: 0, y: 0}} end={{x: 4 , y: 0}} colors = {[ "#161616", "gray"]}>
@@ -220,11 +231,11 @@ class ConfirmBet extends Component{
               <View style = {styles.info}>
                   <Text style = {styles.userName}>You</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamSelected}</Text>
-                  <Text style = {styles.secondText}>Bet: {bet}</Text>
+                  <Text style = {styles.secondText}>Bet: {betDeal}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: {AD[0]}</Text>
               </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[0]}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {betDeal + AD[0]}  <FontAwesome>{Icons.database}</FontAwesome></Text>
             </View>
 
             <Text style = {styles.vs}>VS.</Text>
@@ -233,11 +244,11 @@ class ConfirmBet extends Component{
               <View style = {styles.info}>
                   <Text style = {styles.userName}>{user.back_user.username}</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected || "Draw"}</Text>
-                  <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {bet}</Text>
+                  <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {betDeal}</Text>
                   <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: {AD[1]}</Text>
               </View>
 
-              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {bet + AD[1]}  <FontAwesome>{Icons.database}</FontAwesome></Text>
+              <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {betDeal + AD[1]}  <FontAwesome>{Icons.database}</FontAwesome></Text>
             </View>
           </View>
         </View>

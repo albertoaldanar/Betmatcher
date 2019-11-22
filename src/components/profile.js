@@ -30,7 +30,7 @@ class Profile extends Component{
     this.state = {
       username:"", won: "", lost:"", draw:"", country: "", 
       currentUser: "", currentToken: "", coins: 0, index: 0, tradesList:[],
-      loading: true, chartData: [0]
+      loading: true, chartData: []
     }
   }
 
@@ -126,9 +126,8 @@ class Profile extends Component{
 
   profitAnalysis(amount){
       // this._data = this._data.concat(amount);
-      this.setState({chartData: this.state.chartData.concat(amount)});
+      this.setState({chartData: amount});
   }
-
 
   tradeCard(event, result, amount){
      

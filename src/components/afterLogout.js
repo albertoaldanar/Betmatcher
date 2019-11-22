@@ -12,7 +12,6 @@ class AfterLogout extends Component{
 		}
 	}
 
-
 	sendToLogin(){
 		const navigateAction = NavigationActions.navigate({
 	      routeName: "Login",

@@ -253,16 +253,25 @@ class Match extends Component{
               </View>
             );
 
-        } else if(item.event.sport.name == "Fight" || item.event.sport.name == "Baseball"){
+        } else if(item.event.sport.name == "Baseball"){
 
             const upDown = item.event.time.split("")
 
-            const icon = upDown[1] == "+" ? <FontAwesome style = {{backgroundColor: "#00B073"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{backgroundColor: "#CE0707"}}>{Icons.sortDown}</FontAwesome>
+            const icon = upDown[1] == "+" ? <FontAwesome style = {{color: "gray"}}>{Icons.sortUp}</FontAwesome> : <FontAwesome style = {{color: "gray"}}>{Icons.sortDown}</FontAwesome>
 
             return(
               <View style = {{flexDirection: "row"}}>
                 <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
                 <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> {upDown[0]} {icon} </Text>
+              </View>
+            );
+
+        }  else if(item.event.sport.name == "Fight"){
+
+            return(
+              <View style = {{flexDirection: "row"}}>
+                <Image style={{width: 15, height: 15}} source={{uri: "https://www.interbolivia.com/wp-content/uploads/2018/12/pulse.gif"}}/>
+                <Text style = {{color: "gray", fontSize: 14, fontWeight: "400", marginTop: 2, marginLeft: 3}}> Round: {item.event.time}</Text>
               </View>
             );
 

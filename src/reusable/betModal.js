@@ -9,6 +9,7 @@ import MaterialTabs from "react-native-material-tabs";
 import Url from "../constants/url";
 import User from "../constants/user";
 import NumberFormat from 'react-number-format';
+import OneSignal from 'react-native-onesignal';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -132,9 +133,9 @@ class BetModal extends Component{
   }
 
 
-  alerts(){
+  alerts(currentUser, game, publicBet){
       const title = this.state.publicBet ? "Your bet has been placed!" : `Your bet has been sent`
-      const message = this.state.publicBet ? "Wait for someone to match your bet, if no one matches you get your coins back" : `Wait for ${this.state.opponent} to accept bet`
+      const message = this.state.publicBet ? "Wait for someone to match your bet, if no one matches you get your coins back" : `Wait for ${this.state.opponent.username} to accept bet`
 
       Alert.alert(
           title,
@@ -144,6 +145,32 @@ class BetModal extends Component{
         ],
         {cancelable: false},
       );
+      
+      if(publicBet == false){
+        this.sendMessageNotification(currentUser, game, publicBet);
+      }
+  }
+
+
+  sendMessageNotification(currentUser, game, publicBet){
+
+    const title = `${currentUser} has sent you a direct bet`
+    const message = `${game.local.name} vs ${game.visit.name}`
+
+    return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
+              "headings": {"en": title},
+              "contents": {"en": message}
+
+            })
+        });
   }
 
   postRequest(){
@@ -162,13 +189,13 @@ class BetModal extends Component{
           body: JSON.stringify({
             back_user: currentUser, event: game.data.name,
             back_team: team.name, amount: bet,
-            is_public: publicBet, opponent: opponent, fq: fq, sq: sq,
+            is_public: publicBet, opponent: opponent.username, fq: fq, sq: sq,
             fq_position: teamsNotSelected[0].position, sq_position: teamsNotSelected[1].position || null
           })
         })
         .then(res => res.json())
         .then(jsonRes => {
-           return this.alerts()
+          return this.alerts(currentUser, game.data, publicBet);
         })
         .catch(error => console.log(error));
     }
@@ -445,7 +472,7 @@ class BetModal extends Component{
                 style = {this.state.publicBet ? styles.choiceButton : styles.choiceButtonSelected}
                 onPress = {this.getFriends.bind(this)}
             >
-                <Text style = {{color: "white"}}>{this.state.opponent || "Betfriend"} <FontAwesome>{Icons.user}</FontAwesome></Text>
+                <Text style = {{color: "white"}}>{this.state.opponent.username || "Betfriend"} <FontAwesome>{Icons.user}</FontAwesome></Text>
             </TouchableOpacity>
           </View>
 

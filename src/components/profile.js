@@ -166,7 +166,7 @@ class Profile extends Component{
                 return this.tradeCard(trade.event, "PROFIT", amount)
 
             } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
-                const amount = trade.amount - trade.request.amount * -1
+                const amount = trade.amount - trade.request.amount 
                 return this.tradeCard(trade.event, "LOSS", amount)
             
             } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
@@ -271,7 +271,7 @@ class Profile extends Component{
                   ],
                   datasets: [
                     {
-                      data: this.state.chartData,
+                      data: [50, 100],
                       strokeWidth: 4,
                     },
                   ],

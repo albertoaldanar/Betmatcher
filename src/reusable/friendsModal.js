@@ -15,8 +15,11 @@ class FriendsModal extends Component{
     const {betfriends} = this.props;
 
     return betfriends.map((item, index) => {
-      const users = [item.user_a.username, item.user_b.username];
-      const friend = users.filter(user => user!= this.props.currentUser);
+      const users = [item.user_a, item.user_b];
+      const friend = users.filter(user => user.username!= this.props.currentUser);
+
+      // const users = [item.user_a.username, item.user_b.username];
+      // const friend = users.filter(user => user!= this.props.currentUser);
 
         return(
             <View key = {index}>
@@ -27,7 +30,7 @@ class FriendsModal extends Component{
                       source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                       style = {styles.image}
                     />
-                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{friend[0]}</Text>
+                    <Text style = {{ marginTop: 10, color: "#ffff", fontSize: 13, fontWeight: "300"}}>{friend[0].username}</Text>
                   </View>
 
                   <TouchableOpacity onPress = {this.props.selectOpponent.bind(this, friend[0])}>

@@ -15,6 +15,7 @@ import User from "../constants/user";
 import Url from "../constants/url";
 import { NavigationActions } from "react-navigation";
 import OneSignal from 'react-native-onesignal';
+import NumberFormat from 'react-number-format';
 
 const sliderWidth = Dimensions.get('window').width;
 const itemHeight = Dimensions.get('window').height;
@@ -159,7 +160,7 @@ class Friends extends Component{
   }
 
   deleteRequest(bfrequest){
-      return fetch(`http://${Url}:8000/decline_request`, {
+      return fetch(`http://${Url}:8000/decline_request/`, {
         method: "DELETE",
         headers: {
           "Accept": "application/json",
@@ -360,7 +361,12 @@ class Friends extends Component{
                 </View>
               </View>
 
-             <Text style = {{color: "#DAA520", fontSize: 16, fontWeight: "600"}}>{db.amount} £</Text>
+               <NumberFormat
+                  value={db.amount}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  renderText= {value => <Text style = {{color: "#DAA520", fontSize: 13}}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
+                /> 
             </View>
 
 

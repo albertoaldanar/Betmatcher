@@ -460,10 +460,6 @@ class Friends extends Component{
                 onChange={index => this.setState({ index })}
           />
 
-          <TouchableOpacity onPress = {this.sendNotificationToOpponent.bind(this)}>
-            <Text style = {{color: "white"}}>SEND NOTIF</Text>
-          </TouchableOpacity>
-
           { index == 1 ?
             <View style = {{flexDirection: "row", justifyContent: "space-around", marginTop: 30}}>
               <TouchableOpacity onPress= {this.receivedOrSent.bind(this)} style = {requestsIndex ? styles.activeButton : styles.offButton}>

@@ -133,7 +133,7 @@ class BetModal extends Component{
   }
 
 
-  alerts(currentUser, game, publicBet){
+  alerts(game, currentUser){
       const title = this.state.publicBet ? "Your bet has been placed!" : `Your bet has been sent`
       const message = this.state.publicBet ? "Wait for someone to match your bet, if no one matches you get your coins back" : `Wait for ${this.state.opponent.username} to accept bet`
 
@@ -146,13 +146,14 @@ class BetModal extends Component{
         {cancelable: false},
       );
       
-      if(publicBet == false){
-        this.sendMessageNotification(currentUser, game, publicBet);
+      if(this.state.publicBet == false){
+        this.sendMessageNotification(game, currentUser);
       }
   }
 
 
-  sendMessageNotification(currentUser, game, publicBet){
+  sendMessageNotification(game, currentUser){
+
 
     const title = `${currentUser} has sent you a direct bet`
     const message = `${game.local.name} vs ${game.visit.name}`
@@ -195,7 +196,7 @@ class BetModal extends Component{
         })
         .then(res => res.json())
         .then(jsonRes => {
-          return this.alerts(currentUser, game.data, publicBet);
+          return this.alerts(game.data, currentUser);
         })
         .catch(error => console.log(error));
     }

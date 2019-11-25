@@ -22,7 +22,21 @@ class UserCard extends Component{
     })
     .then(res => res.json())
     .then(jsonRes => {
-       return this.props.getUser(this.props.userSelected.username)
+          this.props.getUser(this.props.userSelected.username)
+
+          return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
+              "headings": {"en": `You have a betfriend request`},
+              "contents": {"en": `${this.props.currentUser} sent you a friend request`}
+            })
+          });
     })
     .catch(error => console.log(error))
   }

@@ -30,28 +30,28 @@ export const MainScreen = createBottomTabNavigator({
     navigationOptions: {
       title: "Home",
       tabBarLabel: "HOME",
-      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.home}</FontAwesome>
+      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 21}}>{Icons.home}</FontAwesome>
     },
   },
   Top: {
     screen: Top,
     navigationOptions: {
       tabBarLabel: "TOP",
-      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.star}</FontAwesome>
+      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 21}}>{Icons.star}</FontAwesome>
     }
   },
   Match: {
     screen: Match,
     navigationOptions: {
       tabBarLabel: "MY BETS",
-      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.comments}</FontAwesome>
+      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 21}}>{Icons.comments}</FontAwesome>
     }
   },
   Profile: {
     screen: Profile,
     navigationOptions: {
       tabBarLabel: "PROFILE",
-      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 25}}>{Icons.user}</FontAwesome>
+      tabBarIcon: ({focused, tintColor}) => <FontAwesome style = {{color: tintColor, fontSize: 21}}>{Icons.user}</FontAwesome>
     }
   }
 },

@@ -126,7 +126,10 @@ class Profile extends Component{
 
   profitAnalysis(amount){
       // this._data = this._data.concat(amount);
-      this.setState({chartData: amount});
+      const trades = [];
+
+      trades.push(amount);
+      this.setState({chartData: trades});
   }
 
   tradeCard(event, result, amount){
@@ -225,6 +228,8 @@ class Profile extends Component{
     
     const efficiency = (((won * 3) + draw) / totalTrades) * 100;
 
+    console.log("TRADES ========>>>", this.state.chartData);
+
     switch(index){
       case 0:
         return(     
@@ -271,7 +276,7 @@ class Profile extends Component{
                   ],
                   datasets: [
                     {
-                      data: [50, 100],
+                      data: this.state.chartData,
                       strokeWidth: 4,
                     },
                   ],
@@ -329,7 +334,7 @@ class Profile extends Component{
     console.log(this.state.currentUser);
     console.log(lost, draw, won);
 
-    console.log(this._data);
+    console.log("CHART DATA => ", this.state.chartData);
  
 
     const data2 = [0.4, 0.6, 0.8]

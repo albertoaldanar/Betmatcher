@@ -157,7 +157,7 @@ class ConfirmBet extends Component{
             },
             body: JSON.stringify({
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["958aea8a-8029-4953-8f5d-6acfed19373e"],
+              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
               "headings": {"en": "You have a Match!"},
               "contents": {"en": notificationMessage}
 

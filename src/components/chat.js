@@ -22,6 +22,7 @@ class Chat extends Component{
 		}
 
 		// OneSignal.addEventListener('ids', this.onIds);
+		OneSignal.inFocusDisplaying(0);
 		
 		super(props);
 		this.state = {
@@ -53,6 +54,7 @@ class Chat extends Component{
 	}
 
 	componentWillMount(){
+
 		const db = firebase.firestore().collection('messages').where('chat_id', '==', this.props.navigation.state.params.chatID);
 
 		this.unsubscribe = db.onSnapshot(this.onCollectionUpdate) 

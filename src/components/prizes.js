@@ -83,7 +83,7 @@ const styles = {
   title: {
     color: "white",
     position: "absolute", right: 0, left: 10, top: 11,
-    height: 20, borderRadius: 5, fontSize: 19
+    height: 60, borderRadius: 5, fontSize: 19
   }
 }
 

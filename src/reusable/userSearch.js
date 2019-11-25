@@ -4,7 +4,7 @@ import FontAwesome, {Icons} from "react-native-fontawesome";
 import User from "../constants/user";
 import Url from "../constants/url";
 import LinearGradient from "react-native-linear-gradient";
-
+import OneSignal from 'react-native-onesignal';
 
 class UserSearch extends Component{
 
@@ -36,7 +36,7 @@ class UserSearch extends Component{
             "Content-type": "application/json"
         },
         body: JSON.stringify({
-          sent_by: this.props.currentUser, receiver: user
+          sent_by: this.props.currentUser, receiver: user.username
         })
       })
       .then(res => res.json())
@@ -44,6 +44,21 @@ class UserSearch extends Component{
         console.log(jsonRes)
         if(jsonRes.bfrequest){
           this.props.getUser(this.props.userSelected.username, false, true) 
+
+          return fetch(`https://onesignal.com/api/v1/notifications/`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
+              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
+              "headings": {"en": `You have a betfriend request`},
+              "contents": {"en": `${this.props.currentUser} sent you a friend request`}
+            })
+          });
+
         }
       })
       .catch(error => alert(error));
@@ -112,7 +127,7 @@ class UserSearch extends Component{
         return( 
             <TouchableOpacity 
                 style = {{margin: 15, backgroundColor: "#00B073", borderRadius: 5, marginTop: 10, alignSelf: "center", padding: 15, paddingTop: 8, paddingBottom: 8, marginBottom: 24}}
-                onPress = {this.createFriendRequest.bind(this, userSelected.username)}
+                onPress = {this.createFriendRequest.bind(this, userSelected)}
             >
                 <Text style= {{fontSize: 17, color: "white", alignSelf: "center"}}> <FontAwesome> {Icons.userPlus} </FontAwesome> Add as friend</Text>
             </TouchableOpacity>

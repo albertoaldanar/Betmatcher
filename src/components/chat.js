@@ -10,7 +10,6 @@ import OneSignal from 'react-native-onesignal';
 class Chat extends Component{
 	constructor(props){
 
-		
 		if(!firebase.apps.length){
 			firebase.initializeApp({
 	          	apiKey: "AIzaSyBe5fNyauR-EL3LrjXwDVjNbvDf9tggc4U",
@@ -20,9 +19,6 @@ class Chat extends Component{
 	          	projectId: "betmatcherchat",
    			});
 		}
-
-		// OneSignal.addEventListener('ids', this.onIds);
-		OneSignal.inFocusDisplaying(0);
 		
 		super(props);
 		this.state = {
@@ -32,7 +28,6 @@ class Chat extends Component{
 	}
 
 	sendMessageNotification(message){
-
 		const { currentUser, chatID, userID, back_user, lay_user, match} = this.props.navigation.state.params;
 
         const notificationTitle = currentUser + " for: " + match.local.name + " vs " + match.visit.name;
@@ -57,7 +52,7 @@ class Chat extends Component{
 
 		const db = firebase.firestore().collection('messages').where('chat_id', '==', this.props.navigation.state.params.chatID);
 
-		this.unsubscribe = db.onSnapshot(this.onCollectionUpdate) 
+		this.unsubscribe = db.onSnapshot(this.onCollectionUpdate); 
 	}
 
 
@@ -65,7 +60,11 @@ class Chat extends Component{
 	    this.setState({
 	      [state]:event
 	    });
-  	}	
+  	}
+
+  	onReceived(notification) {
+    	console.log("Notification received: ", notification);
+	}	
 
 
 	addMessage(message) {

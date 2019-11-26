@@ -276,7 +276,7 @@ class Profile extends Component{
                   ],
                   datasets: [
                     {
-                      data: this.state.chartData,
+                      data: [100, 200],
                       strokeWidth: 4,
                     },
                   ],

@@ -94,7 +94,7 @@ class DescChart extends Component {
       <ScrollView horizontal>
         <View style={styles.container}>
                   <YAxis
-                      data={ [10, 400, 200, 50, 10, 50, 150, 134, 50, 150, 134, 800, 2500, 80, 30, 290] }
+                      data={ localTrades.length > 0 ? base.concat(localTrades) : localTrades }
                       contentInset={ contentInset }
                       svg={{
                           fill: 'grey',
@@ -109,7 +109,7 @@ class DescChart extends Component {
                   { localTrades.length > 0 ? 
                     <LineChart
                         style={{ flex: 1, marginLeft: 16, marginRight: 20}}
-                        data={[10, 400, 200, 50, 10, 50, 150, 134, 50, 150, 134, 800, 2500, 80, 30, 290] }
+                        data={localTrades.length > 0 ? base.concat(localTrades) : localTrades }
                         svg={{ stroke: '#00B073' }}
                         contentInset={ contentInset }
                     >
@@ -121,10 +121,10 @@ class DescChart extends Component {
                     </View>
                   }
 
-                  {this.drawChart(drawTrades, contentInset, base.concat(this.shuffle(drawTrades)))}
+                  {this.drawChart(drawTrades, contentInset, base.concat(drawTrades))}
         
                     <YAxis
-                      data={ visitTrades.length > 0 ? base.concat(this.shuffle(visitTrades)) : visitTrades }
+                      data={ visitTrades.length > 0 ? base.concat(visitTrades) : visitTrades }
                       contentInset={ contentInset }
                       svg={{
                           fill: 'grey',
@@ -140,7 +140,7 @@ class DescChart extends Component {
                     { visitTrades.length > 0 ? 
                       <LineChart
                           style={{ flex: 1, marginLeft: 16 }}
-                          data={ visitTrades.length > 0 ? base.concat(this.shuffle(visitTrades)) : visitTrades }
+                          data={ visitTrades.length > 0 ? base.concat(visitTrades) : visitTrades }
                           svg={{ stroke: '#4169E1' }}
                           contentInset={ contentInset }
                       >

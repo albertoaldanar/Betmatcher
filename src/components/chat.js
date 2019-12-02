@@ -32,6 +32,10 @@ class Chat extends Component{
 
         const notificationTitle = currentUser + " for: " + match.local.name + " vs " + match.visit.name;
 
+        let chatUsers = [lay_user, back_user];
+
+        const opponent = chatUsers.filter(x => x.username!= currentUser);
+
 		return fetch(`https://onesignal.com/api/v1/notifications/`, {
             method: "POST",
             headers: {
@@ -40,7 +44,7 @@ class Chat extends Component{
             },
             body: JSON.stringify({
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
+              "include_player_ids": [opponent[0].profile.notification_token],
               "headings": {"en": notificationTitle},
               "contents": {"en": this.state.text}
 

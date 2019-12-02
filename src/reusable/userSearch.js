@@ -53,7 +53,7 @@ class UserSearch extends Component{
             },
             body: JSON.stringify({
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
+              "include_player_ids": [user.profile.notification_token],
               "headings": {"en": `You have a betfriend request`},
               "contents": {"en": `${this.props.currentUser} sent you a friend request`}
             })

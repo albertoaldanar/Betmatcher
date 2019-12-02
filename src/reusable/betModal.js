@@ -133,7 +133,7 @@ class BetModal extends Component{
   }
 
 
-  alerts(game, currentUser){
+  alerts(game, currentUser, opponent){
       const title = this.state.publicBet ? "Your bet has been placed!" : `Your bet has been sent`
       const message = this.state.publicBet ? "Wait for someone to match your bet, if no one matches you get your coins back" : `Wait for ${this.state.opponent.username} to accept bet`
 
@@ -147,12 +147,12 @@ class BetModal extends Component{
       );
       
       if(this.state.publicBet == false){
-        this.sendMessageNotification(game, currentUser);
+        this.sendMessageNotification(game, currentUser, opponent);
       }
   }
 
 
-  sendMessageNotification(game, currentUser){
+  sendMessageNotification(game, currentUser, opponent){
 
 
     const title = `${currentUser} has sent you a direct bet`
@@ -166,7 +166,7 @@ class BetModal extends Component{
             },
             body: JSON.stringify({
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
+              "include_player_ids": [opponent.profile.notification_token],
               "headings": {"en": title},
               "contents": {"en": message}
 
@@ -196,7 +196,7 @@ class BetModal extends Component{
         })
         .then(res => res.json())
         .then(jsonRes => {
-          return this.alerts(game.data, currentUser);
+          return this.alerts(game.data, currentUser, this.state.opponent);
         })
         .catch(error => console.log(error));
     }

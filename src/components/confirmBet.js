@@ -157,7 +157,7 @@ class ConfirmBet extends Component{
             },
             body: JSON.stringify({
               "app_id": "59f7fce2-a8c6-49ef-846e-bd95e45bf8b7",
-              "include_player_ids": ["7eb78884-104d-43c4-9ec3-5d78a3e6e425"],
+              "include_player_ids": [deviceForNotification],
               "headings": {"en": "You have a Match!"},
               "contents": {"en": notificationMessage}
 
@@ -232,7 +232,7 @@ class ConfirmBet extends Component{
                   <Text style = {styles.userName}>You</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamSelected}</Text>
                   <Text style = {styles.secondText}>Bet: {betDeal}</Text>
-                  <Text style = {[styles.secondText, {marginBottom: 8}]}>AD: {AD[0]}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8}]}>Odd: {AD[0]}</Text>
               </View>
 
               <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {betDeal + AD[0]}  <FontAwesome>{Icons.database}</FontAwesome></Text>
@@ -245,7 +245,7 @@ class ConfirmBet extends Component{
                   <Text style = {styles.userName}>{user.back_user.username}</Text>
                   <Text style = {[styles.secondText, {fontWeight: "bold", fontSize: 15, textAlign: "left"}]}>{teamsNotSelected || "Draw"}</Text>
                   <Text style = {[styles.secondText, {textAlign: "left"}]}>Bet: {betDeal}</Text>
-                  <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>AD: {AD[1]}</Text>
+                  <Text style = {[styles.secondText, {marginBottom: 8, textAlign: "left"}]}>Odd: {AD[1]}</Text>
               </View>
 
               <Text style = {{marginTop: 12, color: "#DAA520"}}>TOTAL: {betDeal + AD[1]}  <FontAwesome>{Icons.database}</FontAwesome></Text>

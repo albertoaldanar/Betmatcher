@@ -98,7 +98,7 @@ class MatchARequest extends Component{
                 <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
                     <View>
                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          BASE QUOTE
+                          BASE PRICE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes} % 
@@ -138,7 +138,7 @@ class MatchARequest extends Component{
                 <View style = {{flexDirection:"row", justifyContent:"space-between", marginBottom: 15, borderBottomColor: "gray", borderBottomWidth: 0.3, paddingBottom: 9, borderTopColor: "gray", borderTopWidth: 0.3}}>
                     <View>
                        <Text style = {{color: "gray", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          BASE QUOTE
+                          BASE PRICE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
                           {teamsNotSelected[1].quotes[position]} % 
@@ -219,7 +219,7 @@ class MatchARequest extends Component{
                   </View> 
 
                   <View style = {{justifyContent:"center"}}>
-                    <Text style ={styles.description}>Quote</Text>
+                    <Text style ={styles.description}>Price</Text>
                     <Text style = {{ marginTop: 5, color: "#ffff", fontSize: 13, fontWeight: "300", alignSelf:"center", textAlign: "center", marginTop: 10}}>
                       {finalQuote} % { finalQuote > 0 ? <FontAwesome style = {{color:"#00B073"}}>{Icons.sortUp}</FontAwesome> : finalQuote == 0 ? <FontAwesome style = {{color: "#1E90FF"}}>{Icons.sort}</FontAwesome> : <FontAwesome style = {{color:"red"}}>{Icons.sortDown}</FontAwesome>}
                     </Text>
@@ -298,11 +298,11 @@ class MatchARequest extends Component{
               <Text style = {{color: "#ffff", fontSize: 21}}>X</Text>
             </TouchableOpacity>
 
-            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 20, marginBottom: 3, fontWeight: "600"}}>1) Betmatcher´s base quote for this match is {instructionQuote}%. </Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 20, marginBottom: 3, fontWeight: "400"}}>1) Betmatcher´s base price for this match is {instructionQuote}%. </Text>
             <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "gray", fontSize: 17, fontStyle: "oblique", marginTop: 10}}>- {message}</Text>
 
-            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 20, fontWeight: "600"}}>2) Every user sets ITS OWN QUOTE, analyse which bet fits better for your.</Text>
-            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, fontSize: 20, color: "white", fontSize: 20, fontWeight: "600"}}>3) Pick smart :)</Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, color: "white", fontSize: 20, fontWeight: "400"}}>2) Every user sets ITS OWN PRICE, analyse which bet fits better for your.</Text>
+            <Text style = {{alignSelf: "center", textAlign: "center", margin: 20, fontSize: 20, color: "white", fontSize: 20, fontWeight: "400"}}>3) Pick smart :)</Text>
 
             <TouchableOpacity style = {{backgroundColor: "#00B073", padding: 10, margin: 10, marginTop: 50, borderRadius: 5}} onPress = {() => this.setState({showInstructions: false})}>
               <Text style = {{color: "white", alignSelf: "center", textAlign: "center"}}>Got it <FontAwesome>{Icons.thumbsUp}</FontAwesome></Text>

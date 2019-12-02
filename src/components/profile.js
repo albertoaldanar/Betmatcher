@@ -38,20 +38,6 @@ class Profile extends Component{
     this._isMounted = false;
   }
 
-  // handleLogout(){
-  //   try {
-  //     AsyncStorage.removeItem("username");
-  //     AsyncStorage.removeItem('token');
-  //     AsyncStorage.removeItem('coins');
-  //   } catch (error) {
-  //   console.log(error.message);
-  //   }
-
-  //   const navigateAction = NavigationActions.navigate({
-  //     routeName: "Login"
-  //   })
-  //   this.props.navigation.dispatch(navigateAction);
-  // }
 
 
   async componentDidMount(){
@@ -68,19 +54,6 @@ class Profile extends Component{
           this.setState({ currentUser: false });
       }
 
-      // const usernameGet = await AsyncStorage.getItem('try');
-      //   if (tryGet) {
-      //     this.setState({ try: usernameGet});
-      //   } else {
-      //     this.setState({ currentUser: false });
-      // }
-
-      // const tokenGet = await AsyncStorage.getItem('token');
-      //   if (tokenGet) {
-      //     this.setState({ currentToken: tokenGet });
-      //   } else {
-      //     this.setState({ currentToken: false });
-      // }
 
       return fetch(`http://${Url}:8000/user_records?current_user=${this.state.currentUser}`, {
         method: "GET",
@@ -104,7 +77,7 @@ class Profile extends Component{
 
           })
         }
-      }).then(() => this.analysis())
+      }).then(this.analysis())
       .catch(error => console.log(error));
   }
 
@@ -126,9 +99,9 @@ class Profile extends Component{
 
   profitAnalysis(amount){
       // this._data = this._data.concat(amount);
-      const trades = [];
+      const trades = [0];
 
-      trades.push(amount);
+      trades.concat(amount);
       this.setState({chartData: trades});
   }
 
@@ -169,7 +142,7 @@ class Profile extends Component{
                 return this.tradeCard(trade.event, "PROFIT", amount)
 
             } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
-                const amount = trade.amount - trade.request.amount 
+                const amount = (trade.amount - trade.request.amount ) * -1
                 return this.tradeCard(trade.event, "LOSS", amount)
             
             } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
@@ -181,36 +154,111 @@ class Profile extends Component{
   }
 
  analysis(){
-    const {tradesList, currentUser} = this.state;
+    const {currentUser, tradesList} = this.state;
     if(tradesList!= "No trades yet"){
-      return tradesList.map( trade => {
+
+      const trades = [];
+
+      tradesList.map( trade => {
 
             if(trade.back_user.username == currentUser && trade.looser == currentUser){
               const amount = trade.request.amount  * -1;
-              return this.profitAnalysis(amount);
+              // return this.profitAnalysis(amount);
 
+              trades.push(amount);
               // return this.tradeCard(trade.event, "LOSS", amount)
 
             } else if(trade.back_user.username == currentUser && trade.winner == currentUser){
                 const amount = trade.amount - trade.request.amount;
-                return this.profitAnalysis(amount);
+                // return this.profitAnalysis(amount);
 
+                 trades.push(amount);
                 // return this.tradeCard(trade.event, "PROFIT", amount)
 
             } else if(trade.lay_user.username == currentUser && trade.looser == currentUser){
-                const amount = trade.amount - trade.request.amount * -1
-                return this.profitAnalysis(amount);
+                const amount = (trade.amount - trade.request.amount) * -1
+                // return this.profitAnalysis(amount);
 
+                 trades.push(amount);
                 // return this.tradeCard(trade.event, "LOSS", amount)
             
             } else if(trade.lay_user.username == currentUser && trade.winner == currentUser){
                 const amount = trade.request.amount 
-                return this.profitAnalysis(amount);
+                // return this.profitAnalysis(amount);
 
+                 trades.push(amount);
                 // return this.tradeCard(trade.event, "PROFIT", amount);
               }
-      })
-    } else {return null}
+
+      });
+
+      const chart = [0].concat(trades.reverse());
+
+        return(
+          <LineChart
+                    data={{
+                      labels: [
+
+                      ],
+                      datasets: [
+                        {
+                          data: chart,
+                          strokeWidth: 4,
+                        },
+                      ],
+                    }}
+                    width={Dimensions.get('window').width -16}
+                    height={200}
+                    bezier
+                    withDots = {false}
+                    withOuterLines = {false}
+                    chartConfig={{
+                      backgroundColor: 'transparent',
+                      decimalPlaces: 0,
+                      color: (opacity = 1) => `gray`,
+                      style: {
+                        borderRadius: 16,
+                      },
+                    }}
+                    style={{
+                      borderRadius: 16,
+                    }}
+          />  
+        );
+    } else {
+        return(
+          <LineChart
+                    data={{
+                      labels: [
+
+                      ],
+                      datasets: [
+                        {
+                          data: [0],
+                          strokeWidth: 4,
+                        },
+                      ],
+                    }}
+                    width={Dimensions.get('window').width -16}
+                    height={200}
+                    bezier
+                    withDots = {false}
+                    withOuterLines = {false}
+                    chartConfig={{
+                      backgroundColor: 'transparent',
+                      decimalPlaces: 0,
+                      color: (opacity = 1) => `gray`,
+                      style: {
+                        borderRadius: 16,
+                      },
+                    }}
+                    style={{
+                      borderRadius: 16,
+                    }}
+          />
+        );
+
+    }
   }
 
 
@@ -228,7 +276,6 @@ class Profile extends Component{
     
     const efficiency = (((won * 3) + draw) / totalTrades) * 100;
 
-    console.log("TRADES ========>>>", this.state.chartData);
 
     switch(index){
       case 0:
@@ -267,40 +314,10 @@ class Profile extends Component{
                       {total > 0  ? efficiency.toFixed(2): "--"} %
                     </Text>
                   </View>
-              </View>     
+              </View>    
+
+              {this.analysis()} 
   
-            <LineChart
-                data={{
-                  labels: [
-
-                  ],
-                  datasets: [
-                    {
-                      data: [100, 200],
-                      strokeWidth: 4,
-                    },
-                  ],
-                }}
-                width={Dimensions.get('window').width -16}
-                height={200}
-                bezier
-                withDots = {false}
-                withOuterLines = {false}
-                withDots ={true}
-                chartConfig={{
-                  backgroundColor: 'transparent',
-                  decimalPlaces: 0,
-                  color: (opacity = 1) => `gray`,
-                  style: {
-                    borderRadius: 16,
-                  },
-                }}
-                style={{
-                  borderRadius: 16,
-                }}
-            />  
-
-
         </View>     
       );  
         break;

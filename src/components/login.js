@@ -227,7 +227,7 @@ class Login extends Component{
           </View>
 
           <View style = {{ position: "absolute", bottom: 15, flexDirection: "row", alignSelf:"center"}}>
-            <Text style= {{fontWeight: "300", color: "#DCDCDC"}}>Do yoy have an acount? </Text>
+            <Text style= {{fontWeight: "300", color: "#DCDCDC"}}>Do you have an acount? </Text>
             <TouchableOpacity onPress= {() => this.setState({isSignup: false, username: "", password: "", email: "", password_confirmation: ""})}>
               <Text style= {{fontWeight: "600", color: "#00B073"}}> Sign in </Text>
             </TouchableOpacity>
@@ -262,9 +262,6 @@ class Login extends Component{
 
             <Text style = {{color: "#D24D57", alignSelf:"center", margin: 5}}>{this.state.errorMessage}</Text>
 
-            <TouchableOpacity style = {{marginTop: 12}}>
-              <Text style = {{alignSelf:"center", color:"gray"}}>Forgot your password ?</Text>
-            </TouchableOpacity>
           </View>
 
           <View style = {{ position: "absolute", bottom: 15, flexDirection: "row", alignSelf:"center"}}>

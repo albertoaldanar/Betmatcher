@@ -100,7 +100,6 @@ class Home extends Component{
 
   handleLogout(){
  
-
     try {
       AsyncStorage.removeItem("username");
       AsyncStorage.removeItem('token');
@@ -234,9 +233,9 @@ class Home extends Component{
 
   topEventsDetials(){
       const {topTradedEvents} = this.state;
-      const evnetsToShow = topTradedEvents.slice(0,5);
+      const evnetsToShow = topTradedEvents.slice(0,6);
 
-      const topEventRemoved = topTradedEvents.slice(1);
+      const topEventRemoved = evnetsToShow.slice(1);
       console.log(topEventRemoved);
 
       return topEventRemoved.map((event, index) => {

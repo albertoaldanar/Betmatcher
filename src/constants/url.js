@@ -1,5 +1,5 @@
 //Depak
-Url = "104.251.210.126";
+Url = "192.168.1.78";
 // Oficina
 // Url = "192.168.8.12";
 // //Starbucks gran plaza

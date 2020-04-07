@@ -44,5 +44,11 @@ class AfterLogout extends Component{
 	}
 }
 
+const styles = {
+  flex: 1,
+  flexDirection: "column",
+  justifyContent: "sapce-between",
+}
+
 
 export default AfterLogout;

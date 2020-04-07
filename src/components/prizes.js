@@ -3,6 +3,8 @@ import {View, Text, Image, TouchableOpacity, Dimensions, ScrollView} from "react
 import FontAwesome, {Icons} from "react-native-fontawesome";
 import {NavigationActions} from "react-navigation";
 import NumberFormat from 'react-number-format';
+import Suscription from "./suscription";
+
 
 class Prizes extends Component{
 
@@ -50,7 +52,7 @@ class Prizes extends Component{
                       displayType={'text'}
                       thousandSeparator={true}
                       renderText= {value => <Text style= {styles.price}> {value}  <FontAwesome>{Icons.database}</FontAwesome></Text>}
-                  /> 
+                  />
 	            </TouchableOpacity>
 	        );
 	    })

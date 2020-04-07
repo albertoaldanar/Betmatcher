@@ -12,7 +12,7 @@ class PrizeDescription extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			coins: 0, currentUser: "", showModal: false, showLoading: false, phone: "", 
+			coins: 0, currentUser: "", showModal: false, showLoading: false, phone: "",
 			email: "", adress: "", cp: "", country:"", city: "", state: "", fullName: "", exchange: {}
 		}
 	}
@@ -21,7 +21,7 @@ class PrizeDescription extends Component{
 	    this.setState({
 	      [state]:event
 	    });
-  	}
+  }
 
 	buyPrize(){
 	    const {par} = this.props.navigation.state.params;
@@ -31,6 +31,8 @@ class PrizeDescription extends Component{
    		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     	var dateTime = date+' '+time;
+
+      let finalValue = this.state.coins > 50 ? console.log("Not able to bet") : console.log("Bet defined");
 
 	    if(par.price > coins){
 	      return Alert.alert("You need more coins ", `You don´t have ${par.price} coins, sorry :( `, [{text: 'Continue', onPress: () => console.log("Request not possible")}])
@@ -141,12 +143,9 @@ class PrizeDescription extends Component{
 		        ],
 		        {cancelable: false},
 		    );
-
   	}
- 
 
-
-	render(){	
+	render(){
 		const {par} = this.props.navigation.state.params;
 		const {phone, email, adress, cp, country, city, state} = this.state;
 
@@ -258,11 +257,11 @@ class PrizeDescription extends Component{
 
 
 const styles= {
-	image: {	
-		height: 250, 
+	image: {
+		height: 250,
 		width: Dimensions.get("window").width,
 		marginBottom: 15
-	}, 
+	},
 	inputs: {
 	    justifyContent: 'center',
 	    margin: 15,

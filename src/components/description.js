@@ -13,6 +13,7 @@ import GameInfo from "../reusable/gameInfo";
 import LinearGradient from "react-native-linear-gradient";
 import Moment from 'moment';
 import Url from "../constants/url";
+import Suscription from "./suscription";
 
 const mainColor = "#00B073";
 
@@ -55,12 +56,14 @@ class Description extends Component{
     .then(jsonRes => {
       console.log(jsonRes)
       this.setState({chartRequests: jsonRes.requests, chartDrawBack: jsonRes.matches_draw, chartLocalBack: jsonRes.matches_local, chartVisitBack: jsonRes.matches_visit})
+    }).catch(error => {
+      console.log(error);
     })
-    .catch(error => console.log(error));
   }
 
     //This method sets the currentUser to the state
   async componentDidMount(){
+
       this._isMounted = true;
 
       const usernameGet = await AsyncStorage.getItem('username');
@@ -74,7 +77,13 @@ class Description extends Component{
       this.setState({ currenCoins: getCoins});
   }
 
-  sendToConfirmation( route, user, quote, bet ){
+  sendNotificationToUser(message){
+    if(message.length > 0){
+      console.log("No message returned")
+    }
+  }
+
+sendToConfirmation( route, user, quote, bet ){
     let game = this.props.navigation.state.params.par;
     const gameType = game.sport == "Soccer" ? game.draw : "Draw"
     const options = [game.local, game.visit, gameType];
@@ -120,8 +129,8 @@ class Description extends Component{
       this.setState({
                 message: `${jsonRes.reqs.length} users to match`,
                 loading: false,
-                requests: jsonRes.reqs, 
-                currentCoins: jsonRes.user.profile.coins
+                requests: jsonRes.reqs,
+                currentCoins: jsonRes.user.profile.coins,
       });
 
     })
@@ -232,7 +241,7 @@ class Description extends Component{
 
     console.log(this.state.currentCoins);
 
-    var highestBet = this.state.chartRequests.map(x => x.amount); 
+    var highestBet = this.state.chartRequests.map(x => x.amount);
 
     var myIndex = this.state.index == 1 ? teamsNotSelected[1] : teamsNotSelected[0];
 
@@ -266,8 +275,8 @@ class Description extends Component{
 
         <Text style = {[styles.title, {marginBottom:15}]}>User recent activity</Text>
 
-        <DescChart 
-          game = {game} 
+        <DescChart
+          game = {game}
           layLocal = {layLocal} layVisit = {layVisit} layDraw = {layDraw}
           backLocal = {chartLocalBack} backVisit = {chartVisitBack} backDraw = {chartDrawBack}
         />

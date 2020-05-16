@@ -101,7 +101,7 @@ class MatchARequest extends Component{
                           BASE PRICE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes} % 
+                          {teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes} %
                        </Text>
                     </View>
 
@@ -141,7 +141,7 @@ class MatchARequest extends Component{
                           BASE PRICE
                        </Text>
                         <Text style = {{color: "white", margin: 10, marginBottom: 4, fontSize: 12, alignSelf:"center"}}>
-                          {teamsNotSelected[1].quotes[position]} % 
+                          {teamsNotSelected[1].quotes[position]} %
                        </Text>
                     </View>
 
@@ -165,8 +165,8 @@ class MatchARequest extends Component{
                       </View>
                     </TouchableOpacity>
                 </View>
-                
-                <ScrollView style = {{height: Dimensions.get("window").height * 0.7 }}> 
+
+                <ScrollView style = {{height: Dimensions.get("window").height * 0.7 }}>
                   {this.userList(teamsNotSelected[1].name,  position)}
                 </ScrollView>
               </View>
@@ -196,7 +196,7 @@ class MatchARequest extends Component{
                     source = {{uri: "https://cdn4.iconfinder.com/data/icons/instagram-ui-twotone/48/Paul-18-512.png"}}
                     style = {styles.image}
                   />
-                  
+
                   <View style = {{justifyContent: "center"}}>
                     <Text style = {{ marginTop: 2, color: "#ffff", fontSize: 13, fontWeight: "300", marginRight: 15}}>{u.back_user.username}</Text>
                     <Text style = {{ marginTop: 5, color: "gray", fontSize: 10, fontWeight: "300", fontStyle: "oblique", marginTop: 4}}>{u.back_user.profile.country} <FontAwesome>{Icons.mapMarker}</FontAwesome></Text>
@@ -216,7 +216,7 @@ class MatchARequest extends Component{
                       thousandSeparator={true}
                       renderText= {value => <Text style = {{fontWeight:"400", fontSize: 13, color: "#DAA520", alignSelf:"center", marginTop: 10, textAlign:"center"}}> {value} <FontAwesome>{Icons.database}</FontAwesome></Text>}
                     />
-                  </View> 
+                  </View>
 
                   <View style = {{justifyContent:"center"}}>
                     <Text style ={styles.description}>Price</Text>
@@ -228,11 +228,11 @@ class MatchARequest extends Component{
               </View>
 
               {
-                    finalQuote > 0 ? 
+                    finalQuote > 0 ?
                     <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} has to bet {finalQuote} % more than you </Text> :
-                    finalQuote == 0 ? 
+                    finalQuote == 0 ?
                     <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} and you, will bet the same amount </Text> :
-                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} will bet {finalQuote * -1} % less than you </Text> 
+                    <Text style = {{textAlign:"center", fontWeight: "300", fontStyle: "oblique", color: "gray", paddingTop: 10, paddingBottom: 10, fontSize: 12}}> {u.back_user.username} will bet {finalQuote * -1} % less than you </Text>
               }
           </TouchableOpacity>
         );
@@ -251,7 +251,7 @@ class MatchARequest extends Component{
     const instructionQuote = index == 0 ? teamsNotSelected[0].quotes[position] || teamsNotSelected[0].quotes : teamsNotSelected[1].quotes[position];
 
     const positiveInstructionQuote = instructionQuote < 0 ? instructionQuote * -1 : instructionQuote;
-    
+
     const message = instructionQuote > 0 ? `It means your opponent should bet around ${positiveInstructionQuote}% more than you for a fair bet` : positiveInstructionQuote == 0 ? `It means both users should bet the same amount because bet is SUPER equal` : `It means you should bet around ${positiveInstructionQuote}% more than your opponent for a fair bet.`
 
     return(
@@ -268,7 +268,7 @@ class MatchARequest extends Component{
                 displayType={'text'}
                 thousandSeparator={true}
                 renderText= {value => <Text style = {{color: "#DAA520", marginTop: 12, marginRight: 19}}> {value} <FontAwesome>{Icons.database}</FontAwesome></Text>}
-            /> 
+            />
           </View>
         </View>
         {this.renderSegmentedController()}
@@ -293,7 +293,7 @@ class MatchARequest extends Component{
             backdropOpacity = {0.87}
         >
           <View style = {{flex: 1}}>
-              
+
             <TouchableOpacity style = {{margin: 7}} onPress = {() => this.setState({showInstructions: false})}>
               <Text style = {{color: "#ffff", fontSize: 21}}>X</Text>
             </TouchableOpacity>
